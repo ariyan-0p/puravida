@@ -71,9 +71,8 @@ body {
   margin-top: 28px; animation: pLine 1.2s ease 1s forwards;
 }
 .pre-sub {
-  margin-top: 18px; font-size: 0.58rem;
+  margin-top: 18px; font-size: 0.62rem;
   letter-spacing: 0.28em; text-transform: uppercase;
-  /* READABILITY: was ink4 #9a9a9a — now ink3 for preloader */
   color: var(--ink3);
   opacity: 0; animation: pFade 0.6s ease 1.8s forwards;
 }
@@ -123,7 +122,7 @@ body {
 }
 .nav-logo {
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 300; font-size: 0.82rem;
+  font-weight: 300; font-size: 0.85rem;
   letter-spacing: 0.32em; text-transform: uppercase;
   color: var(--ink); text-decoration: none;
 }
@@ -133,9 +132,8 @@ body {
 }
 .nav-center a {
   font-family: 'Inter', sans-serif;
-  font-size: 0.58rem; font-weight: 400;
+  font-size: 0.62rem; font-weight: 400;
   letter-spacing: 0.22em; text-transform: uppercase;
-  /* READABILITY: nav links now ink3 #606060 not ink4 */
   color: var(--ink3); text-decoration: none; transition: color 0.3s;
   position: relative;
 }
@@ -148,7 +146,7 @@ body {
 .nav-center a:hover::after { transform: scaleX(1); }
 .nav-cta {
   font-family: 'Inter', sans-serif;
-  font-size: 0.58rem; font-weight: 700;
+  font-size: 0.62rem; font-weight: 700;
   letter-spacing: 0.2em; text-transform: uppercase;
   color: var(--ink); text-decoration: none;
   border: 1px solid var(--clay); padding: 10px 20px;
@@ -197,7 +195,7 @@ body {
   grid-column: 1; grid-row: 1; z-index: 2;
   display: flex; align-items: center; gap: 10px;
   font-family: 'Inter', sans-serif;
-  font-size: 0.58rem; font-weight: 400;
+  font-size: 0.62rem; font-weight: 400;
   letter-spacing: 0.3em; text-transform: uppercase; color: var(--clay2);
   animation: fadeUp 0.8s ease 2.2s both;
   padding-bottom: 24px;
@@ -206,8 +204,7 @@ body {
 .hero-date {
   grid-column: 2; grid-row: 1; z-index: 2;
   font-family: 'Lato', sans-serif; font-weight: 300;
-  font-size: 0.6rem; letter-spacing: 0.26em; text-transform: uppercase;
-  /* READABILITY: was font-weight:100 + ink4 #9a9a9a — now weight 300 + ink3 #606060 */
+  font-size: 0.62rem; letter-spacing: 0.26em; text-transform: uppercase;
   color: var(--ink3);
   animation: fadeUp 0.8s ease 2.3s both;
   padding-bottom: 24px;
@@ -220,8 +217,7 @@ body {
 }
 .hero-eyebrow {
   font-family: 'Lato', sans-serif; font-weight: 300;
-  font-size: 0.68rem; letter-spacing: 0.26em; text-transform: uppercase;
-  /* READABILITY: was ink4 — now ink3 */
+  font-size: 0.72rem; letter-spacing: 0.26em; text-transform: uppercase;
   color: var(--ink3); margin-bottom: 28px;
   animation: fadeUp 0.8s ease 2.4s both;
   display: flex; align-items: center; gap: 14px;
@@ -276,9 +272,7 @@ body {
 .hero-img-caption {
   position: absolute; bottom: 24px; left: 24px; z-index: 2;
   font-family: 'Cormorant Garamond', serif; font-style: italic;
-  font-size: 0.75rem;
-  /* READABILITY: was 0.42 — now 0.7 */
-  color: rgba(255,255,255,0.7); letter-spacing: 0.08em;
+  font-size: 0.78rem; color: rgba(255,255,255,0.7); letter-spacing: 0.08em;
 }
 .hero-badge {
   position: absolute; bottom: -20px; right: -20px;
@@ -290,9 +284,8 @@ body {
 }
 .hero-badge p {
   font-family: 'Inter', sans-serif;
-  font-size: 0.5rem; font-weight: 600;
+  font-size: 0.52rem; font-weight: 600;
   letter-spacing: 0.14em; text-transform: uppercase;
-  /* READABILITY: was clay2 on cream — darkened to clay2 with weight 600 */
   color: var(--clay2); line-height: 1.7;
 }
 .hero-bottom {
@@ -303,8 +296,8 @@ body {
 }
 .hero-sub {
   font-family: 'Lato', sans-serif;
-  /* READABILITY: was ink2 — now ink for hero body text */
-  font-size: 0.92rem; font-weight: 300; line-height: 2.1; color: var(--ink2); max-width: 420px;
+  /* ↑ READABILITY: body text size increased */
+  font-size: 1rem; font-weight: 300; line-height: 2.1; color: var(--ink2); max-width: 420px;
 }
 .hero-actions { display: flex; flex-direction: column; gap: 16px; flex-shrink: 0; }
 
@@ -315,7 +308,7 @@ body {
 .btn-p {
   display: inline-flex; align-items: center; gap: 16px;
   font-family: 'Inter', sans-serif;
-  font-size: 0.6rem; font-weight: 700;
+  font-size: 0.64rem; font-weight: 700;
   letter-spacing: 0.2em; text-transform: uppercase;
   color: var(--white); text-decoration: none; padding: 15px 28px;
   position: relative; overflow: hidden; white-space: nowrap; transition: gap 0.3s;
@@ -332,9 +325,8 @@ body {
 .btn-g {
   display: inline-flex; align-items: center; gap: 10px;
   font-family: 'Lato', sans-serif;
-  font-size: 0.6rem; font-weight: 300;
+  font-size: 0.64rem; font-weight: 300;
   letter-spacing: 0.18em; text-transform: uppercase;
-  /* READABILITY: was ink3 — now ink2 */
   color: var(--ink2); text-decoration: none; transition: color 0.3s, gap 0.3s;
 }
 .btn-g:hover { color: var(--clay2); gap: 18px; }
@@ -348,13 +340,13 @@ body {
   background: var(--white);
   border-top: 1px solid rgba(201,168,168,0.2);
   border-bottom: 1px solid rgba(201,168,168,0.2);
-  padding: 16px 0; overflow: hidden; display: flex;
+  padding: 18px 0; overflow: hidden; display: flex;
 }
 .marquee-track { display: flex; gap: 40px; white-space: nowrap; animation: marquee 28s linear infinite; }
 .marquee-track span {
   font-family: 'Cormorant Garamond', serif; font-style: italic;
-  /* READABILITY: was ink3 — now ink2 */
-  font-size: 0.95rem; color: var(--ink2); letter-spacing: 0.06em; flex-shrink: 0;
+  /* ↑ READABILITY */
+  font-size: 1.05rem; color: var(--ink2); letter-spacing: 0.06em; flex-shrink: 0;
 }
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
@@ -373,13 +365,13 @@ body {
 }
 .manifesto-quote {
   font-family: 'Cormorant Garamond', serif; font-style: italic;
-  font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 300;
+  font-size: clamp(1.7rem, 3vw, 2.5rem); font-weight: 300;
   line-height: 1.6; color: var(--ink); position: relative; z-index: 1;
 }
 .manifesto-attr {
   display: flex; align-items: center; gap: 12px; margin-top: 32px;
   font-family: 'Inter', sans-serif; font-weight: 400;
-  font-size: 0.56rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--clay2);
+  font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--clay2);
 }
 .manifesto-attr::before { content: ''; width: 20px; height: 1px; background: var(--clay); opacity: 0.7; }
 .manifesto-stats { display: flex; flex-direction: column; position: relative; z-index: 1; }
@@ -389,8 +381,8 @@ body {
   font-family: 'Cormorant Garamond', serif; font-size: 3.6rem; font-weight: 300;
   color: var(--ink); line-height: 1; margin-bottom: 8px;
 }
-/* READABILITY: m-label was ink3 — now ink2 */
-.m-label { font-family: 'Lato', sans-serif; font-size: 0.74rem; font-weight: 300; letter-spacing: 0.1em; color: var(--ink2); }
+/* ↑ READABILITY: increased from 0.74rem */
+.m-label { font-family: 'Lato', sans-serif; font-size: 0.88rem; font-weight: 300; letter-spacing: 0.06em; color: var(--ink2); }
 
 /* ── PHILOSOPHY ── */
 .philosophy {
@@ -404,7 +396,7 @@ body {
 }
 .phil-label {
   font-family: 'Inter', sans-serif;
-  font-size: 0.58rem; font-weight: 400; letter-spacing: 0.34em;
+  font-size: 0.6rem; font-weight: 400; letter-spacing: 0.34em;
   text-transform: uppercase; color: var(--clay2);
   writing-mode: vertical-rl; transform: rotate(180deg); height: fit-content;
 }
@@ -413,11 +405,11 @@ body {
   font-size: clamp(2.2rem, 3.8vw, 3.6rem); font-weight: 300; line-height: 1.15;
   color: var(--ink); margin-bottom: 40px;
 }
-/* READABILITY: phil-body was ink2 — confirmed ink2 #404040 */
-.phil-body { font-family: 'Lato', sans-serif; font-size: 0.9rem; line-height: 2.1; color: var(--ink2); margin-bottom: 14px; max-width: 360px; }
+/* ↑ READABILITY: increased from 0.9rem */
+.phil-body { font-family: 'Lato', sans-serif; font-size: 1rem; line-height: 2.1; color: var(--ink2); margin-bottom: 14px; max-width: 360px; }
 .phil-sig {
   margin-top: 44px; font-family: 'Cormorant Garamond', serif; font-style: italic;
-  font-size: 1.05rem; color: var(--clay2);
+  font-size: 1.1rem; color: var(--clay2);
   display: flex; align-items: center; gap: 12px;
 }
 .phil-sig::before { content: ''; width: 20px; height: 1px; background: var(--clay); opacity: 0.7; }
@@ -429,10 +421,10 @@ body {
 }
 .phil-pillar:last-child { border-bottom: 1px solid var(--mist2); }
 .phil-pillar:hover { padding-left: 8px; }
-.phil-num { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; font-weight: 300; color: var(--clay); padding-top: 2px; }
-.phil-title { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 400; color: var(--ink); margin-bottom: 7px; }
-/* READABILITY: phil-text was ink3 #7a7a7a — now ink3 #606060 */
-.phil-text { font-family: 'Lato', sans-serif; font-size: 0.82rem; line-height: 1.9; color: var(--ink3); }
+.phil-num { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; font-weight: 300; color: var(--clay); padding-top: 2px; }
+.phil-title { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 400; color: var(--ink); margin-bottom: 7px; }
+/* ↑ READABILITY: increased from 0.82rem */
+.phil-text { font-family: 'Lato', sans-serif; font-size: 0.94rem; line-height: 1.9; color: var(--ink3); }
 
 /* ── JOURNEYS ── */
 .journeys-wrap { background: var(--cream); }
@@ -450,8 +442,8 @@ body {
   font-size: clamp(2.4rem, 4vw, 4.2rem); font-weight: 300; line-height: 1.05; color: var(--ink);
 }
 .journeys-h2 em { font-style: italic; color: var(--clay2); }
-/* READABILITY: journeys-meta was ink3 — now ink2 */
-.journeys-meta { font-family: 'Lato', sans-serif; text-align: right; font-size: 0.78rem; font-weight: 300; line-height: 1.9; color: var(--ink2); }
+/* ↑ READABILITY */
+.journeys-meta { font-family: 'Lato', sans-serif; text-align: right; font-size: 0.88rem; font-weight: 300; line-height: 1.9; color: var(--ink2); }
 .journeys-track {
   display: flex; padding: 72px 72px; gap: 16px;
   overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none;
@@ -482,32 +474,29 @@ body {
 .j-card-img-inner { position: absolute; inset: 0; transition: transform 0.9s cubic-bezier(.16,1,.3,1); }
 .j-card:hover .j-card-img-inner { transform: scale(1.06); }
 .j-card-img-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.08) 50%, transparent 100%); z-index: 1; }
-/* READABILITY: loc caption was 0.5 opacity — now 0.75 */
-.j-card-loc { position: absolute; bottom: 18px; left: 18px; z-index: 2; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.75rem; color: rgba(255,255,255,0.75); letter-spacing: 0.08em; }
+.j-card-loc { position: absolute; bottom: 18px; left: 18px; z-index: 2; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.8rem; color: rgba(255,255,255,0.75); letter-spacing: 0.08em; }
 .j-body { padding: 32px 28px 36px; display: flex; flex-direction: column; flex: 1; }
-.j-tag { font-family: 'Inter', sans-serif; font-size: 0.56rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--clay2); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+.j-tag { font-family: 'Inter', sans-serif; font-size: 0.6rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--clay2); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
 .j-tag::before { content: ''; width: 14px; height: 1px; background: var(--clay); opacity: 0.7; }
 .j-dest { font-family: 'Cormorant Garamond', serif; font-size: 2.6rem; font-weight: 400; line-height: 1; color: var(--ink); margin-bottom: 5px; }
-.j-sub { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.95rem; color: var(--clay2); margin-bottom: 20px; }
-/* READABILITY: j-desc was ink3 — now ink2 */
-.j-desc { font-family: 'Lato', sans-serif; font-size: 0.82rem; line-height: 1.95; color: var(--ink2); flex: 1; margin-bottom: 24px; }
+.j-sub { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1rem; color: var(--clay2); margin-bottom: 20px; }
+/* ↑ READABILITY: increased from 0.82rem */
+.j-desc { font-family: 'Lato', sans-serif; font-size: 0.94rem; line-height: 1.95; color: var(--ink2); flex: 1; margin-bottom: 24px; }
 .j-details { display: flex; flex-direction: column; gap: 8px; margin-bottom: 28px; padding-top: 20px; border-top: 1px solid var(--mist2); }
-.j-detail { display: flex; gap: 16px; align-items: baseline; font-size: 0.7rem; color: var(--ink2); }
-/* READABILITY: detail label was ink4 — now ink3 */
-.j-detail-label { font-family: 'Inter', sans-serif; font-size: 0.54rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink3); min-width: 64px; }
-.j-cta { display: inline-flex; align-items: center; gap: 10px; font-family: 'Inter', sans-serif; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--clay); padding-bottom: 4px; width: fit-content; transition: gap 0.3s, color 0.3s; }
+.j-detail { display: flex; gap: 16px; align-items: baseline; font-size: 0.8rem; color: var(--ink2); }
+.j-detail-label { font-family: 'Inter', sans-serif; font-size: 0.6rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink3); min-width: 64px; }
+.j-cta { display: inline-flex; align-items: center; gap: 10px; font-family: 'Inter', sans-serif; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--clay); padding-bottom: 4px; width: fit-content; transition: gap 0.3s, color 0.3s; }
 .j-cta:hover { gap: 18px; color: var(--clay2); }
 .journeys-hint { padding: 0 72px 72px; display: flex; align-items: center; gap: 20px; }
 .hint-line { flex: 1; height: 1px; background: linear-gradient(to right, rgba(201,168,168,0.16), transparent); }
-/* READABILITY: hint-text was ink4 — now ink3 */
-.hint-text { font-family: 'Inter', sans-serif; font-size: 0.56rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink3); }
+.hint-text { font-family: 'Inter', sans-serif; font-size: 0.6rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink3); }
 .hint-arrow { color: var(--clay); opacity: 0.65; font-size: 0.75rem; animation: hintSlide 1.8s ease-in-out infinite; }
 @keyframes hintSlide { 0%,100%{transform:translateX(0)} 50%{transform:translateX(10px)} }
 
-.d-bhutan    { background: url('/assets/journey-bhutan.jpg')   center/cover no-repeat, linear-gradient(158deg,#3d5040 0%,#212e23 45%,#111711 100%); }
-.d-japan     { background: url('/assets/journey-japan.jpg')    center/cover no-repeat, linear-gradient(158deg,#b8a0a0 0%,#887070 45%,#503838 100%); }
-.d-jordan    { background: url('/assets/journey-jordan.jpg')   center/cover no-repeat, linear-gradient(158deg,#c09860 0%,#906838 45%,#503818 100%); }
-.d-sl        { background: url('/assets/journey-srilanka.jpg') center/cover no-repeat, linear-gradient(158deg,#5a9068 0%,#3c6848 45%,#1c3824 100%); }
+.d-bhutan { background: url('/assets/journey-bhutan.jpg')   center/cover no-repeat, linear-gradient(158deg,#3d5040 0%,#212e23 45%,#111711 100%); }
+.d-japan  { background: url('/assets/journey-japan.jpg')    center/cover no-repeat, linear-gradient(158deg,#b8a0a0 0%,#887070 45%,#503838 100%); }
+.d-jordan { background: url('/assets/journey-jordan.jpg')   center/cover no-repeat, linear-gradient(158deg,#c09860 0%,#906838 45%,#503818 100%); }
+.d-sl     { background: url('/assets/journey-srilanka.jpg') center/cover no-repeat, linear-gradient(158deg,#5a9068 0%,#3c6848 45%,#1c3824 100%); }
 
 /* ── HARSHA ── */
 .harsha {
@@ -531,8 +520,7 @@ body {
 .harsha-corner-bl { position: absolute; bottom: -8px; left: -8px; width: 44px; height: 44px; border-bottom: 1px solid rgba(201,168,168,0.45); border-left: 1px solid rgba(201,168,168,0.45); z-index: 3; }
 .harsha-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 28px; z-index: 2; }
 .harsha-caption h3 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; color: var(--white); line-height: 1; }
-/* READABILITY: harsha caption role was 0.45 — now 0.72 */
-.harsha-caption span { font-family: 'Lato', sans-serif; font-size: 0.56rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.72); }
+.harsha-caption span { font-family: 'Lato', sans-serif; font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.72); }
 .harsha-float {
   position: absolute; top: 40px; right: -28px;
   background: var(--white); border: 1px solid rgba(201,168,168,0.22);
@@ -543,15 +531,67 @@ body {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
   background: linear-gradient(to right, var(--clay), var(--clay2));
 }
-.harsha-float-q { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.86rem; line-height: 1.65; color: var(--ink); }
-.harsha-text { grid-column: 2/4; }
-.harsha-eyebrow { font-family: 'Inter', sans-serif; font-size: 0.58rem; font-weight: 400; letter-spacing: 0.32em; text-transform: uppercase; color: var(--clay2); margin-bottom: 40px; display: flex; align-items: center; gap: 16px; }
+.harsha-float-q { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.9rem; line-height: 1.65; color: var(--ink); }
+
+/* HARSHA text: now only col 2, not spanning to 3 */
+.harsha-text { grid-column: 2; }
+.harsha-eyebrow { font-family: 'Inter', sans-serif; font-size: 0.62rem; font-weight: 400; letter-spacing: 0.32em; text-transform: uppercase; color: var(--clay2); margin-bottom: 40px; display: flex; align-items: center; gap: 16px; }
 .harsha-eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--clay); opacity: 0.7; }
 .harsha-h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3.2vw, 3.2rem); font-weight: 300; line-height: 1.22; color: var(--ink); margin-bottom: 40px; }
-/* READABILITY: harsha-body was ink2 — confirmed #404040 */
-.harsha-body { font-family: 'Lato', sans-serif; font-size: 0.9rem; line-height: 2.1; color: var(--ink2); margin-bottom: 14px; max-width: 500px; }
-.harsha-link { margin-top: 44px; display: inline-flex; align-items: center; gap: 12px; font-family: 'Inter', sans-serif; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink); text-decoration: none; border: 1px solid var(--clay); padding: 12px 22px; transition: gap 0.3s, background 0.35s, color 0.35s; }
+/* ↑ READABILITY */
+.harsha-body { font-family: 'Lato', sans-serif; font-size: 1rem; line-height: 2.1; color: var(--ink2); margin-bottom: 14px; max-width: 440px; }
+.harsha-link { margin-top: 44px; display: inline-flex; align-items: center; gap: 12px; font-family: 'Inter', sans-serif; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink); text-decoration: none; border: 1px solid var(--clay); padding: 12px 22px; transition: gap 0.3s, background 0.35s, color 0.35s; }
 .harsha-link:hover { background: var(--clay); color: var(--white); gap: 18px; }
+
+/* ── HARSHA DECO PANEL (right column) ── */
+.harsha-deco {
+  grid-column: 3;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: flex-start;
+  gap: 0; position: relative; padding-left: 12px;
+}
+/* Vertical dividing line on left edge of deco panel */
+.harsha-deco::before {
+  content: ''; position: absolute; left: 0; top: 10%; bottom: 10%;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(201,168,168,0.3), transparent);
+}
+/* Large watermark word */
+.harsha-deco-word {
+  font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300;
+  font-size: clamp(4rem, 6vw, 6.5rem); line-height: 0.88;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(201,168,168,0.22);
+  letter-spacing: -0.02em;
+  user-select: none; pointer-events: none;
+  margin-bottom: 56px; padding-left: 24px;
+}
+/* Stat rows */
+.harsha-deco-stats { display: flex; flex-direction: column; width: 100%; padding-left: 24px; }
+.harsha-deco-stat {
+  padding: 22px 0; border-top: 1px solid var(--mist2);
+  display: flex; flex-direction: column; gap: 5px;
+  position: relative;
+}
+.harsha-deco-stat:last-child { border-bottom: 1px solid var(--mist2); }
+.harsha-deco-stat::before {
+  content: ''; position: absolute; left: 0; top: -1px;
+  width: 0; height: 1px; background: var(--clay);
+  transition: width 0.5s ease;
+}
+.harsha-deco-stat:hover::before { width: 100%; }
+.harsha-deco-num {
+  font-family: 'Cormorant Garamond', serif; font-size: 2.6rem; font-weight: 300;
+  color: var(--ink); line-height: 1;
+}
+.harsha-deco-label {
+  font-family: 'Lato', sans-serif; font-size: 0.78rem; font-weight: 300;
+  letter-spacing: 0.06em; color: var(--ink3); line-height: 1.5;
+}
+/* Botanical in deco panel */
+.harsha-deco-botanical {
+  margin-top: 44px; padding-left: 24px; opacity: 0.18;
+}
 
 /* ── IMMERSIVE ── */
 .immersive {
@@ -569,20 +609,17 @@ body {
   background: linear-gradient(to right, transparent, rgba(201,168,168,0.35), transparent);
 }
 .immersive-content { position: relative; z-index: 1; padding: 72px 72px; max-width: 620px; }
-/* READABILITY: immersive label was 0.4 — now 0.65 */
-.immersive-label { font-family: 'Inter', sans-serif; font-size: 0.56rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.65); margin-bottom: 28px; display: flex; align-items: center; gap: 12px; }
+.immersive-label { font-family: 'Inter', sans-serif; font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.65); margin-bottom: 28px; display: flex; align-items: center; gap: 12px; }
 .immersive-label::before { content: ''; width: 20px; height: 1px; background: rgba(201,168,168,0.7); }
 .immersive-q { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: clamp(1.8rem, 3.5vw, 3rem); font-weight: 300; line-height: 1.45; color: var(--white); }
-/* READABILITY: attr was 0.8 opacity clay — now full clay */
-.immersive-attr { display: block; margin-top: 32px; font-family: 'Lato', sans-serif; font-size: 0.58rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--clay); }
+.immersive-attr { display: block; margin-top: 32px; font-family: 'Lato', sans-serif; font-size: 0.62rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--clay); }
 
 /* ── VOICES ── */
 .voices { background: var(--white); padding: 140px 72px; }
 .voices-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 72px; }
 .voices-h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3.2vw, 3rem); font-weight: 300; line-height: 1.15; color: var(--ink); }
 .voices-h2 em { font-style: italic; color: var(--clay2); }
-/* READABILITY: voices-count was ink4 — now ink3 */
-.voices-count { font-family: 'Inter', sans-serif; font-size: 0.58rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink3); }
+.voices-count { font-family: 'Inter', sans-serif; font-size: 0.62rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink3); }
 .voices-grid { display: grid; grid-template-columns: 1.1fr 0.9fr 1fr; gap: 16px; align-items: start; }
 .v-card {
   padding: 48px 40px; background: var(--mist);
@@ -595,11 +632,11 @@ body {
 .v-card:nth-child(2) { background: var(--cream); margin-top: 48px; }
 .v-card:nth-child(3) { background: var(--mist2); margin-top: 24px; }
 .v-card:hover { transform: translateY(-4px); box-shadow: 0 12px 48px rgba(43,43,43,0.07); border-color: rgba(201,168,168,0.2); }
-/* READABILITY: v-q confirmed as ink */
-.v-q { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.08rem; font-weight: 300; line-height: 1.8; color: var(--ink); margin-bottom: 28px; position: relative; z-index: 1; }
+/* ↑ READABILITY */
+.v-q { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.15rem; font-weight: 300; line-height: 1.8; color: var(--ink); margin-bottom: 28px; position: relative; z-index: 1; }
 .v-sep { width: 20px; height: 1px; background: var(--clay); margin-bottom: 16px; }
-.v-name { font-family: 'Lato', sans-serif; font-size: 0.68rem; font-weight: 400; letter-spacing: 0.1em; color: var(--ink); margin-bottom: 4px; }
-.v-trip { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.8rem; color: var(--clay2); }
+.v-name { font-family: 'Lato', sans-serif; font-size: 0.74rem; font-weight: 400; letter-spacing: 0.1em; color: var(--ink); margin-bottom: 4px; }
+.v-trip { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.86rem; color: var(--clay2); }
 
 /* ── ENQUIRY ── */
 .enquiry {
@@ -613,19 +650,18 @@ body {
   width: 600px; height: 600px; border-radius: 50%;
   background: radial-gradient(circle, rgba(201,168,168,0.07) 0%, transparent 70%); pointer-events: none;
 }
-.enq-eyebrow { font-family: 'Inter', sans-serif; font-size: 0.58rem; font-weight: 400; letter-spacing: 0.32em; text-transform: uppercase; color: var(--clay2); margin-bottom: 36px; display: flex; align-items: center; gap: 14px; }
+.enq-eyebrow { font-family: 'Inter', sans-serif; font-size: 0.62rem; font-weight: 400; letter-spacing: 0.32em; text-transform: uppercase; color: var(--clay2); margin-bottom: 36px; display: flex; align-items: center; gap: 14px; }
 .enq-eyebrow::before { content: ''; width: 22px; height: 1px; background: var(--clay); opacity: 0.7; }
 .enq-h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.4rem, 4.5vw, 4.2rem); font-weight: 300; line-height: 1.08; color: var(--ink); margin-bottom: 36px; }
 .enq-h2 em { font-style: italic; color: var(--clay2); }
-/* READABILITY: enq-body confirmed ink2 */
-.enq-body { font-family: 'Lato', sans-serif; font-size: 0.88rem; line-height: 2.1; color: var(--ink2); max-width: 380px; }
+/* ↑ READABILITY */
+.enq-body { font-family: 'Lato', sans-serif; font-size: 1rem; line-height: 2.1; color: var(--ink2); max-width: 380px; }
 .enq-options { display: flex; flex-direction: column; position: relative; z-index: 1; }
 .enq-opt { display: flex; align-items: center; justify-content: space-between; padding: 26px 0; border-top: 1px solid var(--mist2); text-decoration: none; transition: padding-left 0.35s ease; }
 .enq-opt:last-child { border-bottom: 1px solid var(--mist2); }
 .enq-opt:hover { padding-left: 12px; }
-/* READABILITY: enq-opt-label was ink4 — now ink3 */
-.enq-opt-label { font-family: 'Inter', sans-serif; font-size: 0.56rem; font-weight: 400; letter-spacing: 0.26em; text-transform: uppercase; color: var(--ink3); margin-bottom: 6px; }
-.enq-opt-val { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; color: var(--ink); letter-spacing: 0.04em; }
+.enq-opt-label { font-family: 'Inter', sans-serif; font-size: 0.6rem; font-weight: 400; letter-spacing: 0.26em; text-transform: uppercase; color: var(--ink3); margin-bottom: 6px; }
+.enq-opt-val { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--ink); letter-spacing: 0.04em; }
 .enq-arrow { font-size: 0.95rem; color: var(--clay); transition: transform 0.3s; }
 .enq-opt:hover .enq-arrow { transform: translateX(8px); }
 
@@ -637,30 +673,24 @@ footer {
 }
 .footer-top { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 72px; border-bottom: 1px solid rgba(201,168,168,0.12); }
 .f-brand { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 1rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--mist); margin-bottom: 14px; }
-/* READABILITY: f-tagline was 0.28 — now 0.5 */
-.f-tagline { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.9rem; color: rgba(242,236,229,0.5); line-height: 1.85; margin-bottom: 28px; }
-/* READABILITY: f-contact was 0.3 — now 0.55 */
-.f-contact { font-family: 'Lato', sans-serif; font-size: 0.75rem; font-weight: 300; color: rgba(242,236,229,0.55); line-height: 2; }
-/* READABILITY: f-contact a was 0.38 — now 0.7 */
+.f-tagline { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.95rem; color: rgba(242,236,229,0.5); line-height: 1.85; margin-bottom: 28px; }
+.f-contact { font-family: 'Lato', sans-serif; font-size: 0.82rem; font-weight: 300; color: rgba(242,236,229,0.55); line-height: 2; }
 .f-contact a { color: rgba(242,236,229,0.7); text-decoration: none; transition: color 0.3s; }
 .f-contact a:hover { color: var(--clay); }
-/* READABILITY: f-head was 0.7 opacity — now full clay, weight 700 */
-.f-head { font-family: 'Inter', sans-serif; font-size: 0.54rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--clay); margin-bottom: 28px; }
+.f-head { font-family: 'Inter', sans-serif; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--clay); margin-bottom: 28px; }
 .f-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-/* READABILITY: f-list a was 0.3 — now 0.55 */
-.f-list a { font-family: 'Lato', sans-serif; font-size: 0.78rem; font-weight: 300; color: rgba(242,236,229,0.55); text-decoration: none; transition: color 0.3s; }
+.f-list a { font-family: 'Lato', sans-serif; font-size: 0.84rem; font-weight: 300; color: rgba(242,236,229,0.55); text-decoration: none; transition: color 0.3s; }
 .f-list a:hover { color: var(--mist); }
 .footer-bottom { padding-top: 32px; display: flex; justify-content: space-between; align-items: center; }
-/* READABILITY: f-copy was 0.16 — now 0.35 */
-.f-copy { font-family: 'Lato', sans-serif; font-size: 0.64rem; font-weight: 300; color: rgba(242,236,229,0.35); letter-spacing: 0.06em; }
-/* READABILITY: f-ig was 0.28 — now 0.5 */
-.f-ig { font-family: 'Inter', sans-serif; font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(242,236,229,0.5); text-decoration: none; transition: color 0.3s; }
+.f-copy { font-family: 'Lato', sans-serif; font-size: 0.7rem; font-weight: 300; color: rgba(242,236,229,0.35); letter-spacing: 0.06em; }
+.f-ig { font-family: 'Inter', sans-serif; font-size: 0.64rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(242,236,229,0.5); text-decoration: none; transition: color 0.3s; }
 .f-ig:hover { color: var(--clay); }
 
 /* ── MOBILE ── */
 @media (max-width: 1024px) {
   .harsha { grid-template-columns: 1fr 1fr; }
   .harsha-text { grid-column: 2; }
+  .harsha-deco { display: none; }
   .harsha-float, .harsha-corner-tr, .harsha-corner-bl { display: none; }
 }
 @media (max-width: 768px) {
@@ -697,7 +727,7 @@ footer {
   .harsha { padding: 80px 28px; grid-template-columns: 1fr; border-top: none; }
   .harsha-text { grid-column: 1; }
   .harsha-frame { aspect-ratio: 3/2; }
-  .harsha-float, .harsha-corner-tr, .harsha-corner-bl { display: none; }
+  .harsha-float, .harsha-corner-tr, .harsha-corner-bl, .harsha-deco { display: none; }
 
   .immersive { min-height: 380px; }
   .immersive-content { padding: 48px 28px; }
@@ -780,6 +810,12 @@ const MARQUEE = [
   "Jordan · Desert & Deep Time","Sri Lanka · Spice, Temple & Shore",
 ];
 
+const HARSHA_STATS = [
+  { num: "8–20",  label: "travellers per\njourney" },
+  { num: "100%",  label: "founder-led,\nevery time" },
+  { num: "4+",    label: "years building\ntrust, not contracts" },
+];
+
 export default function App() {
   const [stuck,    setStuck]    = useState(false);
   const [loaded,   setLoaded]   = useState(false);
@@ -847,6 +883,7 @@ export default function App() {
         </button>
       </nav>
 
+      {/* ── HERO ── */}
       <section className="hero" id="home">
         <div className="hero-vline" aria-hidden="true" />
         <p className="hero-bg-word" aria-hidden="true">stillness</p>
@@ -890,6 +927,7 @@ export default function App() {
         </div>
       </section>
 
+      {/* ── MARQUEE ── */}
       <div className="marquee-strip" aria-hidden="true">
         <div className="marquee-track">
           {MARQUEE.map((item, i) => (
@@ -903,6 +941,7 @@ export default function App() {
         </div>
       </div>
 
+      {/* ── MANIFESTO ── */}
       <section className="manifesto" id="philosophy">
         <FU d={0}>
           <p className="manifesto-quote">
@@ -926,6 +965,7 @@ export default function App() {
         </div>
       </section>
 
+      {/* ── PHILOSOPHY ── */}
       <section className="philosophy">
         <FU><p className="phil-label">Our Approach</p></FU>
         <div>
@@ -955,6 +995,7 @@ export default function App() {
         </FU>
       </section>
 
+      {/* ── JOURNEYS ── */}
       <section className="journeys-wrap" id="journeys">
         <div className="journeys-header">
           <FU><h2 className="journeys-h2">Current <em>Journeys</em></h2></FU>
@@ -1003,7 +1044,9 @@ export default function App() {
         </div>
       </section>
 
+      {/* ── HARSHA ── */}
       <section className="harsha" id="harsha">
+        {/* Col 1: Portrait */}
         <div className="harsha-img-col">
           <FU>
             <div className="harsha-frame">
@@ -1020,6 +1063,8 @@ export default function App() {
             </div>
           </FU>
         </div>
+
+        {/* Col 2: Text */}
         <div className="harsha-text">
           <FU><p className="harsha-eyebrow">About Harsha</p></FU>
           <FU d={1}>
@@ -1034,8 +1079,30 @@ export default function App() {
             </a>
           </FU>
         </div>
+
+        {/* Col 3: Decorative panel — fills the empty right side */}
+        <FU d={3} className="harsha-deco">
+          {/* Faint watermark word */}
+          <p className="harsha-deco-word" aria-hidden="true">presence</p>
+
+          {/* Key stats */}
+          <div className="harsha-deco-stats">
+            {HARSHA_STATS.map((s, i) => (
+              <div className="harsha-deco-stat" key={i}>
+                <p className="harsha-deco-num">{s.num}</p>
+                <p className="harsha-deco-label" style={{ whiteSpace: "pre-line" }}>{s.label}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Botanical sprig */}
+          <div className="harsha-deco-botanical">
+            <Botanical color="#C9A8A8" style={{ width: 48, height: 80 }} />
+          </div>
+        </FU>
       </section>
 
+      {/* ── IMMERSIVE ── */}
       <div className="immersive">
         <Botanical color="white" style={{ position:"absolute", right:80, top:"50%", transform:"translateY(-50%)", opacity:0.05, width:200 }} />
         <div className="immersive-content">
@@ -1049,6 +1116,7 @@ export default function App() {
         </div>
       </div>
 
+      {/* ── VOICES ── */}
       <section className="voices" id="voices">
         <div className="voices-header">
           <FU><h2 className="voices-h2">Voices from<br /><em>past journeys</em></h2></FU>
@@ -1068,6 +1136,7 @@ export default function App() {
         </div>
       </section>
 
+      {/* ── ENQUIRY ── */}
       <section className="enquiry">
         <FU>
           <p className="enq-eyebrow">Begin the Conversation</p>
@@ -1100,6 +1169,7 @@ export default function App() {
         </FU>
       </section>
 
+      {/* ── FOOTER ── */}
       <footer>
         <div className="footer-top">
           <div>
