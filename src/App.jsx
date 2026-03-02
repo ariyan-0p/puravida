@@ -1,1210 +1,1302 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 
-const G = `
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Lato:wght@100;300;400&family=Inter:wght@300;400;500;600;700&display=swap');
+// ─── DESIGN DIRECTION ───────────────────────────────────────────────────────
+// Aesthetic: Institutional Precision × Commodity Trading Floor
+// Fonts: DM Serif Display (authority) + IBM Plex Sans (data clarity) + IBM Plex Mono (terminal)
+// Palette: Deep navy + warm cream + burnished amber — feels like a premier trading house
+// Key idea: Every section reads like a verified trade document. Trust through structure.
+// ─────────────────────────────────────────────────────────────────────────────
+
+const css = `
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; font-size: 16px; }
-
-body {
-  font-family: 'Lato', sans-serif;
-  font-weight: 300;
-  color: #2B2B2B;
-  background: #F2ECE5;
-  overflow-x: hidden;
-}
 
 :root {
-  --mist:   #F2ECE5;
-  --mist2:  #E2D8CE;
-  --mist3:  #D5C8BB;
-  --cream:  #FAFAF8;
-  --sage:   #DDE5DF;
-  --sage2:  #C8D5CB;
-  --clay:   #C9A8A8;
-  --clay2:  #A07878;
-  --ink:    #2B2B2B;
-  --ink2:   #404040;
-  --ink3:   #606060;
-  --ink4:   #787878;
-  --white:  #FAFAF8;
+  --navy:    #08101F;
+  --navy2:   #0D1929;
+  --navy3:   #112035;
+  --ink:     #1A2B42;
+  --amber:   #C8922A;
+  --amber2:  #E8B04A;
+  --amber3:  #8A6018;
+  --cream:   #F0E8D8;
+  --cream2:  #D8CCBC;
+  --cream3:  #B0A890;
+  --mist:    rgba(240,232,216,0.06);
+  --mist2:   rgba(240,232,216,0.03);
+  --line:    rgba(200,146,42,0.2);
+  --line2:   rgba(240,232,216,0.08);
+  --serif:   'DM Serif Display', Georgia, serif;
+  --sans:    'IBM Plex Sans', sans-serif;
+  --mono:    'IBM Plex Mono', monospace;
 }
 
-/* ── GRAIN ── */
-.grain {
-  position: fixed; inset: -50%;
-  width: 200%; height: 200%;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
-  pointer-events: none; z-index: 100; opacity: 0.2;
-  animation: grain 10s steps(10) infinite;
-}
-@keyframes grain {
-  0%,100%{transform:translate(0,0)} 10%{transform:translate(-3%,-4%)}
-  30%{transform:translate(3%,2%)} 50%{transform:translate(-2%,5%)}
-  70%{transform:translate(4%,-3%)} 90%{transform:translate(-4%,1%)}
-}
+html { scroll-behavior: smooth; }
+body { background: var(--navy); color: var(--cream); font-family: var(--sans); overflow-x: hidden; font-size: 15px; }
 
-/* ── PROGRESS ── */
-.pv-progress {
-  position: fixed; top: 0; left: 0; z-index: 500;
-  height: 1px;
-  background: linear-gradient(to right, var(--clay), var(--clay2));
-  transition: width 0.1s linear;
-}
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--navy); }
+::-webkit-scrollbar-thumb { background: var(--amber3); }
 
-/* ── PRELOADER ── */
-.pre-wrap {
-  position: fixed; inset: 0; background: var(--cream); z-index: 10000;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  transition: opacity 1.3s ease, visibility 1.3s ease;
-}
-.pre-wrap.done { opacity: 0; visibility: hidden; }
-.pre-logo {
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 300; font-size: 1rem;
-  letter-spacing: 0.4em; text-transform: uppercase; color: var(--ink);
-  opacity: 0; animation: pFade 0.8s ease 0.4s forwards;
-}
-.pre-line {
-  width: 1px; height: 0;
-  background: linear-gradient(to bottom, var(--clay), var(--clay2));
-  margin-top: 28px; animation: pLine 1.2s ease 1s forwards;
-}
-.pre-sub {
-  margin-top: 18px; font-size: 0.62rem;
-  letter-spacing: 0.28em; text-transform: uppercase;
-  color: var(--ink3);
-  opacity: 0; animation: pFade 0.6s ease 1.8s forwards;
-}
-@keyframes pFade { to { opacity: 1; } }
-@keyframes pLine { to { height: 80px; } }
+/* ─── UTILITY ─── */
+.mono { font-family: var(--mono); }
+.serif { font-family: var(--serif); }
+.amber { color: var(--amber); }
+.cream3 { color: var(--cream3); }
 
-/* ── MOBILE MENU ── */
-.mobile-menu {
-  position: fixed; inset: 0; background: var(--cream); z-index: 300;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 44px;
-  opacity: 0; visibility: hidden;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
-}
-.mobile-menu::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(to right, transparent, var(--clay), transparent);
-}
-.mobile-menu.open { opacity: 1; visibility: visible; }
-.mobile-menu a {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 2.6rem; font-weight: 300; font-style: italic;
-  color: var(--ink); text-decoration: none; letter-spacing: 0.04em;
-  transition: color 0.3s;
-}
-.mobile-menu a:hover { color: var(--clay2); }
-.mobile-close-btn {
-  position: absolute; top: 28px; right: 32px;
-  font-size: 1.2rem; color: var(--ink3);
-  background: none; border: none; cursor: pointer;
-  font-family: 'Cormorant Garamond', serif; transition: color 0.3s;
-}
-.mobile-close-btn:hover { color: var(--clay2); }
-
-/* ── NAV ── */
+/* ─── NAVIGATION ─── */
 .nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: 64px;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 40px 72px;
-  transition: padding 0.6s cubic-bezier(.16,1,.3,1), background 0.6s ease, box-shadow 0.6s ease;
+  padding: 0 5vw;
+  background: rgba(8,16,31,0.92);
+  backdrop-filter: blur(24px) saturate(1.4);
+  border-bottom: 1px solid var(--line);
 }
-.nav.stuck {
-  padding: 18px 72px;
-  background: rgba(242,236,229,0.97);
-  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-  box-shadow: 0 1px 0 rgba(201,168,168,0.22);
+.nav-brand {
+  display: flex; align-items: center; gap: 14px;
+  text-decoration: none;
 }
-.nav-logo {
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 300; font-size: 0.85rem;
-  letter-spacing: 0.32em; text-transform: uppercase;
-  color: var(--ink); text-decoration: none;
+.nav-emblem {
+  width: 32px; height: 32px; position: relative; flex-shrink: 0;
 }
-.nav-center {
-  display: flex; gap: 52px; list-style: none;
-  position: absolute; left: 50%; transform: translateX(-50%);
+.nav-emblem svg { width: 100%; height: 100%; }
+.nav-name {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--cream);
 }
-.nav-center a {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.62rem; font-weight: 400;
-  letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--ink3); text-decoration: none; transition: color 0.3s;
-  position: relative;
+.nav-name em { color: var(--amber); font-style: normal; }
+.nav-links {
+  display: flex; gap: 2.5rem; list-style: none;
 }
-.nav-center a::after {
-  content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
-  height: 1px; background: var(--clay);
-  transform: scaleX(0); transition: transform 0.3s;
+.nav-links a {
+  font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--cream3); text-decoration: none;
+  transition: color 0.25s;
 }
-.nav-center a:hover { color: var(--clay2); }
-.nav-center a:hover::after { transform: scaleX(1); }
-.nav-cta {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.62rem; font-weight: 700;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--ink); text-decoration: none;
-  border: 1px solid var(--clay); padding: 10px 20px;
-  transition: background 0.35s, color 0.35s;
+.nav-links a:hover { color: var(--amber2); }
+.nav-enquire {
+  font-family: var(--mono);
+  font-size: 0.68rem; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--navy);
+  background: var(--amber);
+  padding: 8px 22px;
+  text-decoration: none;
+  transition: background 0.25s, transform 0.2s;
+  clip-path: polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);
 }
-.nav-cta:hover { background: var(--clay); color: var(--white); }
-.nav-burger {
-  display: none; flex-direction: column; gap: 5px;
-  background: none; border: none; cursor: pointer; padding: 4px;
-}
-.nav-burger span { display: block; width: 22px; height: 1px; background: var(--ink); }
+.nav-enquire:hover { background: var(--amber2); transform: translateY(-1px); }
 
-/* ── HERO ── */
+/* ─── HERO ─── */
 .hero {
   min-height: 100vh;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: auto 1fr auto;
-  padding: 150px 72px 80px;
-  background: var(--mist);
-  position: relative; overflow: hidden;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 0 5vw;
+  padding-top: 64px;
+  position: relative;
+  overflow: hidden;
+  gap: 4rem;
 }
-.hero::after {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(to right, transparent 5%, var(--clay) 40%, var(--clay2) 65%, transparent 95%);
-  opacity: 0.35;
-}
-.hero-bg-word {
-  position: absolute; bottom: -40px; left: 50%;
-  transform: translateX(-50%);
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(8rem, 18vw, 22rem);
-  font-weight: 300; font-style: italic;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(201,168,168,0.07);
-  letter-spacing: -0.04em; white-space: nowrap;
-  pointer-events: none; user-select: none; z-index: 0;
-}
-.hero-vline {
-  position: absolute; left: calc(72px + 66.66%);
-  top: 140px; bottom: 0; width: 1px;
-  background: linear-gradient(to bottom, transparent, var(--clay) 25%, var(--clay) 75%, transparent);
-  opacity: 0.12; z-index: 1;
-}
-.hero-tag {
-  grid-column: 1; grid-row: 1; z-index: 2;
-  display: flex; align-items: center; gap: 10px;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.62rem; font-weight: 400;
-  letter-spacing: 0.3em; text-transform: uppercase; color: var(--clay2);
-  animation: fadeUp 0.8s ease 2.2s both;
-  padding-bottom: 24px;
-}
-.hero-tag-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--clay); flex-shrink: 0; }
-.hero-date {
-  grid-column: 2; grid-row: 1; z-index: 2;
-  font-family: 'Lato', sans-serif; font-weight: 300;
-  font-size: 0.62rem; letter-spacing: 0.26em; text-transform: uppercase;
-  color: var(--ink3);
-  animation: fadeUp 0.8s ease 2.3s both;
-  padding-bottom: 24px;
-  display: flex; align-items: flex-start; justify-content: flex-end;
-}
-.hero-hl {
-  grid-column: 1/3; grid-row: 2; z-index: 1;
-  display: flex; flex-direction: column; justify-content: center;
-  padding-right: 60px; padding-top: 32px; padding-bottom: 52px;
-}
-.hero-eyebrow {
-  font-family: 'Lato', sans-serif; font-weight: 300;
-  font-size: 0.72rem; letter-spacing: 0.26em; text-transform: uppercase;
-  color: var(--ink3); margin-bottom: 28px;
-  animation: fadeUp 0.8s ease 2.4s both;
-  display: flex; align-items: center; gap: 14px;
-}
-.hero-eyebrow::before {
-  content: ''; width: 28px; height: 1px;
-  background: var(--clay); opacity: 0.7; flex-shrink: 0;
-}
-.hero-h1 {
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 300; line-height: 0.9;
-  font-size: clamp(4rem, 8.5vw, 8rem);
-  color: var(--ink); letter-spacing: -0.02em; overflow: hidden;
-}
-.hero-h1-line { display: block; overflow: hidden; }
-.hero-h1-inner { display: block; animation: revealUp 1s cubic-bezier(.16,1,.3,1) both; }
-.line1 { animation-delay: 2.5s; }
-.line2 { animation-delay: 2.65s; font-style: italic; color: var(--clay2); }
-.line3 { animation-delay: 2.8s; }
 
-.hero-img-col {
-  grid-column: 3; grid-row: 2; z-index: 1;
-  margin-left: 32px; position: relative; align-self: center;
-  animation: fadeUp 1.2s ease 2.7s both;
+.hero-bg {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 70% 60% at 80% 50%, rgba(200,146,42,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 80% at 10% 80%, rgba(13,25,41,0.8) 0%, transparent 60%);
 }
-.hero-img-frame {
-  width: 100%; aspect-ratio: 3/4;
-  position: relative; overflow: hidden;
-  box-shadow: 0 32px 80px rgba(43,43,43,0.16), 0 8px 24px rgba(201,168,168,0.1);
+
+.hero-grid-lines {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(200,146,42,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200,146,42,0.03) 1px, transparent 1px);
+  background-size: 80px 80px;
 }
-.hero-img-scene {
-  position: absolute; inset: 0;
-  background: url('/assets/hero-bhutan.jpg') center center / cover no-repeat,
-    linear-gradient(158deg, #4a6050 0%, #2e3d32 40%, #141e16 100%);
+
+.hero-left {
+  position: relative; z-index: 1;
+  animation: fadeSlideUp 1s ease both;
 }
-.hero-img-grad {
-  position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(13,21,16,0.55) 0%, transparent 55%);
+.hero-kicker {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 2rem;
 }
-.hero-img-corner {
-  position: absolute; top: 0; right: 0; z-index: 3;
-  width: 40px; height: 40px;
-  border-top: 1px solid rgba(201,168,168,0.45);
-  border-right: 1px solid rgba(201,168,168,0.45);
+.kicker-line { width: 40px; height: 1px; background: var(--amber); }
+.kicker-text {
+  font-family: var(--mono); font-size: 0.65rem;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--amber);
 }
-.hero-img-corner-bl {
-  position: absolute; bottom: 0; left: 0; z-index: 3;
-  width: 40px; height: 40px;
-  border-bottom: 1px solid rgba(201,168,168,0.45);
-  border-left: 1px solid rgba(201,168,168,0.45);
+.hero-headline {
+  font-family: var(--serif);
+  font-size: clamp(3rem, 5.5vw, 5.5rem);
+  line-height: 1.0;
+  color: var(--cream);
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
 }
-.hero-img-caption {
-  position: absolute; bottom: 24px; left: 24px; z-index: 2;
-  font-family: 'Cormorant Garamond', serif; font-style: italic;
-  font-size: 0.78rem; color: rgba(255,255,255,0.7); letter-spacing: 0.08em;
-}
-.hero-badge {
-  position: absolute; bottom: -20px; right: -20px;
-  width: 88px; height: 88px; border-radius: 50%;
-  background: var(--cream); border: 1px solid rgba(201,168,168,0.3);
-  z-index: 4; display: flex; flex-direction: column;
-  align-items: center; justify-content: center; text-align: center;
-  box-shadow: 0 4px 20px rgba(43,43,43,0.1);
-}
-.hero-badge p {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.52rem; font-weight: 600;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--clay2); line-height: 1.7;
-}
-.hero-bottom {
-  grid-column: 1/3; grid-row: 3; z-index: 1;
-  display: flex; align-items: flex-end; justify-content: space-between;
-  gap: 48px; padding-right: 60px;
-  animation: fadeUp 0.8s ease 3s both;
+.hero-headline .italic-line {
+  font-style: italic;
+  color: var(--amber2);
 }
 .hero-sub {
-  font-family: 'Lato', sans-serif;
-  /* ↑ READABILITY: body text size increased */
-  font-size: 1rem; font-weight: 300; line-height: 2.1; color: var(--ink2); max-width: 420px;
+  font-size: 1rem; font-weight: 300;
+  line-height: 1.9; color: var(--cream3);
+  max-width: 480px; margin-bottom: 2.5rem;
 }
-.hero-actions { display: flex; flex-direction: column; gap: 16px; flex-shrink: 0; }
+.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
 
-@keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes revealUp { from { transform: translateY(110%); } to { transform: translateY(0); } }
+.btn-gold {
+  font-family: var(--mono);
+  font-size: 0.7rem; font-weight: 500;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--navy); background: var(--amber);
+  padding: 13px 30px; border: none; cursor: pointer;
+  text-decoration: none; display: inline-block;
+  clip-path: polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);
+  transition: background 0.25s, transform 0.2s;
+}
+.btn-gold:hover { background: var(--amber2); transform: translateY(-2px); }
 
-/* ── BUTTONS ── */
-.btn-p {
-  display: inline-flex; align-items: center; gap: 16px;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.64rem; font-weight: 700;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--white); text-decoration: none; padding: 15px 28px;
-  position: relative; overflow: hidden; white-space: nowrap; transition: gap 0.3s;
+.btn-outline {
+  font-family: var(--mono);
+  font-size: 0.7rem; font-weight: 500;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--cream3); background: transparent;
+  padding: 12px 30px;
+  border: 1px solid var(--line2);
+  cursor: pointer; text-decoration: none; display: inline-block;
+  clip-path: polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);
+  transition: all 0.25s;
 }
-.btn-p-bg { position: absolute; inset: 0; background: var(--ink); z-index: 0; }
-.btn-p-bg2 {
-  position: absolute; inset: 0; background: var(--clay2);
-  transform: scaleX(0); transform-origin: left;
-  transition: transform 0.45s cubic-bezier(.16,1,.3,1); z-index: 0;
+.btn-outline:hover { border-color: var(--cream3); color: var(--cream); transform: translateY(-2px); }
+
+.hero-right {
+  position: relative; z-index: 1;
+  animation: fadeSlideUp 1s 0.2s ease both;
 }
-.btn-p:hover .btn-p-bg2 { transform: scaleX(1); }
-.btn-p:hover { gap: 24px; }
-.btn-p span { position: relative; z-index: 1; }
-.btn-g {
-  display: inline-flex; align-items: center; gap: 10px;
-  font-family: 'Lato', sans-serif;
-  font-size: 0.64rem; font-weight: 300;
+
+/* Trade terminal card */
+.terminal-card {
+  background: var(--navy2);
+  border: 1px solid var(--line2);
+  border-top: 2px solid var(--amber);
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+.terminal-card::after {
+  content: '';
+  position: absolute; top: 0; right: 0;
+  width: 60%; height: 60%;
+  background: radial-gradient(ellipse at top right, rgba(200,146,42,0.04), transparent);
+  pointer-events: none;
+}
+.terminal-header {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--line2);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.terminal-title {
+  font-family: var(--mono); font-size: 0.65rem;
   letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--ink2); text-decoration: none; transition: color 0.3s, gap 0.3s;
+  color: var(--amber);
 }
-.btn-g:hover { color: var(--clay2); gap: 18px; }
+.terminal-status {
+  display: flex; align-items: center; gap: 6px;
+  font-family: var(--mono); font-size: 0.6rem;
+  color: #4ADE80; letter-spacing: 0.1em;
+}
+.status-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: #4ADE80;
+  animation: blink 2s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
-/* ── FADE-UP ── */
-.fu { opacity: 0; transform: translateY(28px); transition: opacity 0.9s cubic-bezier(.16,1,.3,1), transform 0.9s cubic-bezier(.16,1,.3,1); }
-.fu.in { opacity: 1; transform: none; }
+.terminal-body { padding: 20px; }
+.metric-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  margin-bottom: 12px;
+}
+.metric {
+  background: var(--mist2);
+  border: 1px solid var(--line2);
+  padding: 14px 16px;
+}
+.metric-label {
+  font-family: var(--mono); font-size: 0.58rem;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--cream3); margin-bottom: 4px;
+}
+.metric-val {
+  font-family: var(--mono); font-size: 1.4rem;
+  color: var(--amber2); font-weight: 500;
+}
+.metric-sub {
+  font-size: 0.68rem; color: var(--cream3);
+  margin-top: 2px;
+}
 
-/* ── MARQUEE ── */
-.marquee-strip {
-  background: var(--white);
-  border-top: 1px solid rgba(201,168,168,0.2);
-  border-bottom: 1px solid rgba(201,168,168,0.2);
-  padding: 18px 0; overflow: hidden; display: flex;
+.cert-row {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  margin-top: 8px;
 }
-.marquee-track { display: flex; gap: 40px; white-space: nowrap; animation: marquee 28s linear infinite; }
-.marquee-track span {
-  font-family: 'Cormorant Garamond', serif; font-style: italic;
-  /* ↑ READABILITY */
-  font-size: 1.05rem; color: var(--ink2); letter-spacing: 0.06em; flex-shrink: 0;
+.cert-badge {
+  font-family: var(--mono); font-size: 0.58rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 5px 10px;
+  border: 1px solid var(--line);
+  color: var(--amber);
+  background: rgba(200,146,42,0.06);
 }
-@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-/* ── MANIFESTO ── */
-.manifesto {
-  background: var(--white); padding: 120px 72px;
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 80px; align-items: center;
-  position: relative; overflow: hidden;
-  border-bottom: 1px solid var(--mist2);
+.mandate-block {
+  background: rgba(200,146,42,0.05);
+  border-left: 2px solid var(--amber);
+  padding: 14px 16px;
+  margin-top: 12px;
 }
-.manifesto::before {
-  content: '"'; position: absolute; left: 36px; top: -50px;
-  font-family: 'Cormorant Garamond', serif; font-size: 20rem; line-height: 1;
-  color: rgba(201,168,168,0.07); pointer-events: none; user-select: none;
+.mandate-label {
+  font-family: var(--mono); font-size: 0.58rem;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--amber3); margin-bottom: 4px;
 }
-.manifesto-quote {
-  font-family: 'Cormorant Garamond', serif; font-style: italic;
-  font-size: clamp(1.7rem, 3vw, 2.5rem); font-weight: 300;
-  line-height: 1.6; color: var(--ink); position: relative; z-index: 1;
+.mandate-text {
+  font-size: 0.82rem; color: var(--cream3); line-height: 1.7;
 }
-.manifesto-attr {
-  display: flex; align-items: center; gap: 12px; margin-top: 32px;
-  font-family: 'Inter', sans-serif; font-weight: 400;
-  font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--clay2);
-}
-.manifesto-attr::before { content: ''; width: 20px; height: 1px; background: var(--clay); opacity: 0.7; }
-.manifesto-stats { display: flex; flex-direction: column; position: relative; z-index: 1; }
-.m-stat { padding: 32px 0; border-top: 1px solid var(--mist2); }
-.m-stat:last-child { border-bottom: 1px solid var(--mist2); }
-.m-num {
-  font-family: 'Cormorant Garamond', serif; font-size: 3.6rem; font-weight: 300;
-  color: var(--ink); line-height: 1; margin-bottom: 8px;
-}
-/* ↑ READABILITY: increased from 0.74rem */
-.m-label { font-family: 'Lato', sans-serif; font-size: 0.88rem; font-weight: 300; letter-spacing: 0.06em; color: var(--ink2); }
 
-/* ── PHILOSOPHY ── */
-.philosophy {
-  background: var(--mist); padding: 140px 72px;
-  display: grid; grid-template-columns: 180px 1fr 1fr;
-  gap: 72px; align-items: start; position: relative;
+/* ─── TICKER ─── */
+.ticker {
+  height: 38px; overflow: hidden;
+  background: var(--navy3);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  display: flex; align-items: center;
 }
-.philosophy::before {
-  content: ''; position: absolute; top: 72px; left: 72px; right: 72px; height: 1px;
-  background: linear-gradient(to right, transparent, rgba(201,168,168,0.2), transparent);
+.ticker-tag {
+  flex-shrink: 0; height: 100%;
+  display: flex; align-items: center;
+  padding: 0 18px 0 20px;
+  background: var(--amber);
+  clip-path: polygon(0 0,calc(100% - 10px) 0,100% 50%,calc(100% - 10px) 100%,0 100%);
+  font-family: var(--mono); font-size: 0.6rem;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--navy); font-weight: 500;
 }
-.phil-label {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.6rem; font-weight: 400; letter-spacing: 0.34em;
-  text-transform: uppercase; color: var(--clay2);
-  writing-mode: vertical-rl; transform: rotate(180deg); height: fit-content;
+.ticker-scroll {
+  display: flex; align-items: center;
+  animation: ticker 32s linear infinite;
+  white-space: nowrap;
 }
-.phil-h2 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2.2rem, 3.8vw, 3.6rem); font-weight: 300; line-height: 1.15;
-  color: var(--ink); margin-bottom: 40px;
+.ticker-item {
+  font-family: var(--mono); font-size: 0.65rem;
+  color: var(--cream3); padding: 0 2rem;
+  letter-spacing: 0.06em;
 }
-/* ↑ READABILITY: increased from 0.9rem */
-.phil-body { font-family: 'Lato', sans-serif; font-size: 1rem; line-height: 2.1; color: var(--ink2); margin-bottom: 14px; max-width: 360px; }
-.phil-sig {
-  margin-top: 44px; font-family: 'Cormorant Garamond', serif; font-style: italic;
-  font-size: 1.1rem; color: var(--clay2);
-  display: flex; align-items: center; gap: 12px;
-}
-.phil-sig::before { content: ''; width: 20px; height: 1px; background: var(--clay); opacity: 0.7; }
-.phil-pillars { display: flex; flex-direction: column; }
-.phil-pillar {
-  padding: 28px 0; border-top: 1px solid var(--mist2);
-  display: grid; grid-template-columns: 48px 1fr; gap: 16px;
-  transition: padding-left 0.4s ease;
-}
-.phil-pillar:last-child { border-bottom: 1px solid var(--mist2); }
-.phil-pillar:hover { padding-left: 8px; }
-.phil-num { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; font-weight: 300; color: var(--clay); padding-top: 2px; }
-.phil-title { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 400; color: var(--ink); margin-bottom: 7px; }
-/* ↑ READABILITY: increased from 0.82rem */
-.phil-text { font-family: 'Lato', sans-serif; font-size: 0.94rem; line-height: 1.9; color: var(--ink3); }
+.ticker-item b { color: var(--amber); font-weight: 500; margin-right: 6px; }
+.ticker-divider { color: var(--amber3); }
+@keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-/* ── JOURNEYS ── */
-.journeys-wrap { background: var(--cream); }
-.journeys-header {
-  padding: 100px 72px 64px;
-  display: flex; align-items: flex-end; justify-content: space-between;
-  position: relative;
-}
-.journeys-header::after {
-  content: ''; position: absolute; bottom: 0; left: 72px; right: 72px; height: 1px;
-  background: linear-gradient(to right, transparent, rgba(201,168,168,0.22), transparent);
-}
-.journeys-h2 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2.4rem, 4vw, 4.2rem); font-weight: 300; line-height: 1.05; color: var(--ink);
-}
-.journeys-h2 em { font-style: italic; color: var(--clay2); }
-/* ↑ READABILITY */
-.journeys-meta { font-family: 'Lato', sans-serif; text-align: right; font-size: 0.88rem; font-weight: 300; line-height: 1.9; color: var(--ink2); }
-.journeys-track {
-  display: flex; padding: 72px 72px; gap: 16px;
-  overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none;
-  cursor: grab; user-select: none;
-}
-.journeys-track:active { cursor: grabbing; }
-.journeys-track::-webkit-scrollbar { display: none; }
-.j-card {
-  flex: 0 0 400px; display: flex; flex-direction: column;
-  background: var(--white);
-  border: 1px solid rgba(201,168,168,0.16);
-  box-shadow: 0 4px 28px rgba(43,43,43,0.05), 0 1px 4px rgba(201,168,168,0.07);
-  transition: box-shadow 0.5s ease, transform 0.5s ease, border-color 0.4s;
-  position: relative; overflow: hidden;
-}
-.j-card:hover {
-  box-shadow: 0 16px 60px rgba(43,43,43,0.1), 0 4px 16px rgba(201,168,168,0.1);
-  transform: translateY(-4px); border-color: rgba(201,168,168,0.32);
-}
-.j-card::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(to right, var(--clay), var(--clay2));
-  transform: scaleX(0); transform-origin: left;
-  transition: transform 0.5s ease; z-index: 2;
-}
-.j-card:hover::before { transform: scaleX(1); }
-.j-card-img { height: 300px; position: relative; overflow: hidden; flex-shrink: 0; }
-.j-card-img-inner { position: absolute; inset: 0; transition: transform 0.9s cubic-bezier(.16,1,.3,1); }
-.j-card:hover .j-card-img-inner { transform: scale(1.06); }
-.j-card-img-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.08) 50%, transparent 100%); z-index: 1; }
-.j-card-loc { position: absolute; bottom: 18px; left: 18px; z-index: 2; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.8rem; color: rgba(255,255,255,0.75); letter-spacing: 0.08em; }
-.j-body { padding: 32px 28px 36px; display: flex; flex-direction: column; flex: 1; }
-.j-tag { font-family: 'Inter', sans-serif; font-size: 0.6rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--clay2); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
-.j-tag::before { content: ''; width: 14px; height: 1px; background: var(--clay); opacity: 0.7; }
-.j-dest { font-family: 'Cormorant Garamond', serif; font-size: 2.6rem; font-weight: 400; line-height: 1; color: var(--ink); margin-bottom: 5px; }
-.j-sub { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1rem; color: var(--clay2); margin-bottom: 20px; }
-/* ↑ READABILITY: increased from 0.82rem */
-.j-desc { font-family: 'Lato', sans-serif; font-size: 0.94rem; line-height: 1.95; color: var(--ink2); flex: 1; margin-bottom: 24px; }
-.j-details { display: flex; flex-direction: column; gap: 8px; margin-bottom: 28px; padding-top: 20px; border-top: 1px solid var(--mist2); }
-.j-detail { display: flex; gap: 16px; align-items: baseline; font-size: 0.8rem; color: var(--ink2); }
-.j-detail-label { font-family: 'Inter', sans-serif; font-size: 0.6rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink3); min-width: 64px; }
-.j-cta { display: inline-flex; align-items: center; gap: 10px; font-family: 'Inter', sans-serif; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--clay); padding-bottom: 4px; width: fit-content; transition: gap 0.3s, color 0.3s; }
-.j-cta:hover { gap: 18px; color: var(--clay2); }
-.journeys-hint { padding: 0 72px 72px; display: flex; align-items: center; gap: 20px; }
-.hint-line { flex: 1; height: 1px; background: linear-gradient(to right, rgba(201,168,168,0.16), transparent); }
-.hint-text { font-family: 'Inter', sans-serif; font-size: 0.6rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink3); }
-.hint-arrow { color: var(--clay); opacity: 0.65; font-size: 0.75rem; animation: hintSlide 1.8s ease-in-out infinite; }
-@keyframes hintSlide { 0%,100%{transform:translateX(0)} 50%{transform:translateX(10px)} }
+/* ─── SECTION BASE ─── */
+.section { padding: 100px 5vw; }
+.section-inner { max-width: 1200px; margin: 0 auto; }
 
-.d-bhutan { background: url('/assets/journey-bhutan.jpg')   center/cover no-repeat, linear-gradient(158deg,#3d5040 0%,#212e23 45%,#111711 100%); }
-.d-japan  { background: url('/assets/journey-japan.jpg')    center/cover no-repeat, linear-gradient(158deg,#b8a0a0 0%,#887070 45%,#503838 100%); }
-.d-jordan { background: url('/assets/journey-jordan.jpg')   center/cover no-repeat, linear-gradient(158deg,#c09860 0%,#906838 45%,#503818 100%); }
-.d-sl     { background: url('/assets/journey-srilanka.jpg') center/cover no-repeat, linear-gradient(158deg,#5a9068 0%,#3c6848 45%,#1c3824 100%); }
-
-/* ── HARSHA ── */
-.harsha {
-  background: var(--mist); padding: 140px 72px;
-  display: grid; grid-template-columns: 1fr 1fr 1fr;
-  gap: 64px; align-items: center;
-  border-top: 1px solid var(--mist2);
+.eyebrow {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 1.2rem;
 }
-.harsha-img-col { position: relative; }
-.harsha-frame {
-  width: 100%; aspect-ratio: 2/3; position: relative; overflow: hidden;
-  box-shadow: 0 24px 72px rgba(43,43,43,0.12), 0 4px 16px rgba(201,168,168,0.08);
+.eyebrow-line { width: 32px; height: 1px; background: var(--amber); flex-shrink: 0; }
+.eyebrow-text {
+  font-family: var(--mono); font-size: 0.62rem;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--amber);
 }
-.harsha-img-inner {
-  position: absolute; inset: 0;
-  background: url('/assets/harsha-portrait.jpg') center 20% / cover no-repeat,
-    linear-gradient(150deg,#c0a8a8 0%,#9a8080 35%,#7a5858 65%,#503838 100%);
-}
-.harsha-img-inner::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(43,43,43,0.5) 0%, transparent 55%); }
-.harsha-corner-tr { position: absolute; top: -8px; right: -8px; width: 44px; height: 44px; border-top: 1px solid rgba(201,168,168,0.45); border-right: 1px solid rgba(201,168,168,0.45); z-index: 3; }
-.harsha-corner-bl { position: absolute; bottom: -8px; left: -8px; width: 44px; height: 44px; border-bottom: 1px solid rgba(201,168,168,0.45); border-left: 1px solid rgba(201,168,168,0.45); z-index: 3; }
-.harsha-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 28px; z-index: 2; }
-.harsha-caption h3 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; color: var(--white); line-height: 1; }
-.harsha-caption span { font-family: 'Lato', sans-serif; font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.72); }
-.harsha-float {
-  position: absolute; top: 40px; right: -28px;
-  background: var(--white); border: 1px solid rgba(201,168,168,0.22);
-  padding: 20px 24px; max-width: 188px; z-index: 3;
-  box-shadow: 0 8px 40px rgba(43,43,43,0.08);
-}
-.harsha-float::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(to right, var(--clay), var(--clay2));
-}
-.harsha-float-q { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.9rem; line-height: 1.65; color: var(--ink); }
-
-/* HARSHA text: now only col 2, not spanning to 3 */
-.harsha-text { grid-column: 2; }
-.harsha-eyebrow { font-family: 'Inter', sans-serif; font-size: 0.62rem; font-weight: 400; letter-spacing: 0.32em; text-transform: uppercase; color: var(--clay2); margin-bottom: 40px; display: flex; align-items: center; gap: 16px; }
-.harsha-eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--clay); opacity: 0.7; }
-.harsha-h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3.2vw, 3.2rem); font-weight: 300; line-height: 1.22; color: var(--ink); margin-bottom: 40px; }
-/* ↑ READABILITY */
-.harsha-body { font-family: 'Lato', sans-serif; font-size: 1rem; line-height: 2.1; color: var(--ink2); margin-bottom: 14px; max-width: 440px; }
-.harsha-link { margin-top: 44px; display: inline-flex; align-items: center; gap: 12px; font-family: 'Inter', sans-serif; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink); text-decoration: none; border: 1px solid var(--clay); padding: 12px 22px; transition: gap 0.3s, background 0.35s, color 0.35s; }
-.harsha-link:hover { background: var(--clay); color: var(--white); gap: 18px; }
-
-/* ── HARSHA DECO PANEL (right column) ── */
-.harsha-deco {
-  grid-column: 3;
-  display: flex; flex-direction: column;
-  justify-content: center; align-items: flex-start;
-  gap: 0; position: relative; padding-left: 12px;
-}
-/* Vertical dividing line on left edge of deco panel */
-.harsha-deco::before {
-  content: ''; position: absolute; left: 0; top: 10%; bottom: 10%;
-  width: 1px;
-  background: linear-gradient(to bottom, transparent, rgba(201,168,168,0.3), transparent);
-}
-/* Large watermark word */
-.harsha-deco-word {
-  font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300;
-  font-size: clamp(4rem, 6vw, 6.5rem); line-height: 0.88;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(201,168,168,0.22);
+.section-heading {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 4vw, 3.8rem);
+  line-height: 1.05; color: var(--cream);
+  margin-bottom: 1.5rem;
   letter-spacing: -0.02em;
-  user-select: none; pointer-events: none;
-  margin-bottom: 56px; padding-left: 24px;
 }
-/* Stat rows */
-.harsha-deco-stats { display: flex; flex-direction: column; width: 100%; padding-left: 24px; }
-.harsha-deco-stat {
-  padding: 22px 0; border-top: 1px solid var(--mist2);
-  display: flex; flex-direction: column; gap: 5px;
+.section-heading em { font-style: italic; color: var(--amber2); }
+.section-body {
+  font-size: 0.95rem; color: var(--cream3);
+  line-height: 1.9; max-width: 560px;
+}
+
+/* ─── MODEL SECTION ─── */
+.model-section { background: var(--navy2); position: relative; }
+.model-section::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--amber3), transparent);
+}
+.model-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 6rem; align-items: center;
+}
+
+.model-text .section-body { margin-bottom: 2.5rem; }
+
+.pillars { display: flex; flex-direction: column; gap: 1px; }
+.pillar {
+  display: flex; align-items: flex-start; gap: 1.2rem;
+  padding: 18px 20px;
+  background: var(--mist2);
+  border: 1px solid var(--line2);
+  border-left: 2px solid transparent;
+  transition: all 0.3s;
+  cursor: default;
+}
+.pillar:hover {
+  border-left-color: var(--amber);
+  background: rgba(200,146,42,0.04);
+  transform: translateX(3px);
+}
+.pillar-glyph {
+  width: 36px; height: 36px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  background: var(--mist);
+  border: 1px solid var(--line2);
+  clip-path: polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%);
+}
+.pillar-title { font-size: 0.9rem; font-weight: 600; color: var(--cream); margin-bottom: 3px; }
+.pillar-desc { font-size: 0.8rem; color: var(--cream3); line-height: 1.65; }
+
+/* Model visual — document aesthetic */
+.model-doc {
+  background: var(--navy);
+  border: 1px solid var(--line2);
+  padding: 0; position: relative;
+  overflow: hidden;
+}
+.model-doc::before {
+  content: '';
+  position: absolute; top: 0; right: 0;
+  width: 50%; height: 100%;
+  background: linear-gradient(135deg, transparent, rgba(200,146,42,0.03));
+  pointer-events: none;
+}
+.doc-header {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--line2);
+  display: flex; align-items: flex-start; justify-content: space-between;
+}
+.doc-seal {
+  width: 48px; height: 48px;
+  border: 1.5px solid var(--amber);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem;
+  color: var(--amber);
+  flex-shrink: 0;
+  background: rgba(200,146,42,0.05);
+}
+.doc-id {
+  font-family: var(--mono); font-size: 0.6rem;
+  color: var(--cream3); letter-spacing: 0.12em;
+  margin-bottom: 4px;
+}
+.doc-title {
+  font-family: var(--serif); font-size: 1.1rem;
+  color: var(--cream); line-height: 1.2;
+}
+.doc-body { padding: 20px 24px; display: flex; flex-direction: column; gap: 14px; }
+.doc-field {
+  display: grid; grid-template-columns: 140px 1fr;
+  gap: 8px; align-items: start;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line2);
+}
+.doc-field:last-child { border: none; padding-bottom: 0; }
+.doc-field-key {
+  font-family: var(--mono); font-size: 0.6rem;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--amber3); padding-top: 2px;
+}
+.doc-field-val { font-size: 0.82rem; color: var(--cream); line-height: 1.6; }
+.doc-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.doc-tag {
+  font-family: var(--mono); font-size: 0.56rem;
+  padding: 3px 8px; letter-spacing: 0.1em;
+  border: 1px solid var(--line2); color: var(--cream3);
+  text-transform: uppercase;
+}
+.doc-footer {
+  margin: 0 24px 20px;
+  padding: 12px 16px;
+  background: rgba(200,146,42,0.06);
+  border: 1px solid var(--line);
+  display: flex; align-items: center; gap: 10px;
+}
+.doc-footer-icon { font-size: 1.1rem; }
+.doc-footer-text {
+  font-family: var(--mono); font-size: 0.62rem;
+  color: var(--amber); letter-spacing: 0.08em; line-height: 1.5;
+}
+
+/* ─── CAPABILITIES ─── */
+.cap-section { background: var(--navy); }
+.cap-header { max-width: 600px; margin-bottom: 4rem; }
+.cap-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line2);
+}
+.cap-card {
+  background: var(--navy);
+  padding: 2.5rem 2rem;
+  position: relative; overflow: hidden;
+  transition: background 0.35s;
+  cursor: default;
+}
+.cap-card:hover { background: var(--navy2); }
+.cap-card:hover .cap-num { color: var(--amber); }
+.cap-card::before {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: var(--amber);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.35s;
+}
+.cap-card:hover::before { transform: scaleX(1); }
+
+.cap-num {
+  font-family: var(--mono); font-size: 0.58rem;
+  letter-spacing: 0.18em; color: var(--amber3);
+  margin-bottom: 1.5rem;
+  transition: color 0.3s;
+}
+.cap-icon {
+  font-size: 1.6rem; margin-bottom: 1.2rem;
+  display: block;
+  width: 46px; height: 46px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--mist2);
+  border: 1px solid var(--line2);
+}
+.cap-title {
+  font-size: 1rem; font-weight: 600;
+  color: var(--cream); margin-bottom: 0.7rem;
+  letter-spacing: 0.02em;
+}
+.cap-desc { font-size: 0.82rem; color: var(--cream3); line-height: 1.8; }
+.cap-watermark {
+  position: absolute; right: 16px; bottom: 8px;
+  font-family: var(--serif); font-size: 5rem;
+  color: rgba(240,232,216,0.02); pointer-events: none;
+  user-select: none; line-height: 1;
+}
+
+/* ─── PRODUCTS ─── */
+.products-section { background: var(--navy2); position: relative; }
+.products-section::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--amber3), transparent);
+}
+.products-header {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 3rem; gap: 2rem; flex-wrap: wrap;
+}
+.products-note {
+  font-family: var(--mono); font-size: 0.65rem;
+  color: var(--cream3); letter-spacing: 0.1em;
+  max-width: 340px; line-height: 1.7;
+  border-left: 2px solid var(--amber3);
+  padding-left: 14px;
+}
+
+.products-table {
+  width: 100%; border-collapse: collapse;
+}
+.pt-head {
+  border-bottom: 1px solid var(--line);
+}
+.pt-head th {
+  font-family: var(--mono); font-size: 0.6rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--amber3); font-weight: 500;
+  padding: 10px 16px; text-align: left;
+}
+.pt-row {
+  border-bottom: 1px solid var(--line2);
+  transition: background 0.25s; cursor: default;
+}
+.pt-row:hover { background: var(--mist2); }
+.pt-row td {
+  padding: 16px 16px; vertical-align: middle;
+}
+.pt-cat {
+  font-family: var(--mono); font-size: 0.58rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--amber3);
+}
+.pt-name {
+  font-size: 0.9rem; font-weight: 500; color: var(--cream);
+}
+.pt-emoji { font-size: 1.3rem; }
+.pt-markets { display: flex; gap: 5px; flex-wrap: wrap; }
+.pt-market {
+  font-family: var(--mono); font-size: 0.57rem;
+  padding: 2px 7px; letter-spacing: 0.1em;
+  border: 1px solid rgba(0,200,200,0.2);
+  color: #7DD8DC;
+}
+.pt-spec {
+  font-family: var(--mono); font-size: 0.65rem;
+  color: var(--cream3);
+}
+
+/* ─── PROCESS ─── */
+.process-section { background: var(--navy); }
+.process-grid {
+  display: grid; grid-template-columns: 1fr 2fr;
+  gap: 5rem; align-items: start;
+}
+.process-left { position: sticky; top: 100px; }
+.process-steps { display: flex; flex-direction: column; gap: 0; }
+
+.process-step {
+  display: grid; grid-template-columns: 56px 1fr;
+  gap: 1.5rem;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--line2);
   position: relative;
+  cursor: default;
+  transition: all 0.3s;
 }
-.harsha-deco-stat:last-child { border-bottom: 1px solid var(--mist2); }
-.harsha-deco-stat::before {
-  content: ''; position: absolute; left: 0; top: -1px;
-  width: 0; height: 1px; background: var(--clay);
-  transition: width 0.5s ease;
+.process-step:last-child { border-bottom: none; }
+.process-step:hover { padding-left: 8px; }
+
+.step-num {
+  width: 48px; height: 48px;
+  border: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 0.75rem;
+  color: var(--amber); font-weight: 500;
+  flex-shrink: 0;
+  transition: all 0.3s;
+  clip-path: polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%);
 }
-.harsha-deco-stat:hover::before { width: 100%; }
-.harsha-deco-num {
-  font-family: 'Cormorant Garamond', serif; font-size: 2.6rem; font-weight: 300;
-  color: var(--ink); line-height: 1;
+.process-step:hover .step-num {
+  background: rgba(200,146,42,0.1);
+  border-color: var(--amber);
 }
-.harsha-deco-label {
-  font-family: 'Lato', sans-serif; font-size: 0.78rem; font-weight: 300;
-  letter-spacing: 0.06em; color: var(--ink3); line-height: 1.5;
+.step-phase {
+  font-family: var(--mono); font-size: 0.57rem;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--amber3); margin-bottom: 4px;
 }
-/* Botanical in deco panel */
-.harsha-deco-botanical {
-  margin-top: 44px; padding-left: 24px; opacity: 0.18;
+.step-title { font-size: 1rem; font-weight: 600; color: var(--cream); margin-bottom: 5px; }
+.step-desc { font-size: 0.82rem; color: var(--cream3); line-height: 1.75; }
+
+/* ─── AUDIENCE ─── */
+.audience-section { background: var(--navy2); }
+.audience-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 2px; background: var(--line2);
+  margin-top: 3.5rem;
+}
+.audience-card {
+  background: var(--navy2);
+  padding: 2.5rem 2rem;
+  position: relative; overflow: hidden;
+  transition: background 0.3s;
+}
+.audience-card:hover { background: var(--navy3); }
+.audience-card::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px; background: var(--amber);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.35s;
+}
+.audience-card:hover::after { transform: scaleX(1); }
+
+.aud-icon {
+  font-size: 2rem; margin-bottom: 1.5rem; display: block;
+  width: 54px; height: 54px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--mist2);
+  border: 1px solid var(--line2);
+  clip-path: polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%);
+}
+.aud-title {
+  font-family: var(--serif); font-size: 1.5rem;
+  color: var(--cream); margin-bottom: 0.6rem;
+}
+.aud-desc { font-size: 0.82rem; color: var(--cream3); line-height: 1.75; margin-bottom: 1.5rem; }
+.aud-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.aud-list li {
+  font-size: 0.78rem; color: var(--cream3);
+  padding-left: 16px; position: relative; line-height: 1.5;
+}
+.aud-list li::before {
+  content: '→'; position: absolute; left: 0;
+  color: var(--amber); font-size: 0.65rem;
 }
 
-/* ── IMMERSIVE ── */
-.immersive {
-  min-height: 70vh; position: relative; overflow: hidden;
-  background: url('/assets/immersive-bhutan.jpg') center center / cover no-repeat,
-    linear-gradient(148deg,#3d5040 0%,#1a261c 100%);
-  display: flex; align-items: flex-end;
+/* ─── TRUST / COMPLIANCE ─── */
+.trust-section { background: var(--navy); }
+.trust-inner {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 5rem; align-items: center;
 }
-.immersive::before {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.25) 100%);
+.trust-right { display: flex; flex-direction: column; gap: 1px; }
+.trust-row {
+  display: flex; align-items: flex-start; gap: 1.2rem;
+  padding: 20px;
+  background: var(--mist2);
+  border: 1px solid var(--line2);
+  transition: all 0.3s;
 }
-.immersive::after {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(to right, transparent, rgba(201,168,168,0.35), transparent);
+.trust-row:hover { background: rgba(200,146,42,0.04); border-color: var(--line); }
+.trust-icon-box {
+  width: 40px; height: 40px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem;
+  background: rgba(200,146,42,0.08);
+  border: 1px solid var(--line);
 }
-.immersive-content { position: relative; z-index: 1; padding: 72px 72px; max-width: 620px; }
-.immersive-label { font-family: 'Inter', sans-serif; font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.65); margin-bottom: 28px; display: flex; align-items: center; gap: 12px; }
-.immersive-label::before { content: ''; width: 20px; height: 1px; background: rgba(201,168,168,0.7); }
-.immersive-q { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: clamp(1.8rem, 3.5vw, 3rem); font-weight: 300; line-height: 1.45; color: var(--white); }
-.immersive-attr { display: block; margin-top: 32px; font-family: 'Lato', sans-serif; font-size: 0.62rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--clay); }
-
-/* ── VOICES ── */
-.voices { background: var(--white); padding: 140px 72px; }
-.voices-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 72px; }
-.voices-h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3.2vw, 3rem); font-weight: 300; line-height: 1.15; color: var(--ink); }
-.voices-h2 em { font-style: italic; color: var(--clay2); }
-.voices-count { font-family: 'Inter', sans-serif; font-size: 0.62rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink3); }
-.voices-grid { display: grid; grid-template-columns: 1.1fr 0.9fr 1fr; gap: 16px; align-items: start; }
-.v-card {
-  padding: 48px 40px; background: var(--mist);
-  border: 1px solid transparent; position: relative; overflow: hidden;
-  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s;
+.trust-label {
+  font-size: 0.88rem; font-weight: 500;
+  color: var(--cream); margin-bottom: 3px;
 }
-.v-card::before { content: '"'; position: absolute; top: -8px; left: 16px; font-family: 'Cormorant Garamond', serif; font-size: 7rem; line-height: 1; color: rgba(201,168,168,0.12); pointer-events: none; }
-.v-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(to right, var(--clay), var(--clay2)); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
-.v-card:hover::after { transform: scaleX(1); }
-.v-card:nth-child(2) { background: var(--cream); margin-top: 48px; }
-.v-card:nth-child(3) { background: var(--mist2); margin-top: 24px; }
-.v-card:hover { transform: translateY(-4px); box-shadow: 0 12px 48px rgba(43,43,43,0.07); border-color: rgba(201,168,168,0.2); }
-/* ↑ READABILITY */
-.v-q { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.15rem; font-weight: 300; line-height: 1.8; color: var(--ink); margin-bottom: 28px; position: relative; z-index: 1; }
-.v-sep { width: 20px; height: 1px; background: var(--clay); margin-bottom: 16px; }
-.v-name { font-family: 'Lato', sans-serif; font-size: 0.74rem; font-weight: 400; letter-spacing: 0.1em; color: var(--ink); margin-bottom: 4px; }
-.v-trip { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.86rem; color: var(--clay2); }
-
-/* ── ENQUIRY ── */
-.enquiry {
-  background: var(--mist); padding: 160px 72px 140px;
-  display: grid; grid-template-columns: 1fr 1fr; gap: 120px;
-  align-items: center; position: relative; overflow: hidden;
-  border-top: 1px solid var(--mist2);
+.trust-sub { font-size: 0.78rem; color: var(--cream3); line-height: 1.5; }
+.compliance-chart {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 12px; margin-top: 3rem;
 }
-.enquiry::after {
-  content: ''; position: absolute; right: -80px; top: 50%; transform: translateY(-50%);
-  width: 600px; height: 600px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(201,168,168,0.07) 0%, transparent 70%); pointer-events: none;
+.comp-box {
+  padding: 20px;
+  border: 1px solid var(--line2);
+  background: var(--mist2);
+  clip-path: polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%);
 }
-.enq-eyebrow { font-family: 'Inter', sans-serif; font-size: 0.62rem; font-weight: 400; letter-spacing: 0.32em; text-transform: uppercase; color: var(--clay2); margin-bottom: 36px; display: flex; align-items: center; gap: 14px; }
-.enq-eyebrow::before { content: ''; width: 22px; height: 1px; background: var(--clay); opacity: 0.7; }
-.enq-h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.4rem, 4.5vw, 4.2rem); font-weight: 300; line-height: 1.08; color: var(--ink); margin-bottom: 36px; }
-.enq-h2 em { font-style: italic; color: var(--clay2); }
-/* ↑ READABILITY */
-.enq-body { font-family: 'Lato', sans-serif; font-size: 1rem; line-height: 2.1; color: var(--ink2); max-width: 380px; }
-.enq-options { display: flex; flex-direction: column; position: relative; z-index: 1; }
-.enq-opt { display: flex; align-items: center; justify-content: space-between; padding: 26px 0; border-top: 1px solid var(--mist2); text-decoration: none; transition: padding-left 0.35s ease; }
-.enq-opt:last-child { border-bottom: 1px solid var(--mist2); }
-.enq-opt:hover { padding-left: 12px; }
-.enq-opt-label { font-family: 'Inter', sans-serif; font-size: 0.6rem; font-weight: 400; letter-spacing: 0.26em; text-transform: uppercase; color: var(--ink3); margin-bottom: 6px; }
-.enq-opt-val { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--ink); letter-spacing: 0.04em; }
-.enq-arrow { font-size: 0.95rem; color: var(--clay); transition: transform 0.3s; }
-.enq-opt:hover .enq-arrow { transform: translateX(8px); }
-
-/* ── FOOTER ── */
-footer {
-  background: var(--ink);
-  padding: 100px 72px 52px;
-  border-top: 2px solid var(--clay2);
+.comp-val {
+  font-family: var(--mono); font-size: 1.8rem;
+  color: var(--amber2); margin-bottom: 4px;
 }
-.footer-top { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 72px; border-bottom: 1px solid rgba(201,168,168,0.12); }
-.f-brand { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 1rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--mist); margin-bottom: 14px; }
-.f-tagline { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.95rem; color: rgba(242,236,229,0.5); line-height: 1.85; margin-bottom: 28px; }
-.f-contact { font-family: 'Lato', sans-serif; font-size: 0.82rem; font-weight: 300; color: rgba(242,236,229,0.55); line-height: 2; }
-.f-contact a { color: rgba(242,236,229,0.7); text-decoration: none; transition: color 0.3s; }
-.f-contact a:hover { color: var(--clay); }
-.f-head { font-family: 'Inter', sans-serif; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--clay); margin-bottom: 28px; }
-.f-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-.f-list a { font-family: 'Lato', sans-serif; font-size: 0.84rem; font-weight: 300; color: rgba(242,236,229,0.55); text-decoration: none; transition: color 0.3s; }
-.f-list a:hover { color: var(--mist); }
-.footer-bottom { padding-top: 32px; display: flex; justify-content: space-between; align-items: center; }
-.f-copy { font-family: 'Lato', sans-serif; font-size: 0.7rem; font-weight: 300; color: rgba(242,236,229,0.35); letter-spacing: 0.06em; }
-.f-ig { font-family: 'Inter', sans-serif; font-size: 0.64rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(242,236,229,0.5); text-decoration: none; transition: color 0.3s; }
-.f-ig:hover { color: var(--clay); }
-
-/* ── MOBILE ── */
-@media (max-width: 1024px) {
-  .harsha { grid-template-columns: 1fr 1fr; }
-  .harsha-text { grid-column: 2; }
-  .harsha-deco { display: none; }
-  .harsha-float, .harsha-corner-tr, .harsha-corner-bl { display: none; }
+.comp-label {
+  font-family: var(--mono); font-size: 0.58rem;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--cream3);
 }
-@media (max-width: 768px) {
-  .nav { padding: 20px 28px; }
-  .nav.stuck { padding: 16px 28px; }
-  .nav-center, .nav-cta { display: none; }
-  .nav-burger { display: flex; }
 
-  .hero { grid-template-columns: 1fr; grid-template-rows: auto auto auto auto auto; padding: 100px 28px 60px; gap: 0; }
-  .hero-vline, .hero-bg-word { display: none; }
-  .hero-tag  { grid-column: 1; grid-row: 1; padding-bottom: 8px; }
-  .hero-date { grid-column: 1; grid-row: 2; text-align: left; justify-content: flex-start; padding-bottom: 20px; }
-  .hero-hl   { grid-column: 1; grid-row: 3; padding-right: 0; padding-top: 0; padding-bottom: 28px; }
-  .hero-h1   { font-size: clamp(3.6rem, 16vw, 5.2rem); }
-  .hero-img-col { grid-column: 1; grid-row: 4; margin-left: 0; padding-bottom: 28px; }
-  .hero-img-frame { aspect-ratio: 4/3; }
-  .hero-img-corner, .hero-img-corner-bl { display: none; }
-  .hero-badge { bottom: -10px; right: -6px; width: 68px; height: 68px; }
-  .hero-badge p { font-size: 0.44rem; }
-  .hero-bottom { grid-column: 1; grid-row: 5; flex-direction: column; align-items: flex-start; padding-right: 0; gap: 22px; }
-
-  .manifesto { padding: 80px 28px; grid-template-columns: 1fr; gap: 48px; }
-  .philosophy { padding: 80px 28px; grid-template-columns: 1fr; gap: 40px; }
-  .philosophy::before { left: 28px; right: 28px; }
-  .phil-label { writing-mode: horizontal-tb; transform: none; }
-
-  .journeys-header { padding: 64px 28px 40px; flex-direction: column; align-items: flex-start; gap: 16px; }
-  .journeys-header::after { left: 28px; right: 28px; }
-  .journeys-meta { text-align: left; }
-  .journeys-track { padding: 40px 28px; gap: 12px; }
-  .j-card { flex: 0 0 290px; }
-  .journeys-hint { padding: 0 28px 48px; }
-
-  .harsha { padding: 80px 28px; grid-template-columns: 1fr; border-top: none; }
-  .harsha-text { grid-column: 1; }
-  .harsha-frame { aspect-ratio: 3/2; }
-  .harsha-float, .harsha-corner-tr, .harsha-corner-bl, .harsha-deco { display: none; }
-
-  .immersive { min-height: 380px; }
-  .immersive-content { padding: 48px 28px; }
-
-  .voices { padding: 80px 28px; }
-  .voices-header { flex-direction: column; align-items: flex-start; gap: 14px; margin-bottom: 48px; }
-  .voices-grid { grid-template-columns: 1fr; gap: 12px; }
-  .v-card:nth-child(2), .v-card:nth-child(3) { margin-top: 0; }
-
-  .enquiry { padding: 100px 28px 80px; grid-template-columns: 1fr; gap: 56px; }
-
-  footer { padding: 64px 28px 44px; }
-  .footer-top { grid-template-columns: 1fr 1fr; gap: 36px; }
-  .footer-bottom { flex-direction: column; gap: 14px; }
+/* ─── CONTACT ─── */
+.contact-section {
+  background: var(--navy2);
+  position: relative; overflow: hidden;
 }
-@media (max-width: 480px) {
-  .j-card { flex: 0 0 260px; }
-  .v-card { padding: 36px 28px; }
+.contact-section::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--amber3), transparent);
+}
+.contact-inner {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 5rem; align-items: start;
+}
+.contact-heading {
+  font-family: var(--serif); font-size: 2.5rem;
+  color: var(--cream); margin-bottom: 1rem; line-height: 1.1;
+}
+.contact-heading em { color: var(--amber2); font-style: italic; }
+.contact-desc { font-size: 0.88rem; color: var(--cream3); line-height: 1.85; margin-bottom: 2rem; }
+.contact-details { display: flex; flex-direction: column; gap: 2px; }
+.contact-row {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 14px 16px;
+  background: var(--mist2);
+  border: 1px solid var(--line2);
+  transition: border-color 0.25s;
+}
+.contact-row:hover { border-color: var(--line); }
+.contact-icon { font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
+.contact-key {
+  font-family: var(--mono); font-size: 0.58rem;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--amber3); margin-bottom: 2px;
+}
+.contact-val { font-size: 0.85rem; color: var(--cream); }
+
+.form-wrap { display: flex; flex-direction: column; gap: 14px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field-label {
+  font-family: var(--mono); font-size: 0.57rem;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--cream3);
+}
+.field-input {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--line2);
+  color: var(--cream);
+  font-family: var(--sans); font-size: 0.85rem;
+  padding: 10px 14px; outline: none;
+  transition: border-color 0.25s;
+  clip-path: polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%);
+}
+.field-input:focus { border-color: var(--amber); }
+.field-input::placeholder { color: var(--cream3); opacity: 0.5; font-size: 0.82rem; }
+select.field-input option { background: var(--navy2); }
+
+.success-box {
+  padding: 3rem 2rem;
+  border: 1px solid rgba(200,146,42,0.3);
+  background: rgba(200,146,42,0.04);
+  text-align: center;
+}
+.success-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+.success-title {
+  font-family: var(--serif); font-size: 2rem;
+  color: var(--amber2); margin-bottom: 0.5rem;
+}
+.success-sub { font-size: 0.85rem; color: var(--cream3); line-height: 1.7; }
+
+/* ─── FOOTER ─── */
+.footer {
+  background: var(--navy);
+  border-top: 1px solid var(--line);
+  padding: 2.5rem 5vw;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center; gap: 2rem;
+}
+.footer-brand .nav-name { font-size: 0.85rem; }
+.footer-copy {
+  font-family: var(--mono); font-size: 0.6rem;
+  letter-spacing: 0.12em; color: var(--cream3);
+  text-align: center; line-height: 1.7;
+}
+.footer-links {
+  display: flex; gap: 2rem; list-style: none;
+  justify-content: flex-end;
+}
+.footer-links a {
+  font-family: var(--mono); font-size: 0.6rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cream3); text-decoration: none;
+  transition: color 0.25s;
+}
+.footer-links a:hover { color: var(--amber); }
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 960px) {
+  .nav { padding: 0 1.5rem; }
+  .nav-links { display: none; }
+  .section { padding: 64px 5vw; }
+  .hero { grid-template-columns: 1fr; padding: 100px 5vw 60px; gap: 3rem; }
+  .model-grid, .contact-inner, .trust-inner, .process-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .cap-grid { grid-template-columns: 1fr; }
+  .audience-grid { grid-template-columns: 1fr; }
+  .compliance-chart { grid-template-columns: 1fr 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .footer { grid-template-columns: 1fr; text-align: center; }
+  .footer-links { justify-content: center; }
+  .process-left { position: static; }
+  .products-table thead { display: none; }
 }
 `;
 
-function useFadeUp() {
-  const ref = useRef(null);
-  const [vis, setVis] = useState(false);
-  useEffect(() => {
-    const el = ref.current; if (!el) return;
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setVis(true); obs.disconnect(); } },
-      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
-    );
-    obs.observe(el); return () => obs.disconnect();
-  }, []);
-  return [ref, vis];
-}
-function FU({ children, d = 0, className = "", style = {} }) {
-  const [ref, vis] = useFadeUp();
-  return (
-    <div ref={ref} className={`fu${vis ? " in" : ""} ${className}`}
-      style={{ transitionDelay: `${d * 0.14}s`, ...style }}>
-      {children}
-    </div>
-  );
-}
+// ─── DATA ─────────────────────────────────────────────────────────────────────
 
-function Botanical({ color = "#C9A8A8", style = {} }) {
-  return (
-    <svg viewBox="0 0 80 130" fill="none" xmlns="http://www.w3.org/2000/svg" style={style}>
-      <line x1="40" y1="130" x2="40" y2="0" stroke={color} strokeWidth="0.7"/>
-      <path d="M40 100 Q22 82 14 62" stroke={color} strokeWidth="0.7" fill="none"/>
-      <path d="M40 80 Q58 65 64 46" stroke={color} strokeWidth="0.7" fill="none"/>
-      <path d="M40 58 Q20 44 16 26" stroke={color} strokeWidth="0.7" fill="none"/>
-      <path d="M40 38 Q56 26 58 10" stroke={color} strokeWidth="0.7" fill="none"/>
-      <ellipse cx="14" cy="60" rx="6" ry="4" transform="rotate(-20 14 60)" stroke={color} strokeWidth="0.7" fill="none"/>
-      <ellipse cx="64" cy="44" rx="6" ry="4" transform="rotate(20 64 44)" stroke={color} strokeWidth="0.7" fill="none"/>
-      <ellipse cx="16" cy="24" rx="5" ry="3" transform="rotate(-30 16 24)" stroke={color} strokeWidth="0.7" fill="none"/>
-      <ellipse cx="58" cy="8" rx="5" ry="3" transform="rotate(25 58 8)" stroke={color} strokeWidth="0.7" fill="none"/>
-    </svg>
-  );
-}
-
-const JOURNEYS = [
-  { cls:"d-bhutan", tag:"Himalayan Kingdom", dest:"Bhutan",    sub:"Mountains & Monasteries", desc:"Walk with Kelly Dorji through dzongs and valleys. Meditation at dawn, hot stone baths at dusk. Eight days that ask nothing of you except presence.",  dur:"8 Days",  dates:"April 9–16, 2026", price:"From AED 12,100", loc:"Paro Valley, Bhutan" },
-  { cls:"d-japan",  tag:"Island of Ritual",  dest:"Japan",     sub:"Stillness in Motion",    desc:"From Kyoto's moss temples to Hokkaido's frozen shores. A journey through silence, ceremony, and the Japanese art of noticing.",                   dur:"12 Days", dates:"March 2026",       price:"From AED 18,500", loc:"Arashiyama, Kyoto" },
-  { cls:"d-jordan", tag:"Ancient Light",     dest:"Jordan",    sub:"Desert & Deep Time",     desc:"Wadi Rum at sunrise. Petra at the blue hour. Bedouin tea poured slow. Jordan holds a quiet that cities cannot manufacture.",                   dur:"8 Days",  dates:"November 2026",    price:"From AED 15,000", loc:"Wadi Rum, Jordan" },
-  { cls:"d-sl",     tag:"Jungle & Sea",      dest:"Sri Lanka", sub:"Spice, Temple & Shore",  desc:"Sigiriya at first light. Temple towns wrapped in frangipani. Surf-washed southern shores. An island that overwhelms gently.",                dur:"10 Days", dates:"2026",             price:"From AED 16,000", loc:"Galle, Sri Lanka" },
+const TICKER = [
+  { k: "IEC Registered", v: "DGFT · India" },
+  { k: "Active Markets", v: "12+ Countries" },
+  { k: "Incoterms", v: "FOB · CIF · CFR · EXW · DAP" },
+  { k: "Trade Finance", v: "LC · DP · DA · Advance" },
+  { k: "Documentation", v: "COO · Phyto · FSSAI · BIS" },
+  { k: "Compliance", v: "IEC · DGFT · GST · MCA" },
+  { k: "Verticals", v: "Agriculture · Textiles · Spices · Chemicals" },
 ];
 
-const VOICES = [
-  { q:"Bhutan, the country, the pace of life, the clean spiritual air — and of course Harsha. Beautiful mix of everything my heart needed. Beautifully curated with every need fulfilled.", name:"Trissha", trip:"Bhutan · 2024" },
-  { q:"Details, precision, and thoughtfulness. Beautiful experiences organised with so much love and care for individual needs.", name:"Feizal Virani", trip:"Bhutan · 2024" },
-  { q:"A treasure trove of authenticity. The magic was in the perfect planning — from surprise al fresco lunches to cooking competitions. Truly unforgettable.", name:"Suna Nakhare", trip:"Bhutan · 2023" },
+const CAPS = [
+  { n:"01", icon:"🔗", t:"Supplier Network Access", d:"Direct relationships with verified Indian manufacturers across agriculture, textiles, chemicals, spices, and handicrafts — no intermediaries, no opacity." },
+  { n:"02", icon:"📋", t:"Export Documentation", d:"COO, phytosanitary certificates, packing lists, commercial invoices, FSSAI, BIS, and full destination-country compliance — every shipment is document-complete." },
+  { n:"03", icon:"🌐", t:"Market Intelligence", d:"Buyer profiling, tariff analysis, demand forecasting, and competitive positioning across GCC, Southeast Asia, Europe, and Africa." },
+  { n:"04", icon:"🚢", t:"Logistics Coordination", d:"Freight forwarding, customs clearance, container optimisation, multimodal routing, and real-time tracking from factory gate to final port." },
+  { n:"05", icon:"💰", t:"Trade Finance Support", d:"LC management, export credit facilitation, ECGC coordination, and structured payment terms designed for both buyers and supplier-partners." },
+  { n:"06", icon:"✅", t:"Quality Assurance", d:"Pre-shipment inspections, third-party lab coordination, sample validation, and compliance sign-off before every consignment moves." },
 ];
 
-const MARQUEE = [
-  "Bhutan · Mountains & Monasteries","Japan · Stillness in Motion",
-  "Jordan · Desert & Deep Time","Sri Lanka · Spice, Temple & Shore",
-  "Bhutan · Mountains & Monasteries","Japan · Stillness in Motion",
-  "Jordan · Desert & Deep Time","Sri Lanka · Spice, Temple & Shore",
-  "Bhutan · Mountains & Monasteries","Japan · Stillness in Motion",
-  "Jordan · Desert & Deep Time","Sri Lanka · Spice, Temple & Shore",
+const PRODUCTS = [
+  { emoji:"🌾", cat:"Agriculture", name:"Basmati & Non-Basmati Rice", spec:"Grade A, FSSAI Certified", markets:["UAE","KSA","UK","EU"] },
+  { emoji:"🌶️", cat:"Spices", name:"Indian Spice Blends & Singles", spec:"AGMARK, FSSAI", markets:["GCC","USA","Australia"] },
+  { emoji:"🧵", cat:"Textiles", name:"Cotton Yarn & Woven Fabrics", spec:"BIS, OEKO-TEX", markets:["Bangladesh","Vietnam","Turkey"] },
+  { emoji:"🪔", cat:"Handicrafts", name:"Artisan Decor & Gifting", spec:"Custom Certs Available", markets:["EU","UK","USA"] },
+  { emoji:"🧪", cat:"Chemicals", name:"Industrial & Agro Chemicals", spec:"Reach, IS Certified", markets:["Africa","SEA","LATAM"] },
+  { emoji:"🫒", cat:"Food Processing", name:"Processed Foods & Condiments", spec:"FSSAI, Halal", markets:["GCC","USA","EU"] },
+  { emoji:"💎", cat:"Gems & Jewellery", name:"Polished Diamonds & Jewellery", spec:"KP, BIS Hallmark", markets:["UAE","HK","Belgium"] },
+  { emoji:"🌿", cat:"Pharma / Herbal", name:"Herbal Extracts & Ayurveda", spec:"WHO-GMP, US FDA", markets:["EU","USA","Japan"] },
 ];
 
-const HARSHA_STATS = [
-  { num: "8–20",  label: "travellers per\njourney" },
-  { num: "100%",  label: "founder-led,\nevery time" },
-  { num: "4+",    label: "years building\ntrust, not contracts" },
+const PROCESS = [
+  { n:"01", phase:"Inquiry", t:"Requirement Assessment", d:"A structured intake of buyer specifications, volume requirements, quality standards, certifications, and target pricing — establishing the full trade brief." },
+  { n:"02", phase:"Sourcing", t:"Supplier Selection", d:"From our verified manufacturer database, we identify and shortlist producers who meet technical, capacity, and compliance requirements." },
+  { n:"03", phase:"Compliance", t:"Documentation & Certification", d:"Our compliance desk prepares all export documents, obtains required certificates, and ensures destination-country regulatory readiness before production begins." },
+  { n:"04", phase:"Logistics", t:"Shipping & Freight Management", d:"We coordinate freight forwarding, book cargo, manage Indian port customs, and track the consignment to final destination." },
+  { n:"05", phase:"Settlement", t:"Payment & Post-Shipment", d:"LC negotiations, bank discounting, RODTEP / incentive claims, and full payment settlement for all parties — clean and documented." },
 ];
 
+const AUDIENCES = [
+  { icon:"🌍", t:"International Buyers", d:"A reliable single-window into India's best manufacturing — with end-to-end execution, so you receive shipments, not problems.", pts:["Verified source manufacturers","Competitive FOB/CIF pricing","Custom documentation packages","Flexible payment terms","Dedicated account management"] },
+  { icon:"🏭", t:"Indian Suppliers", d:"We are your export arm — connecting your production capacity to global demand without the overhead of running an export division.", pts:["Buyer introduction & credibility","Documentation handled in-house","Advance payment arrangements","No direct export overhead","Structured long-term relationships"] },
+  { icon:"🏦", t:"Financial Institutions", d:"A compliant, incorporated merchant export entity with structured documentation practices and clean trade records.", pts:["IEC & DGFT registered entity","GST-compliant operations","LC & export finance ready","Auditable trade records","ECGC coverage eligible"] },
+];
+
+const TRUST = [
+  { icon:"🏛️", t:"Incorporated Entity", sub:"Registered under Ministry of Corporate Affairs, India" },
+  { icon:"📜", t:"IEC Certificate", sub:"Importer Exporter Code · DGFT, Government of India" },
+  { icon:"⚖️", t:"GST & Tax Compliant", sub:"Fully registered for GST and income tax obligations" },
+  { icon:"🌐", t:"Multi-Country Track Record", sub:"Active trade relationships across 12+ destination countries" },
+];
+
+// ─── COMPONENT ────────────────────────────────────────────────────────────────
 export default function App() {
-  const [stuck,    setStuck]    = useState(false);
-  const [loaded,   setLoaded]   = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [progress, setProgress] = useState(0);
+  const [form, setForm] = useState({ name:"", company:"", email:"", country:"", type:"", message:"" });
+  const [sent, setSent] = useState(false);
 
-  useEffect(() => {
-    const t = setTimeout(() => setLoaded(true), 2700);
-    return () => clearTimeout(t);
-  }, []);
-
-  useEffect(() => {
-    const fn = () => {
-      setStuck(window.scrollY > 60);
-      setProgress((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
-    };
-    window.addEventListener("scroll", fn, { passive: true });
-    return () => window.removeEventListener("scroll", fn);
-  }, []);
-
-  const trackRef = useRef(null);
-  const drag = useRef({ down: false, startX: 0, scrollLeft: 0 });
-  const onMouseDown  = useCallback((e) => { drag.current = { down: true, startX: e.pageX - trackRef.current.offsetLeft, scrollLeft: trackRef.current.scrollLeft }; }, []);
-  const onMouseUp    = useCallback(() => { drag.current.down = false; }, []);
-  const onMouseLeave = useCallback(() => { drag.current.down = false; }, []);
-  const onMouseMove  = useCallback((e) => {
-    if (!drag.current.down) return; e.preventDefault();
-    trackRef.current.scrollLeft = drag.current.scrollLeft - (e.pageX - trackRef.current.offsetLeft - drag.current.startX) * 1.5;
-  }, []);
+  const tickerDouble = [...TICKER, ...TICKER];
 
   return (
     <>
-      <style>{G}</style>
-      <div className="grain" aria-hidden="true" />
-      <div className="pv-progress" style={{ width: `${progress}%` }} aria-hidden="true" />
+      <style>{css}</style>
 
-      <div className={`pre-wrap${loaded ? " done" : ""}`}>
-        <p className="pre-logo">PuraVida · with Harsha</p>
-        <div className="pre-line" />
-        <p className="pre-sub">Boutique Transformational Travel · Dubai</p>
-      </div>
-
-      <div className={`mobile-menu${menuOpen ? " open" : ""}`} role="dialog" aria-modal="true">
-        <button className="mobile-close-btn" onClick={() => setMenuOpen(false)}>✕</button>
-        {[["#journeys","Journeys"],["#philosophy","Philosophy"],["#harsha","Harsha"],["#voices","Voices"]].map(([h,l]) => (
-          <a key={l} href={h} onClick={() => setMenuOpen(false)}>{l}</a>
-        ))}
-        <a href="https://wa.me/+971562216643" target="_blank" rel="noopener noreferrer" onClick={() => setMenuOpen(false)}>
-          Begin Your Journey
+      {/* NAV */}
+      <nav className="nav">
+        <a href="#hero" className="nav-brand">
+          <div className="nav-emblem">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="16,2 30,10 30,22 16,30 2,22 2,10" stroke="#C8922A" strokeWidth="1.2" fill="none"/>
+              <polygon points="16,8 24,13 24,19 16,24 8,19 8,13" stroke="#C8922A" strokeWidth="0.7" fill="rgba(200,146,42,0.08)"/>
+              <polygon points="16,13 20,15.5 20,17.5 16,20 12,17.5 12,15.5" fill="#C8922A"/>
+            </svg>
+          </div>
+          <span className="nav-name">NEXUS<em>TRADE</em></span>
         </a>
-      </div>
-
-      <nav className={`nav${stuck ? " stuck" : ""}`}>
-        <a href="#" className="nav-logo">PuraVida · Harsha</a>
-        <ul className="nav-center">
-          {[["#journeys","Journeys"],["#philosophy","Philosophy"],["#harsha","Harsha"],["#voices","Voices"]].map(([h,l]) => (
-            <li key={l}><a href={h}>{l}</a></li>
+        <ul className="nav-links">
+          {["Model","Capabilities","Products","Process","Contact"].map(l=>(
+            <li key={l}><a href={`#${l.toLowerCase()}`}>{l}</a></li>
           ))}
         </ul>
-        <a href="https://wa.me/+971562216643" className="nav-cta" target="_blank" rel="noopener noreferrer">
-          Begin Your Journey
-        </a>
-        <button className="nav-burger" onClick={() => setMenuOpen(true)} aria-label="Open menu">
-          <span /><span />
-        </button>
+        <a href="#contact" className="nav-enquire">Enquire Now</a>
       </nav>
 
-      {/* ── HERO ── */}
-      <section className="hero" id="home">
-        <div className="hero-vline" aria-hidden="true" />
-        <p className="hero-bg-word" aria-hidden="true">stillness</p>
-        <div className="hero-tag">
-          <span className="hero-tag-dot" />
-          Boutique Transformational Travel · Dubai
-        </div>
-        <div className="hero-date">February 2026</div>
-        <div className="hero-hl">
-          <p className="hero-eyebrow">A journey curated by Harsha</p>
-          <h1 className="hero-h1">
-            <span className="hero-h1-line"><span className="hero-h1-inner line1">When</span></span>
-            <span className="hero-h1-line"><span className="hero-h1-inner line2">you're</span></span>
-            <span className="hero-h1-line"><span className="hero-h1-inner line3">ready.</span></span>
-          </h1>
-        </div>
-        <div className="hero-img-col">
-          <div className="hero-img-frame">
-            <div className="hero-img-scene" />
-            <div className="hero-img-grad" />
-            <div className="hero-img-corner" aria-hidden="true" />
-            <div className="hero-img-corner-bl" aria-hidden="true" />
-            <p className="hero-img-caption">Paro Valley, Bhutan</p>
-            <div className="hero-badge">
-              <p>April<br />9–16<br />2026</p>
-            </div>
+      {/* HERO */}
+      <section className="hero" id="hero">
+        <div className="hero-bg" />
+        <div className="hero-grid-lines" />
+
+        <div className="hero-left">
+          <div className="hero-kicker">
+            <div className="kicker-line" />
+            <span className="kicker-text">Merchant Export Company · India · IEC Registered</span>
           </div>
-        </div>
-        <div className="hero-bottom">
+          <h1 className="hero-headline">
+            India's<br />
+            <span className="italic-line">Export Gateway</span><br />
+            to the World
+          </h1>
           <p className="hero-sub">
-            Intimate group journeys to Bhutan, Japan, Jordan & Sri Lanka — for professionals 35–60 who travel not to escape life, but to finally arrive in it.
+            We are not a manufacturer. We are a strategic trading partner — sourcing premium Indian products, navigating global compliance, and delivering seamless export execution for buyers and suppliers worldwide.
           </p>
           <div className="hero-actions">
-            <a href="https://wa.me/+971562216643?text=Reserve%20my%20spot%20for%20Bhutan%20April%202026"
-              className="btn-p" target="_blank" rel="noopener noreferrer">
-              <div className="btn-p-bg" /><div className="btn-p-bg2" />
-              <span>Join Bhutan · April 2026 →</span>
-            </a>
-            <a href="#journeys" className="btn-g">See all journeys →</a>
+            <a href="#contact" className="btn-gold">Start a Trade Conversation</a>
+            <a href="#capabilities" className="btn-outline">Our Capabilities</a>
           </div>
         </div>
-      </section>
 
-      {/* ── MARQUEE ── */}
-      <div className="marquee-strip" aria-hidden="true">
-        <div className="marquee-track">
-          {MARQUEE.map((item, i) => (
-            <span key={i}>
-              {item}
-              {i < MARQUEE.length - 1 && (
-                <span style={{ display:"inline-block", width:3, height:3, borderRadius:"50%", background:"#C9A8A8", verticalAlign:"middle", margin:"0 10px", opacity:0.5 }} />
-              )}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* ── MANIFESTO ── */}
-      <section className="manifesto" id="philosophy">
-        <FU d={0}>
-          <p className="manifesto-quote">
-            "It is not just about sitting in silence — it is about understanding where these practices come from, and how to carry a little more presence back into everyday life."
-            <span className="manifesto-attr">Harsha · Bhutan 2026</span>
-          </p>
-        </FU>
-        <div className="manifesto-stats">
-          {[
-            { num:"8–20",  label:"travellers per journey. Intimacy by design." },
-            { num:"100%",  label:"founder-led. Harsha on every single journey." },
-            { num:"4+",    label:"years of cultural relationships. Not vendor contracts." },
-          ].map((s,i) => (
-            <FU key={i} d={i+1}>
-              <div className="m-stat">
-                <p className="m-num">{s.num}</p>
-                <p className="m-label">{s.label}</p>
-              </div>
-            </FU>
-          ))}
-        </div>
-      </section>
-
-      {/* ── PHILOSOPHY ── */}
-      <section className="philosophy">
-        <FU><p className="phil-label">Our Approach</p></FU>
-        <div>
-          <FU d={1}>
-            <h2 className="phil-h2">We don't pack<br />itineraries.<br />We allow breath,<br />space, pause.</h2>
-          </FU>
-          <FU d={2}>
-            <p className="phil-body">PuraVida exists for the traveller who has seen the world but is ready to truly arrive somewhere. Our groups are small — eight to twenty people. Our itineraries are unhurried.</p>
-            <p className="phil-body">Every journey is led by Harsha herself. There are no tour managers, no scripts — only presence and the extraordinary people who carry the land in their stories.</p>
-            <p className="phil-sig">Stillness over noise.</p>
-          </FU>
-        </div>
-        <FU d={2}>
-          <div className="phil-pillars">
-            {[
-              { n:"01", t:"Stillness Over Speed",  b:"We do not pack itineraries. We allow breath, space, and pause between every experience." },
-              { n:"02", t:"Presence as Luxury",    b:"No WiFi dependency. Guided moments for reconnection with place, people, and self." },
-              { n:"03", t:"Authentic Reverence",   b:"Real village meals, real rituals, real people — relationships built over years, not contracts." },
-              { n:"04", t:"Founder-Led Always",    b:"Harsha leads every single journey. Your experience is never handed to someone else." },
-            ].map(p => (
-              <div className="phil-pillar" key={p.n}>
-                <span className="phil-num">{p.n}</span>
-                <div><p className="phil-title">{p.t}</p><p className="phil-text">{p.b}</p></div>
-              </div>
-            ))}
-          </div>
-        </FU>
-      </section>
-
-      {/* ── JOURNEYS ── */}
-      <section className="journeys-wrap" id="journeys">
-        <div className="journeys-header">
-          <FU><h2 className="journeys-h2">Current <em>Journeys</em></h2></FU>
-          <FU d={2}>
-            <p className="journeys-meta">
-              Small groups · 8–20 travellers<br />
-              AED 12,100–29,000 per person<br />
-              Every detail carried by Harsha
-            </p>
-          </FU>
-        </div>
-        <div className="journeys-track" ref={trackRef}
-          onMouseDown={onMouseDown} onMouseUp={onMouseUp}
-          onMouseLeave={onMouseLeave} onMouseMove={onMouseMove}>
-          {JOURNEYS.map((j,i) => (
-            <div className="j-card" key={i}>
-              <div className="j-card-img">
-                <div className={`j-card-img-inner ${j.cls}`} />
-                <div className="j-card-img-overlay" />
-                <span className="j-card-loc">{j.loc}</span>
-              </div>
-              <div className="j-body">
-                <p className="j-tag">{j.tag}</p>
-                <h3 className="j-dest">{j.dest}</h3>
-                <p className="j-sub">{j.sub}</p>
-                <p className="j-desc">{j.desc}</p>
-                <div className="j-details">
-                  {[["Duration",j.dur],["Dates",j.dates],["Investment",j.price]].map(([l,v]) => (
-                    <div className="j-detail" key={l}>
-                      <span className="j-detail-label">{l}</span>
-                      <span>{v}</span>
-                    </div>
-                  ))}
+        <div className="hero-right">
+          <div className="terminal-card">
+            <div className="terminal-header">
+              <span className="terminal-title">Trade Profile · NexusTrade</span>
+              <span className="terminal-status"><span className="status-dot"/>Active</span>
+            </div>
+            <div className="terminal-body">
+              <div className="metric-row">
+                <div className="metric">
+                  <div className="metric-label">Export Markets</div>
+                  <div className="metric-val">12+</div>
+                  <div className="metric-sub">Countries served</div>
                 </div>
-                <a href="https://wa.me/+971562216643" className="j-cta" target="_blank" rel="noopener noreferrer">
-                  Begin enquiry →
-                </a>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="journeys-hint" aria-hidden="true">
-          <div className="hint-line" />
-          <span className="hint-text">Drag to explore</span>
-          <span className="hint-arrow">→</span>
-        </div>
-      </section>
-
-      {/* ── HARSHA ── */}
-      <section className="harsha" id="harsha">
-        {/* Col 1: Portrait */}
-        <div className="harsha-img-col">
-          <FU>
-            <div className="harsha-frame">
-              <div className="harsha-img-inner" />
-              <div className="harsha-caption">
-                <h3>Harsha</h3>
-                <span>Founder & Journey Curator</span>
-              </div>
-            </div>
-            <div className="harsha-corner-tr" aria-hidden="true" />
-            <div className="harsha-corner-bl" aria-hidden="true" />
-            <div className="harsha-float">
-              <p className="harsha-float-q">"Tea tastes different in Bhutan — slower, quieter and exactly where you are."</p>
-            </div>
-          </FU>
-        </div>
-
-        {/* Col 2: Text */}
-        <div className="harsha-text">
-          <FU><p className="harsha-eyebrow">About Harsha</p></FU>
-          <FU d={1}>
-            <h2 className="harsha-h2">I don't guide you<br />through a country.<br />I walk beside you.</h2>
-          </FU>
-          <FU d={2}>
-            <p className="harsha-body">Every relationship we hold with our cultural partners — the monastery in Bhutan, the tea master in Kyoto, the Bedouin family in Wadi Rum — was built over years of quiet return visits, not vendor contracts.</p>
-            <p className="harsha-body">When you travel with PuraVida, you travel through those relationships. You are welcomed not as a tourist, but as a guest of someone trusted.</p>
-            <p className="harsha-body">Because intimacy changes everything. Conversations go deeper. Laughter feels shared. There is space to be seen, heard, and supported — not just counted.</p>
-            <a href="https://wa.me/+971562216643" className="harsha-link" target="_blank" rel="noopener noreferrer">
-              Begin a conversation →
-            </a>
-          </FU>
-        </div>
-
-        {/* Col 3: Decorative panel — fills the empty right side */}
-        <FU d={3} className="harsha-deco">
-          {/* Faint watermark word */}
-          <p className="harsha-deco-word" aria-hidden="true">presence</p>
-
-          {/* Key stats */}
-          <div className="harsha-deco-stats">
-            {HARSHA_STATS.map((s, i) => (
-              <div className="harsha-deco-stat" key={i}>
-                <p className="harsha-deco-num">{s.num}</p>
-                <p className="harsha-deco-label" style={{ whiteSpace: "pre-line" }}>{s.label}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* Botanical sprig */}
-          <div className="harsha-deco-botanical">
-            <Botanical color="#C9A8A8" style={{ width: 48, height: 80 }} />
-          </div>
-        </FU>
-      </section>
-
-      {/* ── IMMERSIVE ── */}
-      <div className="immersive">
-        <Botanical color="white" style={{ position:"absolute", right:80, top:"50%", transform:"translateY(-50%)", opacity:0.05, width:200 }} />
-        <div className="immersive-content">
-          <FU>
-            <p className="immersive-label">Punakha, Bhutan · January 2026</p>
-            <p className="immersive-q">
-              "Most people think Bhutan is only about the monasteries and the mountains. For me, the magic lives right here — in the quiet of a farmhouse kitchen."
-              <span className="immersive-attr">— Harsha</span>
-            </p>
-          </FU>
-        </div>
-      </div>
-
-      {/* ── VOICES ── */}
-      <section className="voices" id="voices">
-        <div className="voices-header">
-          <FU><h2 className="voices-h2">Voices from<br /><em>past journeys</em></h2></FU>
-          <FU d={2}><p className="voices-count">Bhutan · Japan · Ladakh</p></FU>
-        </div>
-        <div className="voices-grid">
-          {VOICES.map((v,i) => (
-            <FU key={i} d={i}>
-              <div className="v-card">
-                <p className="v-q">"{v.q}"</p>
-                <div className="v-sep" />
-                <p className="v-name">{v.name}</p>
-                <p className="v-trip">{v.trip}</p>
-              </div>
-            </FU>
-          ))}
-        </div>
-      </section>
-
-      {/* ── ENQUIRY ── */}
-      <section className="enquiry">
-        <FU>
-          <p className="enq-eyebrow">Begin the Conversation</p>
-          <h2 className="enq-h2">
-            The right journey<br />finds you when<br />you're <em>truly ready.</em>
-          </h2>
-          <p className="enq-body">
-            We don't take bookings. We begin with a conversation. Tell us where you are, what you're carrying, and what you're looking for.
-          </p>
-        </FU>
-        <FU d={2}>
-          <div className="enq-options">
-            {[
-              { label:"WhatsApp",          value:"+971 56 221 6643",              href:"https://wa.me/+971562216643" },
-              { label:"Email",             value:"harsha@puravidawithharsha.com", href:"mailto:harsha@puravidawithharsha.com" },
-              { label:"Bhutan April 2026", value:"Download full itinerary",       href:"https://puravidawithharsha.com/wp-content/uploads/2026/01/Bhutan-2026.pdf" },
-              { label:"Instagram",         value:"@puravida.withharsha",          href:"https://instagram.com/puravida.withharsha" },
-            ].map((o,i) => (
-              <a key={i} href={o.href} className="enq-opt"
-                target={o.href.startsWith("http") ? "_blank" : undefined}
-                rel="noopener noreferrer">
-                <div>
-                  <p className="enq-opt-label">{o.label}</p>
-                  <p className="enq-opt-val">{o.value}</p>
+                <div className="metric">
+                  <div className="metric-label">Supplier Network</div>
+                  <div className="metric-val">500+</div>
+                  <div className="metric-sub">Verified manufacturers</div>
                 </div>
-                <span className="enq-arrow">→</span>
-              </a>
-            ))}
-          </div>
-        </FU>
-      </section>
-
-      {/* ── FOOTER ── */}
-      <footer>
-        <div className="footer-top">
-          <div>
-            <p className="f-brand">PuraVida with Harsha</p>
-            <p className="f-tagline">Where stillness finds you.<br />Dubai · Bhutan · Japan · Jordan · Sri Lanka</p>
-            <div className="f-contact">
-              <p><a href="mailto:harsha@puravidawithharsha.com">harsha@puravidawithharsha.com</a></p>
-              <p><a href="https://wa.me/+971562216643">+971 56 221 6643</a></p>
-            </div>
-          </div>
-          {[
-            { head:"Journeys", links:[["#journeys","Bhutan"],["#journeys","Japan"],["#journeys","Jordan"],["#journeys","Sri Lanka"]] },
-            { head:"Company",  links:[["#harsha","About Harsha"],["#philosophy","Philosophy"],["#journeys","Bespoke Experience"],["#journeys","Nature & Protect"]] },
-            { head:"Connect",  links:[["https://wa.me/+971562216643","Begin an Enquiry"],["https://instagram.com/puravida.withharsha","Instagram"],["https://puravidawithharsha.com/wp-content/uploads/2026/01/Bhutan-2026.pdf","Download Itinerary"]] },
-          ].map(col => (
-            <div key={col.head}>
-              <p className="f-head">{col.head}</p>
-              <ul className="f-list">
-                {col.links.map(([href,label]) => (
-                  <li key={label}>
-                    <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">
-                      {label}
-                    </a>
-                  </li>
+              </div>
+              <div className="metric-row">
+                <div className="metric">
+                  <div className="metric-label">Compliance Rate</div>
+                  <div className="metric-val">100%</div>
+                  <div className="metric-sub">Zero documentation rejections</div>
+                </div>
+                <div className="metric">
+                  <div className="metric-label">Quote Turnaround</div>
+                  <div className="metric-val">48hr</div>
+                  <div className="metric-sub">From enquiry to quote</div>
+                </div>
+              </div>
+              <div className="cert-row">
+                {["IEC Certified","DGFT Registered","GST Compliant","MCA Incorporated"].map(c=>(
+                  <span className="cert-badge" key={c}>{c}</span>
                 ))}
-              </ul>
+              </div>
+              <div className="mandate-block">
+                <div className="mandate-label">Mandate</div>
+                <div className="mandate-text">Merchant Export Company — we source, document, and ship. Not a manufacturer; a trade execution partner.</div>
+              </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* TICKER */}
+      <div className="ticker">
+        <div className="ticker-tag">TRADE DATA</div>
+        <div style={{overflow:"hidden",flex:1}}>
+          <div className="ticker-scroll">
+            {tickerDouble.map((item,i)=>(
+              <span className="ticker-item" key={i}>
+                <b>◆ {item.k}:</b> {item.v} <span className="ticker-divider">  ·  </span>
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* BUSINESS MODEL */}
+      <section className="section model-section" id="model">
+        <div className="section-inner">
+          <div className="model-grid">
+            <div className="model-text">
+              <div className="eyebrow"><div className="eyebrow-line"/><span className="eyebrow-text">Business Model</span></div>
+              <h2 className="section-heading">Merchant<br /><em>Export</em> Model</h2>
+              <p className="section-body">
+                As a dedicated merchant exporter, we sit at the intersection of Indian manufacturing excellence and global demand. We take ownership of the trade — from source identification to final delivery — so our partners never navigate complexity alone.
+              </p>
+              <div className="pillars" style={{marginTop:"2rem"}}>
+                {[
+                  {icon:"🔍", t:"Source, Don't Manufacture", d:"We curate from India's best factories — no production bias, pure market and quality focus."},
+                  {icon:"⚡", t:"Speed to Execution", d:"From enquiry to shipment-ready documentation in weeks, not months."},
+                  {icon:"🤝", t:"Risk Shared, Reward Split", d:"Buyers get reliability. Suppliers get global reach. We build lasting partnerships."},
+                ].map(p=>(
+                  <div className="pillar" key={p.t}>
+                    <div className="pillar-glyph">{p.icon}</div>
+                    <div>
+                      <div className="pillar-title">{p.t}</div>
+                      <div className="pillar-desc">{p.d}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Document visual */}
+            <div className="model-doc">
+              <div className="doc-header">
+                <div>
+                  <div className="doc-id">DOC REF · NXT/MEX/2025/001</div>
+                  <div className="doc-title">Company Profile<br />& Trade Mandate</div>
+                </div>
+                <div className="doc-seal">🏛️</div>
+              </div>
+              <div className="doc-body">
+                {[
+                  {k:"Entity Type", v:"Merchant Export Company (Non-Manufacturer)"},
+                  {k:"Registration", v:"Ministry of Corporate Affairs, India"},
+                  {k:"IEC Code", v:"DGFT Registered — Active"},
+                  {k:"Tax Status", v:"GST Compliant · PAN Registered"},
+                  {k:"Trade Scope", v:"Sourcing, documentation, freight, finance, QA"},
+                  {k:"Target Markets", v:<span className="doc-tags">{["GCC","EU","SE Asia","Africa","Americas"].map(m=><span className="doc-tag" key={m}>{m}</span>)}</span>},
+                  {k:"Product Lines", v:<span className="doc-tags">{["Agriculture","Spices","Textiles","Chemicals","Gems"].map(m=><span className="doc-tag" key={m}>{m}</span>)}</span>},
+                ].map(f=>(
+                  <div className="doc-field" key={f.k}>
+                    <span className="doc-field-key">{f.k}</span>
+                    <span className="doc-field-val">{f.v}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="doc-footer">
+                <span className="doc-footer-icon">✓</span>
+                <span className="doc-footer-text">All credentials available for verification upon request.<br/>Compliance documentation furnished for every trade.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CAPABILITIES */}
+      <section className="section cap-section" id="capabilities">
+        <div className="section-inner">
+          <div className="cap-header">
+            <div className="eyebrow"><div className="eyebrow-line"/><span className="eyebrow-text">Core Capabilities</span></div>
+            <h2 className="section-heading">Full-Spectrum<br /><em>Export Execution</em></h2>
+            <p className="section-body">From supplier selection to payment settlement — we manage every touchpoint of the export journey.</p>
+          </div>
+          <div className="cap-grid">
+            {CAPS.map(c=>(
+              <div className="cap-card" key={c.n}>
+                <div className="cap-num">{c.n} //</div>
+                <div className="cap-icon">{c.icon}</div>
+                <div className="cap-title">{c.t}</div>
+                <div className="cap-desc">{c.d}</div>
+                <div className="cap-watermark">{c.n}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* PRODUCTS */}
+      <section className="section products-section" id="products">
+        <div className="section-inner">
+          <div className="products-header">
+            <div>
+              <div className="eyebrow"><div className="eyebrow-line"/><span className="eyebrow-text">Product Portfolio</span></div>
+              <h2 className="section-heading" style={{marginBottom:0}}>What We<br /><em>Source & Export</em></h2>
+            </div>
+            <div className="products-note">
+              We source across key Indian export categories. Not limited to the below — if it is made in India, we can export it. Custom sourcing available on request.
+            </div>
+          </div>
+          <table className="products-table">
+            <thead className="pt-head">
+              <tr>
+                <th style={{width:40}}></th>
+                <th>Category</th>
+                <th>Product Line</th>
+                <th>Certifications</th>
+                <th>Key Markets</th>
+              </tr>
+            </thead>
+            <tbody>
+              {PRODUCTS.map(p=>(
+                <tr className="pt-row" key={p.name}>
+                  <td className="pt-emoji">{p.emoji}</td>
+                  <td><span className="pt-cat">{p.cat}</span></td>
+                  <td><span className="pt-name">{p.name}</span></td>
+                  <td><span className="pt-spec mono" style={{fontSize:"0.72rem",color:"var(--cream3)"}}>{p.spec}</span></td>
+                  <td><div className="pt-markets">{p.markets.map(m=><span className="pt-market" key={m}>{m}</span>)}</div></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* PROCESS */}
+      <section className="section process-section" id="process">
+        <div className="section-inner">
+          <div className="process-grid">
+            <div className="process-left">
+              <div className="eyebrow"><div className="eyebrow-line"/><span className="eyebrow-text">How We Work</span></div>
+              <h2 className="section-heading">The Export<br /><em>Process</em></h2>
+              <p className="section-body" style={{marginBottom:"2rem"}}>
+                A structured, transparent trade process from enquiry to final delivery — with zero ambiguity at any stage.
+              </p>
+              <div className="compliance-chart">
+                {[["100%","Doc Accuracy"],["48hr","Quote SLA"],["5 Step","Process"],["12+","Markets"]].map(([v,l])=>(
+                  <div className="comp-box" key={l}>
+                    <div className="comp-val">{v}</div>
+                    <div className="comp-label">{l}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="process-steps">
+              {PROCESS.map(p=>(
+                <div className="process-step" key={p.n}>
+                  <div className="step-num">{p.n}</div>
+                  <div>
+                    <div className="step-phase">Phase · {p.phase}</div>
+                    <div className="step-title">{p.t}</div>
+                    <div className="step-desc">{p.d}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* AUDIENCE */}
+      <section className="section audience-section" id="audience">
+        <div className="section-inner">
+          <div style={{textAlign:"center",maxWidth:560,margin:"0 auto"}}>
+            <div className="eyebrow" style={{justifyContent:"center"}}><div className="eyebrow-line"/><span className="eyebrow-text">Who We Serve</span></div>
+            <h2 className="section-heading">Built For<br /><em>Every Partner</em></h2>
+          </div>
+          <div className="audience-grid">
+            {AUDIENCES.map(a=>(
+              <div className="audience-card" key={a.t}>
+                <div className="aud-icon">{a.icon}</div>
+                <div className="aud-title">{a.t}</div>
+                <div className="aud-desc">{a.d}</div>
+                <ul className="aud-list">
+                  {a.pts.map(pt=><li key={pt}>{pt}</li>)}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* TRUST */}
+      <section className="section trust-section" id="compliance">
+        <div className="section-inner">
+          <div className="trust-inner">
+            <div>
+              <div className="eyebrow"><div className="eyebrow-line"/><span className="eyebrow-text">Compliance & Credibility</span></div>
+              <h2 className="section-heading">Legitimacy<br />You Can <em>Verify</em></h2>
+              <p className="section-body">
+                Every claim on this page is backed by registered documentation. We operate as a fully compliant, incorporated merchant export entity — ready for due diligence from buyers, suppliers, and financial institutions alike.
+              </p>
+              <div style={{marginTop:"2rem",padding:"20px",background:"rgba(200,146,42,0.05)",borderLeft:"2px solid var(--amber)",borderTop:"1px solid var(--line)"}}>
+                <div className="eyebrow-text" style={{marginBottom:"8px"}}>Our Assurance</div>
+                <p style={{fontSize:"0.82rem",color:"var(--cream3)",lineHeight:1.8}}>
+                  All compliance documents — IEC certificate, GST registration, MCA incorporation, and trade references — are available upon request during the onboarding process.
+                </p>
+              </div>
+            </div>
+            <div className="trust-right">
+              {TRUST.map(t=>(
+                <div className="trust-row" key={t.t}>
+                  <div className="trust-icon-box">{t.icon}</div>
+                  <div>
+                    <div className="trust-label">{t.t}</div>
+                    <div className="trust-sub">{t.sub}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CONTACT */}
+      <section className="section contact-section" id="contact">
+        <div className="section-inner">
+          <div className="contact-inner">
+            <div>
+              <div className="eyebrow"><div className="eyebrow-line"/><span className="eyebrow-text">Get In Touch</span></div>
+              <h2 className="contact-heading">Start a<br /><em>Trade Conversation</em></h2>
+              <p className="contact-desc">
+                Whether you are an international buyer seeking reliable Indian supply, a domestic manufacturer looking for an export partner, or a financial institution evaluating trade relationships — we are ready to engage.
+              </p>
+              <div className="contact-details">
+                {[
+                  {icon:"📍",k:"Headquarters",v:"Mumbai, Maharashtra, India"},
+                  {icon:"📧",k:"Email",v:"trade@nexustrade.in"},
+                  {icon:"📞",k:"Direct Line",v:"+91 98XXXXXXXX"},
+                  {icon:"⏱️",k:"Response Time",v:"Within 24 Business Hours"},
+                ].map(d=>(
+                  <div className="contact-row" key={d.k}>
+                    <span className="contact-icon">{d.icon}</span>
+                    <div>
+                      <div className="contact-key">{d.k}</div>
+                      <div className="contact-val">{d.v}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              {sent ? (
+                <div className="success-box">
+                  <div className="success-icon">✓</div>
+                  <div className="success-title">Enquiry Received</div>
+                  <p className="success-sub">Our trade team will review your enquiry and respond within 24 business hours.</p>
+                </div>
+              ) : (
+                <div className="form-wrap">
+                  <div className="form-row">
+                    <div className="field">
+                      <label className="field-label">Full Name *</label>
+                      <input className="field-input" placeholder="John Smith" required value={form.name} onChange={e=>setForm({...form,name:e.target.value})} />
+                    </div>
+                    <div className="field">
+                      <label className="field-label">Company *</label>
+                      <input className="field-input" placeholder="Company Name" required value={form.company} onChange={e=>setForm({...form,company:e.target.value})} />
+                    </div>
+                  </div>
+                  <div className="form-row">
+                    <div className="field">
+                      <label className="field-label">Email *</label>
+                      <input className="field-input" type="email" placeholder="you@company.com" required value={form.email} onChange={e=>setForm({...form,email:e.target.value})} />
+                    </div>
+                    <div className="field">
+                      <label className="field-label">Country</label>
+                      <input className="field-input" placeholder="Country" value={form.country} onChange={e=>setForm({...form,country:e.target.value})} />
+                    </div>
+                  </div>
+                  <div className="field">
+                    <label className="field-label">I Am A *</label>
+                    <select className="field-input" required value={form.type} onChange={e=>setForm({...form,type:e.target.value})}>
+                      <option value="">Select your role</option>
+                      <option>International Buyer</option>
+                      <option>Indian Supplier / Manufacturer</option>
+                      <option>Financial Institution</option>
+                      <option>Logistics / Freight Partner</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                  <div className="field">
+                    <label className="field-label">Trade Enquiry</label>
+                    <textarea className="field-input" rows={4} placeholder="Describe your requirement or interest..." value={form.message} onChange={e=>setForm({...form,message:e.target.value})} />
+                  </div>
+                  <button className="btn-gold" style={{alignSelf:"flex-start"}} onClick={()=>setSent(true)}>Submit Enquiry →</button>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="footer">
+        <div className="footer-brand">
+          <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:6}}>
+            <svg width="22" height="22" viewBox="0 0 32 32" fill="none">
+              <polygon points="16,2 30,10 30,22 16,30 2,22 2,10" stroke="#C8922A" strokeWidth="1.2" fill="none"/>
+              <polygon points="16,13 20,15.5 20,17.5 16,20 12,17.5 12,15.5" fill="#C8922A"/>
+            </svg>
+            <span className="nav-name">NEXUS<em>TRADE</em></span>
+          </div>
+          <div className="footer-copy">Merchant Export Company · IEC Registered · India</div>
+        </div>
+        <div className="footer-copy">© 2025 NexusTrade<br />All Rights Reserved</div>
+        <ul className="footer-links">
+          {["Model","Capabilities","Products","Process","Contact"].map(l=>(
+            <li key={l}><a href={`#${l.toLowerCase()}`}>{l}</a></li>
           ))}
-        </div>
-        <div className="footer-bottom">
-          <p className="f-copy">© 2026 PuraVida with Harsha. All rights reserved. Dubai, UAE.</p>
-          <a href="https://instagram.com/puravida.withharsha" className="f-ig" target="_blank" rel="noopener noreferrer">
-            @puravida.withharsha
-          </a>
-        </div>
+        </ul>
       </footer>
     </>
   );
