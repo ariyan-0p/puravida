@@ -4,7 +4,9 @@ import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import { tripsData } from '../data/trips';
 
+// ---------------------------------------------------------------------------
 // Fade-up hook
+// ---------------------------------------------------------------------------
 function useFadeUp() {
   const ref = useRef(null);
   const [vis, setVis] = useState(false);
@@ -13,7 +15,7 @@ function useFadeUp() {
     if (!el) return;
     const obs = new IntersectionObserver(
       ([e]) => { if (e.isIntersecting) { setVis(true); obs.disconnect(); } },
-      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
     );
     obs.observe(el);
     return () => obs.disconnect();
@@ -21,455 +23,797 @@ function useFadeUp() {
   return [ref, vis];
 }
 
-function FU({ children, d = 0, className = "", style = {} }) {
+function FU({ children, d = 0, className = '', style = {} }) {
   const [ref, vis] = useFadeUp();
   return (
-    <div ref={ref} className={`fu${vis ? " in" : ""} ${className}`}
-      style={{ transitionDelay: `${d * 0.14}s`, ...style }}>
+    <div
+      ref={ref}
+      className={`fu${vis ? ' in' : ''} ${className}`}
+      style={{ transitionDelay: `${d * 0.14}s`, ...style }}
+    >
       {children}
     </div>
   );
 }
 
+// ---------------------------------------------------------------------------
+// Image helpers — maps slug → Unsplash collections
+// Replace each array with your real /assets/ paths when ready.
+// ---------------------------------------------------------------------------
+const LOCATION_IMAGES = {
+  bhutan: {
+    // ── Local assets ───────────────────────────────────────────────
+    hero:       '/assets/hero-bhutan.jpg',
+    harshaMain: '/assets/harsha-portrait.jpg',
+    harshaFloat:'/assets/Heera-1024x478.jpg',
+    // ── Unsplash placeholders — swap for /assets/ when ready ───────
+    mosaic: [
+      { src: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=800&q=85',   caption: "Tiger's Nest, Paro",  tall: true },
+      { src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=85', caption: 'Eastern Himalayas' },
+      { src: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=85',   caption: 'Prayer Flags' },
+      { src: 'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1200&q=85', caption: 'Phobjikha Valley', wide: true },
+    ],
+    philosophy:        'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=900&q=85',
+    philosophyCaption: 'The Punakha Dzong, built at the confluence of two rivers, 1637',
+    strip1:    'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1800&q=85',
+    itinStrip: [
+      { src: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=1000&q=85', large: true },
+      { src: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=85' },
+      { src: 'https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=600&q=85' },
+    ],
+    gallery: [
+      { src: 'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1200&q=85', label: 'Phobjikha Valley', span2: true, row2: true },
+      { src: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=85',  label: 'Dochula Pass' },
+      { src: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=85',     label: 'Prayer Flags' },
+      { src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=85', label: 'High Himalaya', span2: true },
+    ],
+    strip2: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=1800&q=85',
+  },
+
+  japan: {
+    hero:       'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1800&q=90',
+    harshaMain: '/assets/harsha-portrait.jpg',
+    harshaFloat:'/assets/Heera-1024x478.jpg',
+    mosaic: [
+      { src: 'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=800&q=85', caption: 'Fushimi Inari', tall: true },
+      { src: 'https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?w=800&q=85', caption: 'Kyoto Temple' },
+      { src: 'https://images.unsplash.com/photo-1480796927426-f609979314bd?w=800&q=85', caption: 'Tokyo Lights' },
+      { src: 'https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=1200&q=85', caption: 'Cherry Blossoms', wide: true },
+    ],
+    philosophy:        'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=900&q=85',
+    philosophyCaption: 'Fushimi Inari Taisha, Kyoto — ten thousand torii gates climbing Mt. Inari',
+    strip1:    'https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?w=1800&q=85',
+    itinStrip: [
+      { src: 'https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?w=1000&q=85', large: true },
+      { src: 'https://images.unsplash.com/photo-1480796927426-f609979314bd?w=600&q=85' },
+      { src: 'https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=600&q=85' },
+    ],
+    gallery: [
+      { src: 'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1200&q=85', label: 'Fushimi Inari', span2: true, row2: true },
+      { src: 'https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?w=600&q=85',  label: 'Kyoto' },
+      { src: 'https://images.unsplash.com/photo-1480796927426-f609979314bd?w=600&q=85',  label: 'Tokyo' },
+      { src: 'https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=1200&q=85', label: 'Cherry Blossoms', span2: true },
+    ],
+    strip2: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1800&q=85',
+  },
+
+  jordan: {
+    hero:       'https://images.unsplash.com/photo-1548786811-dd6e453ccca7?w=1800&q=90',
+    harshaMain: '/assets/harsha-portrait.jpg',
+    harshaFloat:'/assets/Heera-1024x478.jpg',
+    mosaic: [
+      { src: 'https://images.unsplash.com/photo-1580834341580-8c17a3a630ca?w=800&q=85', caption: 'Petra Treasury', tall: true },
+      { src: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=800&q=85',   caption: 'Wadi Rum' },
+      { src: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=800&q=85',   caption: 'Desert Dunes' },
+      { src: 'https://images.unsplash.com/photo-1548786811-dd6e453ccca7?w=1200&q=85',  caption: 'Siq Canyon', wide: true },
+    ],
+    philosophy:        'https://images.unsplash.com/photo-1580834341580-8c17a3a630ca?w=900&q=85',
+    philosophyCaption: 'Al-Khazneh (The Treasury), Petra — carved from rose-red sandstone, 1st century AD',
+    strip1:    'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=1800&q=85',
+    itinStrip: [
+      { src: 'https://images.unsplash.com/photo-1580834341580-8c17a3a630ca?w=1000&q=85', large: true },
+      { src: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=600&q=85' },
+      { src: 'https://images.unsplash.com/photo-1548786811-dd6e453ccca7?w=600&q=85' },
+    ],
+    gallery: [
+      { src: 'https://images.unsplash.com/photo-1580834341580-8c17a3a630ca?w=1200&q=85', label: 'Petra Treasury', span2: true, row2: true },
+      { src: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=600&q=85',    label: 'Wadi Rum' },
+      { src: 'https://images.unsplash.com/photo-1548786811-dd6e453ccca7?w=600&q=85',    label: 'The Siq' },
+      { src: 'https://images.unsplash.com/photo-1580834341580-8c17a3a630ca?w=1200&q=85', label: 'Rose City', span2: true },
+    ],
+    strip2: 'https://images.unsplash.com/photo-1580834341580-8c17a3a630ca?w=1800&q=85',
+  },
+
+  'sri-lanka': {
+    hero:       'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=1800&q=90',
+    harshaMain: '/assets/harsha-portrait.jpg',
+    harshaFloat:'/assets/Heera-1024x478.jpg',
+    mosaic: [
+      { src: 'https://images.unsplash.com/photo-1566296314736-6eaac1ca0cb9?w=800&q=85', caption: 'Sigiriya Rock', tall: true },
+      { src: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=85',   caption: 'Tea Terraces' },
+      { src: 'https://images.unsplash.com/photo-1516690561799-46d8f74f9abf?w=800&q=85', caption: 'Temple of Tooth' },
+      { src: 'https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=1200&q=85', caption: 'Galle Fort', wide: true },
+    ],
+    philosophy:        'https://images.unsplash.com/photo-1566296314736-6eaac1ca0cb9?w=900&q=85',
+    philosophyCaption: 'Sigiriya Rock Fortress — a palace in the sky, 5th century AD',
+    strip1:    'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=1800&q=85',
+    itinStrip: [
+      { src: 'https://images.unsplash.com/photo-1566296314736-6eaac1ca0cb9?w=1000&q=85', large: true },
+      { src: 'https://images.unsplash.com/photo-1516690561799-46d8f74f9abf?w=600&q=85' },
+      { src: 'https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=600&q=85' },
+    ],
+    gallery: [
+      { src: 'https://images.unsplash.com/photo-1566296314736-6eaac1ca0cb9?w=1200&q=85', label: 'Sigiriya', span2: true, row2: true },
+      { src: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=600&q=85',    label: 'Tea Country' },
+      { src: 'https://images.unsplash.com/photo-1516690561799-46d8f74f9abf?w=600&q=85', label: 'Kandy' },
+      { src: 'https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=1200&q=85', label: 'Galle Fort', span2: true },
+    ],
+    strip2: 'https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=1800&q=85',
+  },
+};
+
+// Fallback for unknown slugs
+const DEFAULT_IMAGES = LOCATION_IMAGES.bhutan;
+
+// ---------------------------------------------------------------------------
+// Sub-components
+// ---------------------------------------------------------------------------
+
+function IntroMosaic({ images }) {
+  return (
+    <div className="td-mosaic">
+      {images.map((img, i) => (
+        <div
+          key={i}
+          className={`td-mosaic-cell${img.tall ? ' tall' : ''}${img.wide ? ' wide' : ''}`}
+        >
+          <img src={img.src} alt={img.caption || ''} loading="lazy" />
+          {img.caption && <div className="td-mosaic-caption">{img.caption}</div>}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function FullBleedStrip({ src, quote, attr }) {
+  return (
+    <div className="td-strip">
+      <div className="td-strip-bg" style={{ backgroundImage: `url('${src}')` }} />
+      <div className="td-strip-overlay" />
+      {quote && (
+        <div className="td-strip-text">
+          <p className="td-strip-quote">"{quote}"</p>
+          {attr && <p className="td-strip-attr">— {attr}</p>}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ItinPhotoStrip({ images }) {
+  return (
+    <div className="td-itin-strip">
+      {images.map((img, i) => (
+        <div key={i} className={`td-itin-strip-cell${img.large ? ' large' : ''}`}>
+          <img src={img.src} alt="" loading="lazy" />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function GalleryGrid({ images }) {
+  return (
+    <div className="td-gallery-grid">
+      {images.map((img, i) => (
+        <div
+          key={i}
+          className={`td-gallery-cell${img.span2 ? ' span2' : ''}${img.row2 ? ' row2' : ''}`}
+        >
+          <img src={img.src} alt={img.label || ''} loading="lazy" />
+          {img.label && <div className="td-gallery-label">{img.label}</div>}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Main component
+// ---------------------------------------------------------------------------
 export default function TripDetail({ tripSlug }) {
   const [progress, setProgress] = useState(0);
-  const trip = tripsData[tripSlug];
+  const trip  = tripsData[tripSlug];
+  const imgs  = LOCATION_IMAGES[tripSlug] || DEFAULT_IMAGES;
 
   useEffect(() => {
     window.scrollTo(0, 0);
     const fn = () => {
-      setProgress((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+      setProgress(
+        (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100
+      );
     };
-    window.addEventListener("scroll", fn, { passive: true });
-    return () => window.removeEventListener("scroll", fn);
+    window.addEventListener('scroll', fn, { passive: true });
+    return () => window.removeEventListener('scroll', fn);
   }, [tripSlug]);
 
   if (!trip) {
-    return <div style={{padding:'100px 20px', textAlign:'center'}}>Trip not found</div>;
+    return (
+      <div style={{ padding: '100px 20px', textAlign: 'center' }}>
+        Trip not found
+      </div>
+    );
   }
+
+  // Split itinerary into two halves for the photo strip insert
+  const half      = Math.ceil((trip.itinerary?.length || 0) / 2);
+  const itinFirst = trip.itinerary?.slice(0, half) || [];
+  const itinLast  = trip.itinerary?.slice(half)    || [];
 
   return (
     <>
       <style>{`
-        /* ALL 9 PRINCIPLES APPLIED TO TRIP PAGES */
-        
-        /* PRINCIPLE 2: Minimal overlay, large image */
-        .trip-hero {
-          min-height: 75vh;
-          display: flex; align-items: flex-end;
-          position: relative; overflow: hidden;
-          background: ${trip.hero.gradient};
-        }
-        .trip-hero-bg {
-          position: absolute; inset: 0;
-          background: url('${trip.hero.image}') center center / cover no-repeat,
-            ${trip.hero.gradient};
-        }
-        .trip-hero::before {
-          content: ''; position: absolute; inset: 0;
-          background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%);
-        }
-        .trip-hero::after {
-          content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-          background: linear-gradient(to right, transparent, rgba(217,166,161,0.35), transparent);
-        }
-        .trip-hero-content {
-          position: relative; z-index: 1;
-          padding: 80px 100px; /* PRINCIPLE 1: 100px padding */
-          max-width: 1000px;
-        }
-        .trip-breadcrumb {
-          font-family: 'Inter', sans-serif;
-          font-size: 0.56rem; letter-spacing: 0.28em; text-transform: uppercase;
-          color: rgba(255,255,255,0.6); margin-bottom: 24px;
-          display: flex; align-items: center; gap: 12px;
-        }
-        .trip-breadcrumb a {
-          color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.3s;
-        }
-        .trip-breadcrumb a:hover { color: #D9A6A1; }
-        .trip-eyebrow {
-          font-family: 'Inter', sans-serif;
-          font-size: 0.58rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase;
-          color: #D9A6A1; margin-bottom: 20px;
-        }
-        .trip-h1 {
-          font-family: 'Cormorant Garamond', serif;
-          font-size: clamp(3.5rem, 7vw, 6rem); font-weight: 300; line-height: 1;
-          color: var(--white); margin-bottom: 16px;
-        }
-        .trip-sub {
-          font-family: 'Cormorant Garamond', serif; font-style: italic;
-          font-size: 1.4rem; color: #D9A6A1; margin-bottom: 32px;
-        }
-        .trip-meta {
-          display: flex; gap: 40px; flex-wrap: wrap;
-          font-family: 'Lato', sans-serif; font-size: 0.86rem; color: rgba(255,255,255,0.85);
-        }
-        .trip-meta-item { display: flex; flex-direction: column; gap: 4px; }
-        .trip-meta-label {
-          font-size: 0.56rem; letter-spacing: 0.22em; text-transform: uppercase;
-          color: rgba(255,255,255,0.5);
+        /* ── TOKENS ─────────────────────────────────────────────────── */
+        :root {
+          --clay:  #D9A6A1;
+          --sage:  #B7C8B5;
+          --cream: #F8F4EE;
+          --mist:  #EEF0EB;
+          --ink:   #2B2B2B;
+          --mid:   #404040;
+          --soft:  #606060;
         }
 
-        /* PRINCIPLE 5: "Why This Journey" - Educational depth */
-        .trip-philosophy {
-          background: var(--white); 
-          padding: 100px; /* PRINCIPLE 1: 100px padding */
-          display: grid; grid-template-columns: 1fr 1fr; 
-          gap: 100px; /* PRINCIPLE 1: Generous gap */
+        /* ── PROGRESS ───────────────────────────────────────────────── */
+        .td-progress {
+          position: fixed; top: 0; left: 0; height: 2px;
+          background: var(--clay); z-index: 999;
+          transition: width 0.1s linear;
+        }
+
+        /* ── FADE-UP ─────────────────────────────────────────────────── */
+        .fu { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .fu.in { opacity: 1; transform: translateY(0); }
+
+        /* ── HERO ────────────────────────────────────────────────────── */
+        .td-hero {
+          min-height: 100vh; position: relative; overflow: hidden;
+          display: flex; align-items: flex-end;
+        }
+        .td-hero-bg {
+          position: absolute; inset: 0;
+          background-size: cover; background-position: center;
+          background-repeat: no-repeat;
+        }
+        .td-hero-overlay {
+          position: absolute; inset: 0;
+          background: linear-gradient(to top,
+            rgba(0,0,0,0.82) 0%,
+            rgba(0,0,0,0.35) 55%,
+            rgba(0,0,0,0.10) 100%);
+        }
+        .td-hero-content {
+          position: relative; z-index: 2;
+          padding: 80px 100px; max-width: 900px;
+        }
+        .td-crumb {
+          font-family: 'Inter', sans-serif;
+          font-size: 0.54rem; letter-spacing: 0.3em; text-transform: uppercase;
+          color: rgba(255,255,255,0.55); margin-bottom: 20px;
+          display: flex; gap: 10px; align-items: center;
+        }
+        .td-crumb a { color: rgba(255,255,255,0.7); text-decoration: none; transition: color .3s; }
+        .td-crumb a:hover { color: var(--clay); }
+        .td-eyebrow {
+          font-family: 'Inter', sans-serif;
+          font-size: 0.57rem; letter-spacing: 0.3em; text-transform: uppercase;
+          color: var(--clay); margin-bottom: 18px;
+        }
+        .td-h1 {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: clamp(3.8rem, 7vw, 6.5rem); font-weight: 300; line-height: 0.95;
+          color: white; margin-bottom: 20px;
+        }
+        .td-tagline {
+          font-family: 'Cormorant Garamond', serif; font-style: italic;
+          font-size: 1.45rem; color: var(--clay); margin-bottom: 36px;
+        }
+        .td-meta { display: flex; gap: 48px; flex-wrap: wrap; }
+        .td-meta-item { display: flex; flex-direction: column; gap: 5px; }
+        .td-meta-label {
+          font-size: 0.54rem; letter-spacing: 0.22em; text-transform: uppercase;
+          color: rgba(255,255,255,0.45); font-family: 'Inter', sans-serif;
+        }
+        .td-meta-val { font-family: 'Lato', sans-serif; font-size: 0.88rem; color: rgba(255,255,255,0.9); }
+        .td-scroll-hint {
+          position: absolute; bottom: 40px; right: 100px; z-index: 2;
+          display: flex; flex-direction: column; align-items: center; gap: 10px;
+          font-family: 'Inter', sans-serif; font-size: 0.5rem;
+          letter-spacing: 0.25em; text-transform: uppercase; color: rgba(255,255,255,0.35);
+        }
+        .td-scroll-line {
+          width: 1px; height: 48px; background: rgba(255,255,255,0.2);
+          position: relative; overflow: hidden;
+        }
+        .td-scroll-line::after {
+          content: ''; position: absolute; top: -50%; left: 0; right: 0; height: 50%;
+          background: rgba(255,255,255,0.6);
+          animation: tdScrollDown 1.8s infinite ease-in-out;
+        }
+        @keyframes tdScrollDown { 0%{top:-50%} 100%{top:100%} }
+
+        /* ── INTRO MOSAIC ────────────────────────────────────────────── */
+        .td-mosaic {
+          display: grid;
+          grid-template-columns: 1.2fr 0.8fr 1fr;
+          grid-template-rows: 320px 220px;
+          gap: 6px;
+          background: var(--ink);
+        }
+        .td-mosaic-cell { overflow: hidden; position: relative; }
+        .td-mosaic-cell img {
+          width: 100%; height: 100%; object-fit: cover; display: block;
+          transition: transform 0.7s ease;
+        }
+        .td-mosaic-cell:hover img { transform: scale(1.04); }
+        .td-mosaic-cell.tall  { grid-row: span 2; }
+        .td-mosaic-cell.wide  { grid-column: span 2; }
+        .td-mosaic-caption {
+          position: absolute; bottom: 0; left: 0; right: 0;
+          background: linear-gradient(to top, rgba(0,0,0,0.62), transparent);
+          padding: 22px 16px 12px;
+          font-family: 'Inter', sans-serif; font-size: 0.52rem;
+          letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.7);
+        }
+
+        /* ── PHILOSOPHY ──────────────────────────────────────────────── */
+        .td-philosophy {
+          background: white;
+          display: grid; grid-template-columns: 1fr 1fr; gap: 80px; padding: 100px;
           align-items: start;
         }
-        .trip-phil-h2 {
-          font-family: 'Cormorant Garamond', serif;
-          font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 300; line-height: 1.2;
-          color: #333333; margin-bottom: 40px;
+        .td-phil-img { width: 100%; height: 480px; object-fit: cover; display: block; }
+        .td-phil-img-caption {
+          font-family: 'Cormorant Garamond', serif; font-style: italic;
+          font-size: 0.9rem; color: var(--soft); margin-top: 14px;
+          padding-left: 16px; border-left: 2px solid var(--clay);
         }
-        .trip-phil-p {
+        .td-section-eyebrow {
+          font-family: 'Inter', sans-serif;
+          font-size: 0.54rem; letter-spacing: 0.3em; text-transform: uppercase;
+          color: var(--clay); margin-bottom: 20px;
+        }
+        .td-section-h2 {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: clamp(2rem, 3.2vw, 3rem); font-weight: 300; line-height: 1.2;
+          color: #333; margin-bottom: 32px;
+        }
+        .td-body-p {
           font-family: 'Lato', sans-serif;
-          font-size: 1rem; 
-          line-height: 1.7; /* PRINCIPLE 1: 1.7 line-height */
-          color: #404040; margin-bottom: 18px;
+          font-size: 0.96rem; line-height: 1.75; color: var(--mid); margin-bottom: 16px;
         }
 
-        /* PRINCIPLE 8: PDF-style itinerary */
-        .trip-itinerary {
-          background: var(--mist); 
-          padding: 100px; /* PRINCIPLE 1: 100px padding */
+        /* ── FULL-BLEED STRIP ────────────────────────────────────────── */
+        .td-strip {
+          height: 420px; position: relative; overflow: hidden;
+          display: flex; align-items: center; justify-content: center;
         }
-        .trip-itin-header {
-          text-align: center; margin-bottom: 80px; 
-          max-width: 720px; /* PRINCIPLE 1: 720px max */
-          margin-left: auto; margin-right: auto;
+        .td-strip-bg {
+          position: absolute; inset: 0;
+          background-size: cover; background-position: center;
         }
-        .trip-itin-h2 {
+        .td-strip-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.4); }
+        .td-strip-text {
+          position: relative; z-index: 1; text-align: center;
+          max-width: 680px; padding: 0 40px;
+        }
+        .td-strip-quote {
           font-family: 'Cormorant Garamond', serif;
-          font-size: clamp(2.4rem, 4vw, 3.8rem); font-weight: 300; color: #333333;
-          margin-bottom: 16px;
+          font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 300; font-style: italic;
+          color: white; line-height: 1.35;
         }
-        .trip-itin-sub {
-          font-family: 'Lato', sans-serif;
-          font-size: 0.86rem; 
-          line-height: 1.7; /* PRINCIPLE 1: 1.7 line-height */
-          letter-spacing: 0.1em; color: #606060;
+        .td-strip-attr {
+          font-family: 'Inter', sans-serif; font-size: 0.54rem;
+          letter-spacing: 0.28em; text-transform: uppercase;
+          color: var(--clay); margin-top: 20px;
         }
-        
-        /* PRINCIPLE 8: Alternating backgrounds (beige/white), 2-column grid */
-        .trip-itin-grid {
-          display: grid; grid-template-columns: 1fr 1fr; 
-          gap: 16px; /* PRINCIPLE 1: Never tight */
-          max-width: 1200px; margin: 0 auto;
+
+        /* ── ITINERARY ───────────────────────────────────────────────── */
+        .td-itinerary { background: var(--mist); padding: 100px; }
+        .td-section-header { text-align: center; margin-bottom: 72px; }
+        .td-section-header .td-section-h2 { font-size: clamp(2.4rem, 4vw, 3.8rem); }
+        .td-itin-grid {
+          display: grid; grid-template-columns: 1fr 1fr;
+          gap: 4px; max-width: 1240px; margin: 0 auto;
         }
-        
-        /* PRINCIPLE 8: Beige/cream cards, Clay Rose day numbers */
-        .day-card {
-          background: var(--cream); /* PRINCIPLE 8: Beige/cream background */
-          border: 1px solid rgba(217,166,161,0.14);
-          padding: 40px; /* PRINCIPLE 1: Generous padding */
-          position: relative;
+
+        /* Day card */
+        .td-day-card {
+          background: var(--cream); padding: 40px; position: relative;
           transition: box-shadow 0.4s, transform 0.4s;
         }
-        .day-card:nth-child(even) {
-          background: var(--white); /* PRINCIPLE 8: Alternating backgrounds */
-        }
-        .day-card:hover {
-          box-shadow: 0 12px 48px rgba(43,43,43,0.08);
-          transform: translateY(-2px);
-        }
-        /* PRINCIPLE 8: Clay Rose top border */
-        .day-card::before {
+        .td-day-card:nth-child(even) { background: white; }
+        .td-day-card::before {
           content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-          background: linear-gradient(to right, #D9A6A1, #B7A090); /* Clay Rose */
+          background: linear-gradient(to right, var(--clay), #B7A090);
         }
-        /* PRINCIPLE 8: Day numbers in Clay Rose */
-        .day-num {
+        .td-day-card:hover {
+          box-shadow: 0 16px 56px rgba(43,43,43,0.08);
+          transform: translateY(-2px); z-index: 1; position: relative;
+        }
+        .td-day-num {
           font-family: 'Cormorant Garamond', serif;
-          font-size: 0.95rem; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase;
-          color: #D9A6A1; /* PRINCIPLE 8: Clay Rose */
-          margin-bottom: 12px;
+          font-size: 0.85rem; letter-spacing: 0.15em; text-transform: uppercase;
+          color: var(--clay); margin-bottom: 10px;
         }
-        .day-title {
+        .td-day-title {
           font-family: 'Cormorant Garamond', serif;
-          font-size: 1.5rem; font-weight: 400; color: #333333; 
-          margin-bottom: 20px; line-height: 1.3;
+          font-size: 1.5rem; font-weight: 400; color: #333;
+          margin-bottom: 16px; line-height: 1.3;
         }
-        .day-experience {
+        .td-day-exp {
           font-family: 'Lato', sans-serif;
-          font-size: 0.92rem; 
-          line-height: 1.7; /* PRINCIPLE 1: 1.7 line-height */
-          color: #404040; margin-bottom: 24px;
+          font-size: 0.88rem; line-height: 1.75; color: var(--mid); margin-bottom: 20px;
         }
-        /* PRINCIPLE 8: Overnight accommodation in sage footer */
-        .day-overnight {
-          display: flex; align-items: center; gap: 12px; padding-top: 20px;
-          border-top: 1px solid rgba(183,200,181,0.3); /* Sage border */
-          font-family: 'Lato', sans-serif; font-size: 0.8rem; color: #606060;
-          background: rgba(221,229,223,0.15); /* PRINCIPLE 8: Sage tint */
-          margin: 0 -40px -40px; padding: 20px 40px;
+        .td-day-foot {
+          display: flex; align-items: center; gap: 10px;
+          padding: 16px 0 0; border-top: 1px solid rgba(183,200,181,0.35);
+          font-size: 0.78rem; color: var(--soft); font-family: 'Lato', sans-serif;
         }
-        .day-overnight::before {
-          content: ''; width: 16px; height: 1px; background: #B7C8B5; opacity: 0.6;
-        }
+        .td-day-foot::before { content: ''; width: 14px; height: 1px; background: var(--sage); flex-shrink: 0; }
 
-        /* PRINCIPLE 6: "What I've Learned" - Founder voice */
-        .trip-harsha-voice {
-          background: #DDE5DF; /* PRINCIPLE 9: Soft Sage */
-          padding: 100px; /* PRINCIPLE 1: 100px padding */
-          display: grid; grid-template-columns: 1fr 1.2fr; 
-          gap: 100px; align-items: center;
+        /* ── ITIN PHOTO STRIP ────────────────────────────────────────── */
+        .td-itin-strip {
+          display: flex; gap: 4px;
+          max-width: 1240px; margin: 4px auto 0; height: 260px; overflow: hidden;
         }
-        .trip-hv-h2 {
+        .td-itin-strip-cell { flex: 1; overflow: hidden; }
+        .td-itin-strip-cell.large { flex: 2; }
+        .td-itin-strip-cell img {
+          width: 100%; height: 100%; object-fit: cover; display: block;
+          transition: transform 0.6s ease;
+        }
+        .td-itin-strip-cell:hover img { transform: scale(1.05); }
+
+        /* ── HARSHA VOICE ────────────────────────────────────────────── */
+        .td-harsha {
+          background: #DDE5DF; padding: 100px;
+          display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+        }
+        .td-harsha-img-wrap { position: relative; }
+        .td-harsha-img-wrap > img {
+          width: 100%; height: 520px; object-fit: cover;
+          object-position: center top; display: block;
+        }
+        .td-harsha-float {
+          position: absolute; bottom: -24px; right: -24px;
+          width: 45%; height: 200px; overflow: hidden;
+          border: 4px solid white;
+          box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+        }
+        .td-harsha-float img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .td-harsha-h2 {
           font-family: 'Cormorant Garamond', serif;
-          font-size: clamp(2rem, 3.2vw, 3rem); font-weight: 300; font-style: italic;
-          color: #333333; margin-bottom: 32px;
+          font-size: clamp(2rem, 3vw, 2.8rem); font-weight: 300; font-style: italic;
+          color: #333; margin-bottom: 28px;
         }
-        .trip-hv-content {
+        .td-harsha-p {
           font-family: 'Lato', sans-serif;
-          font-size: 1rem; 
-          line-height: 1.7; /* PRINCIPLE 1: 1.7 line-height */
-          color: #404040;
+          font-size: 0.96rem; line-height: 1.75; color: var(--mid); margin-bottom: 14px;
         }
-        .trip-hv-sig {
-          margin-top: 40px; display: flex; align-items: center; gap: 12px;
+        .td-sig {
+          margin-top: 36px; display: flex; align-items: center; gap: 14px;
           font-family: 'Cormorant Garamond', serif; font-style: italic;
-          font-size: 1.05rem; color: #D9A6A1;
+          font-size: 1.1rem; color: var(--clay);
         }
-        .trip-hv-sig::before {
-          content: ''; width: 24px; height: 1px; background: #D9A6A1; opacity: 0.7;
+        .td-sig::before { content: ''; width: 28px; height: 1px; background: var(--clay); }
+
+        /* ── GALLERY ─────────────────────────────────────────────────── */
+        .td-gallery { background: var(--ink); }
+        .td-gallery-header { padding: 80px 100px 48px; }
+        .td-gallery-header .td-section-h2 { color: rgba(255,255,255,0.9); }
+        .td-gallery-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr 1fr;
+          grid-template-rows: 280px 200px;
+          gap: 4px;
+        }
+        .td-gallery-cell { overflow: hidden; position: relative; cursor: pointer; }
+        .td-gallery-cell img {
+          width: 100%; height: 100%; object-fit: cover; display: block;
+          transition: transform 0.6s ease, filter 0.4s;
+          filter: brightness(0.85);
+        }
+        .td-gallery-cell:hover img { transform: scale(1.06); filter: brightness(1); }
+        .td-gallery-cell.span2 { grid-column: span 2; }
+        .td-gallery-cell.row2  { grid-row: span 2; }
+        .td-gallery-label {
+          position: absolute; bottom: 14px; left: 14px;
+          font-family: 'Inter', sans-serif; font-size: 0.5rem;
+          letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.65);
         }
 
-        /* What's Included */
-        .trip-included {
-          background: var(--white); 
-          padding: 100px; /* PRINCIPLE 1: 100px padding */
+        /* ── INCLUDED ────────────────────────────────────────────────── */
+        .td-included {
+          background: white; padding: 100px;
           display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
         }
-        .trip-inc-col h3 {
+        .td-inc-h3 {
           font-family: 'Cormorant Garamond', serif;
-          font-size: 1.8rem; font-weight: 400; color: #333333; margin-bottom: 32px;
+          font-size: 1.9rem; font-weight: 400; color: #333; margin-bottom: 28px;
         }
-        .trip-inc-list {
-          list-style: none; display: flex; flex-direction: column; gap: 16px;
+        .td-inc-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+        .td-inc-list li {
+          font-family: 'Lato', sans-serif; font-size: 0.9rem; line-height: 1.7;
+          color: var(--mid); padding-left: 26px; position: relative;
         }
-        .trip-inc-list li {
-          font-family: 'Lato', sans-serif;
-          font-size: 0.92rem; 
-          line-height: 1.7; /* PRINCIPLE 1: 1.7 line-height */
-          color: #404040;
-          padding-left: 28px; position: relative;
-        }
-        .trip-inc-list li::before {
-          content: '✓'; position: absolute; left: 0; color: #D9A6A1;
-          font-weight: 600; font-size: 1rem;
-        }
-        .trip-exc-list li::before { content: '—'; color: #787878; }
+        .td-inc-list.yes li::before { content: '✓'; position: absolute; left: 0; color: var(--clay); font-weight: 600; }
+        .td-inc-list.no  li::before { content: '—'; position: absolute; left: 0; color: #999; }
 
-        /* Testimonials */
-        .trip-testimonials {
-          background: var(--mist); 
-          padding: 100px; /* PRINCIPLE 1: 100px padding */
+        /* ── TESTIMONIALS ────────────────────────────────────────────── */
+        .td-testimonials { background: var(--mist); padding: 100px; }
+        .td-test-grid {
+          display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+          gap: 16px; max-width: 1100px; margin: 0 auto;
         }
-        .trip-test-h2 {
-          font-family: 'Cormorant Garamond', serif;
-          font-size: clamp(2rem, 3vw, 2.8rem); font-weight: 300;
-          color: #333333; text-align: center; margin-bottom: 60px;
+        .td-test-card {
+          background: white; padding: 36px;
+          border-left: 2px solid var(--clay);
         }
-        .trip-test-grid {
-          display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-          gap: 16px; max-width: 1000px; margin: 0 auto;
+        .td-test-q {
+          font-family: 'Cormorant Garamond', serif; font-style: italic;
+          font-size: 1.15rem; line-height: 1.6; color: #333; margin-bottom: 24px;
+        }
+        .td-test-name {
+          font-family: 'Inter', sans-serif; font-size: 0.58rem;
+          letter-spacing: 0.25em; text-transform: uppercase; color: var(--soft);
         }
 
-        /* PRINCIPLE 4: Anti-urgency CTA */
-        .trip-cta {
-          background: var(--cream); 
-          padding: 100px; /* PRINCIPLE 1: 100px padding */
-          text-align: center;
-        }
-        .trip-cta-h2 {
+        /* ── CTA ─────────────────────────────────────────────────────── */
+        .td-cta { background: var(--cream); padding: 120px 100px; text-align: center; }
+        .td-cta-h2 {
           font-family: 'Cormorant Garamond', serif;
-          font-size: clamp(2.4rem, 4.5vw, 4rem); font-weight: 300; line-height: 1.1;
-          color: #333333; margin-bottom: 32px;
+          font-size: clamp(2.8rem, 5vw, 4.5rem); font-weight: 300; line-height: 1.1;
+          color: #333; margin-bottom: 28px;
         }
-        .trip-cta-h2 em { font-style: italic; color: #D9A6A1; }
-        .trip-cta-p {
-          font-family: 'Lato', sans-serif;
-          font-size: 0.96rem; 
-          line-height: 1.7; /* PRINCIPLE 1: 1.7 line-height */
-          color: #404040;
-          max-width: 520px; margin: 0 auto 48px;
+        .td-cta-h2 em { font-style: italic; color: var(--clay); }
+        .td-cta-p {
+          font-family: 'Lato', sans-serif; font-size: 0.95rem; line-height: 1.75;
+          color: var(--mid); max-width: 500px; margin: 0 auto 48px;
         }
-        /* PRINCIPLE 6: "Message Harsha" button */
-        .trip-cta-btn {
+        .td-cta-btn {
           display: inline-flex; align-items: center; gap: 16px;
-          font-family: 'Inter', sans-serif;
-          font-size: 0.62rem; font-weight: 700;
-          letter-spacing: 0.2em; text-transform: uppercase;
-          color: var(--white); text-decoration: none; padding: 18px 36px;
-          position: relative; overflow: hidden; transition: gap 0.3s;
+          font-family: 'Inter', sans-serif; font-size: 0.62rem; font-weight: 600;
+          letter-spacing: 0.22em; text-transform: uppercase;
+          color: white; text-decoration: none; padding: 20px 40px;
+          background: #333; position: relative; overflow: hidden;
+          transition: gap 0.3s;
         }
-        .trip-cta-btn-bg { position: absolute; inset: 0; background: #333333; z-index: 0; }
-        .trip-cta-btn-bg2 {
-          position: absolute; inset: 0; background: #D9A6A1;
+        .td-cta-btn::after {
+          content: ''; position: absolute; inset: 0; background: var(--clay);
           transform: scaleX(0); transform-origin: left;
-          transition: transform 0.45s cubic-bezier(.16,1,.3,1); z-index: 0;
+          transition: transform 0.45s cubic-bezier(.16,1,.3,1);
         }
-        .trip-cta-btn:hover .trip-cta-btn-bg2 { transform: scaleX(1); }
-        .trip-cta-btn:hover { gap: 24px; }
-        .trip-cta-btn span { position: relative; z-index: 1; }
+        .td-cta-btn:hover::after { transform: scaleX(1); }
+        .td-cta-btn:hover { gap: 26px; }
+        .td-cta-btn span { position: relative; z-index: 1; }
 
-        /* RESPONSIVE - Maintaining all principles */
+        /* ── RESPONSIVE ──────────────────────────────────────────────── */
         @media (max-width: 1024px) {
-          .trip-hero-content { padding: 80px 60px; }
-          .trip-philosophy { grid-template-columns: 1fr; padding: 80px; gap: 60px; }
-          .trip-itinerary { padding: 80px; }
-          .trip-harsha-voice { grid-template-columns: 1fr; padding: 80px; gap: 60px; }
-          .trip-included { grid-template-columns: 1fr; padding: 80px; gap: 60px; }
-          .trip-testimonials { padding: 80px; }
-          .trip-cta { padding: 80px; }
+          .td-hero-content     { padding: 80px 60px; }
+          .td-philosophy       { padding: 80px; gap: 60px; }
+          .td-itinerary        { padding: 80px; }
+          .td-harsha           { padding: 80px; gap: 60px; }
+          .td-included         { padding: 80px; gap: 60px; }
+          .td-testimonials     { padding: 80px; }
+          .td-cta              { padding: 80px; }
+          .td-gallery-header   { padding: 60px 80px 36px; }
         }
-
         @media (max-width: 768px) {
-          .trip-hero-content { padding: 60px 32px; }
-          .trip-philosophy { padding: 60px 32px; gap: 48px; }
-          .trip-itinerary { padding: 60px 32px; }
-          .trip-itin-grid { grid-template-columns: 1fr; }
-          .trip-harsha-voice { padding: 60px 32px; gap: 48px; }
-          .trip-included { padding: 60px 32px; gap: 48px; }
-          .trip-testimonials { padding: 60px 32px; }
-          .trip-cta { padding: 60px 32px; }
+          .td-hero-content     { padding: 60px 32px; }
+          .td-scroll-hint      { display: none; }
+          .td-mosaic           { grid-template-columns: 1fr 1fr; grid-template-rows: 220px 180px; }
+          .td-philosophy       { grid-template-columns: 1fr; padding: 60px 32px; gap: 48px; }
+          .td-itinerary        { padding: 60px 32px; }
+          .td-itin-grid        { grid-template-columns: 1fr; }
+          .td-itin-strip       { height: 180px; }
+          .td-harsha           { grid-template-columns: 1fr; padding: 60px 32px; gap: 48px; }
+          .td-harsha-float     { display: none; }
+          .td-gallery-grid     { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, 200px); }
+          .td-gallery-header   { padding: 60px 32px 32px; }
+          .td-included         { grid-template-columns: 1fr; padding: 60px 32px; gap: 48px; }
+          .td-testimonials     { padding: 60px 32px; }
+          .td-cta              { padding: 80px 32px; }
+          .td-strip            { height: 320px; }
+          .td-strip-quote      { font-size: 1.5rem; }
         }
       `}</style>
 
       <div className="grain" aria-hidden="true" />
-      <div className="pv-progress" style={{ width: `${progress}%` }} aria-hidden="true" />
+      <div className="td-progress" style={{ width: `${progress}%` }} aria-hidden="true" />
 
       <Nav />
 
-      {/* HERO - PRINCIPLE 2: Minimal overlay */}
-      <section className="trip-hero">
-        <div className="trip-hero-bg" />
-        <div className="trip-hero-content">
-          <div className="trip-breadcrumb">
+      {/* ── HERO ──────────────────────────────────────────────────── */}
+      <section className="td-hero">
+        <div
+          className="td-hero-bg"
+          style={{ backgroundImage: `url('${imgs.hero}')` }}
+        />
+        <div className="td-hero-overlay" />
+        <div className="td-hero-content">
+          <div className="td-crumb">
             <Link to="/">Home</Link>
             <span>→</span>
             <span>{trip.name}</span>
           </div>
-          <p className="trip-eyebrow">{trip.subtitle}</p>
-          <h1 className="trip-h1">{trip.name}</h1>
-          <p className="trip-sub">{trip.tagline}</p>
-          <div className="trip-meta">
-            <div className="trip-meta-item">
-              <span className="trip-meta-label">Duration</span>
-              <span>{trip.duration}</span>
+          <p className="td-eyebrow">{trip.subtitle}</p>
+          <h1 className="td-h1">{trip.name}</h1>
+          <p className="td-tagline">{trip.tagline}</p>
+          <div className="td-meta">
+            <div className="td-meta-item">
+              <span className="td-meta-label">Duration</span>
+              <span className="td-meta-val">{trip.duration}</span>
             </div>
-            <div className="trip-meta-item">
-              <span className="trip-meta-label">Dates</span>
-              <span>{trip.dates}</span>
+            <div className="td-meta-item">
+              <span className="td-meta-label">Dates</span>
+              <span className="td-meta-val">{trip.dates}</span>
             </div>
-            <div className="trip-meta-item">
-              <span className="trip-meta-label">Group Size</span>
-              <span>{trip.groupSize}</span>
+            <div className="td-meta-item">
+              <span className="td-meta-label">Group Size</span>
+              <span className="td-meta-val">{trip.groupSize}</span>
             </div>
-            <div className="trip-meta-item">
-              <span className="trip-meta-label">Investment</span>
-              <span>{trip.price}</span>
+            <div className="td-meta-item">
+              <span className="td-meta-label">Investment</span>
+              <span className="td-meta-val">{trip.price}</span>
             </div>
           </div>
         </div>
+        <div className="td-scroll-hint" aria-hidden="true">
+          <div className="td-scroll-line" />
+          <span>Scroll</span>
+        </div>
       </section>
 
-      {/* PRINCIPLE 5: "Why This Journey" - Educational depth */}
-      <section className="trip-philosophy">
+      {/* ── INTRO MOSAIC ──────────────────────────────────────────── */}
+      <IntroMosaic images={imgs.mosaic} />
+
+      {/* ── WHY THIS JOURNEY ──────────────────────────────────────── */}
+      <section className="td-philosophy">
         <FU>
-          <h2 className="trip-phil-h2">{trip.philosophy.title}</h2>
+          <p className="td-section-eyebrow">Why This Journey</p>
+          <h2 className="td-section-h2">{trip.philosophy?.title}</h2>
+          {trip.philosophy?.paragraphs?.map((p, i) => (
+            <p key={i} className="td-body-p">{p}</p>
+          ))}
         </FU>
         <FU d={1}>
-          <div>
-            {trip.philosophy.paragraphs.map((p, i) => (
-              <p key={i} className="trip-phil-p">{p}</p>
-            ))}
-          </div>
+          <img
+            className="td-phil-img"
+            src={imgs.philosophy}
+            alt={trip.name}
+            loading="lazy"
+          />
+          <p className="td-phil-img-caption">{imgs.philosophyCaption}</p>
         </FU>
       </section>
 
-      {/* PRINCIPLE 8: PDF-style Day-by-Day Itinerary */}
-      <section className="trip-itinerary">
-        <div className="trip-itin-header">
+      {/* ── QUOTE STRIP 1 ─────────────────────────────────────────── */}
+      <FullBleedStrip
+        src={imgs.strip1}
+        quote={trip.harshaVoice?.stripQuote || `In ${trip.name}, you are not a tourist. You are a guest.`}
+        attr="Harsha, Founder"
+      />
+
+      {/* ── ITINERARY ─────────────────────────────────────────────── */}
+      <section className="td-itinerary">
+        <div className="td-section-header">
           <FU>
-            <h2 className="trip-itin-h2">Day-by-Day Itinerary</h2>
-            <p className="trip-itin-sub">{trip.duration} · {trip.name}</p>
+            <p className="td-section-eyebrow">The Journey</p>
+            <h2 className="td-section-h2">Day-by-Day</h2>
           </FU>
         </div>
-        <div className="trip-itin-grid">
-          {trip.itinerary.map((day, i) => (
-            <FU key={i} d={i % 4}>
-              <div className="day-card">
-                {/* PRINCIPLE 8: Day numbers in Clay Rose */}
-                <p className="day-num">Day {day.day}</p>
-                <h3 className="day-title">{day.title}</h3>
-                {/* PRINCIPLE 5: "The Experience" sections */}
-                <p className="day-experience">{day.experience}</p>
-                {/* PRINCIPLE 8: Overnight in sage footer */}
-                <p className="day-overnight">Overnight: {day.overnight}</p>
+
+        {/* First half of days */}
+        <div className="td-itin-grid">
+          {itinFirst.map((day, i) => (
+            <FU key={i} d={i % 4 * 0.7}>
+              <div className="td-day-card">
+                <p className="td-day-num">Day {day.day}</p>
+                <h3 className="td-day-title">{day.title}</h3>
+                <p className="td-day-exp">{day.experience}</p>
+                <p className="td-day-foot">Overnight: {day.overnight}</p>
               </div>
             </FU>
           ))}
         </div>
+
+        {/* Photo strip between day groups */}
+        <FU d={0.1}>
+          <ItinPhotoStrip images={imgs.itinStrip} />
+        </FU>
+
+        {/* Second half of days */}
+        {itinLast.length > 0 && (
+          <div className="td-itin-grid" style={{ marginTop: '4px' }}>
+            {itinLast.map((day, i) => (
+              <FU key={i} d={i % 4 * 0.7}>
+                <div className="td-day-card">
+                  <p className="td-day-num">Day {day.day}</p>
+                  <h3 className="td-day-title">{day.title}</h3>
+                  <p className="td-day-exp">{day.experience}</p>
+                  <p className="td-day-foot">Overnight: {day.overnight}</p>
+                </div>
+              </FU>
+            ))}
+          </div>
+        )}
       </section>
 
-      {/* PRINCIPLE 6: "What I've Learned" - Founder voice */}
+      {/* ── HARSHA VOICE ──────────────────────────────────────────── */}
       {trip.harshaVoice && (
-        <section className="trip-harsha-voice">
+        <section className="td-harsha">
           <FU>
-            <h2 className="trip-hv-h2">{trip.harshaVoice.title}</h2>
+            <div className="td-harsha-img-wrap">
+              <img src={imgs.harshaMain} alt={`${trip.name} landscape`} loading="lazy" />
+              <div className="td-harsha-float">
+                <img src={imgs.harshaFloat} alt={`${trip.name} detail`} loading="lazy" />
+              </div>
+            </div>
           </FU>
           <FU d={1}>
-            <div>
-              <p className="trip-hv-content">{trip.harshaVoice.content}</p>
-              <p className="trip-hv-sig">Harsha</p>
-            </div>
+            <p className="td-section-eyebrow">Founder's Note</p>
+            <h2 className="td-harsha-h2">{trip.harshaVoice.title}</h2>
+            <p className="td-harsha-p">{trip.harshaVoice.content}</p>
+            <div className="td-sig">Harsha</div>
           </FU>
         </section>
       )}
 
-      {/* What's Included */}
-      <section className="trip-included">
+      {/* ── PHOTO GALLERY ─────────────────────────────────────────── */}
+      <div className="td-gallery">
+        <div className="td-gallery-header">
+          <FU>
+            <p className="td-section-eyebrow" style={{ color: 'var(--clay)' }}>
+              The Landscape
+            </p>
+            <h2 className="td-section-h2">Moments from {trip.name}</h2>
+          </FU>
+        </div>
+        <GalleryGrid images={imgs.gallery} />
+      </div>
+
+      {/* ── INCLUDED ──────────────────────────────────────────────── */}
+      <section className="td-included">
         <FU>
-          <div className="trip-inc-col">
-            <h3>What's Included</h3>
-            <ul className="trip-inc-list">
-              {trip.included.map((item, i) => (
-                <li key={i}>{item}</li>
-              ))}
-            </ul>
-          </div>
+          <h3 className="td-inc-h3">What's Included</h3>
+          <ul className="td-inc-list yes">
+            {trip.included?.map((item, i) => <li key={i}>{item}</li>)}
+          </ul>
         </FU>
         <FU d={1}>
-          <div className="trip-inc-col">
-            <h3>Not Included</h3>
-            <ul className="trip-inc-list trip-exc-list">
-              {trip.notIncluded.map((item, i) => (
-                <li key={i}>{item}</li>
-              ))}
-            </ul>
-          </div>
+          <h3 className="td-inc-h3">Not Included</h3>
+          <ul className="td-inc-list no">
+            {trip.notIncluded?.map((item, i) => <li key={i}>{item}</li>)}
+          </ul>
         </FU>
       </section>
 
-      {/* PRINCIPLE 4: Transformation stories */}
-      {trip.testimonials && trip.testimonials.length > 0 && (
-        <section className="trip-testimonials">
-          <FU>
-            <h2 className="trip-test-h2">Voices from past journeys</h2>
-          </FU>
-          <div className="trip-test-grid">
+      {/* ── TESTIMONIALS ──────────────────────────────────────────── */}
+      {trip.testimonials?.length > 0 && (
+        <section className="td-testimonials">
+          <div className="td-section-header">
+            <FU>
+              <p className="td-section-eyebrow">Past Travellers</p>
+              <h2 className="td-section-h2">Voices from the Journey</h2>
+            </FU>
+          </div>
+          <div className="td-test-grid">
             {trip.testimonials.map((t, i) => (
-              <FU key={i} d={i}>
-                <div className="v-card">
-                  <p className="v-q">"{t.quote}"</p>
-                  <div className="v-sep" />
-                  <p className="v-name">{t.name}</p>
-                  <p className="v-trip">{t.trip}</p>
+              <FU key={i} d={i * 0.1}>
+                <div className="td-test-card">
+                  <p className="td-test-q">"{t.quote}"</p>
+                  <p className="td-test-name">{t.name}</p>
                 </div>
               </FU>
             ))}
@@ -477,19 +821,26 @@ export default function TripDetail({ tripSlug }) {
         </section>
       )}
 
-      {/* PRINCIPLE 4 & 6: Anti-urgency, "Message Harsha" */}
-      <section className="trip-cta">
+      {/* ── CLOSING STRIP ─────────────────────────────────────────── */}
+      <FullBleedStrip src={imgs.strip2} />
+
+      {/* ── CTA ───────────────────────────────────────────────────── */}
+      <section className="td-cta">
         <FU>
-          <h2 className="trip-cta-h2">
+          <h2 className="td-cta-h2">
             Ready to begin<br />this <em>journey?</em>
           </h2>
-          <p className="trip-cta-p">
-            Every journey starts with a conversation. Message Harsha on WhatsApp to discuss {trip.name}, ask questions, or simply explore if this is the right journey for you.
+          <p className="td-cta-p">
+            Every journey starts with a conversation. Message Harsha on WhatsApp
+            to discuss {trip.name}, ask questions, or simply explore if this is
+            the right journey for you.
           </p>
-          <a href={`https://wa.me/+971562216643?text=I'm interested in ${trip.name}`}
-            className="trip-cta-btn" target="_blank" rel="noopener noreferrer">
-            <div className="trip-cta-btn-bg" />
-            <div className="trip-cta-btn-bg2" />
+          <a
+            href={`https://wa.me/+971562216643?text=I'm%20interested%20in%20${encodeURIComponent(trip.name)}`}
+            className="td-cta-btn"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <span>Message Harsha →</span>
           </a>
         </FU>

@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function Nav() {
   const [stuck, setStuck] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  
+  // Check if we are on the Homepage
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,12 +32,18 @@ export default function Nav() {
           backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
           box-shadow: 0 1px 0 rgba(201,168,168,0.22);
         }
+        
+        /* 1. Logo Base (White for dark trip pages) */
         .nav-logo {
           font-family: 'Cormorant Garamond', serif;
           font-weight: 300; font-size: 0.82rem;
           letter-spacing: 0.32em; text-transform: uppercase;
-          color: var(--ink); text-decoration: none;
+          color: #ffffff; 
+          text-decoration: none;
+          transition: color 0.6s ease;
         }
+
+        /* 2. Links Base (White for dark trip pages) */
         .nav-center {
           display: flex; gap: 52px; list-style: none;
           position: absolute; left: 50%; transform: translateX(-50%);
@@ -42,31 +52,65 @@ export default function Nav() {
           font-family: 'Inter', sans-serif;
           font-size: 0.58rem; font-weight: 400;
           letter-spacing: 0.22em; text-transform: uppercase;
-          color: var(--ink3); text-decoration: none; transition: color 0.3s;
+          color: rgba(255,255,255,0.85);
+          text-decoration: none; transition: color 0.3s;
           position: relative;
         }
         .nav-center a::after {
           content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
-          height: 1px; background: var(--clay);
-          transform: scaleX(0); transition: transform 0.3s;
+          height: 1px; background: rgba(255,255,255,0.7);
+          transform: scaleX(0); transition: transform 0.3s, background 0.6s ease;
         }
-        .nav-center a:hover { color: var(--clay2); }
+        .nav-center a:hover { color: #ffffff; }
         .nav-center a:hover::after { transform: scaleX(1); }
+        
+        /* 3. CTA Base (White for dark trip pages) */
         .nav-cta {
           font-family: 'Inter', sans-serif;
           font-size: 0.58rem; font-weight: 700;
           letter-spacing: 0.2em; text-transform: uppercase;
-          color: var(--ink); text-decoration: none;
-          border: 1px solid var(--clay); padding: 10px 20px;
-          transition: background 0.35s, color 0.35s;
+          color: #ffffff;
+          text-decoration: none;
+          border: 1px solid rgba(255,255,255,0.4);
+          padding: 10px 20px;
+          transition: background 0.35s, color 0.35s, border-color 0.6s ease;
         }
-        .nav-cta:hover { background: var(--clay); color: var(--white); }
+        .nav-cta:hover { background: #ffffff; color: #333333; }
+
+        /* 4. Burger Base (White for dark trip pages) */
         .nav-burger {
           display: none; flex-direction: column; gap: 5px;
           background: none; border: none; cursor: pointer; padding: 4px;
         }
-        .nav-burger span { display: block; width: 22px; height: 1px; background: var(--ink); }
+        .nav-burger span { 
+          display: block; width: 22px; height: 1px; 
+          background: #ffffff;
+          transition: background 0.6s ease;
+        }
 
+        /* =========================================================
+           HOMEPAGE OVERRIDES: Dark text when at the top of the homepage
+           ========================================================= */
+        .nav.home-nav:not(.stuck) .nav-logo { color: var(--ink); }
+        .nav.home-nav:not(.stuck) .nav-center a { color: var(--ink3); }
+        .nav.home-nav:not(.stuck) .nav-center a::after { background: var(--clay); }
+        .nav.home-nav:not(.stuck) .nav-center a:hover { color: var(--clay2); }
+        .nav.home-nav:not(.stuck) .nav-cta { color: var(--ink); border-color: var(--clay); }
+        .nav.home-nav:not(.stuck) .nav-cta:hover { background: var(--clay); color: var(--white); }
+        .nav.home-nav:not(.stuck) .nav-burger span { background: var(--ink); }
+
+        /* =========================================================
+           STUCK OVERRIDES: Dark text when scrolled down on ALL pages
+           ========================================================= */
+        .nav.stuck .nav-logo { color: var(--ink); }
+        .nav.stuck .nav-center a { color: var(--ink3); }
+        .nav.stuck .nav-center a::after { background: var(--clay); }
+        .nav.stuck .nav-center a:hover { color: var(--clay2); }
+        .nav.stuck .nav-cta { color: var(--ink); border: 1px solid var(--clay); }
+        .nav.stuck .nav-cta:hover { background: var(--clay); color: var(--white); }
+        .nav.stuck .nav-burger span { background: var(--ink); }
+
+        /* Mobile Menu Styles */
         .mobile-menu {
           position: fixed; inset: 0; background: var(--cream); z-index: 300;
           display: flex; flex-direction: column;
@@ -115,8 +159,8 @@ export default function Nav() {
         </a>
       </div>
 
-      {/* Navigation */}
-      <nav className={`nav${stuck ? ' stuck' : ''}`}>
+      {/* Navigation - Added the home-nav class dynamically */}
+      <nav className={`nav${stuck ? ' stuck' : ''}${isHomePage ? ' home-nav' : ''}`}>
         <Link to="/" className="nav-logo">PuraVida · Harsha</Link>
         <ul className="nav-center">
           <li><Link to="/bhutan">Bhutan</Link></li>
