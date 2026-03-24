@@ -1,179 +1,234 @@
-import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useState, useEffect, useCallback } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 export default function Nav() {
   const [stuck, setStuck] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  
-  // Check if we are on the Homepage
   const location = useLocation();
+  const navigate = useNavigate();
   const isHomePage = location.pathname === '/';
 
   useEffect(() => {
-    const handleScroll = () => {
-      setStuck(window.scrollY > 60);
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    const fn = () => setStuck(window.scrollY > 80);
+    window.addEventListener('scroll', fn, { passive: true });
+    return () => window.removeEventListener('scroll', fn);
   }, []);
+
+  useEffect(() => { setMenuOpen(false); }, [location.pathname]);
+
+  // Handle hash scrolling after navigation
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace('#', '');
+      // Small delay to let page render
+      const timer = setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [location]);
+
+  const handleHashLink = useCallback((e, hash) => {
+    e.preventDefault();
+    setMenuOpen(false);
+
+    if (isHomePage) {
+      // Already on homepage, just scroll
+      const el = document.getElementById(hash);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    } else {
+      // Navigate to homepage first, then scroll
+      navigate('/#' + hash);
+    }
+  }, [isHomePage, navigate]);
 
   return (
     <>
       <style>{`
-        .nav {
+        .pv-nav {
           position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+          padding: 0 60px;
+          transition: all 0.5s cubic-bezier(.16,1,.3,1);
+        }
+        .pv-nav-inner {
           display: flex; align-items: center; justify-content: space-between;
-          padding: 40px 72px;
-          transition: padding 0.6s cubic-bezier(.16,1,.3,1), background 0.6s ease, box-shadow 0.6s ease;
+          height: 90px;
+          transition: height 0.5s cubic-bezier(.16,1,.3,1);
         }
-        .nav.stuck {
-          padding: 18px 72px;
-          background: rgba(242,236,229,0.97);
-          backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-          box-shadow: 0 1px 0 rgba(201,168,168,0.22);
+        .pv-nav.stuck {
+          background: rgba(242,236,229,0.96);
+          backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+          box-shadow: 0 1px 0 rgba(201,168,168,0.18);
         }
-        
-        /* 1. Logo Base (White for dark trip pages) */
-        .nav-logo {
-          font-family: 'Cormorant Garamond', serif;
-          font-weight: 300; font-size: 0.82rem;
-          letter-spacing: 0.32em; text-transform: uppercase;
-          color: #ffffff; 
-          text-decoration: none;
-          transition: color 0.6s ease;
-        }
+        .pv-nav.stuck .pv-nav-inner { height: 64px; }
 
-        /* 2. Links Base (White for dark trip pages) */
-        .nav-center {
-          display: flex; gap: 52px; list-style: none;
-          position: absolute; left: 50%; transform: translateX(-50%);
+        .pv-nav-logo { display: flex; align-items: center; text-decoration: none; }
+        .pv-nav-logo-img {
+          height: 64px; width: auto; display: block;
+          transition: height 0.4s ease, filter 0.5s ease;
         }
-        .nav-center a {
-          font-family: 'Inter', sans-serif;
-          font-size: 0.58rem; font-weight: 400;
-          letter-spacing: 0.22em; text-transform: uppercase;
-          color: rgba(255,255,255,0.85);
+        .pv-nav.stuck .pv-nav-logo-img { height: 48px; }
+
+        /* Default: white for dark backgrounds (trip pages) */
+        .pv-nav-logo-img { filter: brightness(0) invert(1); }
+        .pv-nav-links a { color: rgba(255,255,255,0.8); }
+        .pv-nav-links a:hover { color: white; }
+        .pv-nav-links a::after { background: rgba(255,255,255,0.6); }
+        .pv-nav-cta { color: white; border-color: rgba(255,255,255,0.3); }
+        .pv-nav-cta:hover { background: white; color: #2B2B2B; }
+        .pv-nav-burger span { background: white; }
+
+        /* Homepage: dark text */
+        .pv-nav.home:not(.stuck) .pv-nav-logo-img { filter: none; }
+        .pv-nav.home:not(.stuck) .pv-nav-links a { color: #606060; }
+        .pv-nav.home:not(.stuck) .pv-nav-links a:hover { color: #2B2B2B; }
+        .pv-nav.home:not(.stuck) .pv-nav-links a::after { background: #C9A8A8; }
+        .pv-nav.home:not(.stuck) .pv-nav-cta { color: #2B2B2B; border-color: #C9A8A8; }
+        .pv-nav.home:not(.stuck) .pv-nav-cta:hover { background: #C9A8A8; color: white; }
+        .pv-nav.home:not(.stuck) .pv-nav-burger span { background: #2B2B2B; }
+
+        /* Stuck: dark text on all pages */
+        .pv-nav.stuck .pv-nav-logo-img { filter: none; }
+        .pv-nav.stuck .pv-nav-links a { color: #606060; }
+        .pv-nav.stuck .pv-nav-links a:hover { color: #2B2B2B; }
+        .pv-nav.stuck .pv-nav-links a::after { background: #C9A8A8; }
+        .pv-nav.stuck .pv-nav-cta { color: #2B2B2B; border-color: #C9A8A8; }
+        .pv-nav.stuck .pv-nav-cta:hover { background: #C9A8A8; color: white; }
+        .pv-nav.stuck .pv-nav-burger span { background: #2B2B2B; }
+
+        .pv-nav-links {
+          display: flex; gap: 40px; list-style: none; align-items: center;
+        }
+        .pv-nav-links a {
+          font-family: 'Lato', sans-serif;
+          font-size: 14px; font-weight: 400; letter-spacing: 0.08em;
           text-decoration: none; transition: color 0.3s;
-          position: relative;
+          position: relative; padding-bottom: 2px; cursor: pointer;
         }
-        .nav-center a::after {
-          content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
-          height: 1px; background: rgba(255,255,255,0.7);
-          transform: scaleX(0); transition: transform 0.3s, background 0.6s ease;
+        .pv-nav-links a::after {
+          content: ''; position: absolute; bottom: -2px; left: 0; width: 0;
+          height: 1px; transition: width 0.3s ease;
         }
-        .nav-center a:hover { color: #ffffff; }
-        .nav-center a:hover::after { transform: scaleX(1); }
-        
-        /* 3. CTA Base (White for dark trip pages) */
-        .nav-cta {
-          font-family: 'Inter', sans-serif;
-          font-size: 0.58rem; font-weight: 700;
-          letter-spacing: 0.2em; text-transform: uppercase;
-          color: #ffffff;
+        .pv-nav-links a:hover::after { width: 100%; }
+
+        .pv-nav-cta {
+          font-family: 'Lato', sans-serif;
+          font-size: 14px; font-weight: 400; letter-spacing: 0.06em;
           text-decoration: none;
-          border: 1px solid rgba(255,255,255,0.4);
-          padding: 10px 20px;
-          transition: background 0.35s, color 0.35s, border-color 0.6s ease;
-        }
-        .nav-cta:hover { background: #ffffff; color: #333333; }
-
-        /* 4. Burger Base (White for dark trip pages) */
-        .nav-burger {
-          display: none; flex-direction: column; gap: 5px;
-          background: none; border: none; cursor: pointer; padding: 4px;
-        }
-        .nav-burger span { 
-          display: block; width: 22px; height: 1px; 
-          background: #ffffff;
-          transition: background 0.6s ease;
+          border: 1px solid; padding: 10px 24px; border-radius: 2px;
+          transition: all 0.35s ease;
         }
 
-        /* =========================================================
-           HOMEPAGE OVERRIDES: Dark text when at the top of the homepage
-           ========================================================= */
-        .nav.home-nav:not(.stuck) .nav-logo { color: var(--ink); }
-        .nav.home-nav:not(.stuck) .nav-center a { color: var(--ink3); }
-        .nav.home-nav:not(.stuck) .nav-center a::after { background: var(--clay); }
-        .nav.home-nav:not(.stuck) .nav-center a:hover { color: var(--clay2); }
-        .nav.home-nav:not(.stuck) .nav-cta { color: var(--ink); border-color: var(--clay); }
-        .nav.home-nav:not(.stuck) .nav-cta:hover { background: var(--clay); color: var(--white); }
-        .nav.home-nav:not(.stuck) .nav-burger span { background: var(--ink); }
+        .pv-nav-burger {
+          display: none; flex-direction: column; gap: 6px;
+          background: none; border: none; cursor: pointer; padding: 8px 4px;
+        }
+        .pv-nav-burger span { display: block; height: 1px; transition: all 0.3s; }
+        .pv-nav-burger span:first-child { width: 24px; }
+        .pv-nav-burger span:last-child { width: 16px; }
 
-        /* =========================================================
-           STUCK OVERRIDES: Dark text when scrolled down on ALL pages
-           ========================================================= */
-        .nav.stuck .nav-logo { color: var(--ink); }
-        .nav.stuck .nav-center a { color: var(--ink3); }
-        .nav.stuck .nav-center a::after { background: var(--clay); }
-        .nav.stuck .nav-center a:hover { color: var(--clay2); }
-        .nav.stuck .nav-cta { color: var(--ink); border: 1px solid var(--clay); }
-        .nav.stuck .nav-cta:hover { background: var(--clay); color: var(--white); }
-        .nav.stuck .nav-burger span { background: var(--ink); }
-
-        /* Mobile Menu Styles */
-        .mobile-menu {
-          position: fixed; inset: 0; background: var(--cream); z-index: 300;
+        /* Mobile Overlay */
+        .pv-mobile {
+          position: fixed; inset: 0; z-index: 300;
+          background: #F2ECE5;
           display: flex; flex-direction: column;
-          align-items: center; justify-content: center; gap: 44px;
           opacity: 0; visibility: hidden;
-          transition: opacity 0.5s ease, visibility 0.5s ease;
+          transition: opacity 0.45s ease, visibility 0.45s ease;
         }
-        .mobile-menu::before {
-          content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-          background: linear-gradient(to right, transparent, var(--clay), transparent);
+        .pv-mobile.open { opacity: 1; visibility: visible; }
+        .pv-mobile-top {
+          display: flex; align-items: center; justify-content: space-between;
+          padding: 24px 32px;
+          border-bottom: 1px solid rgba(201,168,168,0.15);
         }
-        .mobile-menu.open { opacity: 1; visibility: visible; }
-        .mobile-menu a {
+        .pv-mobile-logo { height: 48px; width: auto; }
+        .pv-mobile-close {
+          width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+          background: none; border: 1px solid rgba(201,168,168,0.2); border-radius: 50%;
+          cursor: pointer; font-size: 18px; color: #2B2B2B; transition: border-color 0.3s;
+        }
+        .pv-mobile-close:hover { border-color: #C9A8A8; }
+        .pv-mobile-body {
+          flex: 1; display: flex; flex-direction: column;
+          align-items: center; justify-content: center; gap: 36px; padding: 40px;
+        }
+        .pv-mobile-link {
           font-family: 'Cormorant Garamond', serif;
-          font-size: 2.6rem; font-weight: 300; font-style: italic;
-          color: var(--ink); text-decoration: none; letter-spacing: 0.04em;
-          transition: color 0.3s;
+          font-size: 2.4rem; font-weight: 300;
+          color: #2B2B2B; text-decoration: none;
+          letter-spacing: 0.02em; transition: color 0.3s; cursor: pointer;
         }
-        .mobile-menu a:hover { color: var(--clay2); }
-        .mobile-close-btn {
-          position: absolute; top: 28px; right: 32px;
-          font-size: 1.2rem; color: var(--ink3);
-          background: none; border: none; cursor: pointer;
-          font-family: 'Cormorant Garamond', serif; transition: color 0.3s;
+        .pv-mobile-link:hover { color: #C9A8A8; }
+        .pv-mobile-link em { font-style: italic; }
+        .pv-mobile-footer {
+          padding: 32px; text-align: center;
+          border-top: 1px solid rgba(201,168,168,0.15);
         }
-        .mobile-close-btn:hover { color: var(--clay2); }
+        .pv-mobile-wa {
+          font-family: 'Lato', sans-serif; font-size: 14px;
+          color: #2B2B2B; text-decoration: none;
+          display: inline-flex; align-items: center; gap: 8px;
+          padding: 12px 28px; border: 1px solid #C9A8A8; border-radius: 2px;
+          transition: all 0.3s;
+        }
+        .pv-mobile-wa:hover { background: #C9A8A8; color: white; }
 
-        @media (max-width: 768px) {
-          .nav { padding: 20px 28px; }
-          .nav.stuck { padding: 16px 28px; }
-          .nav-center, .nav-cta { display: none; }
-          .nav-burger { display: flex; }
+        @media (max-width: 900px) {
+          .pv-nav { padding: 0 28px; }
+          .pv-nav-inner { height: 72px; }
+          .pv-nav.stuck .pv-nav-inner { height: 60px; }
+          .pv-nav-links, .pv-nav-cta { display: none; }
+          .pv-nav-burger { display: flex; }
+          .pv-nav-logo-img { height: 48px; }
+          .pv-nav.stuck .pv-nav-logo-img { height: 40px; }
         }
       `}</style>
 
-      {/* Mobile Menu */}
-      <div className={`mobile-menu${menuOpen ? ' open' : ''}`} role="dialog" aria-modal="true">
-        <button className="mobile-close-btn" onClick={() => setMenuOpen(false)}>✕</button>
-        <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
-        <Link to="/bhutan" onClick={() => setMenuOpen(false)}>Bhutan</Link>
-        <Link to="/japan" onClick={() => setMenuOpen(false)}>Japan</Link>
-        <Link to="/jordan" onClick={() => setMenuOpen(false)}>Jordan</Link>
-        <Link to="/sri-lanka" onClick={() => setMenuOpen(false)}>Sri Lanka</Link>
-        <a href="https://wa.me/+971562216643" target="_blank" rel="noopener noreferrer" onClick={() => setMenuOpen(false)}>
-          Begin Your Journey
-        </a>
+      {/* Mobile Overlay */}
+      <div className={`pv-mobile${menuOpen ? ' open' : ''}`} role="dialog" aria-modal="true">
+        <div className="pv-mobile-top">
+          <img src="/assets/Logo-Main.png" alt="PuraVida" className="pv-mobile-logo" />
+          <button className="pv-mobile-close" onClick={() => setMenuOpen(false)} aria-label="Close">{'\u00D7'}</button>
+        </div>
+        <div className="pv-mobile-body">
+          <Link to="/" className="pv-mobile-link" onClick={() => setMenuOpen(false)}>Home</Link>
+          <a href="#journeys" className="pv-mobile-link" onClick={(e) => handleHashLink(e, 'journeys')}><em>Journeys</em></a>
+          <a href="#about" className="pv-mobile-link" onClick={(e) => handleHashLink(e, 'about')}>About Harsha</a>
+          <a href="#philosophy" className="pv-mobile-link" onClick={(e) => handleHashLink(e, 'philosophy')}>Philosophy</a>
+        </div>
+        <div className="pv-mobile-footer">
+          <a href="https://wa.me/+971562216643" className="pv-mobile-wa" target="_blank" rel="noopener noreferrer" onClick={() => setMenuOpen(false)}>
+            Begin a Conversation
+          </a>
+        </div>
       </div>
 
-      {/* Navigation - Added the home-nav class dynamically */}
-      <nav className={`nav${stuck ? ' stuck' : ''}${isHomePage ? ' home-nav' : ''}`}>
-        <Link to="/" className="nav-logo">PuraVida · Harsha</Link>
-        <ul className="nav-center">
-          <li><Link to="/bhutan">Bhutan</Link></li>
-          <li><Link to="/japan">Japan</Link></li>
-          <li><Link to="/jordan">Jordan</Link></li>
-          <li><Link to="/sri-lanka">Sri Lanka</Link></li>
-        </ul>
-        <a href="https://wa.me/+971562216643" className="nav-cta" target="_blank" rel="noopener noreferrer">
-          Begin Your Journey
-        </a>
-        <button className="nav-burger" onClick={() => setMenuOpen(true)} aria-label="Open menu">
-          <span /><span />
-        </button>
+      {/* Nav */}
+      <nav className={`pv-nav${stuck ? ' stuck' : ''}${isHomePage ? ' home' : ''}`}>
+        <div className="pv-nav-inner">
+          <Link to="/" className="pv-nav-logo">
+            <img src="/assets/Logo-Main.png" alt="PuraVida with Harsha" className="pv-nav-logo-img" />
+          </Link>
+
+          <ul className="pv-nav-links">
+            <li><a href="#journeys" onClick={(e) => handleHashLink(e, 'journeys')}>Journeys</a></li>
+            <li><a href="#about" onClick={(e) => handleHashLink(e, 'about')}>About Harsha</a></li>
+            <li><a href="#philosophy" onClick={(e) => handleHashLink(e, 'philosophy')}>Philosophy</a></li>
+          </ul>
+
+          <a href="https://wa.me/+971562216643" className="pv-nav-cta" target="_blank" rel="noopener noreferrer">
+            Begin a Conversation
+          </a>
+
+          <button className="pv-nav-burger" onClick={() => setMenuOpen(true)} aria-label="Menu">
+            <span /><span />
+          </button>
+        </div>
       </nav>
     </>
   );
