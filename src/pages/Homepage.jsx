@@ -124,6 +124,7 @@ export default function Homepage() {
           color: #C9A8A8; letter-spacing: 0.1em;
           margin-bottom: 48px;
           opacity: 0; animation: hpFade 0.8s ease 2s forwards;
+          padding-top: 20px;
         }
         .hp-hero-h1 {
           font-family: 'Cormorant Garamond', serif;
@@ -541,7 +542,7 @@ export default function Homepage() {
 
       {/* Preloader */}
       <div className={`pre-wrap${loaded ? ' done' : ''}`}>
-        <p className="pre-logo">PuraVida with Harsha</p>
+        <img src="/assets/Logo-Main.png" alt="PuraVida with Harsha" className="pre-logo-img" />
         <div className="pre-line" />
         <p className="pre-sub">Where stillness finds you</p>
       </div>

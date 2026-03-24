@@ -69,10 +69,11 @@ export default function Nav() {
 
         .pv-nav-logo { display: flex; align-items: center; text-decoration: none; }
         .pv-nav-logo-img {
-          height: 64px; width: auto; display: block;
+          height: 56px; width: auto; display: block;
+          object-fit: contain;
           transition: height 0.4s ease, filter 0.5s ease;
         }
-        .pv-nav.stuck .pv-nav-logo-img { height: 48px; }
+        .pv-nav.stuck .pv-nav-logo-img { height: 44px; }
 
         /* Default: white for dark backgrounds (trip pages) */
         .pv-nav-logo-img { filter: brightness(0) invert(1); }

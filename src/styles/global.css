@@ -56,11 +56,18 @@ body {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   transition: opacity 1.3s ease, visibility 1.3s ease;
 }
-.pre-wrap.done { opacity: 0; visibility: hidden; }
+.pre-wrap.done { opacity: 0; visibility: hidden; pointer-events: none; }
 .pre-logo {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 300; font-size: 1rem;
   letter-spacing: 0.4em; text-transform: uppercase; color: var(--ink);
+  opacity: 0; animation: pFade 0.8s ease 0.4s forwards;
+  text-align: center;
+}
+.pre-logo-img {
+  height: 100px; width: auto; display: block;
+  margin: 0 auto;
+  object-fit: contain;
   opacity: 0; animation: pFade 0.8s ease 0.4s forwards;
 }
 .pre-line {
@@ -70,7 +77,9 @@ body {
 }
 .pre-sub {
   margin-top: 18px; font-size: 14px;
-  letter-spacing: 0.28em; text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
   color: var(--ink3);
   opacity: 0; animation: pFade 0.6s ease 1.8s forwards;
 }
