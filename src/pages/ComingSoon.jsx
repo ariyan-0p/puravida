@@ -7,18 +7,18 @@ const DESTINATIONS = {
   bali: {
     name: "Bali",
     tagline: "Ritual, Rice, and Renewal",
-    dates: "October 1\u20136, 2026",
+    dates: "October 1 to 6, 2026",
     duration: "6 Days",
-    hero: "/assets/hero-bali.jpg",
+    hero: "/assets/journey-bali.jpg",
     gradient: "linear-gradient(158deg, #4a7050 0%, #2e4d32 40%, #142416 100%)",
     description: "An island where offering and everyday life are the same gesture. Where rice terraces hold centuries of communal wisdom. Where sacred and ordinary share the same morning.",
   },
   japan: {
     name: "Japan",
     tagline: "Stillness in Snow, Hokkaido",
-    dates: "November 15\u201321, 2026",
+    dates: "November 15 to 21, 2026",
     duration: "7 Days",
-    hero: "/assets/hero-japan.jpg",
+    hero: "/assets/journey-japan.jpg",
     gradient: "linear-gradient(158deg, #b8a0a0 0%, #887070 45%, #503838 100%)",
     description: "Hokkaido in November: birch forests under first snow, onsen steam rising into frozen air, kaiseki served with no words, only presence.",
   },
@@ -56,16 +56,15 @@ export default function ComingSoon({ slug }) {
         }
         .cs-logo {
           height: 80px; width: auto; margin-bottom: 48px;
-          filter: brightness(0) invert(1);
         }
         .cs-title {
-          font-family: 'Cormorant Garamond', serif;
-          font-weight: 600; font-size: clamp(4rem, 12vw, 8rem);
+          font-family: 'Playfair Display', serif;
+          font-weight: 700; font-size: clamp(4rem, 12vw, 8rem);
           color: white; line-height: 0.9; margin-bottom: 16px;
           text-shadow: 0 4px 40px rgba(0,0,0,0.3);
         }
         .cs-tagline {
-          font-family: 'Cormorant Garamond', serif;
+          font-family: 'Lora', serif;
           font-style: italic; font-size: clamp(1rem, 2vw, 1.4rem);
           color: rgba(255,255,255,0.7); margin-bottom: 48px;
         }
@@ -81,12 +80,13 @@ export default function ComingSoon({ slug }) {
           color: rgba(255,255,255,0.5);
           margin-bottom: 48px;
         }
-        .cs-divider {
-          width: 40px; height: 1px; background: rgba(201,168,168,0.5);
-          margin: 0 auto 48px;
+        .cs-divider-img {
+          display: block; margin: 0 auto 48px;
+          width: 160px; opacity: 0.4;
+          filter: brightness(0) invert(1);
         }
         .cs-note {
-          font-family: 'Cormorant Garamond', serif;
+          font-family: 'Lora', serif;
           font-style: italic; font-size: 1.2rem;
           color: rgba(255,255,255,0.65);
           margin-bottom: 40px; line-height: 1.5;
@@ -94,39 +94,50 @@ export default function ComingSoon({ slug }) {
         .cs-btn {
           display: inline-block;
           font-family: 'Lato', sans-serif; font-size: 16px; font-weight: 700;
-          color: #2B2B2B; background: #C9A8A8;
+          color: #333333; background: #D9A6A1;
           padding: 16px 36px; border-radius: 4px;
           text-decoration: none;
           transition: background 0.35s, color 0.35s;
         }
-        .cs-btn:hover { background: #A07878; color: #FAFAF8; }
+        .cs-btn:hover { background: #c08e88; color: white; }
+
+        @media (max-width: 600px) {
+          .cs-content { padding: 0 28px; }
+          .cs-title { font-size: clamp(3rem, 14vw, 5rem); }
+        }
       `}</style>
 
-      <div className="grain" aria-hidden="true" />
       <Nav />
       <WhatsAppButton />
 
       <section className="cs-hero">
         <div
           className="cs-hero-bg"
-          style={{
-            backgroundImage: `url('${d.hero}'), ${d.gradient}`
-          }}
+          style={{ backgroundImage: `url('${d.hero}'), ${d.gradient}` }}
         />
         <div className="cs-hero-overlay" />
         <div className="cs-content">
-          <img src="/assets/Logo-Main.png" alt="PuraVida" className="cs-logo" />
+          <img
+            src="/assets/01. LOGOS/Logo-Main-White.png"
+            alt="PuraVida with Harsha"
+            className="cs-logo"
+          />
           <h1 className="cs-title">{d.name}</h1>
           <p className="cs-tagline">{d.tagline}</p>
           <p className="cs-desc">{d.description}</p>
           <p className="cs-dates">{d.duration} &middot; {d.dates}</p>
-          <div className="cs-divider" />
+          <img
+            src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png"
+            alt=""
+            aria-hidden="true"
+            className="cs-divider-img"
+          />
           <p className="cs-note">
             The full itinerary for {d.name} is being carefully composed.<br />
             Message Harsha to register your interest.
           </p>
           <a
-            href={`https://wa.me/+971562216643?text=I'm%20interested%20in%20${encodeURIComponent(d.name)}`}
+            href={`https://wa.me/+971562216643?text=I am interested in the ${d.name} journey`}
             className="cs-btn"
             target="_blank"
             rel="noopener noreferrer"

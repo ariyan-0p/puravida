@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import WhatsAppButton from '../components/WhatsAppButton';
@@ -12,300 +11,280 @@ function useFadeUp() {
     if (!el) return;
     const obs = new IntersectionObserver(
       ([e]) => { if (e.isIntersecting) { setVis(true); obs.disconnect(); } },
-      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+      { threshold: 0.06, rootMargin: '0px 0px -40px 0px' }
     );
     obs.observe(el);
     return () => obs.disconnect();
   }, []);
   return [ref, vis];
 }
+
 function FU({ children, d = 0, className = '', style = {} }) {
   const [ref, vis] = useFadeUp();
   return (
-    <div ref={ref} className={`pfu${vis ? ' pin' : ''} ${className}`}
-      style={{ transitionDelay: `${d * 0.14}s`, ...style }}>
+    <div ref={ref} className={`bfu${vis ? ' bin' : ''} ${className}`}
+      style={{ transitionDelay: `${d * 0.13}s`, ...style }}>
       {children}
     </div>
   );
 }
 
-/* ── Botanical SVG divider matching PDF ── */
-function LeafDivider({ color = '#2B2B2B', width = '100%' }) {
+function Divider({ width = 200, opacity = 0.5 }) {
   return (
-    <svg viewBox="0 0 600 20" style={{ width, height: '20px', display: 'block', margin: '0 auto' }} xmlns="http://www.w3.org/2000/svg">
-      <g fill="none" stroke={color} strokeWidth="1.2" opacity="0.5">
-        <path d="M20,10 L270,10" />
-        <path d="M330,10 L580,10" />
-        <path d="M275,10 c0,-6 5,-10 10,-10 c-6,0 -10,5 -10,10 c0,6 5,10 10,10 c-6,0 -10,-5 -10,-10z" fill={color} opacity="0.3" />
-        <path d="M315,10 c0,-6 5,-10 10,-10 c-6,0 -10,5 -10,10 c0,6 5,10 10,10 c-6,0 -10,-5 -10,-10z" fill={color} opacity="0.3" />
-        <path d="M295,3 L295,17" />
-        <path d="M300,1 L300,19" />
-        <path d="M305,3 L305,17" />
-      </g>
-    </svg>
+    <img
+      src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png"
+      alt="" aria-hidden="true"
+      style={{ width, opacity, display: 'block', margin: '0 auto' }}
+    />
   );
 }
 
-/* ── Mountain glyph matching PDF ── */
-function MountainGlyph({ size = 80 }) {
+function DayIcon({ type }) {
+  const map = {
+    meal: 'Meals  - 48px.png',
+    transport: 'Transport - 48px.png',
+    experience: 'Experience  - 48px.png',
+    hotel: 'Accomodation  - 48px.png',
+    leisure: 'Duration  - 48px.png',
+    culture: 'Cultural Bridge  - 48px.png',
+    wellness: 'Wellness  - 48px.png',
+  };
   return (
-    <svg viewBox="0 0 120 60" style={{ width: size, height: size * 0.5 }} xmlns="http://www.w3.org/2000/svg">
-      <g fill="none" stroke="#2B2B2B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.35">
-        <path d="M20,55 L45,20 L55,32 L70,10 L85,32 L95,22 L110,55" />
-        <path d="M55,32 L60,28 L65,32" />
-        <path d="M10,55 L110,55" />
-      </g>
-    </svg>
+    <img
+      src={`/assets/04. ICONS/PNG/Charcoal/48px/${map[type] || map.experience}`}
+      alt="" style={{ width: 28, height: 28, opacity: 0.6, flexShrink: 0 }}
+    />
   );
 }
 
-/* ── Tree glyph matching PDF ── */
-function TreeGlyph({ size = 40, color = '#2B2B2B' }) {
+function Glyph({ name = 'Trees', variant = 'Charcoal', size = 48, opacity = 0.3 }) {
   return (
-    <svg viewBox="0 0 30 50" style={{ width: size * 0.6, height: size }} xmlns="http://www.w3.org/2000/svg">
-      <g fill={color} opacity="0.4">
-        <polygon points="15,2 8,18 22,18" />
-        <polygon points="15,10 6,28 24,28" />
-        <polygon points="15,20 4,40 26,40" />
-        <rect x="13" y="40" width="4" height="8" />
-      </g>
-    </svg>
+    <img
+      src={`/assets/05. GRAPHIC ELEMENTS/Glyphs/${variant}/${name}/${name}.png`}
+      alt="" aria-hidden="true"
+      style={{ height: size, width: 'auto', opacity }}
+    />
   );
 }
 
-/* ── Compass/Moon glyph for bottom right of day cards ── */
-function CompassGlyph({ size = 48 }) {
-  return (
-    <svg viewBox="0 0 50 50" style={{ width: size, height: size }} xmlns="http://www.w3.org/2000/svg">
-      <circle cx="25" cy="25" r="20" fill="none" stroke="#2B2B2B" strokeWidth="1" opacity="0.15" />
-      <circle cx="25" cy="25" r="14" fill="none" stroke="#2B2B2B" strokeWidth="0.5" opacity="0.1" />
-      <line x1="25" y1="5" x2="25" y2="12" stroke="#2B2B2B" strokeWidth="0.8" opacity="0.15" />
-      <line x1="25" y1="38" x2="25" y2="45" stroke="#2B2B2B" strokeWidth="0.8" opacity="0.15" />
-    </svg>
-  );
-}
-
-/* ── Icon components matching PDF icons ── */
-function IconMeal() {
-  return <span className="day-icon" title="Meal">
-    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#2B2B2B" strokeWidth="1.5" strokeLinecap="round">
-      <path d="M4,18 Q12,14 20,18" /><path d="M8,14 Q12,10 16,14" /><path d="M10,10 Q12,7 14,10" />
-    </svg>
-  </span>;
-}
-function IconTransport() {
-  return <span className="day-icon" title="Transport">
-    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#2B2B2B" strokeWidth="1.5" strokeLinecap="round">
-      <path d="M4,16 C4,16 6,8 12,8 C18,8 20,16 20,16" /><circle cx="8" cy="18" r="2" /><circle cx="16" cy="18" r="2" />
-    </svg>
-  </span>;
-}
-function IconSight() {
-  return <span className="day-icon" title="Experience">
-    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#2B2B2B" strokeWidth="1.5" strokeLinecap="round">
-      <circle cx="12" cy="12" r="3" /><path d="M2,12 C2,12 6,5 12,5 C18,5 22,12 22,12 C22,12 18,19 12,19 C6,19 2,12 2,12Z" />
-    </svg>
-  </span>;
-}
-function IconHotel() {
-  return <span className="day-icon" title="Accommodation">
-    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#2B2B2B" strokeWidth="1.5" strokeLinecap="round">
-      <rect x="3" y="8" width="18" height="12" rx="1" /><path d="M3,14 L21,14" /><path d="M8,8 L8,4 L16,4 L16,8" />
-    </svg>
-  </span>;
-}
-function IconLeisure() {
-  return <span className="day-icon" title="Leisure">
-    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#2B2B2B" strokeWidth="1.5" strokeLinecap="round">
-      <circle cx="12" cy="12" r="9" /><path d="M12,3 L12,12 L18,12" />
-    </svg>
-  </span>;
-}
-
-/* ── ITINERARY DATA matching Bhutan PDF exactly ── */
 const DAYS = [
   {
-    day: "01",
-    title: "Arrival in Paro",
-    subtitle: "Transfer to Thimphu",
-    approx: "Approx 1 hour",
-    morning: [
-      { icon: 'transport', text: "Depending on arrival at Paro International Airport complete immigration formalities." },
-      { icon: 'sight', text: "Stop at Tanchog Lhakhang Iron Bridge for a short walk and photo stop. Take a moment to soak your feet in the cool river flowing below the bridge, a refreshing and symbolic way to begin your Bhutan journey." },
-      { icon: 'hotel', text: "Check in to your hotel in Thimphu and enjoy lunch." },
+    num: '01',
+    title: 'Arrival in Paro, Transfer to Thimphu',
+    travel: 'Approx 1 hour',
+    city: 'Thimphu',
+    hotel: 'Himalayan Keys Forest Resort',
+    periods: [
+      { label: 'Morning', items: [
+        { icon: 'experience', text: 'Immigration at Paro Airport' },
+        { icon: 'experience', text: 'Stop at Tanchog Lhakhang Iron Bridge' },
+        { icon: 'hotel', text: 'Check in to hotel in Thimphu' },
+        { icon: 'meal', text: 'Enjoy lunch' },
+      ]},
+      { label: 'Afternoon', items: [
+        { icon: 'leisure', text: 'Open to guests: rest, visit cafes, or explore Thimphu town' },
+      ]},
+      { label: 'Evening', items: [
+        { icon: 'meal', text: 'Dinner at the hotel' },
+      ]},
     ],
-    afternoon: [
-      { icon: 'leisure', text: "Open to guests: You may choose to rest at the hotel, visit nearby caf\u00e9s, or explore Thimphu town at your own pace." },
-    ],
-    evening: [
-      { icon: 'meal', text: "Dinner at the hotel." },
-    ],
-    overnight: "Overnight in Thimphu",
-    hotel: "Himalayan Keys Forest Resort."
+    farewell: null,
   },
   {
-    day: "02",
-    title: "Thimphu Sightseeing",
-    subtitle: "and Night Out",
-    morning: [
-      { icon: 'meal', text: "Breakfast at the hotel." },
-      { icon: 'sight', text: "Visit Buddha Dordenma, one of the largest Buddha statues in the world, offering panoramic views of Thimphu Valley." },
-      { icon: 'sight', text: "For those who enjoy light hiking, take a scenic downhill walk from Buddha Dordenma to Kelzang Textile, passing through peaceful forest trails and local neighborhoods (approx. 45min)." },
+    num: '02',
+    title: 'Thimphu Sightseeing and Night Out',
+    travel: null,
+    city: 'Thimphu',
+    hotel: 'Himalayan Keys Forest Resort',
+    periods: [
+      { label: 'Morning', items: [
+        { icon: 'meal', text: 'Breakfast' },
+        { icon: 'experience', text: 'Visit Buddha Dordenma' },
+        { icon: 'experience', text: 'Scenic walk to Kelzang Textile' },
+      ]},
+      { label: 'Afternoon', items: [
+        { icon: 'culture', text: 'Kelzang Textile cultural experience: dyeing, weaving, and cooking' },
+        { icon: 'meal', text: 'Home-style lunch' },
+        { icon: 'experience', text: 'Simply Bhutan museum' },
+        { icon: 'experience', text: 'Tashichho Dzong' },
+      ]},
+      { label: 'Evening', items: [
+        { icon: 'hotel', text: 'Freshen up' },
+        { icon: 'leisure', text: 'Explore Thimphu town for momos and thukpa' },
+        { icon: 'leisure', text: 'The Grey Area lounge' },
+      ]},
     ],
-    afternoon: [
-      { icon: 'sight', text: "Arrive at Kelzang Textile, where a mother-and-daughter duo welcome you for an immersive cultural experience. Learn about traditional dyeing and weaving techniques, followed by a Bhutanese cooking lesson using local ingredients." },
-      { icon: 'meal', text: "Enjoy a home-style lunch with the family at Kelzang Textile, sharing stories and insights into Bhutanese daily life." },
-      { icon: 'sight', text: "Visit Simply Bhutan, a living museum that showcases Bhutanese culture, architecture, and traditions through interactive experiences such as butter tea tasting, archery, and local crafts." },
-      { icon: 'sight', text: "Visit Tashichho Dzong, the seat of Bhutan\u2019s government and monastic body, beautifully illuminated in the evening light." },
-    ],
-    evening: [
-      { icon: 'hotel', text: "Return to the hotel to freshen up." },
-      { icon: 'meal', text: "You may choose to explore Thimphu town and enjoy local delicacies such as momos, thukpa, or emadatshi at one of the cozy caf\u00e9s or restaurants." },
-      { icon: 'sight', text: "Experience a night out at The Grey Area, one of Thimphu\u2019s popular lounges, with live music and a vibrant local atmosphere." },
-    ],
-    overnight: "Overnight in Thimphu",
-    hotel: "Himalayan Keys Forest Resort."
+    farewell: null,
   },
   {
-    day: "03",
-    title: "Thimphu to",
-    subtitle: "Phobjikha Valley",
-    approx: "Approx 4.5 hours",
-    morning: [
-      { icon: 'meal', text: "Breakfast at the hotel." },
-      { icon: 'transport', text: "Drive to Phobjikha via Dochula Pass (3,100m)." },
+    num: '03',
+    title: 'Thimphu to Phobjikha Valley',
+    travel: 'Approx 4.5 hours',
+    city: 'Phobjikha',
+    hotel: 'Pinewood Resort',
+    periods: [
+      { label: 'Morning', items: [
+        { icon: 'meal', text: 'Breakfast' },
+        { icon: 'transport', text: 'Drive via Dochula Pass (3,100m)' },
+      ]},
+      { label: 'Afternoon', items: [
+        { icon: 'experience', text: '108 Druk Wangyal Chortens' },
+        { icon: 'meal', text: 'Lunch en route' },
+        { icon: 'transport', text: 'Arrive Phobjikha Valley' },
+      ]},
+      { label: 'Evening', items: [
+        { icon: 'hotel', text: 'Check in' },
+        { icon: 'meal', text: 'Dinner and relaxation by the fireplace' },
+      ]},
     ],
-    afternoon: [
-      { icon: 'sight', text: "Stop at Dochula Pass to admire the 108 Druk Wangyal Chortens and panoramic Himalayan views." },
-      { icon: 'meal', text: "Lunch en route at a local restaurant." },
-      { icon: 'leisure', text: "Arrive in Phobjikha Valley, a glacial valley known for Black-Necked Cranes (seasonal: Oct to Feb)." },
-    ],
-    evening: [
-      { icon: 'hotel', text: "Check in to your hotel." },
-      { icon: 'meal', text: "Dinner and relaxation by the fireplace." },
-    ],
-    overnight: "Overnight in Phobjikha",
-    hotel: "Pinewood Resort."
+    farewell: null,
   },
   {
-    day: "04",
-    title: "Phobjikha",
-    subtitle: "to Punakha",
-    approx: "Approx 3 hours",
-    morning: [
-      { icon: 'meal', text: "Breakfast at the hotel." },
-      { icon: 'sight', text: "Visit the Black-Necked Crane Information Centre to learn about the conservation of these endangered birds." },
-      { icon: 'transport', text: "Depart for Punakha." },
+    num: '04',
+    title: 'Phobjikha to Punakha',
+    travel: 'Approx 3 hours',
+    city: 'Punakha',
+    hotel: 'Dhensa Resort',
+    periods: [
+      { label: 'Morning', items: [
+        { icon: 'meal', text: 'Breakfast' },
+        { icon: 'experience', text: 'Black-Necked Crane Information Centre' },
+        { icon: 'transport', text: 'Depart for Punakha' },
+      ]},
+      { label: 'Afternoon', items: [
+        { icon: 'meal', text: 'Lunch en route' },
+        { icon: 'experience', text: 'Chimi Lhakhang' },
+        { icon: 'hotel', text: 'Check in' },
+        { icon: 'experience', text: 'Punakha Dzong' },
+      ]},
+      { label: 'Evening', items: [
+        { icon: 'experience', text: 'Punakha Suspension Bridge' },
+        { icon: 'meal', text: 'Dinner' },
+      ]},
     ],
-    afternoon: [
-      { icon: 'sight', text: "Stop for lunch en route." },
-      { icon: 'sight', text: "Visit Chimi Lhakhang, the fertility temple dedicated to Lama Drukpa Kunley, known as the \u201CDivine Madman.\u201D" },
-      { icon: 'hotel', text: "Check in to your hotel in Punakha." },
-      { icon: 'sight', text: "Visit Punakha Dzong, one of Bhutan\u2019s most beautiful fortresses, located at the confluence of the Pho Chhu and Mo Chhu rivers." },
-    ],
-    evening: [
-      { icon: 'sight', text: "Walk across the Punakha Suspension Bridge, one of the longest in Bhutan, offering breathtaking views of the valley." },
-      { icon: 'meal', text: "Dinner at the hotel." },
-    ],
-    overnight: "Overnight in Punakha",
-    hotel: "Dhensa Resort."
+    farewell: null,
   },
   {
-    day: "05",
-    title: "Punakha to Paro",
-    subtitle: "via Thimphu",
-    approx: "Approx 3.5 hours",
-    morning: [
-      { icon: 'meal', text: "Breakfast at the hotel." },
-      { icon: 'sight', text: "Early morning hike to Khamsum Yulley Namgyal Chorten, a temple built to promote peace and harmony, offering panoramic views of the Punakha Valley." },
-      { icon: 'transport', text: "Depart for Paro, stopping en route at Lamperi Botanical Park to attend the Lamperi Rhododendron Festival (seasonal: April to May). Enjoy vibrant displays of blooming rhododendrons, local food stalls, traditional music, and cultural performances celebrating Bhutan\u2019s biodiversity." },
+    num: '05',
+    title: 'Punakha to Paro via Thimphu',
+    travel: 'Approx 3.5 hours',
+    city: 'Paro',
+    hotel: 'Zhiwaling Heritage',
+    periods: [
+      { label: 'Morning', items: [
+        { icon: 'meal', text: 'Breakfast' },
+        { icon: 'experience', text: 'Khamsum Yulley Namgyal Chorten hike' },
+        { icon: 'transport', text: 'Depart for Paro via Lamperi Botanical Park and Rhododendron Festival' },
+      ]},
+      { label: 'Afternoon', items: [
+        { icon: 'meal', text: 'Riverside picnic at The Secret Garden in Thimphu' },
+        { icon: 'transport', text: 'Proceed to Paro' },
+      ]},
+      { label: 'Evening', items: [
+        { icon: 'experience', text: 'Kyichu Lhakhang' },
+        { icon: 'hotel', text: 'Check in' },
+        { icon: 'meal', text: 'Dinner near the bonfire' },
+      ]},
     ],
-    afternoon: [
-      { icon: 'transport', text: "Continue the drive and stop in Thimphu for a riverside picnic-style lunch at The Secret Garden, surrounded by serene natural beauty and the gentle sound of flowing water." },
-      { icon: 'transport', text: "Proceed to Paro." },
-    ],
-    evening: [
-      { icon: 'sight', text: "Visit Kyichu Lhakhang, one of Bhutan\u2019s oldest and most sacred temples, symbolizing the introduction of Buddhism to the country." },
-      { icon: 'hotel', text: "Check in to your hotel in Paro." },
-      { icon: 'meal', text: "Dinner and relaxation near the bonfire, enjoying the crisp mountain air and peaceful surroundings." },
-    ],
-    overnight: "Overnight in Paro",
-    hotel: "Zhiwaling Heritage."
+    farewell: null,
   },
   {
-    day: "06",
-    title: "Paro: Hike to Tiger\u2019s",
-    subtitle: "Nest Monastery and Hot Stone Bath",
-    morning: [
-      { icon: 'meal', text: "Breakfast at the hotel." },
-      { icon: 'transport', text: "Begin the hike to Taktsang Monastery (Tiger\u2019s Nest), perched dramatically on a cliff 900m above the valley floor." },
+    num: '06',
+    title: 'Paro, Hike to Tiger Nest Monastery and Hot Stone Bath',
+    travel: null,
+    city: 'Paro',
+    hotel: 'Zhiwaling Heritage',
+    periods: [
+      { label: 'Morning', items: [
+        { icon: 'meal', text: 'Breakfast' },
+        { icon: 'experience', text: 'Hike to Taktsang Monastery (900m above valley floor)' },
+      ]},
+      { label: 'Afternoon', items: [
+        { icon: 'meal', text: 'Lunch at cafeteria viewpoint' },
+        { icon: 'experience', text: 'Descend from the monastery' },
+        { icon: 'wellness', text: 'Traditional Bhutanese hot stone bath' },
+      ]},
+      { label: 'Evening', items: [
+        { icon: 'meal', text: 'Dinner at the hotel' },
+      ]},
     ],
-    afternoon: [
-      { icon: 'sight', text: "Lunch at the cafeteria viewpoint overlooking the monastery." },
-      { icon: 'transport', text: "Descend and return to the hotel (leave change of clothes in the vehicle for convenience) or proceed for hot stone bath." },
-      { icon: 'sight', text: "Enjoy a rejuvenating traditional Bhutanese hot stone bath, a soothing experience that relaxes muscles after the hike." },
-    ],
-    evening: [
-      { icon: 'meal', text: "Dinner at the hotel." },
-    ],
-    overnight: "Overnight in Paro",
-    hotel: "Zhiwaling Heritage."
+    farewell: null,
   },
   {
-    day: "07",
-    title: "Paro: Mandala Art Center",
-    subtitle: "and Dumtsha Lhakhang",
-    morning: [
-      { icon: 'meal', text: "Breakfast at the hotel." },
-      { icon: 'sight', text: "Visit the Mandala Art Center, where intricate Bhutanese mandala art is created and displayed, offering insight into the country\u2019s spiritual and artistic traditions." },
+    num: '07',
+    title: 'Paro, Mandala Art Center and Dumtsha Lhakhang',
+    travel: null,
+    city: 'Paro',
+    hotel: 'Zhiwaling Heritage',
+    periods: [
+      { label: 'Morning', items: [
+        { icon: 'meal', text: 'Breakfast' },
+        { icon: 'culture', text: 'Mandala Art Center' },
+      ]},
+      { label: 'Afternoon', items: [
+        { icon: 'experience', text: 'Dumtsha Lhakhang' },
+        { icon: 'meal', text: 'Lunch' },
+        { icon: 'leisure', text: 'Shopping and cafe time in Paro town' },
+      ]},
+      { label: 'Evening', items: [
+        { icon: 'hotel', text: 'Freshen up' },
+        { icon: 'culture', text: 'Guided meditation with Kelly Dorji' },
+        { icon: 'meal', text: 'Farewell dinner' },
+      ]},
     ],
-    afternoon: [
-      { icon: 'sight', text: "Proceed to Dumtsha Lhakhang, a unique temple located in the Paro Valley, known for its ancient murals and serene surroundings." },
-      { icon: 'meal', text: "Lunch at a local restaurant." },
-      { icon: 'leisure', text: "Leisure time for shopping or caf\u00e9 hopping in Paro town." },
-    ],
-    evening: [
-      { icon: 'hotel', text: "Return to the hotel and prepare for the evening." },
-      { icon: 'sight', text: "Participate in a guided meditation session with your host, Kelly Dorji, offering a peaceful and reflective experience to end your Bhutan journey." },
-      { icon: 'meal', text: "Farewell dinner." },
-    ],
-    overnight: "Overnight in Paro",
-    hotel: "Zhiwaling Heritage."
+    farewell: null,
   },
   {
-    day: "08",
-    title: "Departure",
-    subtitle: "from Paro",
-    morning: [
-      { icon: 'meal', text: "Breakfast at the hotel." },
-      { icon: 'transport', text: "Transfer to Paro International Airport for departure." },
-    ],
-    afternoon: [],
-    evening: [],
-    overnight: null,
+    num: '08',
+    title: 'Departure from Paro',
+    travel: null,
+    city: null,
     hotel: null,
-    farewell: "Tashi Delek, until we meet again!"
+    periods: [
+      { label: 'Morning', items: [
+        { icon: 'meal', text: 'Breakfast' },
+        { icon: 'transport', text: 'Transfer to Paro International Airport' },
+      ]},
+    ],
+    farewell: 'Tashi Delek, until we meet again.',
   },
 ];
 
-const ICON_MAP = { meal: IconMeal, transport: IconTransport, sight: IconSight, hotel: IconHotel, leisure: IconLeisure };
+const INCLUSIONS = [
+  'Seven nights of accommodation at handpicked heritage and boutique hotels',
+  'All meals as listed in the itinerary (breakfast, lunch, and dinner daily)',
+  'Private ground transportation throughout Bhutan',
+  'Full cultural guidance by Kelly Dorji for the entire duration',
+  'Founder accompaniment by Harsha for the entire journey',
+  'All monument, museum, and temple entry fees',
+  'Sustainable Development Fee (included for all nationalities)',
+  'Traditional Bhutanese hot stone bath in Paro',
+  'Kelzang Textile cultural experience in Thimphu',
+  'Guided meditation session with Kelly Dorji',
+  'All government royalties and taxes within Bhutan',
+];
 
-function DayActivity({ icon, text }) {
-  const Ico = ICON_MAP[icon] || IconSight;
-  return (
-    <div className="day-activity">
-      <Ico />
-      <p>{text}</p>
-    </div>
-  );
-}
+const EXCLUSIONS = [
+  'International flights to and from Paro',
+  'Travel and medical insurance (mandatory)',
+  'Personal expenses, laundry, and shopping',
+  'Tips and gratuities for local staff',
+  'Visa fees where applicable',
+  'Any meals or activities not listed in the itinerary',
+  'Early check-in or late check-out charges',
+];
 
 export default function BhutanJourney() {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    const fn = () => setProgress((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+  }, []);
+
+  useEffect(() => {
+    const fn = () => setProgress(
+      (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100
+    );
     window.addEventListener('scroll', fn, { passive: true });
     return () => window.removeEventListener('scroll', fn);
   }, []);
@@ -313,649 +292,872 @@ export default function BhutanJourney() {
   return (
     <>
       <style>{`
-        .pfu { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
-        .pfu.pin { opacity: 1; transform: translateY(0); }
+        .bfu { opacity:0; transform:translateY(24px); transition:opacity 0.8s ease, transform 0.8s ease; }
+        .bfu.bin { opacity:1; transform:translateY(0); }
 
-        /* ── HERO: Full-bleed photo like PDF page 1 ── */
+        .bj-progress {
+          position: fixed; top: 0; left: 0; height: 3px; z-index: 9999;
+          background: #D9A6A1; transition: width 0.15s linear;
+        }
+
+        /* ══════════════════════════════════
+           SECTION 1: HERO
+           ══════════════════════════════════ */
         .bj-hero {
-          min-height: 100vh; position: relative; overflow: hidden;
-          display: flex; flex-direction: column; align-items: center; justify-content: center;
-          text-align: center;
+          position: relative; min-height: 100vh; overflow: hidden;
+          display: flex; flex-direction: column;
+          align-items: center; justify-content: center;
+          text-align: center; color: #fff;
         }
         .bj-hero-bg {
           position: absolute; inset: 0;
-          background: url('/assets/hero-bhutan.jpg') center center / cover no-repeat,
-            linear-gradient(158deg, #4a6050 0%, #2e3d32 40%, #141e16 100%);
+          background: url('/assets/hero-bhutan.jpg') center / cover no-repeat;
         }
-        .bj-hero-overlay {
-          position: absolute; inset: 0;
-          background: linear-gradient(to bottom,
-            rgba(0,0,0,0.15) 0%,
-            rgba(0,0,0,0.05) 30%,
-            rgba(0,0,0,0.2) 70%,
-            rgba(0,0,0,0.55) 100%);
-        }
-        .bj-hero-logo {
-          position: absolute; top: 100px; left: 50%; z-index: 3;
-          transform: translateX(-50%);
-          height: 80px; width: auto;
-          filter: brightness(0) invert(1);
+        .bj-hero-bg::after {
+          content: ''; position: absolute; inset: 0;
+          background: linear-gradient(
+            to bottom,
+            rgba(0,0,0,0.35) 0%,
+            rgba(0,0,0,0.15) 40%,
+            rgba(0,0,0,0.25) 70%,
+            rgba(0,0,0,0.55) 100%
+          );
         }
         .bj-hero-content {
           position: relative; z-index: 2;
-          max-width: 700px; padding: 0 40px;
+          display: flex; flex-direction: column;
+          align-items: center; padding: 0 32px;
+        }
+        .bj-hero-logo {
+          width: 160px; margin-bottom: 64px;
+          opacity: 0; animation: bjFade 1s ease 0.3s forwards;
         }
         .bj-hero-title {
-          font-family: 'Cormorant Garamond', serif;
-          font-weight: 600; font-size: clamp(5rem, 14vw, 10rem);
-          color: white; line-height: 0.9;
-          margin-bottom: 48px;
-          text-shadow: 0 4px 40px rgba(0,0,0,0.3);
+          font-family: 'Playfair Display', serif;
+          font-weight: 700;
+          font-size: clamp(4rem, 10vw, 8rem);
+          line-height: 1.0; letter-spacing: 0.02em;
+          margin-bottom: 24px;
+          opacity: 0; animation: bjFade 1s ease 0.6s forwards;
         }
         .bj-hero-dates {
-          font-family: 'Cormorant Garamond', serif;
-          font-size: clamp(1.2rem, 2.5vw, 1.8rem); font-weight: 300;
-          color: rgba(255,255,255,0.85);
-          letter-spacing: 0.1em;
-          margin-bottom: 40px;
+          font-family: 'Lato', sans-serif;
+          font-size: clamp(16px, 2vw, 20px);
+          font-weight: 400; letter-spacing: 0.15em;
+          text-transform: uppercase;
+          margin-bottom: 16px;
+          opacity: 0; animation: bjFade 1s ease 0.9s forwards;
         }
         .bj-hero-tagline {
-          font-family: 'Cormorant Garamond', serif;
-          font-style: italic; font-size: clamp(1rem, 2vw, 1.4rem);
-          color: rgba(255,255,255,0.7);
-          display: flex; align-items: center; justify-content: center; gap: 12px;
+          font-family: 'Lora', serif;
+          font-style: italic;
+          font-size: clamp(18px, 2.5vw, 24px);
+          line-height: 1.5;
+          opacity: 0; animation: bjFade 1s ease 1.2s forwards;
         }
         .bj-hero-credit {
-          position: absolute; bottom: 16px; right: 24px; z-index: 3;
+          position: absolute; bottom: 20px; right: 24px; z-index: 3;
           font-family: 'Lato', sans-serif; font-size: 12px;
-          color: white; text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+          color: rgba(255,255,255,0.7);
+          text-shadow: 0 1px 3px rgba(0,0,0,0.4);
         }
 
-        /* ── INVITATION: Sage background like PDF page 2 ── */
+        @keyframes bjFade {
+          from { opacity:0; transform:translateY(16px); }
+          to { opacity:1; transform:translateY(0); }
+        }
+
+        /* ══════════════════════════════════
+           SECTION 2: INVITATION FROM HARSHA
+           ══════════════════════════════════ */
         .bj-invite {
-          background: #DDE5DF;
+          background: #B7C8B5;
           padding: 100px 80px;
-          display: grid; grid-template-columns: 0.8fr 1fr;
+        }
+        .bj-invite-inner {
+          max-width: 1120px; margin: 0 auto;
+          display: grid; grid-template-columns: 0.45fr 0.55fr;
           gap: 80px; align-items: center;
         }
-        .bj-invite-photo {
+        .bj-invite-photo-wrap {
           position: relative;
+          max-width: 400px;
         }
-        .bj-invite-photo img {
-          width: 100%; max-width: 340px; display: block;
-          border-radius: 12px 12px 12px 0;
-          box-shadow: 0 16px 48px rgba(0,0,0,0.12);
+        .bj-invite-photo {
+          width: 100%; display: block;
+          aspect-ratio: 3/4; object-fit: cover;
         }
-        .bj-invite-photo::before {
-          content: ''; position: absolute; top: -8px; left: -8px; right: 8px; bottom: 8px;
-          border: 1.5px solid rgba(43,43,43,0.12); border-radius: 14px 14px 14px 0;
-          pointer-events: none;
+        .bj-invite-frame {
+          position: absolute; inset: -6%;
+          width: 112%; height: 112%;
+          object-fit: contain; pointer-events: none;
         }
-        .bj-invite-heading {
-          font-family: 'Cormorant Garamond', serif;
-          font-size: clamp(2.4rem, 4vw, 3.8rem); font-weight: 600;
-          font-style: italic; color: #2B2B2B;
-          line-height: 1.15; margin-bottom: 40px;
+        .bj-invite-text h2 {
+          font-family: 'Playfair Display', serif;
+          font-weight: 700;
+          font-size: clamp(1.8rem, 3vw, 2.6rem);
+          line-height: 1.25; color: #333333;
+          margin: 32px 0;
         }
-        .bj-invite-body {
+        .bj-invite-text p {
           font-family: 'Lato', sans-serif;
-          font-size: 16px; line-height: 1.75; color: #404040;
-          margin-bottom: 16px; max-width: 520px;
+          font-size: 16px; line-height: 1.8;
+          color: #333333; margin-bottom: 24px;
         }
-        .bj-invite-trees {
-          display: flex; gap: 8px; margin-top: 40px; opacity: 0.3;
+        .bj-invite-glyphs {
+          display: flex; justify-content: center;
+          gap: 24px; margin-top: 48px;
         }
 
-        /* ── KELLY: Clay Rose background like PDF page 3 ── */
+        /* ══════════════════════════════════
+           SECTION 3: WALK WITH KELLY DORJI
+           ══════════════════════════════════ */
         .bj-kelly {
-          background: #C9A8A8;
+          background: #D9A6A1;
           padding: 100px 80px;
+        }
+        .bj-kelly-inner {
+          max-width: 900px; margin: 0 auto;
           text-align: center;
         }
-        .bj-kelly-photo {
-          width: 260px; height: 260px; border-radius: 50%;
-          object-fit: cover; display: block; margin: 0 auto 16px;
-          border: 6px solid rgba(255,255,255,0.4);
-          box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+        .bj-kelly-photo-wrap {
+          position: relative; display: inline-block;
+          width: 240px; height: 240px;
+          margin-bottom: 40px;
         }
-        .bj-kelly-title {
-          font-family: 'Cormorant Garamond', serif;
-          font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 600;
-          color: #2B2B2B; line-height: 1.15;
-          margin-bottom: 8px;
+        .bj-kelly-photo {
+          width: 100%; height: 100%;
+          border-radius: 50%; object-fit: cover;
+          display: block;
+        }
+        .bj-kelly-frame {
+          position: absolute; inset: -10%;
+          width: 120%; height: 120%;
+          object-fit: contain; pointer-events: none;
+        }
+        .bj-kelly h2 {
+          font-family: 'Playfair Display', serif;
+          font-weight: 700;
+          font-size: clamp(1.8rem, 3vw, 2.6rem);
+          line-height: 1.25; color: #333333;
+          margin-bottom: 12px;
         }
         .bj-kelly-subtitle {
-          font-family: 'Cormorant Garamond', serif;
-          font-style: italic; font-size: 1.1rem;
-          color: #2B2B2B; margin-bottom: 32px;
+          font-family: 'Lora', serif;
+          font-style: italic;
+          font-size: 18px; color: #333333;
+          margin-bottom: 32px;
         }
         .bj-kelly-body {
           font-family: 'Lato', sans-serif;
-          font-size: 16px; line-height: 1.75; color: #2B2B2B;
-          max-width: 600px; margin: 0 auto;
-          text-align: justify;
+          font-size: 16px; line-height: 1.8;
+          color: #333333; max-width: 680px;
+          margin: 0 auto;
         }
 
-        /* ── DAY CARDS: matching PDF itinerary pages exactly ── */
-        .bj-day {
-          position: relative;
-          padding: 0;
-          margin-bottom: 0;
+        /* ══════════════════════════════════
+           SECTION 4: ITINERARY
+           ══════════════════════════════════ */
+        .bj-itin {
+          background: #F5F0EB;
+          padding: 100px 80px;
         }
-        /* Day header area: Mist Beige top with day number and title */
-        .bj-day-header {
-          background: #F2ECE5;
-          padding: 60px 80px 32px;
-          position: relative;
+        .bj-itin-header {
+          text-align: center; max-width: 700px;
+          margin: 0 auto 72px;
         }
-        .bj-day-num {
+        .bj-itin-header h2 {
+          font-family: 'Playfair Display', serif;
+          font-weight: 700;
+          font-size: clamp(2rem, 3.5vw, 3rem);
+          line-height: 1.2; color: #333333;
+          margin-bottom: 16px;
+        }
+        .bj-itin-header p {
           font-family: 'Lato', sans-serif;
-          font-size: 14px; font-weight: 400;
-          letter-spacing: 0.1em; text-transform: uppercase;
-          color: #2B2B2B; margin-bottom: 4px;
+          font-size: 16px; line-height: 1.7;
+          color: #555;
         }
-        .bj-day-num span {
-          color: #C9A8A8; font-weight: 700;
+
+        .bj-day {
+          max-width: 880px; margin: 0 auto 56px;
+        }
+
+        .bj-day-head {
+          background: #F5F0EB;
+          padding: 32px 40px 24px;
+          position: relative; overflow: hidden;
+          border: 1px solid rgba(51,51,51,0.08);
+          border-bottom: none;
+          border-radius: 8px 8px 0 0;
+        }
+        .bj-day-head-glyph {
+          position: absolute; top: 16px; right: 24px;
+          opacity: 0.12;
+        }
+        .bj-day-label {
+          font-family: 'Lato', sans-serif;
+          font-size: 13px; font-weight: 700;
+          letter-spacing: 0.18em; text-transform: uppercase;
+          color: #333333; margin-bottom: 8px;
+        }
+        .bj-day-label-num {
+          color: #D9A6A1;
         }
         .bj-day-title {
-          font-family: 'Cormorant Garamond', serif;
-          font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700;
-          color: #2B2B2B; line-height: 1.15;
-          max-width: 500px;
+          font-family: 'Playfair Display', serif;
+          font-weight: 700;
+          font-size: clamp(1.25rem, 2vw, 1.6rem);
+          line-height: 1.3; color: #333333;
+          margin-bottom: 4px;
         }
-        .bj-day-approx {
+        .bj-day-travel {
           font-family: 'Lato', sans-serif;
-          font-size: 14px; color: #606060;
-          margin-top: 8px;
-        }
-        .bj-day-mountain {
-          position: absolute; top: 40px; right: 80px;
+          font-size: 14px; color: #888;
+          font-style: italic;
+          margin-bottom: 16px;
         }
 
-        /* Day body: cream/white card with bordered look */
         .bj-day-body {
-          background: #F2ECE5;
-          padding: 0 80px 60px;
-        }
-        .bj-day-card {
           background: #FAFAF8;
-          border: 1.5px solid rgba(43,43,43,0.08);
-          padding: 40px 48px;
+          border: 1px solid rgba(51,51,51,0.1);
+          border-top: none; border-bottom: none;
+          padding: 32px 40px;
           position: relative;
         }
-        .bj-day-compass {
-          position: absolute; bottom: 12px; right: 12px; opacity: 0.6;
+        .bj-day-body-enso {
+          position: absolute; bottom: 16px; right: 24px;
+          opacity: 0.15; pointer-events: none;
         }
 
-        /* Time sections: Morning / Afternoon / Evening */
-        .bj-time-section {
-          margin-bottom: 32px;
-        }
-        .bj-time-section:last-child { margin-bottom: 0; }
-        .bj-time-heading {
-          font-family: 'Cormorant Garamond', serif;
-          font-size: 1.4rem; font-weight: 400;
-          color: #2B2B2B; margin-bottom: 20px;
-        }
-        .day-activity {
-          display: flex; gap: 14px; align-items: flex-start;
+        .bj-period { margin-bottom: 28px; }
+        .bj-period:last-child { margin-bottom: 0; }
+
+        .bj-period-label {
+          font-family: 'Playfair Display', serif;
+          font-weight: 400;
+          font-size: 17px; color: #333333;
           margin-bottom: 16px;
         }
-        .day-activity:last-child { margin-bottom: 0; }
-        .day-icon {
-          flex-shrink: 0; width: 28px; height: 28px;
-          display: flex; align-items: center; justify-content: center;
-          margin-top: 1px;
-          opacity: 0.55;
+
+        .bj-activity {
+          display: flex; align-items: flex-start;
+          gap: 14px; margin-bottom: 10px;
+          padding: 6px 0;
         }
-        .day-activity p {
+        .bj-activity:last-child { margin-bottom: 0; }
+        .bj-activity-text {
           font-family: 'Lato', sans-serif;
-          font-size: 16px; line-height: 1.65; color: #404040;
-          word-break: normal; overflow-wrap: break-word;
+          font-size: 16px; line-height: 1.7;
+          color: #444;
         }
 
-        /* Divider between time sections */
-        .bj-time-divider {
-          margin: 28px 0;
+        .bj-period-divider {
+          margin: 24px 0;
         }
 
-        /* Overnight footer: Sage green bar like PDF */
-        .bj-overnight {
-          background: #DDE5DF;
-          padding: 24px 80px;
-          display: flex; align-items: center; justify-content: center;
-          gap: 24px;
+        .bj-day-foot {
+          background: #B7C8B5;
+          padding: 20px 40px;
+          display: flex; align-items: center;
+          justify-content: center; gap: 16px;
+          border-radius: 0 0 8px 8px;
         }
-        .bj-overnight-text {
-          font-family: 'Cormorant Garamond', serif;
-          font-size: 1.15rem; font-weight: 600;
-          color: #2B2B2B; text-align: center;
-        }
-        .bj-overnight-trees {
-          display: flex; gap: 4px;
+        .bj-day-foot-text {
+          font-family: 'Lato', sans-serif;
+          font-size: 15px; font-weight: 700;
+          color: #333333; letter-spacing: 0.02em;
         }
 
-        /* Farewell card */
-        .bj-farewell {
-          background: #F2ECE5;
-          padding: 80px;
-          text-align: center;
-        }
         .bj-farewell-card {
-          display: inline-block;
-          background: #FAFAF8;
-          border: 1.5px solid rgba(43,43,43,0.1);
-          border-radius: 8px;
-          padding: 40px 48px;
-          max-width: 400px;
+          text-align: center;
+          padding: 40px;
+          background: #F5F0EB;
+          border: 1px solid rgba(51,51,51,0.1);
+          border-radius: 0 0 8px 8px;
         }
         .bj-farewell-text {
-          font-family: 'Cormorant Garamond', serif;
-          font-style: italic; font-size: 1.6rem;
-          color: #2B2B2B; line-height: 1.4;
+          font-family: 'Lora', serif;
+          font-style: italic;
+          font-size: 20px; line-height: 1.6;
+          color: #333333;
         }
 
-        /* ── INVESTMENT: matching PDF page 12 ── */
-        .bj-investment {
-          background: #F2ECE5;
+        /* ══════════════════════════════════
+           SECTION 5: INVESTMENT
+           ══════════════════════════════════ */
+        .bj-invest {
+          background: #F5F0EB;
           padding: 100px 80px;
         }
-        .bj-inv-title {
-          font-family: 'Cormorant Garamond', serif;
-          font-size: clamp(2rem, 3vw, 2.8rem); font-weight: 400;
-          color: #2B2B2B; margin-bottom: 40px;
+        .bj-invest-inner {
+          max-width: 960px; margin: 0 auto;
         }
-        .bj-inv-grid {
-          display: grid; grid-template-columns: 1fr 1fr;
-          gap: 0; border: 1.5px solid rgba(43,43,43,0.1);
-          background: #FAFAF8; margin-bottom: 48px;
-          max-width: 700px;
+        .bj-invest-header {
+          text-align: center; margin-bottom: 56px;
         }
-        .bj-inv-col {
-          padding: 32px 40px;
-        }
-        .bj-inv-col:first-child { border-right: 1.5px solid rgba(43,43,43,0.1); }
-        .bj-inv-col-title {
-          font-family: 'Lato', sans-serif;
-          font-size: 14px; font-weight: 400;
-          letter-spacing: 0.1em;
-          color: #606060; margin-bottom: 20px;
-        }
-        .bj-inv-row {
+        .bj-invest-header h2 {
+          font-family: 'Playfair Display', serif;
+          font-weight: 700;
+          font-size: clamp(2rem, 3vw, 2.8rem);
+          line-height: 1.2; color: #333333;
           margin-bottom: 16px;
         }
-        .bj-inv-label {
+        .bj-invest-header p {
           font-family: 'Lato', sans-serif;
-          font-size: 14px; color: #606060;
+          font-size: 16px; line-height: 1.7;
+          color: #555;
         }
-        .bj-inv-price {
-          font-family: 'Cormorant Garamond', serif;
-          font-size: 1.8rem; font-weight: 600;
-          color: #2B2B2B;
-        }
-        .bj-inv-price span { font-size: 1rem; font-weight: 400; }
 
-        /* Inclusions grid */
-        .bj-inc-grid {
-          display: grid; grid-template-columns: repeat(4, 1fr);
-          gap: 24px; margin-bottom: 48px;
+        .bj-pricing-grid {
+          display: grid; grid-template-columns: 1fr 1fr;
+          gap: 32px; margin-bottom: 56px;
         }
-        .bj-inc-item {
+        .bj-pricing-card {
+          background: #FAFAF8;
+          border: 1px solid rgba(51,51,51,0.08);
+          padding: 40px 36px;
+          text-align: center;
+          border-radius: 8px;
+        }
+        .bj-pricing-card-title {
+          font-family: 'Playfair Display', serif;
+          font-weight: 700;
+          font-size: 20px; color: #333333;
+          margin-bottom: 32px;
+          padding-bottom: 16px;
+          border-bottom: 1px solid rgba(51,51,51,0.08);
+        }
+        .bj-pricing-row {
+          display: flex; justify-content: space-between;
+          align-items: baseline;
+          padding: 12px 0;
+          border-bottom: 1px solid rgba(51,51,51,0.05);
+        }
+        .bj-pricing-row:last-child { border-bottom: none; }
+        .bj-pricing-type {
+          font-family: 'Lato', sans-serif;
+          font-size: 15px; color: #555;
+        }
+        .bj-pricing-amount {
+          font-family: 'Lato', sans-serif;
+          font-size: 20px; font-weight: 700;
+          color: #333333;
+        }
+        .bj-pricing-note {
+          font-family: 'Lato', sans-serif;
+          font-size: 13px; color: #888;
+          display: block; margin-top: 2px;
+        }
+
+        .bj-invest-section {
+          margin-bottom: 48px;
+        }
+        .bj-invest-section h3 {
+          font-family: 'Playfair Display', serif;
+          font-weight: 700;
+          font-size: 20px; color: #333333;
+          margin-bottom: 20px;
           text-align: center;
         }
-        .bj-inc-icon {
-          width: 48px; height: 48px; margin: 0 auto 12px;
-          opacity: 0.5;
+        .bj-invest-list {
+          list-style: none; padding: 0; margin: 0;
+          max-width: 640px; margin: 0 auto;
         }
-        .bj-inc-label {
+        .bj-invest-list li {
           font-family: 'Lato', sans-serif;
-          font-size: 14px; color: #404040; line-height: 1.5;
+          font-size: 15px; line-height: 1.7;
+          color: #444; padding: 8px 0 8px 24px;
+          position: relative;
+        }
+        .bj-invest-list li::before {
+          content: '';
+          position: absolute; left: 0; top: 16px;
+          width: 8px; height: 8px;
+          border-radius: 50%;
+          background: #D9A6A1; opacity: 0.5;
         }
 
-        /* ── CTA: matching PDF page 13 ── */
+        .bj-cancel {
+          max-width: 640px; margin: 0 auto;
+          text-align: center;
+        }
+        .bj-cancel h3 {
+          font-family: 'Playfair Display', serif;
+          font-weight: 700;
+          font-size: 20px; color: #333333;
+          margin-bottom: 20px;
+        }
+        .bj-cancel p {
+          font-family: 'Lato', sans-serif;
+          font-size: 15px; line-height: 1.8;
+          color: #444;
+        }
+
+        /* ══════════════════════════════════
+           SECTION 6: CTA / BOOKING
+           ══════════════════════════════════ */
         .bj-cta {
-          background: #F2ECE5;
+          background: #F5F0EB;
           padding: 100px 80px;
           text-align: center;
-          display: flex; flex-direction: column;
-          align-items: center;
         }
         .bj-cta-logo {
-          height: 80px; width: auto; margin-bottom: 48px; display: block;
+          width: 140px; margin: 0 auto 48px;
+          display: block;
         }
-        .bj-cta-heading {
-          font-family: 'Cormorant Garamond', serif;
-          font-size: clamp(2.4rem, 4.5vw, 3.8rem);
-          font-weight: 400; font-style: italic;
-          color: #2B2B2B; margin-bottom: 40px;
-          line-height: 1.25; max-width: 500px;
+        .bj-cta h2 {
+          font-family: 'Playfair Display', serif;
+          font-weight: 700; font-style: italic;
+          font-size: clamp(1.8rem, 3vw, 2.6rem);
+          line-height: 1.3; color: #333333;
+          margin-bottom: 32px;
+        }
+        .bj-cta-body {
+          font-family: 'Lato', sans-serif;
+          font-size: 16px; line-height: 1.8;
+          color: #444; max-width: 560px;
+          margin: 0 auto 24px;
         }
         .bj-cta-wa {
-          display: flex; align-items: center; gap: 14px;
-          font-family: 'Lato', sans-serif; font-size: 16px; font-weight: 400;
-          color: #2B2B2B; text-decoration: none;
-          margin-bottom: 48px;
-          padding: 16px 32px;
-          border: 1px solid rgba(43,43,43,0.15); border-radius: 4px;
-          transition: border-color 0.3s, background 0.3s;
-        }
-        .bj-cta-wa:hover { border-color: #C9A8A8; background: rgba(201,168,168,0.08); }
-        .bj-cta-wa-text {
-          display: flex; flex-direction: column; align-items: flex-start;
-          font-size: 14px; line-height: 1.5;
-        }
-        .bj-cta-wa-text strong {
-          font-size: 16px; font-weight: 700; letter-spacing: 0.02em;
-        }
-        .bj-cta-date-bar {
-          background: #C9A8A8;
-          padding: 32px 64px;
-          border-radius: 4px;
-          display: flex; align-items: center; justify-content: center; gap: 32px;
-        }
-        .bj-cta-date-inner { text-align: center; }
-        .bj-cta-date-label {
+          display: inline-flex; align-items: center; gap: 8px;
           font-family: 'Lato', sans-serif;
-          font-size: 14px; color: rgba(255,255,255,0.75);
-          letter-spacing: 0.12em; margin-bottom: 6px;
+          font-size: 18px; font-weight: 700;
+          color: #333333; text-decoration: none;
+          padding: 16px 40px; background: #B7C8B5;
+          border-radius: 4px; margin-bottom: 40px;
+          transition: background 0.35s, color 0.35s;
+          min-height: 48px;
         }
-        .bj-cta-date-val {
-          font-family: 'Cormorant Garamond', serif;
-          font-size: 2rem; font-weight: 600;
-          color: white; letter-spacing: 0.02em;
+        .bj-cta-wa:hover { background: #96AD93; color: #fff; }
+
+        .bj-cta-date {
+          background: #D9A6A1;
+          padding: 20px 40px;
+          border-radius: 4px;
+          display: inline-block; margin-bottom: 40px;
         }
-        /* Final quote strip */
-        .bj-final-strip {
-          position: relative; min-height: 50vh; overflow: hidden;
-          display: flex; align-items: center; justify-content: center;
+        .bj-cta-date p {
+          font-family: 'Lato', sans-serif;
+          font-size: 16px; font-weight: 700;
+          color: #333333; letter-spacing: 0.05em;
         }
-        .bj-final-strip-bg {
-          position: absolute; inset: 0;
-          background: url('/assets/journey-bhutan.jpg') center / cover no-repeat;
-        }
-        .bj-final-strip-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.35); }
-        .bj-final-quote {
-          position: relative; z-index: 1;
-          background: rgba(255,255,255,0.92);
-          border: 1.5px solid rgba(43,43,43,0.08);
-          border-radius: 8px;
-          padding: 40px 48px;
-          max-width: 400px; text-align: center;
-        }
-        .bj-final-quote p {
-          font-family: 'Cormorant Garamond', serif;
-          font-style: italic; font-size: 1.4rem;
-          color: #2B2B2B; line-height: 1.4;
+        .bj-cta-glyphs {
+          display: flex; justify-content: center;
+          gap: 32px; margin-top: 16px;
         }
 
-        /* ── RESPONSIVE ── */
-        @media (max-width: 1024px) {
-          .bj-invite { padding: 80px 48px; gap: 48px; }
-          .bj-kelly { padding: 80px 48px; }
-          .bj-day-header { padding: 48px 48px 24px; }
-          .bj-day-body { padding: 0 48px 48px; }
-          .bj-overnight { padding: 24px 48px; }
-          .bj-investment { padding: 80px 48px; }
-          .bj-inc-grid { grid-template-columns: repeat(2, 1fr); }
+        /* ══════════════════════════════════
+           SECTION 7: FINAL QUOTE STRIP
+           ══════════════════════════════════ */
+        .bj-final {
+          position: relative; min-height: 50vh;
+          display: flex; align-items: center; justify-content: center;
+          overflow: hidden;
         }
-        @media (max-width: 768px) {
-          .bj-invite { grid-template-columns: 1fr; padding: 60px 32px; gap: 40px; }
-          .bj-invite-photo img { max-width: 260px; margin: 0 auto; display: block; }
-          .bj-kelly { padding: 60px 32px; }
-          .bj-kelly-photo { width: 200px; height: 200px; }
-          .bj-day-header { padding: 40px 24px 20px; }
-          .bj-day-body { padding: 0 24px 40px; }
-          .bj-day-card { padding: 28px 24px; }
-          .bj-day-mountain { display: none; }
-          .bj-overnight { padding: 20px 24px; }
-          .bj-investment { padding: 60px 32px; }
-          .bj-inv-grid { grid-template-columns: 1fr; }
-          .bj-inv-col:first-child { border-right: none; border-bottom: 1.5px solid rgba(43,43,43,0.1); }
-          .bj-inc-grid { grid-template-columns: 1fr 1fr; }
-          .bj-cta { padding: 60px 32px; }
-          .bj-farewell { padding: 60px 32px; }
+        .bj-final-bg {
+          position: absolute; inset: 0;
+          background: url('/assets/hero-bhutan.jpg') center 30% / cover no-repeat;
+        }
+        .bj-final-bg::after {
+          content: ''; position: absolute; inset: 0;
+          background: rgba(0,0,0,0.6);
+        }
+        .bj-final-content {
+          position: relative; z-index: 2;
+          text-align: center; padding: 80px 40px;
+          max-width: 700px;
+        }
+        .bj-final-quote-upper,
+        .bj-final-quote-lower {
+          width: 80px; display: block; margin: 0 auto;
+          opacity: 0.7;
+        }
+        .bj-final-quote {
+          font-family: 'Lora', serif;
+          font-style: italic;
+          font-size: clamp(1.4rem, 3vw, 2.2rem);
+          line-height: 1.55; color: #fff;
+          margin: 24px 0;
+        }
+
+        /* ══════════════════════════════════
+           RESPONSIVE
+           ══════════════════════════════════ */
+        @media (max-width: 900px) {
+          .bj-invite { padding: 80px 40px; }
+          .bj-invite-inner {
+            grid-template-columns: 1fr;
+            gap: 48px; text-align: center;
+          }
+          .bj-invite-photo-wrap {
+            max-width: 300px; margin: 0 auto;
+          }
+          .bj-kelly { padding: 80px 40px; }
+          .bj-itin { padding: 80px 40px; }
+          .bj-day-head { padding: 28px 28px 20px; }
+          .bj-day-body { padding: 28px; }
+          .bj-day-foot { padding: 16px 28px; }
+          .bj-invest { padding: 80px 40px; }
+          .bj-pricing-grid { grid-template-columns: 1fr; gap: 24px; }
+          .bj-cta { padding: 80px 40px; }
+          .bj-final { min-height: 40vh; }
+        }
+
+        @media (max-width: 600px) {
+          .bj-hero-logo { width: 120px; margin-bottom: 48px; }
+          .bj-invite { padding: 60px 24px; }
+          .bj-invite-inner { gap: 40px; }
+          .bj-invite-text h2 { font-size: 1.6rem; }
+          .bj-kelly { padding: 60px 24px; }
+          .bj-kelly-photo-wrap { width: 180px; height: 180px; }
+          .bj-itin { padding: 60px 24px; }
+          .bj-day-head { padding: 24px 20px 16px; }
+          .bj-day-body { padding: 24px 20px; }
+          .bj-day-foot {
+            padding: 14px 20px;
+            flex-direction: column; gap: 8px;
+          }
+          .bj-invest { padding: 60px 24px; }
+          .bj-pricing-card { padding: 32px 24px; }
+          .bj-cta { padding: 60px 24px; }
+          .bj-cta-wa { font-size: 16px; padding: 14px 32px; }
+          .bj-cta-date { padding: 16px 28px; }
+          .bj-final-content { padding: 60px 24px; }
+          .bj-activity { gap: 10px; }
+          .bj-farewell-card { padding: 32px 24px; }
         }
       `}</style>
 
-      <div className="grain" aria-hidden="true" />
-      <div className="pv-progress" style={{ width: `${progress}%` }} aria-hidden="true" />
+      <div className="bj-progress" style={{ width: `${progress}%` }} aria-hidden="true" />
+
       <Nav />
       <WhatsAppButton />
 
-      {/* ══ PAGE 1: Hero ══ */}
+      {/* ══ 1. HERO ══ */}
       <section className="bj-hero">
         <div className="bj-hero-bg" />
-        <div className="bj-hero-overlay" />
-        <img src="/assets/Logo-Main.png" alt="PuraVida" className="bj-hero-logo" />
         <div className="bj-hero-content">
+          <img
+            src="/assets/01. LOGOS/Logo-Main-White.png"
+            alt="PuraVida with Harsha"
+            className="bj-hero-logo"
+          />
           <h1 className="bj-hero-title">Bhutan</h1>
-          <p className="bj-hero-dates">April 9 &ndash; 16, 2026</p>
-          <p className="bj-hero-tagline">
-            <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="1.2"><path d="M8,1 C5,4 3,7 5,10 C6,12 8,13 8,15 C8,13 10,12 11,10 C13,7 11,4 8,1z"/></svg>
-            Where stillness finds you
-            <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="1.2"><path d="M8,1 C5,4 3,7 5,10 C6,12 8,13 8,15 C8,13 10,12 11,10 C13,7 11,4 8,1z"/></svg>
-          </p>
+          <p className="bj-hero-dates">April 9 to 16, 2026</p>
+          <p className="bj-hero-tagline">Where stillness finds you</p>
         </div>
         <span className="bj-hero-credit">Photo: Kelly Dorji</span>
       </section>
 
-      {/* ══ PAGE 2: Invitation from Harsha ══ */}
+      {/* ══ 2. INVITATION FROM HARSHA ══ */}
       <section className="bj-invite">
-        <FU>
-          <div className="bj-invite-photo">
-            <img src="/assets/harsha-portrait.jpg" alt="Harsha" />
-          </div>
-        </FU>
-        <FU d={1}>
-          <LeafDivider color="#2B2B2B" width="80%" />
-          <h2 className="bj-invite-heading">
-            An Invitation<br />From Harsha
-          </h2>
-          <LeafDivider color="#2B2B2B" width="80%" />
-          <p className="bj-invite-body" style={{ marginTop: '32px' }}>
-            Bhutan holds a kind of quiet that stays with you long after you return. It asks you to slow down, breathe deeper, and notice the gentle details of life that cities often blur.
-          </p>
-          <p className="bj-invite-body">
-            This journey is crafted for those who want more than travel. It is for those who want presence, connection, and the kind of beauty you feel in your heart. We move slowly. We listen. We walk with people who carry the land in their stories. If this calls to you, I would love for you to join me in Bhutan.
-          </p>
-          <div className="bj-invite-trees">
-            <TreeGlyph size={48} /><TreeGlyph size={56} /><TreeGlyph size={44} />
-          </div>
-        </FU>
-      </section>
-
-      {/* ══ PAGE 3: Walk Bhutan with Kelly Dorji ══ */}
-      <section className="bj-kelly">
-        <FU>
-          <img src="/assets/kelly-dorji.jpg" alt="Kelly Dorji" className="bj-kelly-photo" />
-          <LeafDivider color="#2B2B2B" width="60%" />
-          <h2 className="bj-kelly-title">Walk Bhutan<br />with Kelly Dorji</h2>
-          <LeafDivider color="#2B2B2B" width="60%" />
-          <p className="bj-kelly-subtitle">Your cultural bridge.</p>
-          <p className="bj-kelly-body">
-            Kelly is one of Bhutan's most respected cultural custodians, rooted in Himalayan heritage, art, and spirituality. He brings depth, humour, and a lived understanding of the land that few possess. Walking Bhutan with him feels like being guided by someone who sees both the visible and the unseen. His presence is an experience in itself.
-          </p>
-        </FU>
-      </section>
-
-      {/* ══ PAGES 4-11: Day-by-Day Itinerary ══ */}
-      {DAYS.map((day, idx) => (
-        <div className="bj-day" key={idx}>
+        <div className="bj-invite-inner">
           <FU>
-            {/* Day header */}
-            <div className="bj-day-header">
-              <p className="bj-day-num">DAY- <span>{day.day}</span></p>
-              <h2 className="bj-day-title">
-                {day.title}
-                {day.subtitle && <><br />{day.subtitle}</>}
-              </h2>
-              {day.approx && <p className="bj-day-approx">({day.approx})</p>}
-              <div className="bj-day-mountain"><MountainGlyph size={100} /></div>
-              <div style={{ marginTop: '16px' }}><LeafDivider /></div>
+            <div className="bj-invite-photo-wrap">
+              <img
+                src="/assets/harsha-portrait.jpg"
+                alt="Harsha"
+                className="bj-invite-photo"
+              />
+              <img
+                src="/assets/05. GRAPHIC ELEMENTS/Puravida_Photo-Frame-2/Puravida_Photo-Frame-2.png"
+                alt="" aria-hidden="true"
+                className="bj-invite-frame"
+              />
             </div>
-
-            {/* Day body card */}
-            <div className="bj-day-body">
-              <div className="bj-day-card">
-                {day.morning.length > 0 && (
-                  <div className="bj-time-section">
-                    <h3 className="bj-time-heading">Morning</h3>
-                    {day.morning.map((a, i) => <DayActivity key={i} icon={a.icon} text={a.text} />)}
-                  </div>
-                )}
-
-                {day.afternoon.length > 0 && (
-                  <>
-                    <div className="bj-time-divider"><LeafDivider /></div>
-                    <div className="bj-time-section">
-                      <h3 className="bj-time-heading">Afternoon</h3>
-                      {day.afternoon.map((a, i) => <DayActivity key={i} icon={a.icon} text={a.text} />)}
-                    </div>
-                  </>
-                )}
-
-                {day.evening.length > 0 && (
-                  <>
-                    <div className="bj-time-divider"><LeafDivider /></div>
-                    <div className="bj-time-section">
-                      <h3 className="bj-time-heading">Evening</h3>
-                      {day.evening.map((a, i) => <DayActivity key={i} icon={a.icon} text={a.text} />)}
-                    </div>
-                  </>
-                )}
-
-                {day.farewell && (
-                  <div style={{ textAlign: 'center', padding: '40px 0 20px' }}>
-                    <div className="bj-farewell-card" style={{ border: 'none', padding: '20px' }}>
-                      <p className="bj-farewell-text">{day.farewell}</p>
-                    </div>
-                  </div>
-                )}
-
-                <div className="bj-day-compass"><CompassGlyph /></div>
+          </FU>
+          <FU d={1}>
+            <div className="bj-invite-text">
+              <Divider width={160} opacity={0.4} />
+              <h2>An Invitation From Harsha</h2>
+              <Divider width={160} opacity={0.4} />
+              <p style={{ marginTop: 32 }}>
+                Bhutan holds a kind of quiet that stays with you long after you return.
+                It asks you to slow down, breathe deeper, and notice the gentle details
+                of life that cities often blur.
+              </p>
+              <p>
+                This journey is crafted for those who want more than travel. It is for
+                those who want presence, connection, and the kind of beauty you feel in
+                your heart. We move slowly. We listen. We walk with people who carry the
+                land in their stories. If this calls to you, I would love for you to
+                join me in Bhutan.
+              </p>
+              <div className="bj-invite-glyphs">
+                <Glyph name="Trees" variant="Charcoal" size={40} opacity={0.2} />
+                <Glyph name="Trees" variant="Charcoal" size={48} opacity={0.25} />
+                <Glyph name="Trees" variant="Charcoal" size={40} opacity={0.2} />
               </div>
             </div>
-
-            {/* Overnight footer */}
-            {day.overnight && (
-              <div className="bj-overnight">
-                <div className="bj-overnight-trees"><TreeGlyph size={32} /><TreeGlyph size={36} /></div>
-                <div>
-                  <p className="bj-overnight-text">{day.overnight} &ndash;</p>
-                  <p className="bj-overnight-text">{day.hotel}</p>
-                </div>
-                <div className="bj-overnight-trees"><TreeGlyph size={36} /><TreeGlyph size={32} /></div>
-              </div>
-            )}
           </FU>
         </div>
-      ))}
-
-      {/* ══ PAGE 12: Investment ══ */}
-      <section className="bj-investment">
-        <FU>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-            <h2 className="bj-inv-title">Your Investment</h2>
-            <div style={{ display: 'flex', gap: '4px' }}><TreeGlyph size={40} /><TreeGlyph size={48} /></div>
-          </div>
-
-          <div className="bj-inv-grid">
-            <div className="bj-inv-col">
-              <p className="bj-inv-col-title">Indian Passport Holders</p>
-              <LeafDivider width="100%" />
-              <div className="bj-inv-row" style={{ marginTop: '16px' }}>
-                <p className="bj-inv-label">Solo Traveler</p>
-                <p className="bj-inv-price">AED 13,350</p>
-              </div>
-              <LeafDivider width="100%" />
-              <div className="bj-inv-row" style={{ marginTop: '16px' }}>
-                <p className="bj-inv-label">Double Occupancy</p>
-                <p className="bj-inv-price">AED 12,100 <span>pp</span></p>
-              </div>
-            </div>
-            <div className="bj-inv-col">
-              <p className="bj-inv-col-title">Other Nationalities</p>
-              <LeafDivider width="100%" />
-              <div className="bj-inv-row" style={{ marginTop: '16px' }}>
-                <p className="bj-inv-label">Solo Traveler</p>
-                <p className="bj-inv-price">AED 20,500</p>
-              </div>
-              <LeafDivider width="100%" />
-              <div className="bj-inv-row" style={{ marginTop: '16px' }}>
-                <p className="bj-inv-label">Double Occupancy</p>
-                <p className="bj-inv-price">AED 18,500 <span>pp</span></p>
-              </div>
-            </div>
-          </div>
-
-          <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.6rem', fontWeight: 400, color: '#2B2B2B', marginBottom: '16px' }}>Cancellations</h3>
-          <p style={{ fontFamily: "'Lato', sans-serif", fontSize: '16px', lineHeight: 1.75, color: '#404040', marginBottom: '48px', maxWidth: '600px' }}>
-            Payments are refundable up to 4 weeks before departure. Modest deductions may apply when third-party bookings or deposits have been committed.
-          </p>
-
-          <LeafDivider />
-
-          <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.6rem', fontWeight: 400, color: '#2B2B2B', margin: '48px 0 28px' }}>Inclusions</h3>
-          <div className="bj-inc-grid">
-            {[
-              "Boutique hotels (as listed)", "Breakfast daily + selected meals",
-              "All ground transportation", "Bhutan visa assistance",
-              "Sustainable Development Fee", "All entry fees and guided experiences",
-              "Meditation with Kelly", "Traditional Hot Stone Bath"
-            ].map((item, i) => (
-              <div className="bj-inc-item" key={i}>
-                <p className="bj-inc-label">{item}</p>
-              </div>
-            ))}
-          </div>
-
-          <LeafDivider />
-
-          <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.6rem', fontWeight: 400, color: '#2B2B2B', margin: '48px 0 28px' }}>Exclusions</h3>
-          <div className="bj-inc-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
-            {[
-              "International flights to/from Paro",
-              "Travel insurance",
-              "Lunches and dinners (unless specified)"
-            ].map((item, i) => (
-              <div className="bj-inc-item" key={i}>
-                <p className="bj-inc-label">{item}</p>
-              </div>
-            ))}
-          </div>
-        </FU>
       </section>
 
-      {/* ══ PAGE 13: CTA ══ */}
+      {/* ══ 3. WALK BHUTAN WITH KELLY DORJI ══ */}
+      <section className="bj-kelly">
+        <div className="bj-kelly-inner">
+          <FU>
+            <div className="bj-kelly-photo-wrap">
+              <img
+                src="/assets/kelly-dorji.jpg"
+                alt="Kelly Dorji"
+                className="bj-kelly-photo"
+              />
+              <img
+                src="/assets/05. GRAPHIC ELEMENTS/Puravida_Photo-Frame-1/Puravida_Photo-Frame-1.png"
+                alt="" aria-hidden="true"
+                className="bj-kelly-frame"
+              />
+            </div>
+          </FU>
+          <FU d={1}>
+            <h2>Walk Bhutan with Kelly Dorji</h2>
+            <p className="bj-kelly-subtitle">Your cultural bridge.</p>
+            <Divider width={160} opacity={0.4} />
+            <p className="bj-kelly-body" style={{ marginTop: 32 }}>
+              Kelly is one of Bhutan's most respected cultural custodians, rooted in
+              Himalayan heritage, art, and spirituality. He brings depth, humour, and a
+              lived understanding of the land that few possess. Walking Bhutan with him
+              feels like being guided by someone who sees both the visible and the unseen.
+              His presence is an experience in itself.
+            </p>
+          </FU>
+          <FU d={2}>
+            <div style={{ marginTop: 40 }}>
+              <Divider width={160} opacity={0.4} />
+            </div>
+          </FU>
+        </div>
+      </section>
+
+      {/* ══ 4. DAY-BY-DAY ITINERARY ══ */}
+      <section className="bj-itin" id="itinerary">
+        <div className="bj-itin-header">
+          <FU>
+            <Divider width={180} opacity={0.4} />
+            <h2 style={{ marginTop: 32 }}>Your Journey, Day by Day</h2>
+            <p>Eight days of stillness, culture, and connection across the heart of Bhutan.</p>
+          </FU>
+        </div>
+
+        {DAYS.map((day, di) => (
+          <FU key={day.num} d={di * 0.2}>
+            <div className="bj-day">
+              {/* Day Header */}
+              <div className="bj-day-head">
+                <div className="bj-day-head-glyph">
+                  <Glyph name="Mountains" variant="Charcoal" size={56} opacity={0.12} />
+                </div>
+                <p className="bj-day-label">
+                  Day <span className="bj-day-label-num">{day.num}</span>
+                </p>
+                <h3 className="bj-day-title">{day.title}</h3>
+                {day.travel && (
+                  <p className="bj-day-travel">{day.travel}</p>
+                )}
+                <Divider width={140} opacity={0.35} />
+              </div>
+
+              {/* Day Body */}
+              <div className="bj-day-body">
+                {day.periods.map((period, pi) => (
+                  <div key={period.label}>
+                    {pi > 0 && (
+                      <div className="bj-period-divider">
+                        <Divider width={100} opacity={0.25} />
+                      </div>
+                    )}
+                    <div className="bj-period">
+                      <p className="bj-period-label">{period.label}</p>
+                      {period.items.map((act, ai) => (
+                        <div className="bj-activity" key={ai}>
+                          <DayIcon type={act.icon} />
+                          <span className="bj-activity-text">{act.text}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+                <div className="bj-day-body-enso">
+                  <Glyph name="Pause" variant="Charcoal" size={40} opacity={0.15} />
+                </div>
+              </div>
+
+              {/* Day Footer or Farewell */}
+              {day.farewell ? (
+                <div className="bj-farewell-card">
+                  <Glyph name="Mountains" variant="Charcoal" size={36} opacity={0.2} />
+                  <p className="bj-farewell-text" style={{ marginTop: 16 }}>
+                    &ldquo;{day.farewell}&rdquo;
+                  </p>
+                </div>
+              ) : (
+                <div className="bj-day-foot">
+                  <Glyph name="Trees" variant="Charcoal" size={24} opacity={0.3} />
+                  <span className="bj-day-foot-text">
+                    Overnight in {day.city} : {day.hotel}
+                  </span>
+                  <Glyph name="Trees" variant="Charcoal" size={24} opacity={0.3} />
+                </div>
+              )}
+            </div>
+          </FU>
+        ))}
+      </section>
+
+      {/* ══ 5. INVESTMENT ══ */}
+      <section className="bj-invest" id="investment">
+        <div className="bj-invest-inner">
+          <FU>
+            <div className="bj-invest-header">
+              <Divider width={180} opacity={0.4} />
+              <h2 style={{ marginTop: 32 }}>Your Investment</h2>
+              <p>
+                All prices are per person in AED. This journey is limited to a small group
+                to preserve the intimacy and depth of every experience.
+              </p>
+            </div>
+          </FU>
+
+          <FU d={1}>
+            <div className="bj-pricing-grid">
+              <div className="bj-pricing-card">
+                <h3 className="bj-pricing-card-title">Indian Passport Holders</h3>
+                <div className="bj-pricing-row">
+                  <span className="bj-pricing-type">Solo Traveller</span>
+                  <span className="bj-pricing-amount">AED 13,350</span>
+                </div>
+                <div className="bj-pricing-row">
+                  <span className="bj-pricing-type">Double Sharing</span>
+                  <div>
+                    <span className="bj-pricing-amount">AED 12,100</span>
+                    <span className="bj-pricing-note">per person</span>
+                  </div>
+                </div>
+              </div>
+              <div className="bj-pricing-card">
+                <h3 className="bj-pricing-card-title">Other Nationalities</h3>
+                <div className="bj-pricing-row">
+                  <span className="bj-pricing-type">Solo Traveller</span>
+                  <span className="bj-pricing-amount">AED 20,500</span>
+                </div>
+                <div className="bj-pricing-row">
+                  <span className="bj-pricing-type">Double Sharing</span>
+                  <div>
+                    <span className="bj-pricing-amount">AED 18,500</span>
+                    <span className="bj-pricing-note">per person</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </FU>
+
+          <FU d={2}>
+            <Divider width={160} opacity={0.3} />
+            <div className="bj-invest-section" style={{ marginTop: 48 }}>
+              <h3>What is Included</h3>
+              <ul className="bj-invest-list">
+                {INCLUSIONS.map((item, i) => <li key={i}>{item}</li>)}
+              </ul>
+            </div>
+          </FU>
+
+          <FU d={3}>
+            <Divider width={160} opacity={0.3} />
+            <div className="bj-invest-section" style={{ marginTop: 48 }}>
+              <h3>What is Not Included</h3>
+              <ul className="bj-invest-list">
+                {EXCLUSIONS.map((item, i) => <li key={i}>{item}</li>)}
+              </ul>
+            </div>
+          </FU>
+
+          <FU d={4}>
+            <Divider width={160} opacity={0.3} />
+            <div className="bj-cancel" style={{ marginTop: 48 }}>
+              <h3>Cancellation Policy</h3>
+              <p>
+                More than 60 days before departure: 85% refund of the total cost.
+              </p>
+              <p>
+                30 to 59 days before departure: 50% refund of the total cost.
+              </p>
+              <p>
+                Less than 30 days before departure: No refund.
+              </p>
+              <p style={{ marginTop: 16, color: '#888', fontSize: 14 }}>
+                All cancellations must be communicated in writing via email or WhatsApp.
+              </p>
+            </div>
+          </FU>
+
+          <FU d={5}>
+            <div style={{ textAlign: 'center', marginTop: 48 }}>
+              <Glyph name="Trees" variant="Charcoal" size={48} opacity={0.2} />
+            </div>
+          </FU>
+        </div>
+      </section>
+
+      {/* ══ 6. CTA / BOOKING ══ */}
       <section className="bj-cta">
         <FU>
-          <img src="/assets/Logo-Main.png" alt="PuraVida" className="bj-cta-logo" />
-          <h2 className="bj-cta-heading">Your Journey Begins<br />with a Message</h2>
-          <a href="https://wa.me/+971562216643" className="bj-cta-wa" target="_blank" rel="noopener noreferrer">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#2B2B2B" strokeWidth="1.5"><path d="M3,21 L4.5,15.5 C3.5,13.8 3,11.9 3,10 C3,5 7,1 12,1 C17,1 21,5 21,10 C21,15 17,19 12,19 C10.1,19 8.3,18.5 6.7,17.5 L3,21z" /><path d="M8,12 C8,12 9.5,14 12,14 C14.5,14 16,12 16,12" /></svg>
-            WhatsApp Harsha<br />+971 56 2216643
-          </a>
-          <div className="bj-cta-date-bar">
-            <div className="bj-overnight-trees"><TreeGlyph size={28} color="#FAFAF8" /><TreeGlyph size={32} color="#FAFAF8" /></div>
-            <div>
-              <p className="bj-cta-date-label">Join us by</p>
-              <p className="bj-cta-date-val">March 01<sup>st</sup> 2026</p>
+          <img
+            src="/assets/01. LOGOS/Logo-Main.png"
+            alt="PuraVida with Harsha"
+            className="bj-cta-logo"
+          />
+          <h2>Your Journey Begins with a Message</h2>
+          <Divider width={160} opacity={0.4} />
+          <p className="bj-cta-body" style={{ marginTop: 32 }}>
+            Reach out to Harsha directly on WhatsApp. Share what draws you to Bhutan,
+            ask any questions you may have, and we will take it from there.
+          </p>
+          <div>
+            <a
+              href="https://wa.me/+971562216643"
+              className="bj-cta-wa"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Message Harsha on WhatsApp
+            </a>
+          </div>
+          <div style={{ marginBottom: 8 }}>
+            <div className="bj-cta-date">
+              <p>Join us by March 01st 2026</p>
             </div>
-            <div className="bj-overnight-trees"><TreeGlyph size={32} color="#FAFAF8" /><TreeGlyph size={28} color="#FAFAF8" /></div>
+          </div>
+          <div className="bj-cta-glyphs">
+            <Glyph name="Trees" variant="Charcoal" size={40} opacity={0.2} />
+            <Glyph name="Trees" variant="Charcoal" size={48} opacity={0.25} />
+            <Glyph name="Trees" variant="Charcoal" size={40} opacity={0.2} />
           </div>
         </FU>
       </section>
 
-      {/* Final quote with Tiger's Nest background */}
-      <div className="bj-final-strip">
-        <div className="bj-final-strip-bg" />
-        <div className="bj-final-strip-overlay" />
+      {/* ══ 7. FINAL QUOTE STRIP ══ */}
+      <section className="bj-final">
+        <div className="bj-final-bg" />
         <FU>
-          <div className="bj-final-quote">
-            <p>If Bhutan is calling,<br />this is your moment<br />to answer.</p>
+          <div className="bj-final-content">
+            <img
+              src="/assets/05. GRAPHIC ELEMENTS/Puravida_Quote-Frame-1/Quote-Upper.png"
+              alt="" aria-hidden="true"
+              className="bj-final-quote-upper"
+            />
+            <p className="bj-final-quote">
+              If Bhutan is calling, this is your moment to answer.
+            </p>
+            <img
+              src="/assets/05. GRAPHIC ELEMENTS/Puravida_Quote-Frame-1/Quote-Lower.png"
+              alt="" aria-hidden="true"
+              className="bj-final-quote-lower"
+            />
           </div>
         </FU>
-      </div>
+      </section>
 
       <Footer />
     </>

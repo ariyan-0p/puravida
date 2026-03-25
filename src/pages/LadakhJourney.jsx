@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import WhatsAppButton from '../components/WhatsAppButton';
@@ -19,6 +18,7 @@ function useFadeUp() {
   }, []);
   return [ref, vis];
 }
+
 function FU({ children, d = 0, className = '', style = {} }) {
   const [ref, vis] = useFadeUp();
   return (
@@ -29,84 +29,49 @@ function FU({ children, d = 0, className = '', style = {} }) {
   );
 }
 
-function LeafDivider({ color = '#2B2B2B', width = '100%' }) {
+function Divider({ width = 200, opacity = 0.5 }) {
   return (
-    <svg viewBox="0 0 600 20" style={{ width, height: '20px', display: 'block', margin: '0 auto' }} xmlns="http://www.w3.org/2000/svg">
-      <g fill="none" stroke={color} strokeWidth="1.2" opacity="0.5">
-        <path d="M20,10 L270,10" />
-        <path d="M330,10 L580,10" />
-        <path d="M275,10 c0,-6 5,-10 10,-10 c-6,0 -10,5 -10,10 c0,6 5,10 10,10 c-6,0 -10,-5 -10,-10z" fill={color} opacity="0.3" />
-        <path d="M315,10 c0,-6 5,-10 10,-10 c-6,0 -10,5 -10,10 c0,6 5,10 10,10 c-6,0 -10,-5 -10,-10z" fill={color} opacity="0.3" />
-        <path d="M295,3 L295,17" />
-        <path d="M300,1 L300,19" />
-        <path d="M305,3 L305,17" />
-      </g>
-    </svg>
+    <img
+      src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png"
+      alt="" aria-hidden="true"
+      style={{ width, opacity, display: 'block', margin: '0 auto' }}
+    />
   );
 }
 
-function MountainGlyph({ size = 80 }) {
+function DayIcon({ type }) {
+  const map = {
+    meal: 'Meals  - 48px.png',
+    transport: 'Transport - 48px.png',
+    experience: 'Experience  - 48px.png',
+    sight: 'Experience  - 48px.png',
+    hotel: 'Accomodation  - 48px.png',
+    leisure: 'Duration  - 48px.png',
+    culture: 'Cultural Bridge  - 48px.png',
+    wellness: 'Wellness  - 48px.png',
+  };
   return (
-    <svg viewBox="0 0 120 60" style={{ width: size, height: size * 0.5 }} xmlns="http://www.w3.org/2000/svg">
-      <g fill="none" stroke="#2B2B2B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.35">
-        <path d="M20,55 L45,20 L55,32 L70,10 L85,32 L95,22 L110,55" />
-        <path d="M55,32 L60,28 L65,32" />
-        <path d="M10,55 L110,55" />
-      </g>
-    </svg>
+    <img
+      src={`/assets/04. ICONS/PNG/Charcoal/48px/${map[type] || map.experience}`}
+      alt="" style={{ width: 28, height: 28, opacity: 0.6, flexShrink: 0 }}
+    />
   );
 }
 
-function TreeGlyph({ size = 40, color = '#2B2B2B' }) {
+function Glyph({ name = 'Trees', variant = 'Charcoal', size = 48, opacity = 0.3 }) {
   return (
-    <svg viewBox="0 0 30 50" style={{ width: size * 0.6, height: size }} xmlns="http://www.w3.org/2000/svg">
-      <g fill={color} opacity="0.4">
-        <polygon points="15,2 8,18 22,18" />
-        <polygon points="15,10 6,28 24,28" />
-        <polygon points="15,20 4,40 26,40" />
-        <rect x="13" y="40" width="4" height="8" />
-      </g>
-    </svg>
+    <img
+      src={`/assets/05. GRAPHIC ELEMENTS/Glyphs/${variant}/${name}/${name}.png`}
+      alt="" aria-hidden="true"
+      style={{ height: size, width: 'auto', opacity }}
+    />
   );
 }
-
-function CompassGlyph({ size = 48 }) {
-  return (
-    <svg viewBox="0 0 50 50" style={{ width: size, height: size }} xmlns="http://www.w3.org/2000/svg">
-      <circle cx="25" cy="25" r="20" fill="none" stroke="#2B2B2B" strokeWidth="1" opacity="0.15" />
-      <circle cx="25" cy="25" r="14" fill="none" stroke="#2B2B2B" strokeWidth="0.5" opacity="0.1" />
-      <line x1="25" y1="5" x2="25" y2="12" stroke="#2B2B2B" strokeWidth="0.8" opacity="0.15" />
-      <line x1="25" y1="38" x2="25" y2="45" stroke="#2B2B2B" strokeWidth="0.8" opacity="0.15" />
-    </svg>
-  );
-}
-
-function IconMeal() {
-  return <span className="lk-day-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#2B2B2B" strokeWidth="1.5" strokeLinecap="round"><path d="M4,18 Q12,14 20,18" /><path d="M8,14 Q12,10 16,14" /><path d="M10,10 Q12,7 14,10" /></svg></span>;
-}
-function IconTransport() {
-  return <span className="lk-day-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#2B2B2B" strokeWidth="1.5" strokeLinecap="round"><path d="M4,16 C4,16 6,8 12,8 C18,8 20,16 20,16" /><circle cx="8" cy="18" r="2" /><circle cx="16" cy="18" r="2" /></svg></span>;
-}
-function IconSight() {
-  return <span className="lk-day-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#2B2B2B" strokeWidth="1.5" strokeLinecap="round"><circle cx="12" cy="12" r="3" /><path d="M2,12 C2,12 6,5 12,5 C18,5 22,12 22,12 C22,12 18,19 12,19 C6,19 2,12 2,12Z" /></svg></span>;
-}
-function IconHotel() {
-  return <span className="lk-day-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#2B2B2B" strokeWidth="1.5" strokeLinecap="round"><rect x="3" y="8" width="18" height="12" rx="1" /><path d="M3,14 L21,14" /><path d="M8,8 L8,4 L16,4 L16,8" /></svg></span>;
-}
-function IconLeisure() {
-  return <span className="lk-day-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#2B2B2B" strokeWidth="1.5" strokeLinecap="round"><circle cx="12" cy="12" r="9" /><path d="M12,3 L12,12 L18,12" /></svg></span>;
-}
-function IconCulture() {
-  return <span className="lk-day-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#2B2B2B" strokeWidth="1.5" strokeLinecap="round"><path d="M12,2 L12,6" /><circle cx="12" cy="10" r="4" /><path d="M4,22 C4,17 8,14 12,14 C16,14 20,17 20,22" /></svg></span>;
-}
-
-const ICON_MAP = { meal: IconMeal, transport: IconTransport, sight: IconSight, hotel: IconHotel, leisure: IconLeisure, culture: IconCulture };
 
 function DayActivity({ icon, text, sub }) {
-  const Ico = ICON_MAP[icon] || IconSight;
   return (
     <div className="lk-activity">
-      <Ico />
+      <DayIcon type={icon} />
       <div>
         <p className="lk-activity-text">{text}</p>
         {sub && <p className="lk-activity-sub">{sub}</p>}
@@ -119,139 +84,137 @@ const DAYS = [
   {
     day: "01",
     title: "Arrival in Leh",
-    subtitle: "",
+    subtitle: "Altitude 3,000m",
     morning: [
-      { icon: 'sight', text: "Arrival at Leh Airport", sub: "Altitude: 3000m" },
-      { icon: 'transport', text: "Private transfer to your hotel", sub: "Approx. 10 minutes" },
-      { icon: 'hotel', text: "Check-in and time to settle into your room overlooking the Himalayan landscape" },
-      { icon: 'hotel', text: "Rest is essential today to adapt to the altitude" },
+      { icon: 'transport', text: "Arrive at Leh Airport. Private transfer to your hotel.", sub: "Approximately 10 minutes." },
+      { icon: 'hotel', text: "Check in and rest for altitude acclimatisation.", sub: "Rest is essential today to adapt to the high altitude." },
     ],
     afternoon: [
-      { icon: 'meal', text: "Light lunch at the hotel" },
-      { icon: 'leisure', text: "Time at leisure for relaxation" },
+      { icon: 'meal', text: "Light lunch at the hotel." },
+      { icon: 'leisure', text: "Time at leisure for relaxation." },
     ],
     evening: [
-      { icon: 'leisure', text: "Optional slow walk within the property grounds" },
-      { icon: 'meal', text: "Early dinner featuring warm, easily digestible Ladakhi-inspired cuisine" },
-      { icon: 'leisure', text: "Herbal infusions beneath a starlit Himalayan sky" },
+      { icon: 'leisure', text: "Optional slow walk within the property grounds." },
+      { icon: 'meal', text: "Early dinner featuring warm, easily digestible Ladakhi cuisine." },
+      { icon: 'leisure', text: "Herbal infusions beneath a starlit Himalayan sky." },
     ],
-    overnight: "Overnight in Leh",
+    overnight: "Leh",
     hotel: "Dolkhar Resort"
   },
   {
     day: "02",
-    title: "Leh | Monastic Calm",
-    subtitle: "& Old Town Heritage",
+    title: "Leh, Monastic Calm",
+    subtitle: "and Old Town Heritage",
     morning: [
-      { icon: 'sight', text: "Visit to Shanti Stupa: Perched above Leh, the Stupa offers uninterrupted valley views and a moment of stillness as the mountains awaken with first light", sub: "Inside the prayer hall, you may observe monks offering chants. The soft hum of Buddhist mantras, the scent of incense, and the gentle turning of prayer wheels create a deeply serene atmosphere" },
-      { icon: 'meal', text: "Return for Breakfast" },
+      { icon: 'sight', text: "Visit to Shanti Stupa.", sub: "Perched above Leh, the Stupa offers uninterrupted valley views and a moment of stillness as the mountains awaken with first light. Inside the prayer hall, you may observe monks offering chants. The soft hum of Buddhist mantras, the scent of incense, and the gentle turning of prayer wheels create a deeply serene atmosphere." },
+      { icon: 'meal', text: "Return for breakfast." },
     ],
     afternoon: [
-      { icon: 'sight', text: "Visit to Leh Palace overlooking the old town" },
-      { icon: 'transport', text: "Walk through Leh Old Town: narrow lanes, mud-brick homes, carved balconies, fluttering prayer flags", sub: "Observe the coexistence of mosque, temples, chortens, and family shrines" },
-      { icon: 'leisure', text: "Browse artisan studios and rooftop caf\u00e9s serving local teas", sub: "Leh Old Town reveals the city\u2019s original rhythm: intimate, layered, and still lived in, far removed from the pace of the modern market streets" },
+      { icon: 'sight', text: "Visit to Leh Palace overlooking the old town." },
+      { icon: 'sight', text: "Walk through Leh Old Town.", sub: "Narrow lanes, mud-brick homes, carved balconies, fluttering prayer flags. Observe the coexistence of mosque, temples, chortens, and family shrines." },
+      { icon: 'leisure', text: "Browse artisan studios and rooftop caf\u00e9s serving local teas.", sub: "Leh Old Town reveals the city\u2019s original rhythm: intimate, layered, and still lived in, far removed from the pace of modern market streets." },
     ],
     evening: [
-      { icon: 'meal', text: "Dinner at Bon App\u00e9tit: a popular locally owned restaurant offering indoor and open-air seating with mountain views" },
+      { icon: 'meal', text: "Dinner at Bon App\u00e9tit.", sub: "A popular locally owned restaurant offering indoor and open-air seating with mountain views." },
     ],
-    overnight: "Overnight in Leh",
+    overnight: "Leh",
     hotel: "Dolkhar Resort"
   },
   {
     day: "03",
-    title: "Sham Valley |",
-    subtitle: "Alchi & Uleytokpo",
+    title: "Sham Valley, Alchi",
+    subtitle: "and Uleytokpo",
     morning: [
-      { icon: 'meal', text: "Breakfast at Dolkhar Resort" },
-      { icon: 'transport', text: "Drive from Leh to Alchi", sub: "Distance: approx. 70 km | Travel time: 1.5 to 2 hours. A scenic drive along the Indus River with relaxed pauses for photography" },
-      { icon: 'sight', text: "Visit to Alchi Monastery", sub: "Set at river level and woven into village life, Alchi offers a quieter and more contemplative expression of Himalayan Buddhism. It is renowned for its finely preserved Kashmiri-influenced murals" },
+      { icon: 'meal', text: "Breakfast at Dolkhar Resort." },
+      { icon: 'transport', text: "Drive from Leh to Alchi.", sub: "Distance: approximately 70 km. Travel time: 1.5 to 2 hours. A scenic drive along the Indus River with relaxed pauses for photography." },
+      { icon: 'sight', text: "Visit to Alchi Monastery.", sub: "Set at river level and woven into village life, Alchi offers a quieter and more contemplative expression of Himalayan Buddhism. It is renowned for its finely preserved Kashmiri-influenced murals." },
     ],
     afternoon: [
-      { icon: 'meal', text: "Lunch at Alchi Kitchen" },
-      { icon: 'transport', text: "Drive From Alchi to Uleytokpo", sub: "Distance: approx. 10-12 km | Travel time: 20-30 minutes" },
+      { icon: 'meal', text: "Lunch at Alchi Kitchen." },
+      { icon: 'transport', text: "Drive from Alchi to Uleytokpo.", sub: "Distance: approximately 10 to 12 km. Travel time: 20 to 30 minutes." },
     ],
     evening: [
-      { icon: 'hotel', text: "Stay at Uley Ethnic Resort", sub: "A peaceful riverside retreat surrounded by apricot gardens and views of the Indus" },
-      { icon: 'meal', text: "Dinner at the resort" },
+      { icon: 'hotel', text: "Stay at Uley Ethnic Resort.", sub: "A peaceful riverside retreat surrounded by apricot gardens and views of the Indus." },
+      { icon: 'meal', text: "Dinner at the resort." },
     ],
-    overnight: "Overnight in Uley",
+    overnight: "Uley",
     hotel: "Uley Ethnic Resort"
   },
   {
     day: "04",
-    title: "Lamayuru & Temisgam | Ancient",
-    subtitle: "Landscapes & Living Medicine",
+    title: "Lamayuru and Temisgam",
+    subtitle: "Ancient Landscapes and Living Medicine",
     morning: [
-      { icon: 'meal', text: "Breakfast in Uleytokpo" },
-      { icon: 'transport', text: "Drive from Uleytokpo to Lamayuru Monastery", sub: "Distance: approx. 55-60 km | Travel time: 1:15-1:30 minutes. One of the oldest monasteries in Ladakh, dramatically perched on a rocky hill. Founded in the 11th century, it belongs to the Drikung Kagyu lineage of Tibetan Buddhism. Below the monastery lies the famous Moonland landscape: surreal, eroded clay formations resembling the lunar surface" },
+      { icon: 'meal', text: "Breakfast in Uleytokpo." },
+      { icon: 'transport', text: "Drive from Uleytokpo to Lamayuru Monastery.", sub: "Distance: approximately 55 to 60 km. Travel time: 1 hour 15 minutes to 1 hour 30 minutes. One of the oldest monasteries in Ladakh, dramatically perched on a rocky hill. Founded in the 11th century, it belongs to the Drikung Kagyu lineage of Tibetan Buddhism. Below the monastery lies the famous Moonland landscape: surreal, eroded clay formations resembling the lunar surface." },
     ],
     afternoon: [
-      { icon: 'transport', text: "Drive from Lamayuru to Nurla", sub: "Distance: approx. 45-50 km | Travel time: 50 minutes" },
-      { icon: 'culture', text: "Special Cultural Interaction: Amchi Medicine (Sowa Rigpa)", sub: "Participate in an interactive session on Himalayan Amchi medicine: Sowa Rigpa, the traditional Tibetan healing system. Discussion themes may include the philosophy of Sowa Rigpa, the balance of the three humors (Lung, Tripa, Beken), Himalayan medicinal herbs, pulse diagnosis, and traditional healing methods and lifestyle practices. A rare opportunity to understand Ladakh\u2019s ancient healing traditions from a practicing Amchi" },
-      { icon: 'meal', text: "Lunch with Amchi in Nurla", sub: "Continue to Temisgam / Namra village" },
+      { icon: 'transport', text: "Drive from Lamayuru to Nurla.", sub: "Distance: approximately 45 to 50 km. Travel time: 50 minutes." },
+      { icon: 'culture', text: "Special Cultural Interaction: Amchi Medicine (Sowa Rigpa).", sub: "Participate in an interactive session on Himalayan Amchi medicine: Sowa Rigpa, the traditional Tibetan healing system. Discussion themes may include the philosophy of Sowa Rigpa, the balance of the three humors (Lung, Tripa, Beken), Himalayan medicinal herbs, pulse diagnosis, and traditional healing methods and lifestyle practices. A rare opportunity to understand Ladakh\u2019s ancient healing traditions from a practicing Amchi." },
+      { icon: 'meal', text: "Lunch with Amchi in Nurla." },
     ],
     evening: [
-      { icon: 'transport', text: "Drive from Nurla to Temisgam", sub: "Distance: approx. 15-20 km | Travel time: 20-30 minutes" },
-      { icon: 'hotel', text: "Stay at TIH Namra Village House" },
-      { icon: 'culture', text: "Evening Experience", sub: "Hands-on Ladakhi cooking using seasonal produce. Butter tea or herbal tea shared with a local family" },
-      { icon: 'meal', text: "Dinner at Namra Village" },
+      { icon: 'transport', text: "Drive from Nurla to Temisgam.", sub: "Distance: approximately 15 to 20 km. Travel time: 20 to 30 minutes." },
+      { icon: 'hotel', text: "Stay at TIH Namra Village House." },
+      { icon: 'culture', text: "Ladakhi cooking experience.", sub: "Hands-on cooking using seasonal produce. Butter tea or herbal tea shared with a local family." },
+      { icon: 'meal', text: "Dinner at Namra Village." },
     ],
-    overnight: "Overnight in Temisgam",
+    overnight: "Temisgam",
     hotel: "TIH Namra Village"
   },
   {
     day: "05",
-    title: "Temisgam to Thiksey |",
-    subtitle: "Village Life & Monastic Views",
+    title: "Temisgam to Thiksey",
+    subtitle: "Village Life and Monastic Views",
     morning: [
-      { icon: 'meal', text: "Breakfast at Temisgam" },
-      { icon: 'transport', text: "Drive from Temisgam to Thiksey", sub: "Distance: approx. 95 km | Travel time: 2.5 to 3 hours" },
+      { icon: 'meal', text: "Breakfast at Temisgam." },
+      { icon: 'transport', text: "Drive from Temisgam to Thiksey.", sub: "Distance: approximately 95 km. Travel time: 2.5 to 3 hours." },
     ],
     afternoon: [
-      { icon: 'meal', text: "Lunch in Thiksey village" },
-      { icon: 'sight', text: "Thiksey Village Life", sub: "Life here unfolds without urgency, shaped by land, lineage, and ritual" },
+      { icon: 'meal', text: "Lunch in Thiksey village." },
+      { icon: 'sight', text: "Thiksey village life experience.", sub: "Life here unfolds without urgency, shaped by land, lineage, and ritual." },
     ],
     evening: [
-      { icon: 'leisure', text: "Unstructured time for rest or quiet walks" },
-      { icon: 'meal', text: "Early dinner at Dakpa House featuring home-grown organic produce" },
+      { icon: 'leisure', text: "Unstructured time for rest or quiet walks." },
+      { icon: 'meal', text: "Early dinner at Dakpa House.", sub: "Featuring home-grown organic produce." },
     ],
-    overnight: "Overnight in Thiksey",
+    overnight: "Thiksey",
     hotel: "Dakpa House"
   },
   {
     day: "06",
-    title: "Thiksey & Hemis |",
+    title: "Thiksey and Hemis",
     subtitle: "Living Monastic Traditions",
     morning: [
-      { icon: 'sight', text: "Morning prayers at Thiksey Monastery", sub: "The early morning atmosphere is peaceful and powerful, offering a rare glimpse into authentic monastic life" },
-      { icon: 'meal', text: "Return to Dakpa House for breakfast" },
-      { icon: 'transport', text: "After check-out, drive to Hemis Monastery: the largest monastery in Ladakh", sub: "The visit focuses on observing daily rituals, architecture, and silence rather than simply moving through it as a landmark" },
+      { icon: 'sight', text: "Morning prayers at Thiksey Monastery.", sub: "The early morning atmosphere is peaceful and powerful, offering a rare glimpse into authentic monastic life." },
+      { icon: 'meal', text: "Return to Dakpa House for breakfast." },
+      { icon: 'transport', text: "Drive to Hemis Monastery.", sub: "The largest monastery in Ladakh. The visit focuses on observing daily rituals, architecture, and silence rather than simply moving through it as a landmark." },
     ],
     afternoon: [
-      { icon: 'meal', text: "Lunch at Tesma Multi-Cuisine, Thiksey" },
+      { icon: 'meal', text: "Lunch at Tesma Multi-Cuisine." },
     ],
     evening: [
-      { icon: 'meal', text: "Dinner at Ladakh Sarai" },
+      { icon: 'meal', text: "Dinner at Ladakh Sarai." },
     ],
-    overnight: "Overnight in Saboo",
+    overnight: "Saboo",
     hotel: "Ladakh Sarai"
   },
   {
     day: "07",
-    title: "Shey, Stok &",
+    title: "Shey, Stok and",
     subtitle: "Leisure in Leh",
     morning: [
-      { icon: 'meal', text: "After breakfast, explore Ladakh\u2019s royal heritage." },
-      { icon: 'sight', text: "Visit to Shey Palace", sub: "Former summer capital of Ladakh\u2019s royal family (17th century), overlooking the Indus Valley. Highlights: 12-metre copper-gilded statue of Shakyamuni Buddha, ancient murals, peaceful chortens and prayer flags" },
-      { icon: 'sight', text: "Visit to Stok Palace", sub: "Current residence of the Ladakhi royal family, partly converted into a heritage museum. Highlights: Traditional royal architecture, views of the Stok Kangri range, museum showcasing Ladakh\u2019s monarchy and cultural legacy" },
+      { icon: 'meal', text: "Breakfast at Ladakh Sarai." },
+      { icon: 'sight', text: "Visit to Shey Palace.", sub: "Former summer capital of Ladakh\u2019s royal family (17th century), overlooking the Indus Valley. Highlights include the 12-metre copper-gilded statue of Shakyamuni Buddha, ancient murals, peaceful chortens, and prayer flags." },
+      { icon: 'sight', text: "Visit to Stok Palace.", sub: "Current residence of the Ladakhi royal family, partly converted into a heritage museum. Features traditional royal architecture, views of the Stok Kangri range, and a museum showcasing Ladakh\u2019s monarchy and cultural legacy." },
     ],
     afternoon: [
-      { icon: 'meal', text: "Lunch at Ladakh Sarai" },
+      { icon: 'meal', text: "Lunch at Ladakh Sarai." },
     ],
     evening: [
-      { icon: 'meal', text: "Dinner at Chopsticks: a well-known local favourite." },
+      { icon: 'meal', text: "Dinner at Chopsticks.", sub: "A well-known local favourite." },
     ],
-    overnight: "Overnight in Saboo",
+    overnight: "Saboo",
     hotel: "Ladakh Sarai"
   },
   {
@@ -259,14 +222,14 @@ const DAYS = [
     title: "Departure",
     subtitle: "",
     morning: [
-      { icon: 'transport', text: "Private transfer to Leh Airport" },
-      { icon: 'sight', text: "Flight onward to Delhi" },
+      { icon: 'transport', text: "Private transfer to Leh Airport." },
+      { icon: 'transport', text: "Flight onward to Delhi." },
     ],
     afternoon: [],
     evening: [],
     overnight: null,
     hotel: null,
-    farewell: "Juley Juley: until we meet again in the land of high passes"
+    farewell: "Juley Juley: until we meet again in the land of high passes."
   },
 ];
 
@@ -286,7 +249,7 @@ export default function LadakhJourney() {
         .pfu { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
         .pfu.pin { opacity: 1; transform: translateY(0); }
 
-        /* ── HERO: Ladakh PDF page 1 — deep blue tones ── */
+        /* ── HERO ── */
         .lk-hero {
           min-height: 100vh; position: relative; overflow: hidden;
           display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -309,190 +272,259 @@ export default function LadakhJourney() {
           position: absolute; top: 100px; left: 50%; z-index: 3;
           transform: translateX(-50%);
           height: 80px; width: auto;
-          filter: brightness(0) invert(1);
         }
-        .lk-hero-content { position: relative; z-index: 2; max-width: 700px; padding: 0 40px; }
+        .lk-hero-content {
+          position: relative; z-index: 2;
+          max-width: 700px; padding: 0 40px;
+        }
         .lk-hero-title {
-          font-family: 'Cormorant Garamond', serif;
-          font-weight: 600; font-size: clamp(5rem, 14vw, 10rem);
-          color: white; line-height: 0.9; margin-bottom: 60px;
+          font-family: 'Playfair Display', serif;
+          font-weight: 700; font-size: clamp(5rem, 14vw, 10rem);
+          color: white; line-height: 0.9;
+          margin-bottom: 48px;
           text-shadow: 0 4px 40px rgba(0,0,0,0.3);
         }
         .lk-hero-dates {
-          font-family: 'Cormorant Garamond', serif;
-          font-size: clamp(1.2rem, 2.5vw, 1.8rem); font-weight: 400;
-          color: rgba(255,255,255,0.85); letter-spacing: 0.08em;
+          font-family: 'Lato', sans-serif;
+          font-size: clamp(1.1rem, 2.2vw, 1.5rem); font-weight: 400;
+          color: rgba(255,255,255,0.85);
+          letter-spacing: 0.1em;
+          margin-bottom: 32px;
+        }
+        .lk-hero-tagline {
+          font-family: 'Lora', serif;
+          font-style: italic; font-size: clamp(1rem, 2vw, 1.4rem);
+          color: rgba(255,255,255,0.7);
         }
 
-        /* ── INVITE: Sage bg, same as Bhutan ── */
+        /* ── INVITATION FROM HARSHA ── */
         .lk-invite {
-          background: #DDE5DF; padding: 100px 80px;
+          background: #B7C8B5;
+          padding: 100px 80px;
           display: grid; grid-template-columns: 0.8fr 1fr;
           gap: 80px; align-items: center;
         }
-        .lk-invite-photo { position: relative; }
-        .lk-invite-photo img {
-          width: 100%; max-width: 340px; display: block;
-          border-radius: 12px 12px 12px 0;
+        .lk-invite-photo-wrap {
+          position: relative;
+          max-width: 340px;
+        }
+        .lk-invite-img {
+          width: 100%; display: block;
+          border-radius: 4px;
           box-shadow: 0 16px 48px rgba(0,0,0,0.12);
         }
-        .lk-invite-photo::before {
-          content: ''; position: absolute; top: -8px; left: -8px; right: 8px; bottom: 8px;
-          border: 1.5px solid rgba(43,43,43,0.12); border-radius: 14px 14px 14px 0;
+        .lk-invite-frame {
+          position: absolute;
+          top: 50%; left: 50%;
+          transform: translate(-50%, -50%);
+          width: 115%; height: auto;
           pointer-events: none;
         }
         .lk-invite-heading {
-          font-family: 'Cormorant Garamond', serif;
-          font-size: clamp(2.4rem, 4vw, 3.8rem); font-weight: 600;
-          font-style: italic; color: #2B2B2B;
+          font-family: 'Playfair Display', serif;
+          font-size: clamp(2.4rem, 4vw, 3.8rem); font-weight: 700;
+          color: #333333;
           line-height: 1.15; margin-bottom: 40px;
         }
         .lk-invite-body {
           font-family: 'Lato', sans-serif;
-          font-size: 16px; line-height: 1.75; color: #404040;
+          font-size: 16px; line-height: 1.75; color: #333333;
           margin-bottom: 16px; max-width: 520px;
         }
-        .lk-invite-trees { display: flex; gap: 8px; margin-top: 40px; opacity: 0.3; }
-
-        /* ── JUMA MALIK: Clay Rose bg ── */
-        .lk-guide {
-          background: #C9A8A8; padding: 100px 80px; text-align: center;
+        .lk-invite-trees {
+          display: flex; gap: 8px; margin-top: 40px;
         }
-        .lk-guide-photo {
-          width: 260px; height: 260px; border-radius: 50%;
-          object-fit: cover; display: block; margin: 0 auto 16px;
-          border: 6px solid rgba(255,255,255,0.4);
+
+        /* ── WALK LADAKH WITH JUMA MALIK ── */
+        .lk-guide {
+          background: #D9A6A1;
+          padding: 100px 80px;
+          text-align: center;
+        }
+        .lk-guide-photo-wrap {
+          position: relative;
+          width: 300px; height: 300px;
+          margin: 0 auto 24px;
+        }
+        .lk-guide-img {
+          width: 240px; height: 240px;
+          border-radius: 50%; object-fit: cover;
+          position: absolute; top: 50%; left: 50%;
+          transform: translate(-50%, -50%);
           box-shadow: 0 12px 40px rgba(0,0,0,0.15);
         }
+        .lk-guide-frame {
+          position: absolute;
+          top: 50%; left: 50%;
+          transform: translate(-50%, -50%);
+          width: 100%; height: 100%;
+          object-fit: contain;
+          pointer-events: none;
+        }
         .lk-guide-title {
-          font-family: 'Cormorant Garamond', serif;
-          font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 600;
-          color: #2B2B2B; line-height: 1.15; margin-bottom: 8px;
+          font-family: 'Playfair Display', serif;
+          font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 700;
+          color: #333333; line-height: 1.15;
+          margin-bottom: 8px;
         }
         .lk-guide-subtitle {
-          font-family: 'Cormorant Garamond', serif;
+          font-family: 'Lora', serif;
           font-style: italic; font-size: 1.1rem;
-          color: #2B2B2B; margin-bottom: 32px;
+          color: #333333; margin-bottom: 32px;
         }
         .lk-guide-body {
           font-family: 'Lato', sans-serif;
-          font-size: 16px; line-height: 1.75; color: #2B2B2B;
-          max-width: 600px; margin: 0 auto; text-align: justify;
+          font-size: 16px; line-height: 1.75; color: #333333;
+          max-width: 600px; margin: 0 auto;
+          text-align: justify;
         }
         .lk-guide-body + .lk-guide-body { margin-top: 16px; }
 
-        /* ── DAY CARDS: Same structure as Bhutan ── */
+        /* ── DAY CARDS ── */
         .lk-day-header {
-          background: #F2ECE5; padding: 60px 80px 32px; position: relative;
+          background: #F5F0EB;
+          padding: 60px 80px 32px;
+          position: relative;
         }
         .lk-day-num {
-          font-family: 'Lato', sans-serif; font-size: 14px; font-weight: 400;
-          letter-spacing: 0.1em; text-transform: uppercase; color: #2B2B2B; margin-bottom: 4px;
+          font-family: 'Lato', sans-serif;
+          font-size: 14px; font-weight: 400;
+          letter-spacing: 0.1em; text-transform: uppercase;
+          color: #333333; margin-bottom: 4px;
         }
-        .lk-day-num span { color: #C9A8A8; font-weight: 700; }
+        .lk-day-num span { color: #D9A6A1; font-weight: 700; }
         .lk-day-title {
-          font-family: 'Cormorant Garamond', serif;
+          font-family: 'Playfair Display', serif;
           font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700;
-          color: #2B2B2B; line-height: 1.15; max-width: 550px;
+          color: #333333; line-height: 1.15;
+          max-width: 550px;
+        }
+        .lk-day-subtitle {
+          font-family: 'Lato', sans-serif;
+          font-size: 14px; color: #606060;
+          margin-top: 8px; font-style: italic;
         }
         .lk-day-mountain { position: absolute; top: 40px; right: 80px; }
-        .lk-day-body { background: #F2ECE5; padding: 0 80px 60px; }
-        .lk-day-card {
-          background: #FAFAF8; border: 1.5px solid rgba(43,43,43,0.08);
-          padding: 40px 48px; position: relative;
+        .lk-day-body {
+          background: #F5F0EB;
+          padding: 0 80px 60px;
         }
-        .lk-day-compass { position: absolute; bottom: 12px; right: 12px; opacity: 0.6; }
+        .lk-day-card {
+          background: #F5ECD8;
+          border: 1.5px solid rgba(51,51,51,0.08);
+          padding: 40px 48px;
+          position: relative;
+        }
+        .lk-day-pause {
+          position: absolute; bottom: 12px; right: 12px;
+        }
         .lk-time-section { margin-bottom: 32px; }
         .lk-time-section:last-child { margin-bottom: 0; }
         .lk-time-heading {
-          font-family: 'Cormorant Garamond', serif;
-          font-size: 1.4rem; font-weight: 400; color: #2B2B2B; margin-bottom: 20px;
+          font-family: 'Playfair Display', serif;
+          font-size: 1.4rem; font-weight: 400;
+          color: #333333; margin-bottom: 20px;
         }
-        .lk-activity { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 16px; }
+        .lk-activity {
+          display: flex; gap: 14px; align-items: flex-start;
+          margin-bottom: 16px;
+        }
         .lk-activity:last-child { margin-bottom: 0; }
-        .lk-day-icon {
-          flex-shrink: 0; width: 28px; height: 28px;
-          display: flex; align-items: center; justify-content: center;
-          margin-top: 1px; opacity: 0.55;
-        }
         .lk-activity-text {
           font-family: 'Lato', sans-serif;
-          font-size: 16px; line-height: 1.65; color: #404040;
+          font-size: 16px; line-height: 1.7; color: #404040;
           word-break: normal; overflow-wrap: break-word;
         }
         .lk-activity-sub {
           font-family: 'Lato', sans-serif;
-          font-size: 14px; font-style: italic; line-height: 1.6;
+          font-size: 14px; font-style: italic; line-height: 1.7;
           color: #606060; margin-top: 4px;
         }
         .lk-time-divider { margin: 28px 0; }
 
+        /* Overnight footer */
         .lk-overnight {
-          background: #DDE5DF; padding: 24px 80px;
-          display: flex; align-items: center; justify-content: center; gap: 24px;
+          background: #B7C8B5;
+          padding: 24px 80px;
+          display: flex; align-items: center; justify-content: center;
+          gap: 24px;
         }
         .lk-overnight-text {
-          font-family: 'Cormorant Garamond', serif;
-          font-size: 1.15rem; font-weight: 600; color: #2B2B2B; text-align: center;
+          font-family: 'Playfair Display', serif;
+          font-size: 1.15rem; font-weight: 600;
+          color: #333333; text-align: center;
         }
         .lk-overnight-trees { display: flex; gap: 4px; }
 
-        .lk-farewell {
-          background: #F2ECE5; padding: 80px; text-align: center;
+        /* Farewell card */
+        .lk-farewell-wrap {
+          background: #F5F0EB;
+          padding: 80px; text-align: center;
         }
         .lk-farewell-card {
-          display: inline-block; background: #FAFAF8;
-          border: 1.5px solid rgba(43,43,43,0.1); border-radius: 8px;
-          padding: 40px 48px; max-width: 440px;
+          display: inline-block; background: #F5ECD8;
+          border: 1.5px solid rgba(51,51,51,0.1); border-radius: 8px;
+          padding: 40px 48px; max-width: 480px;
         }
         .lk-farewell-text {
-          font-family: 'Cormorant Garamond', serif;
-          font-style: italic; font-size: 1.6rem; color: #2B2B2B; line-height: 1.4;
+          font-family: 'Lora', serif;
+          font-style: italic; font-size: 1.6rem;
+          color: #333333; line-height: 1.4;
         }
 
         /* ── INVESTMENT ── */
-        .lk-investment { background: #F2ECE5; padding: 100px 80px; }
+        .lk-investment {
+          background: #F5F0EB;
+          padding: 100px 80px;
+        }
         .lk-inv-title {
-          font-family: 'Cormorant Garamond', serif;
-          font-size: clamp(2rem, 3vw, 2.8rem); font-weight: 400;
-          color: #2B2B2B; margin-bottom: 40px;
+          font-family: 'Playfair Display', serif;
+          font-size: clamp(2rem, 3vw, 2.8rem); font-weight: 700;
+          color: #333333; margin-bottom: 40px;
         }
         .lk-inv-grid {
           display: grid; grid-template-columns: 1fr 1fr;
-          gap: 0; border: 1.5px solid rgba(43,43,43,0.1);
-          background: #FAFAF8; margin-bottom: 48px; max-width: 600px;
+          gap: 0; border: 1.5px solid rgba(51,51,51,0.1);
+          background: #F5ECD8; margin-bottom: 48px;
+          max-width: 600px;
         }
         .lk-inv-col { padding: 32px 40px; }
-        .lk-inv-col:first-child { border-right: 1.5px solid rgba(43,43,43,0.1); }
+        .lk-inv-col:first-child { border-right: 1.5px solid rgba(51,51,51,0.1); }
         .lk-inv-col-title {
-          font-family: 'Lato', sans-serif; font-size: 14px; font-weight: 400;
-          letter-spacing: 0.1em; color: #606060; margin-bottom: 16px;
+          font-family: 'Lato', sans-serif;
+          font-size: 14px; font-weight: 400;
+          letter-spacing: 0.1em;
+          color: #606060; margin-bottom: 16px;
+        }
+        .lk-inv-label {
+          font-family: 'Lato', sans-serif;
+          font-size: 14px; color: #606060; margin-bottom: 4px;
         }
         .lk-inv-price {
-          font-family: 'Cormorant Garamond', serif;
-          font-size: 1.8rem; font-weight: 600; color: #2B2B2B;
+          font-family: 'Playfair Display', serif;
+          font-size: 1.8rem; font-weight: 700;
+          color: #333333;
         }
         .lk-inv-price span { font-size: 1rem; font-weight: 400; }
-        .lk-inv-label {
-          font-family: 'Lato', sans-serif; font-size: 14px; color: #606060; margin-bottom: 4px;
-        }
 
         /* Important to Know */
         .lk-important {
-          display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
-          margin-bottom: 48px; max-width: 700px;
+          display: grid; grid-template-columns: 1fr 1fr;
+          gap: 40px; margin-bottom: 48px; max-width: 700px;
         }
         .lk-important-title {
-          font-family: 'Cormorant Garamond', serif;
-          font-size: 1.6rem; font-weight: 400; color: #2B2B2B;
-          margin-bottom: 20px; grid-column: 1 / -1;
+          font-family: 'Playfair Display', serif;
+          font-size: 1.6rem; font-weight: 700;
+          color: #333333; margin-bottom: 20px;
+          grid-column: 1 / -1;
         }
         .lk-important-list {
           list-style: none; display: flex; flex-direction: column; gap: 10px;
         }
         .lk-important-list li {
-          font-family: 'Lato', sans-serif; font-size: 14px; line-height: 1.65;
-          color: #404040; padding-left: 16px; position: relative;
+          font-family: 'Lato', sans-serif; font-size: 14px;
+          line-height: 1.7; color: #404040;
+          padding-left: 16px; position: relative;
         }
         .lk-important-list li::before {
           content: '\u25E6'; position: absolute; left: 0; color: #606060;
@@ -504,32 +536,43 @@ export default function LadakhJourney() {
         }
         .lk-inc-item { text-align: center; }
         .lk-inc-label {
-          font-family: 'Lato', sans-serif; font-size: 14px; color: #404040; line-height: 1.5;
+          font-family: 'Lato', sans-serif;
+          font-size: 14px; color: #404040; line-height: 1.7;
+        }
+        .lk-section-subtitle {
+          font-family: 'Playfair Display', serif;
+          font-size: 1.6rem; font-weight: 700;
+          color: #333333; margin: 48px 0 28px;
         }
 
         /* ── CTA ── */
         .lk-cta {
-          background: #F2ECE5; padding: 100px 80px; text-align: center;
-          display: flex; flex-direction: column; align-items: center;
+          background: #F5F0EB;
+          padding: 100px 80px;
+          text-align: center;
+          display: flex; flex-direction: column;
+          align-items: center;
         }
-        .lk-cta-logo { height: 80px; width: auto; margin-bottom: 48px; display: block; }
+        .lk-cta-logo {
+          height: 80px; width: auto; margin-bottom: 48px; display: block;
+        }
         .lk-cta-heading {
-          font-family: 'Cormorant Garamond', serif;
+          font-family: 'Playfair Display', serif;
           font-size: clamp(2.4rem, 4.5vw, 3.8rem);
-          font-weight: 400; font-style: italic;
-          color: #2B2B2B; margin-bottom: 40px; line-height: 1.25;
-          max-width: 500px;
+          font-weight: 700;
+          color: #333333; margin-bottom: 40px;
+          line-height: 1.25; max-width: 500px;
         }
         .lk-cta-wa {
           display: flex; align-items: center; gap: 14px;
           font-family: 'Lato', sans-serif; font-size: 16px; font-weight: 400;
-          color: #2B2B2B; text-decoration: none;
+          color: #333333; text-decoration: none;
           margin-bottom: 48px;
           padding: 16px 32px;
-          border: 1px solid rgba(43,43,43,0.15); border-radius: 4px;
+          border: 1px solid rgba(51,51,51,0.15); border-radius: 4px;
           transition: border-color 0.3s, background 0.3s;
         }
-        .lk-cta-wa:hover { border-color: #C9A8A8; background: rgba(201,168,168,0.08); }
+        .lk-cta-wa:hover { border-color: #D9A6A1; background: rgba(217,166,161,0.08); }
         .lk-cta-wa-text {
           display: flex; flex-direction: column; align-items: flex-start;
           font-size: 14px; line-height: 1.5;
@@ -538,20 +581,22 @@ export default function LadakhJourney() {
           font-size: 16px; font-weight: 700; letter-spacing: 0.02em;
         }
         .lk-cta-date-bar {
-          background: #C9A8A8;
+          background: #D9A6A1;
           padding: 32px 64px; border-radius: 4px;
           display: flex; align-items: center; justify-content: center; gap: 32px;
         }
-        .lk-cta-date-inner { text-align: center; }
         .lk-cta-date-label {
-          font-family: 'Lato', sans-serif; font-size: 14px;
-          color: rgba(255,255,255,0.75); letter-spacing: 0.12em; margin-bottom: 6px;
+          font-family: 'Lato', sans-serif;
+          font-size: 14px; color: rgba(255,255,255,0.75);
+          letter-spacing: 0.12em; margin-bottom: 6px;
         }
         .lk-cta-date-val {
-          font-family: 'Cormorant Garamond', serif;
-          font-size: 2rem; font-weight: 600; color: white; letter-spacing: 0.02em;
+          font-family: 'Playfair Display', serif;
+          font-size: 2rem; font-weight: 700;
+          color: white; letter-spacing: 0.02em;
         }
 
+        /* ── FINAL QUOTE ── */
         .lk-final-strip {
           position: relative; min-height: 50vh; overflow: hidden;
           display: flex; align-items: center; justify-content: center;
@@ -560,16 +605,26 @@ export default function LadakhJourney() {
           position: absolute; inset: 0;
           background: url('/assets/hero-ladakh.jpg') center / cover no-repeat;
         }
-        .lk-final-strip-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.35); }
+        .lk-final-strip-overlay {
+          position: absolute; inset: 0;
+          background: rgba(0,0,0,0.40);
+        }
         .lk-final-quote {
           position: relative; z-index: 1;
-          background: rgba(255,255,255,0.92);
-          border: 1.5px solid rgba(43,43,43,0.08); border-radius: 8px;
-          padding: 40px 48px; max-width: 400px; text-align: center;
+          max-width: 420px; text-align: center;
+          padding: 20px 40px;
         }
+        .lk-quote-ornament {
+          width: 80px; height: auto;
+          display: block; margin: 0 auto;
+        }
+        .lk-quote-ornament-upper { margin-bottom: 24px; }
+        .lk-quote-ornament-lower { margin-top: 24px; }
         .lk-final-quote p {
-          font-family: 'Cormorant Garamond', serif;
-          font-style: italic; font-size: 1.4rem; color: #2B2B2B; line-height: 1.4;
+          font-family: 'Lora', serif;
+          font-style: italic; font-size: 1.5rem;
+          color: white; line-height: 1.5;
+          text-shadow: 0 2px 12px rgba(0,0,0,0.3);
         }
 
         /* ── RESPONSIVE ── */
@@ -581,12 +636,16 @@ export default function LadakhJourney() {
           .lk-overnight { padding: 24px 48px; }
           .lk-investment { padding: 80px 48px; }
           .lk-inc-grid { grid-template-columns: repeat(3, 1fr); }
+          .lk-cta { padding: 80px 48px; }
         }
         @media (max-width: 768px) {
-          .lk-invite { grid-template-columns: 1fr; padding: 60px 32px; gap: 40px; }
-          .lk-invite-photo img { max-width: 260px; margin: 0 auto; }
+          .lk-invite {
+            grid-template-columns: 1fr; padding: 60px 32px; gap: 40px;
+          }
+          .lk-invite-photo-wrap { max-width: 260px; margin: 0 auto; }
           .lk-guide { padding: 60px 32px; }
-          .lk-guide-photo { width: 200px; height: 200px; }
+          .lk-guide-photo-wrap { width: 220px; height: 220px; }
+          .lk-guide-img { width: 180px; height: 180px; }
           .lk-day-header { padding: 40px 24px 20px; }
           .lk-day-body { padding: 0 24px 40px; }
           .lk-day-card { padding: 28px 24px; }
@@ -594,11 +653,15 @@ export default function LadakhJourney() {
           .lk-overnight { padding: 20px 24px; }
           .lk-investment { padding: 60px 32px; }
           .lk-inv-grid { grid-template-columns: 1fr; }
-          .lk-inv-col:first-child { border-right: none; border-bottom: 1.5px solid rgba(43,43,43,0.1); }
+          .lk-inv-col:first-child { border-right: none; border-bottom: 1.5px solid rgba(51,51,51,0.1); }
           .lk-inc-grid { grid-template-columns: 1fr 1fr; }
           .lk-important { grid-template-columns: 1fr; }
           .lk-cta { padding: 60px 32px; }
-          .lk-farewell { padding: 60px 32px; }
+          .lk-cta-date-bar { padding: 24px 32px; flex-direction: column; gap: 16px; }
+          .lk-farewell-wrap { padding: 60px 32px; }
+          .lk-farewell-card { padding: 28px 24px; }
+          .lk-final-quote { padding: 16px 24px; }
+          .lk-final-quote p { font-size: 1.25rem; }
         }
       `}</style>
 
@@ -607,29 +670,39 @@ export default function LadakhJourney() {
       <Nav />
       <WhatsAppButton />
 
-      {/* ══ PAGE 1: Hero ══ */}
+      {/* ══ HERO ══ */}
       <section className="lk-hero">
         <div className="lk-hero-bg" />
         <div className="lk-hero-overlay" />
-        <img src="/assets/Logo-Main.png" alt="PuraVida" className="lk-hero-logo" />
+        <img
+          src="/assets/01. LOGOS/Logo-Main-White.png"
+          alt="PuraVida" className="lk-hero-logo"
+        />
         <div className="lk-hero-content">
           <h1 className="lk-hero-title">Ladakh</h1>
-          <p className="lk-hero-dates">September 20<sup>th</sup> &ndash; 27<sup>th</sup>, 2026</p>
+          <p className="lk-hero-dates">September 20th to 27th, 2026</p>
+          <p className="lk-hero-tagline">Where stillness finds you</p>
         </div>
       </section>
 
-      {/* ══ PAGE 2: Invitation from Harsha ══ */}
+      {/* ══ INVITATION FROM HARSHA ══ */}
       <section className="lk-invite">
         <FU>
-          <div className="lk-invite-photo">
-            <img src="/assets/harsha-portrait.jpg" alt="Harsha" />
+          <div className="lk-invite-photo-wrap">
+            <img src="/assets/harsha-portrait.jpg" alt="Harsha" className="lk-invite-img" />
+            <img
+              src="/assets/05. GRAPHIC ELEMENTS/Puravida_Photo-Frame-2/Puravida_Photo-Frame-2.png"
+              alt="" aria-hidden="true" className="lk-invite-frame"
+            />
           </div>
         </FU>
         <FU d={1}>
-          <LeafDivider color="#2B2B2B" width="80%" />
-          <h2 className="lk-invite-heading">An Invitation<br />from Harsha</h2>
-          <LeafDivider color="#2B2B2B" width="80%" />
-          <p className="lk-invite-body" style={{ marginTop: '32px' }}>
+          <Divider width={240} />
+          <h2 className="lk-invite-heading" style={{ marginTop: 32 }}>
+            An Invitation<br />From Harsha
+          </h2>
+          <Divider width={240} />
+          <p className="lk-invite-body" style={{ marginTop: 32 }}>
             There are places you visit, and then there are places that claim you.
           </p>
           <p className="lk-invite-body">
@@ -641,29 +714,39 @@ export default function LadakhJourney() {
           </p>
           <p className="lk-invite-body">If this speaks to you, I would love to tell you more.</p>
           <div className="lk-invite-trees">
-            <TreeGlyph size={48} /><TreeGlyph size={56} /><TreeGlyph size={44} />
+            <Glyph name="Trees" size={48} opacity={0.3} />
+            <Glyph name="Trees" size={56} opacity={0.3} />
+            <Glyph name="Trees" size={44} opacity={0.3} />
           </div>
         </FU>
       </section>
 
-      {/* ══ PAGE 3: Walk Ladakh with Juma Malik ══ */}
+      {/* ══ WALK LADAKH WITH JUMA MALIK ══ */}
       <section className="lk-guide">
         <FU>
-          <img src="/assets/juma-malik.jpg" alt="Juma Malik" className="lk-guide-photo" />
-          <LeafDivider color="#2B2B2B" width="60%" />
-          <h2 className="lk-guide-title">Walk Ladakh<br />with Juma Malik</h2>
-          <LeafDivider color="#2B2B2B" width="60%" />
-          <p className="lk-guide-subtitle">Your cultural bridge.</p>
+          <div className="lk-guide-photo-wrap">
+            <img src="/assets/juma-malik.jpg" alt="Juma Malik" className="lk-guide-img" />
+            <img
+              src="/assets/05. GRAPHIC ELEMENTS/Puravida_Photo-Frame-1/Puravida_Photo-Frame-1.png"
+              alt="" aria-hidden="true" className="lk-guide-frame"
+            />
+          </div>
+          <Divider width={200} />
+          <h2 className="lk-guide-title" style={{ marginTop: 24 }}>
+            Walk Ladakh<br />with Juma Malik
+          </h2>
+          <Divider width={200} />
+          <p className="lk-guide-subtitle" style={{ marginTop: 16 }}>Your cultural bridge.</p>
           <p className="lk-guide-body">
             Born and raised in Leh, Juma Malik is Ladakh: not just a guide who knows it. His intimate understanding of the region's high-altitude terrain, ancient monasteries, nomadic communities and shifting mountain seasons comes from a lifetime of living it. No itinerary he crafts is borrowed from a brochure; every route reflects genuine local knowledge passed down through generations.
           </p>
           <p className="lk-guide-body">
-            As a certified trekking specialist, Juma priorities safety and reliability above all: ensuring every PuraVida guest is in trusted hands from arrival to farewell. His warmth, cultural sensitivity and unwavering commitment to exceptional experiences make him an ideal local partner for travellers seeking something far deeper than a destination.
+            As a certified trekking specialist, Juma prioritises safety and reliability above all: ensuring every PuraVida guest is in trusted hands from arrival to farewell. His warmth, cultural sensitivity and unwavering commitment to exceptional experiences make him an ideal local partner for travellers seeking something far deeper than a destination.
           </p>
         </FU>
       </section>
 
-      {/* ══ PAGES 4-11: Day-by-Day Itinerary ══ */}
+      {/* ══ DAY-BY-DAY ITINERARY ══ */}
       {DAYS.map((day, idx) => (
         <div key={idx}>
           <FU>
@@ -673,8 +756,10 @@ export default function LadakhJourney() {
                 {day.title}
                 {day.subtitle && <><br />{day.subtitle}</>}
               </h2>
-              <div className="lk-day-mountain"><MountainGlyph size={100} /></div>
-              <div style={{ marginTop: '16px' }}><LeafDivider /></div>
+              <div className="lk-day-mountain">
+                <Glyph name="Mountains" size={80} opacity={0.25} />
+              </div>
+              <div style={{ marginTop: 16 }}><Divider width={260} /></div>
             </div>
 
             <div className="lk-day-body">
@@ -682,99 +767,126 @@ export default function LadakhJourney() {
                 {day.morning.length > 0 && (
                   <div className="lk-time-section">
                     <h3 className="lk-time-heading">Morning</h3>
-                    {day.morning.map((a, i) => <DayActivity key={i} icon={a.icon} text={a.text} sub={a.sub} />)}
+                    {day.morning.map((a, i) => (
+                      <DayActivity key={i} icon={a.icon} text={a.text} sub={a.sub} />
+                    ))}
                   </div>
                 )}
 
                 {day.afternoon.length > 0 && (
                   <>
-                    <div className="lk-time-divider"><LeafDivider /></div>
+                    <div className="lk-time-divider"><Divider width={160} opacity={0.35} /></div>
                     <div className="lk-time-section">
                       <h3 className="lk-time-heading">Afternoon</h3>
-                      {day.afternoon.map((a, i) => <DayActivity key={i} icon={a.icon} text={a.text} sub={a.sub} />)}
+                      {day.afternoon.map((a, i) => (
+                        <DayActivity key={i} icon={a.icon} text={a.text} sub={a.sub} />
+                      ))}
                     </div>
                   </>
                 )}
 
                 {day.evening.length > 0 && (
                   <>
-                    <div className="lk-time-divider"><LeafDivider /></div>
+                    <div className="lk-time-divider"><Divider width={160} opacity={0.35} /></div>
                     <div className="lk-time-section">
                       <h3 className="lk-time-heading">Evening</h3>
-                      {day.evening.map((a, i) => <DayActivity key={i} icon={a.icon} text={a.text} sub={a.sub} />)}
+                      {day.evening.map((a, i) => (
+                        <DayActivity key={i} icon={a.icon} text={a.text} sub={a.sub} />
+                      ))}
                     </div>
                   </>
                 )}
 
                 {day.farewell && (
                   <div style={{ textAlign: 'center', padding: '40px 0 20px' }}>
-                    <div className="lk-farewell-card" style={{ border: 'none', padding: '20px', display: 'inline-block' }}>
+                    <div className="lk-farewell-card" style={{ border: 'none', padding: 20, display: 'inline-block' }}>
                       <p className="lk-farewell-text">{day.farewell}</p>
                     </div>
                   </div>
                 )}
 
-                <div className="lk-day-compass"><CompassGlyph /></div>
+                <div className="lk-day-pause">
+                  <Glyph name="Pause" size={48} opacity={0.15} />
+                </div>
               </div>
             </div>
 
             {day.overnight && (
               <div className="lk-overnight">
-                <div className="lk-overnight-trees"><TreeGlyph size={32} /><TreeGlyph size={36} /></div>
-                <div>
-                  <p className="lk-overnight-text">{day.overnight} -</p>
-                  <p className="lk-overnight-text">{day.hotel}</p>
+                <div className="lk-overnight-trees">
+                  <Glyph name="Trees" size={32} opacity={0.35} />
+                  <Glyph name="Trees" size={36} opacity={0.35} />
                 </div>
-                <div className="lk-overnight-trees"><TreeGlyph size={36} /><TreeGlyph size={32} /></div>
+                <div>
+                  <p className="lk-overnight-text">{day.overnight} : {day.hotel}</p>
+                </div>
+                <div className="lk-overnight-trees">
+                  <Glyph name="Trees" size={36} opacity={0.35} />
+                  <Glyph name="Trees" size={32} opacity={0.35} />
+                </div>
               </div>
             )}
           </FU>
         </div>
       ))}
 
-      {/* ══ PAGE 12: Investment ══ */}
+      {/* ══ INVESTMENT ══ */}
       <section className="lk-investment">
         <FU>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <h2 className="lk-inv-title">Your Investment</h2>
-            <div style={{ display: 'flex', gap: '4px' }}><TreeGlyph size={40} /><TreeGlyph size={48} /></div>
+            <div style={{ display: 'flex', gap: 4 }}>
+              <Glyph name="Trees" size={40} opacity={0.3} />
+              <Glyph name="Trees" size={48} opacity={0.3} />
+            </div>
           </div>
 
           <div className="lk-inv-grid">
             <div className="lk-inv-col">
-              <p className="lk-inv-col-title">Double Occupancy (Twin Sharing)</p>
-              <p className="lk-inv-price">AED 6250 <span>per person</span></p>
+              <p className="lk-inv-col-title">Double Occupancy</p>
+              <Divider width={180} opacity={0.3} />
+              <div style={{ marginTop: 16 }}>
+                <p className="lk-inv-label">Twin Sharing</p>
+                <p className="lk-inv-price">AED 6,250 <span>per person</span></p>
+              </div>
             </div>
             <div className="lk-inv-col">
               <p className="lk-inv-col-title">Single Occupancy</p>
-              <p className="lk-inv-price">AED 7500</p>
+              <Divider width={180} opacity={0.3} />
+              <div style={{ marginTop: 16 }}>
+                <p className="lk-inv-price">AED 7,500</p>
+              </div>
             </div>
           </div>
 
           <h3 className="lk-important-title">Important to Know</h3>
           <div className="lk-important">
             <ul className="lk-important-list">
-              <li>Payments refundable up to 4 weeks before departure</li>
-              <li>Small deductions may apply for committed third-party bookings</li>
-              <li>Final confirmation subject to availability at the time of booking</li>
+              <li>Payments refundable up to 4 weeks before departure.</li>
+              <li>Small deductions may apply for committed third-party bookings.</li>
+              <li>Final confirmation subject to availability at the time of booking.</li>
             </ul>
             <ul className="lk-important-list">
-              <li>Minimum 6 travelers required for the trip to proceed</li>
-              <li>Reservations close on 20th July</li>
-              <li>50% advance to confirm booking; balance due by 20th August</li>
-              <li>No refunds after 20th August</li>
+              <li>Minimum 6 travellers required for the trip to proceed.</li>
+              <li>Reservations close on 20th July.</li>
+              <li>50% advance to confirm booking; balance due by 20th August. No refunds after 20th August.</li>
             </ul>
           </div>
 
-          <LeafDivider />
+          <Divider />
 
-          <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.6rem', fontWeight: 400, color: '#2B2B2B', margin: '48px 0 28px' }}>Inclusions</h3>
+          <h3 className="lk-section-subtitle">Inclusions</h3>
           <div className="lk-inc-grid">
             {[
-              "7 nights accommodation", "Transportation", "Guide",
-              "All breakfasts and dinners", "Authentic Ladakhi hosted lunch experience",
-              "Amchi (Sowa Rigpa) traditional medicine session", "Monastery entrance fees",
-              "Inner Line Permits", "Special hosted dinners at select local restaurants",
+              "7 nights accommodation",
+              "Transportation",
+              "Guide",
+              "All breakfasts and dinners",
+              "Authentic Ladakhi hosted lunch experience",
+              "Amchi (Sowa Rigpa) traditional medicine session",
+              "Monastery entrance fees",
+              "Inner Line Permits",
+              "Special hosted dinners at select local restaurants",
               "Village-based cultural cooking interaction"
             ].map((item, i) => (
               <div className="lk-inc-item" key={i}>
@@ -783,9 +895,9 @@ export default function LadakhJourney() {
             ))}
           </div>
 
-          <LeafDivider />
+          <Divider />
 
-          <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.6rem', fontWeight: 400, color: '#2B2B2B', margin: '48px 0 28px' }}>Exclusions</h3>
+          <h3 className="lk-section-subtitle">Exclusions</h3>
           <div className="lk-inc-grid" style={{ gridTemplateColumns: 'repeat(4, 1fr)' }}>
             {[
               "Lunches outside designated experiences",
@@ -801,33 +913,59 @@ export default function LadakhJourney() {
         </FU>
       </section>
 
-      {/* ══ PAGE 13: CTA ══ */}
+      {/* ══ CTA ══ */}
       <section className="lk-cta">
         <FU>
-          <img src="/assets/Logo-Main.png" alt="PuraVida" className="lk-cta-logo" />
+          <img src="/assets/01. LOGOS/Logo-Main.png" alt="PuraVida" className="lk-cta-logo" />
           <h2 className="lk-cta-heading">Your Journey Begins<br />with a Message</h2>
-          <a href="https://wa.me/+971562216643" className="lk-cta-wa" target="_blank" rel="noopener noreferrer">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#2B2B2B" strokeWidth="1.5"><path d="M3,21 L4.5,15.5 C3.5,13.8 3,11.9 3,10 C3,5 7,1 12,1 C17,1 21,5 21,10 C21,15 17,19 12,19 C10.1,19 8.3,18.5 6.7,17.5 L3,21z" /><path d="M8,12 C8,12 9.5,14 12,14 C14.5,14 16,12 16,12" /></svg>
-            WhatsApp Harsha<br />+971 56 2216643
+          <a
+            href="https://wa.me/+971562216643"
+            className="lk-cta-wa"
+            target="_blank" rel="noopener noreferrer"
+          >
+            <img
+              src="/assets/04. ICONS/PNG/Charcoal/48px/Experience  - 48px.png"
+              alt="" style={{ width: 24, height: 24, opacity: 0.6 }}
+            />
+            <div className="lk-cta-wa-text">
+              <strong>WhatsApp Harsha</strong>
+              +971 56 2216643
+            </div>
           </a>
           <div className="lk-cta-date-bar">
-            <div className="lk-overnight-trees"><TreeGlyph size={28} color="#FAFAF8" /><TreeGlyph size={32} color="#FAFAF8" /></div>
-            <div>
-              <p className="lk-cta-date-label">Join us by</p>
-              <p className="lk-cta-date-val">August 20<sup>th</sup> 2026</p>
+            <div className="lk-overnight-trees">
+              <Glyph name="Trees" variant="White" size={28} opacity={0.6} />
+              <Glyph name="Trees" variant="White" size={32} opacity={0.6} />
             </div>
-            <div className="lk-overnight-trees"><TreeGlyph size={32} color="#FAFAF8" /><TreeGlyph size={28} color="#FAFAF8" /></div>
+            <div style={{ textAlign: 'center' }}>
+              <p className="lk-cta-date-label">Join us by</p>
+              <p className="lk-cta-date-val">August 20th 2026</p>
+            </div>
+            <div className="lk-overnight-trees">
+              <Glyph name="Trees" variant="White" size={32} opacity={0.6} />
+              <Glyph name="Trees" variant="White" size={28} opacity={0.6} />
+            </div>
           </div>
         </FU>
       </section>
 
-      {/* Final quote */}
+      {/* ══ FINAL QUOTE ══ */}
       <div className="lk-final-strip">
         <div className="lk-final-strip-bg" />
         <div className="lk-final-strip-overlay" />
         <FU>
           <div className="lk-final-quote">
-            <p>Ladakh does not let you leave,<br />and never lets you forget.</p>
+            <img
+              src="/assets/05. GRAPHIC ELEMENTS/Puravida_Quote-Frame-2/Quote-Upper.png"
+              alt="" aria-hidden="true"
+              className="lk-quote-ornament lk-quote-ornament-upper"
+            />
+            <p>Ladakh does not let you leave, and never lets you forget.</p>
+            <img
+              src="/assets/05. GRAPHIC ELEMENTS/Puravida_Quote-Frame-2/Quote-Lower.png"
+              alt="" aria-hidden="true"
+              className="lk-quote-ornament lk-quote-ornament-lower"
+            />
           </div>
         </FU>
       </div>
