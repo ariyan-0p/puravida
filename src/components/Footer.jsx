@@ -15,7 +15,7 @@ export default function Footer() {
         }
         .f-brand-logo {
           height: 56px; width: auto; display: block; margin-bottom: 16px;
-          filter: brightness(0) invert(1); opacity: 0.85;
+          opacity: 0.85;
         }
         .f-tagline {
           font-family: 'Lato', sans-serif; font-size: 14px;
@@ -63,6 +63,7 @@ export default function Footer() {
       <footer className="pv-footer">
         <div className="footer-top">
           <div>
+            {/* Logo-Main-White.png is already white — no filter needed */}
             <img src="/assets/01. LOGOS/Logo-Main-White.png" alt="PuraVida with Harsha" className="f-brand-logo" />
             <p className="f-tagline">Where stillness finds you.<br />Dubai. Bhutan. Ladakh. Bali. Japan.</p>
             <div className="f-contact">

@@ -106,7 +106,8 @@ export default function Homepage() {
         .hp-hero-tagline {
           font-family: 'Lora', serif;
           font-style: italic; font-size: 16px;
-          color: #B7C8B5; letter-spacing: 0.08em;
+          /* Turmeric Gold per brand guidelines — taglines use Gold */
+          color: #D4A42C; letter-spacing: 0.08em;
           margin-bottom: 48px;
           opacity: 0; animation: hpFade 0.8s ease 2s forwards;
         }
@@ -123,7 +124,7 @@ export default function Homepage() {
         .hp-l3 { animation-delay: 2.5s; }
         .hp-hero-body {
           font-family: 'Lato', sans-serif;
-          font-size: 16px; line-height: 1.75; color: #555555;
+          font-size: 16px; line-height: 1.75; color: #333333;
           max-width: 440px; margin-bottom: 48px;
           opacity: 0; animation: hpFade 0.8s ease 2.8s forwards;
         }
@@ -219,7 +220,7 @@ export default function Homepage() {
         }
         .hp-about-body {
           font-family: 'Lato', sans-serif;
-          font-size: 16px; line-height: 1.75; color: #555555;
+          font-size: 16px; line-height: 1.75; color: #333333;
           margin-bottom: 16px; max-width: 500px;
         }
         .hp-about-sig {
@@ -246,7 +247,7 @@ export default function Homepage() {
         }
         .hp-phil-intro {
           font-family: 'Lato', sans-serif; font-size: 16px;
-          line-height: 1.7; color: #666666;
+          line-height: 1.7; color: #333333;
         }
         .hp-phil-grid {
           display: grid; grid-template-columns: repeat(4, 1fr);
@@ -273,7 +274,7 @@ export default function Homepage() {
         }
         .hp-pillar-text {
           font-family: 'Lato', sans-serif;
-          font-size: 14px; line-height: 1.7; color: #666666;
+          font-size: 14px; line-height: 1.7; color: #333333;
         }
 
         /* ── 5. JOURNEYS ── */
@@ -293,7 +294,7 @@ export default function Homepage() {
         }
         .hp-j-count {
           font-family: 'Lato', sans-serif; font-size: 14px;
-          color: #666666; letter-spacing: 0.1em;
+          color: #333333; letter-spacing: 0.1em;
         }
         .hp-j-grid {
           display: grid; grid-template-columns: repeat(4, 1fr);
@@ -411,7 +412,7 @@ export default function Homepage() {
         }
         .hp-v-trip {
           font-family: 'Lato', sans-serif;
-          font-size: 13px; color: #999999;
+          font-size: 13px; color: #333333; opacity: 0.6;
         }
 
         /* ── 8. CONTACT ── */
@@ -463,17 +464,9 @@ export default function Homepage() {
         }
         @media (max-width: 900px) {
           .hp-hero { flex-direction: column; min-height: auto; }
-          .hp-hero-left {
-            padding: 120px 40px 48px;
-            flex: none;
-          }
-          .hp-hero-right {
-            flex: none; height: auto; width: 100%;
-            aspect-ratio: 4/3; position: relative;
-          }
-          .hp-hero-img::after {
-            background: linear-gradient(to bottom, rgba(245,240,235,0.3) 0%, transparent 20%);
-          }
+          .hp-hero-left { padding: 120px 40px 48px; flex: none; }
+          .hp-hero-right { flex: none; height: auto; width: 100%; aspect-ratio: 4/3; position: relative; }
+          .hp-hero-img::after { background: linear-gradient(to bottom, rgba(245,240,235,0.3) 0%, transparent 20%); }
           .hp-hero-credit { bottom: 16px; right: 16px; font-size: 11px; }
           .hp-about { grid-template-columns: 1fr; padding: 80px 40px; gap: 48px; }
           .hp-about-float { display: none; }
@@ -599,12 +592,8 @@ export default function Homepage() {
         <div className="hp-phil-header">
           <FU>
             <Divider width={160} opacity={0.4} />
-            <h2 className="hp-phil-h2">
-              We allow breath, space, pause.
-            </h2>
-            <p className="hp-phil-intro">
-              Every journey is led by Harsha herself. No tour managers. No scripts. Only presence.
-            </p>
+            <h2 className="hp-phil-h2">We allow breath, space, pause.</h2>
+            <p className="hp-phil-intro">Every journey is led by Harsha herself. No tour managers. No scripts. Only presence.</p>
           </FU>
         </div>
         <div className="hp-phil-grid">
@@ -623,12 +612,8 @@ export default function Homepage() {
       {/* ══ 5. JOURNEYS ══ */}
       <section className="hp-journeys" id="journeys">
         <div className="hp-j-header">
-          <FU>
-            <h2 className="hp-j-h2">Current Journeys</h2>
-          </FU>
-          <FU d={0.5}>
-            <p className="hp-j-count">2026 Portfolio: Four Destinations</p>
-          </FU>
+          <FU><h2 className="hp-j-h2">Current Journeys</h2></FU>
+          <FU d={0.5}><p className="hp-j-count">2026 Portfolio: Four Destinations</p></FU>
         </div>
         <div className="hp-j-grid">
           {JOURNEYS.map((j, i) => (
@@ -640,10 +625,7 @@ export default function Homepage() {
                   <div className="hp-j-card-content">
                     <h3 className="hp-j-card-dest">{j.dest}</h3>
                     <p className="hp-j-card-tag">{j.tag}</p>
-                    <div className="hp-j-card-meta">
-                      <span>{j.dur}</span>
-                      <span>{j.dates}</span>
-                    </div>
+                    <div className="hp-j-card-meta"><span>{j.dur}</span><span>{j.dates}</span></div>
                   </div>
                 </Link>
               ) : (
@@ -653,10 +635,7 @@ export default function Homepage() {
                   <div className="hp-j-card-content">
                     <h3 className="hp-j-card-dest">{j.dest}</h3>
                     <p className="hp-j-card-tag">{j.tag}</p>
-                    <div className="hp-j-card-meta">
-                      <span>{j.dur}</span>
-                      <span>{j.dates}</span>
-                    </div>
+                    <div className="hp-j-card-meta"><span>{j.dur}</span><span>{j.dates}</span></div>
                   </div>
                 </a>
               )}
@@ -681,9 +660,7 @@ export default function Homepage() {
       {/* ══ 7. TESTIMONIALS ══ */}
       <section className="hp-voices" id="voices">
         <div className="hp-voices-header">
-          <FU>
-            <h2 className="hp-voices-h2">What past travellers say</h2>
-          </FU>
+          <FU><h2 className="hp-voices-h2">What past travellers say</h2></FU>
         </div>
         <div className="hp-voices-grid">
           {VOICES.map((v, i) => (
@@ -704,7 +681,7 @@ export default function Homepage() {
       </section>
 
       {/* ══ 8. CONTACT ══ */}
-      <section className="hp-contact">
+      <section className="hp-contact" id="contact">
         <FU>
           <Divider width={160} opacity={0.4} />
           <h2 className="hp-contact-h2">
@@ -717,12 +694,8 @@ export default function Homepage() {
             <a href="https://wa.me/+971562216643" className="hp-contact-btn" target="_blank" rel="noopener noreferrer">
               Message Harsha
             </a>
-            <a href="mailto:harsha@puravidawithharsha.com" className="hp-contact-link">
-              Email
-            </a>
-            <a href="https://instagram.com/puravida.withharsha" className="hp-contact-link" target="_blank" rel="noopener noreferrer">
-              Instagram
-            </a>
+            <a href="mailto:harsha@puravidawithharsha.com" className="hp-contact-link">Email</a>
+            <a href="https://instagram.com/puravida.withharsha" className="hp-contact-link" target="_blank" rel="noopener noreferrer">Instagram</a>
           </div>
           <Divider width={160} opacity={0.4} />
           <div className="hp-contact-glyphs">
