@@ -185,8 +185,9 @@ export default function Nav() {
         </div>
         <div className="pv-mobile-body">
           <a href="#journeys" className="pv-mobile-link" onClick={(e) => handleHashLink(e, 'journeys')}>Journeys</a>
-          <a href="#about" className="pv-mobile-link" onClick={(e) => handleHashLink(e, 'about')}>About Harsha</a>
-          <a href="#philosophy" className="pv-mobile-link" onClick={(e) => handleHashLink(e, 'philosophy')}>Philosophy</a>
+          <Link to="/about" className="pv-mobile-link" onClick={() => setMenuOpen(false)}>About Harsha</Link>
+          <Link to="/philosophy" className="pv-mobile-link" onClick={() => setMenuOpen(false)}>Philosophy</Link>
+          <Link to="/contact" className="pv-mobile-link" onClick={() => setMenuOpen(false)}>Contact</Link>
         </div>
         <div className="pv-mobile-footer">
           <a href="https://wa.me/+971562216643" className="pv-mobile-wa" target="_blank" rel="noopener noreferrer" onClick={() => setMenuOpen(false)}>
@@ -203,8 +204,9 @@ export default function Nav() {
 
           <ul className="pv-nav-links">
             <li><a href="#journeys" onClick={(e) => handleHashLink(e, 'journeys')}>Journeys</a></li>
-            <li><a href="#about" onClick={(e) => handleHashLink(e, 'about')}>About Harsha</a></li>
-            <li><a href="#philosophy" onClick={(e) => handleHashLink(e, 'philosophy')}>Philosophy</a></li>
+            <li><Link to="/about">About Harsha</Link></li>
+            <li><Link to="/philosophy">Philosophy</Link></li>
+            <li><Link to="/contact">Contact</Link></li>
           </ul>
 
           <a href="https://wa.me/+971562216643" className="pv-nav-cta" target="_blank" rel="noopener noreferrer">
