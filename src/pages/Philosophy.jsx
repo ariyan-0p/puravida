@@ -44,15 +44,15 @@ const PILLARS = [
     n: "01",
     t: "Stillness Over Speed",
     body: [
-      "We allow breath, space, and pause between every experience. An unhurried morning at altitude is not wasted time. It is the point.",
-      "Silence becomes teacher. The view that takes twenty minutes to reach on foot carries something the car window never could.",
+      "We allow breath, space, and pause between every experience. An unhurried morning at altitude is the whole point.",
+      "Silence becomes teacher. The view that takes twenty minutes to reach on foot carries something felt only by those who arrived on foot.",
     ],
   },
   {
     n: "02",
     t: "Presence as Luxury",
     body: [
-      "The luxury we offer is not thread counts or room categories. It is the luxury of being unreachable. Of a day with no agenda beyond witnessing what is in front of you.",
+      "The luxury we offer is presence: the freedom of a day with no agenda beyond witnessing what is in front of you.",
       "Guided moments for reconnection with place, with people, with the self that gets quieted by ordinary life.",
     ],
   },
@@ -60,22 +60,22 @@ const PILLARS = [
     n: "03",
     t: "Authentic Reverence",
     body: [
-      "Real village meals. Real rituals. Real people: relationships built over years of quiet return visits. You are welcomed as a guest, not processed as a tourist.",
-      "We do not perform culture. We sit inside it, with permission and care, as long-term friends of the communities we visit.",
+      "Real village meals. Real rituals. Real people: relationships built over years of quiet return visits. You are welcomed as a guest, with the warmth of long-held friendships.",
+      "We sit inside culture, with permission and care, as long-term friends of the communities we visit.",
     ],
   },
   {
     n: "04",
     t: "Founder Led, Always",
     body: [
-      "Harsha leads every single journey. Your experience is never handed to someone else at the airport. Never managed by a tour operator in the background.",
-      "This is handcrafted travel. The itinerary is composed each season from scratch. Nothing is templated. Nothing is repeated without reason.",
+      "Harsha leads every single journey. Your experience stays in her hands, from arrival to departure. Founder-led, always personal.",
+      "This is handcrafted travel. The itinerary is composed each season from scratch. Every choice is made with intention.",
     ],
   },
 ];
 
 export default function Philosophy() {
-  useEffect(() => { window.scrollTo(0, 0); }, []);
+  useEffect(() => { window.scrollTo(0, 0); document.title = 'Our Philosophy | PuraVida with Harsha'; }, []);
 
   return (
     <>
@@ -240,7 +240,7 @@ export default function Philosophy() {
             We allow breath, space, pause.
           </h1>
           <p className="ph-hero-intro">
-            Every journey is led by Harsha herself. No tour managers. No scripts. Only presence.
+            Every journey is led by Harsha herself. Personal attention. Unhurried pace. Presence at every moment.
           </p>
           <Divider width={160} opacity={0.4} />
         </FU>
@@ -285,7 +285,7 @@ export default function Philosophy() {
             Begin with a conversation. Message Harsha to learn about the 2026 journeys.
           </p>
           <a
-            href="https://wa.me/+971562216643"
+            href="https://wa.me/+971562216643?text=Hello%20Harsha%2C%20I%20would%20love%20to%20learn%20more%20about%20your%202026%20journeys."
             className="ph-cta-btn"
             target="_blank"
             rel="noopener noreferrer"

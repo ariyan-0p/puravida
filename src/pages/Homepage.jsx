@@ -51,10 +51,10 @@ function Glyph({ name = 'Trees', variant = 'Charcoal', size = 48, opacity = 0.3 
 }
 
 const JOURNEYS = [
-  { slug: "bhutan", img: "/assets/journey-bhutan.jpg", dest: "Bhutan", tag: "Mountains and Monasteries", dates: "April 9 to 16, 2026", dur: "8 Days", ready: true },
+  { slug: "bhutan", img: "/assets/journey-bhutan.jpg", dest: "Bhutan", tag: "Mountains and Monasteries", dates: "November 2026", dur: "8 Days", ready: true },
   { slug: "ladakh", img: "/assets/journey-ladakh.jpg", dest: "Ladakh", tag: "High Passes and Living Monasteries", dates: "September 5 to 12, 2026", dur: "8 Days", ready: true },
   { slug: "bali", img: "/assets/journey-bali.jpg", dest: "Bali", tag: "Ritual, Rice, and Renewal", dates: "October 1 to 6, 2026", dur: "6 Days", ready: false },
-  { slug: "japan", img: "/assets/journey-japan.jpg", dest: "Japan", tag: "Stillness in Snow, Hokkaido", dates: "November 15 to 21, 2026", dur: "7 Days", ready: false },
+  { slug: "japan", img: "/assets/journey-japan.jpg", dest: "Japan", tag: "Stillness in Snow, Hokkaido", dates: "December 2026", dur: "7 Days", ready: false },
 ];
 
 const VOICES = [
@@ -67,7 +67,7 @@ const PILLARS = [
   { n: "01", t: "Stillness Over Speed", p: "We allow breath, space, and pause between every experience. Altitude becomes meditation. Silence becomes teacher." },
   { n: "02", t: "Presence as Luxury", p: "Guided moments for reconnection with place, people, and self. The luxury of being unreachable." },
   { n: "03", t: "Authentic Reverence", p: "Real village meals. Real rituals. Real people: relationships built over years. You are welcomed as a guest." },
-  { n: "04", t: "Founder Led, Always", p: "Harsha leads every single journey. Your experience is never handed to someone else. This is handcrafted." },
+  { n: "04", t: "Founder Led, Always", p: "Harsha leads every single journey. Your experience stays with Harsha, every step. This is handcrafted." },
 ];
 
 export default function Homepage() {
@@ -75,6 +75,7 @@ export default function Homepage() {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
+    document.title = 'PuraVida with Harsha | Where Stillness Finds You';
     const t = setTimeout(() => setLoaded(true), 2400);
     return () => clearTimeout(t);
   }, []);
@@ -263,7 +264,7 @@ export default function Homepage() {
         .hp-pillar-num {
           font-family: 'Playfair Display', serif;
           font-size: 2.4rem; font-weight: 700;
-          color: rgba(217,166,161,0.4); line-height: 1;
+          color: rgba(51,51,51,0.2); line-height: 1;
           margin-bottom: 20px;
         }
         .hp-pillar-title {

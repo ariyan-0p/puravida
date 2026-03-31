@@ -40,7 +40,7 @@ function Divider({ width = 200, opacity = 0.5 }) {
 }
 
 export default function AboutHarsha() {
-  useEffect(() => { window.scrollTo(0, 0); }, []);
+  useEffect(() => { window.scrollTo(0, 0); document.title = 'About Harsha | PuraVida with Harsha'; }, []);
 
   return (
     <>
@@ -392,10 +392,10 @@ export default function AboutHarsha() {
           <FU d={2} style={{ marginTop: 64 }}>
             <p className="ah-story-eyebrow">How I Work</p>
             <h2 className="ah-story-h2">
-              No tour managers. No scripts. Just presence.
+              Personal attention. Founder-led. Fully present.
             </h2>
             <p className="ah-story-body">
-              I lead every journey personally. I do not hand you to someone else at the airport. I am with you at the monastery at dawn and at the dinner table at dusk. The itinerary is handcrafted each season. Nothing is templated.
+              I lead every journey personally. I am with you at the monastery at dawn and at the dinner table at dusk. The itinerary is handcrafted each season, composed with full attention.
             </p>
             <p className="ah-story-body">
               Groups stay small, below twenty people, because intimacy is the point. You will know each person by the second day. You will likely know yourself a little differently by the last.
@@ -421,7 +421,7 @@ export default function AboutHarsha() {
         <div className="ah-river-img" />
         <FU className="ah-river-text">
           <p className="ah-river-quote">
-            Stillness is not found in retreat. It is found in the ordinary moment, fully entered.
+            Stillness arrives in the ordinary moment, fully entered.
           </p>
           <p className="ah-river-attr">Harsha</p>
         </FU>
@@ -432,13 +432,13 @@ export default function AboutHarsha() {
         <FU>
           <p className="ah-believes-eyebrow">What I Believe</p>
           <h2 className="ah-believes-h2">
-            Stillness is not found. It is allowed.
+            Stillness arrives. It is allowed.
           </h2>
           <p className="ah-believes-body">
-            I believe in the slow accumulation of real moments. Not highlight reels. Not curated landscapes. The ordinary things that turn out to be extraordinary: a bowl of morning tea, a conversation at altitude, the sound of butter lamps in the dark.
+            I believe in the slow accumulation of real moments: a bowl of morning tea, a conversation at altitude, the sound of butter lamps in the dark. The ordinary things that turn out to be extraordinary.
           </p>
           <p className="ah-believes-body">
-            I believe that the people who guide us matter as much as the places we visit. Every host, every monk, every family I introduce you to: these are relationships I have tended for years. You are welcomed not as a tourist, but as a guest.
+            I believe that the people who guide us matter as much as the places we visit. Every host, every monk, every family I introduce you to: these are relationships I have tended for years. You are welcomed as a guest, with the warmth of long-held relationships.
           </p>
           <p className="ah-believes-body">
             And I believe that the right journey, at the right time, can do something that nothing else can. It can give you back to yourself.
@@ -460,7 +460,7 @@ export default function AboutHarsha() {
             Begin with a conversation. Message Harsha directly and tell her what you are looking for.
           </p>
           <a
-            href="https://wa.me/+971562216643"
+            href="https://wa.me/+971562216643?text=Hello%20Harsha%2C%20I%20would%20love%20to%20learn%20more%20about%20your%202026%20journeys."
             className="ah-cta-btn"
             target="_blank"
             rel="noopener noreferrer"

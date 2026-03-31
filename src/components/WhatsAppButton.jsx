@@ -20,7 +20,7 @@ export default function WhatsAppButton() {
         }
       `}</style>
       <a
-        href="https://wa.me/+971562216643"
+        href="https://wa.me/+971562216643?text=Hello%20Harsha%2C%20I%20would%20love%20to%20learn%20more%20about%20your%202026%20journeys."
         className="wa-float"
         target="_blank"
         rel="noopener noreferrer"

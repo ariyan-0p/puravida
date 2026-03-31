@@ -50,7 +50,7 @@ function Glyph({ name = 'Trees', variant = 'Charcoal', size = 48, opacity = 0.3 
 }
 
 export default function Contact() {
-  useEffect(() => { window.scrollTo(0, 0); }, []);
+  useEffect(() => { window.scrollTo(0, 0); document.title = 'Begin a Conversation | PuraVida with Harsha'; }, []);
 
   return (
     <>
@@ -210,7 +210,7 @@ export default function Contact() {
         <FU>
           <div>
             <a
-              href="https://wa.me/+971562216643"
+              href="https://wa.me/+971562216643?text=Hello%20Harsha%2C%20I%20would%20love%20to%20learn%20more%20about%20your%202026%20journeys."
               className="ct-wa-btn"
               target="_blank"
               rel="noopener noreferrer"
@@ -246,7 +246,7 @@ export default function Contact() {
         <div className="ct-strip-sep" />
         <FU d={1}>
           <a
-            href="https://wa.me/+971562216643"
+            href="https://wa.me/+971562216643?text=Hello%20Harsha%2C%20I%20would%20love%20to%20learn%20more%20about%20your%202026%20journeys."
             className="ct-strip-link"
             target="_blank"
             rel="noopener noreferrer"
@@ -261,7 +261,7 @@ export default function Contact() {
         <FU>
           <Divider width={140} opacity={0.35} />
           <p className="ct-note-q" style={{ marginTop: 48 }}>
-            I would love to hear from you. There is no pitch. Just a conversation about where you are and what is calling you.
+            I would love to hear from you. Begin with a conversation about where you are and what is calling you.
           </p>
           <p className="ct-note-attr">Harsha</p>
           <Divider width={140} opacity={0.35} />
