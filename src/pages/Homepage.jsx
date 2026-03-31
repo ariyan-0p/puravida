@@ -52,7 +52,7 @@ function Glyph({ name = 'Trees', variant = 'Charcoal', size = 48, opacity = 0.3 
 
 const JOURNEYS = [
   { slug: "bhutan", img: "/assets/journey-bhutan.jpg", dest: "Bhutan", tag: "Mountains and Monasteries", dates: "April 9 to 16, 2026", dur: "8 Days", ready: true },
-  { slug: "ladakh", img: "/assets/journey-ladakh.jpg", dest: "Ladakh", tag: "High Passes and Living Monasteries", dates: "September 20 to 27, 2026", dur: "8 Days", ready: true },
+  { slug: "ladakh", img: "/assets/journey-ladakh.jpg", dest: "Ladakh", tag: "High Passes and Living Monasteries", dates: "September 5 to 12, 2026", dur: "8 Days", ready: true },
   { slug: "bali", img: "/assets/journey-bali.jpg", dest: "Bali", tag: "Ritual, Rice, and Renewal", dates: "October 1 to 6, 2026", dur: "6 Days", ready: false },
   { slug: "japan", img: "/assets/journey-japan.jpg", dest: "Japan", tag: "Stillness in Snow, Hokkaido", dates: "November 15 to 21, 2026", dur: "7 Days", ready: false },
 ];
@@ -525,7 +525,7 @@ export default function Homepage() {
             <span className="hp-hero-h1-line"><span className="hp-hero-h1-inner hp-l3">ready.</span></span>
           </h1>
           <p className="hp-hero-body">
-            Boutique transformational travel for those who have mastered the boardroom but lost the ability to sit with silence. Small groups. Unhurried itineraries. Just presence.
+            Boutique transformational travel for those who are ready to sit with silence. Small groups. Unhurried itineraries. Just presence.
           </p>
           <div className="hp-hero-cta">
             <a href="https://wa.me/+971562216643" className="hp-btn" target="_blank" rel="noopener noreferrer">
