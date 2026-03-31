@@ -52,55 +52,64 @@ export default function AboutHarsha() {
 
         /* ── HERO ── */
         .ah-hero {
-          min-height: 85vh;
-          position: relative;
-          display: flex;
-          align-items: flex-end;
+          display: grid;
+          grid-template-columns: 45fr 55fr;
+          min-height: 100vh;
           overflow: hidden;
+        }
+        .ah-hero-left {
           background: #333333;
-        }
-        .ah-hero-img {
-          position: absolute; inset: 0;
-          background: url('/assets/harsha-portrait.jpg') center / cover no-repeat;
-          opacity: 0.7;
-        }
-        .ah-hero-overlay {
-          position: absolute; inset: 0;
-          background: linear-gradient(
-            to bottom,
-            rgba(51,51,51,0.1) 0%,
-            rgba(51,51,51,0.05) 40%,
-            rgba(51,51,51,0.6) 75%,
-            rgba(51,51,51,0.92) 100%
-          );
-        }
-        .ah-hero-content {
-          position: relative; z-index: 2;
-          padding: 0 80px 100px;
-          max-width: 800px;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-end;
+          padding: 120px 72px 100px;
         }
         .ah-hero-eyebrow {
           font-family: 'Lato', sans-serif;
-          font-size: 12px; font-weight: 700;
-          letter-spacing: 0.18em; text-transform: uppercase;
-          color: rgba(255,255,255,0.5);
-          margin-bottom: 20px;
+          font-size: 11px; font-weight: 700;
+          letter-spacing: 0.2em; text-transform: uppercase;
+          color: #C9A050;
+          margin-bottom: 32px;
         }
         .ah-hero-h1 {
           font-family: 'Playfair Display', serif;
           font-weight: 700;
-          font-size: clamp(2.8rem, 6vw, 5.2rem);
-          line-height: 1.1;
+          font-size: clamp(2.4rem, 3.8vw, 4.2rem);
+          line-height: 1.12;
           color: #ffffff;
-          margin-bottom: 28px;
+          margin-bottom: 32px;
         }
         .ah-hero-tagline {
           font-family: 'Lora', serif;
           font-style: italic;
-          font-size: clamp(1rem, 1.8vw, 1.3rem);
-          color: rgba(255,255,255,0.65);
-          line-height: 1.65;
-          max-width: 560px;
+          font-size: clamp(0.95rem, 1.4vw, 1.15rem);
+          color: rgba(255,255,255,0.5);
+          line-height: 1.75;
+          max-width: 380px;
+          margin-bottom: 56px;
+        }
+        .ah-hero-scroll {
+          font-family: 'Lato', sans-serif;
+          font-size: 11px; font-weight: 700;
+          letter-spacing: 0.14em; text-transform: uppercase;
+          color: rgba(255,255,255,0.25);
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
+        .ah-hero-scroll::before {
+          content: '';
+          width: 32px; height: 1px;
+          background: rgba(255,255,255,0.2);
+          flex-shrink: 0;
+        }
+        .ah-hero-right {
+          position: relative;
+          overflow: hidden;
+        }
+        .ah-hero-img {
+          position: absolute; inset: 0;
+          background: url('/assets/harsha-portrait.jpg') center top / cover no-repeat;
         }
 
         /* ── STORY ── */
@@ -257,7 +266,9 @@ export default function AboutHarsha() {
 
         /* ── RESPONSIVE ── */
         @media (max-width: 900px) {
-          .ah-hero-content { padding: 0 40px 80px; }
+          .ah-hero { grid-template-columns: 1fr; min-height: auto; }
+          .ah-hero-left { padding: 120px 40px 64px; justify-content: flex-start; min-height: 60vh; }
+          .ah-hero-right { height: 55vw; min-height: 320px; }
           .ah-story { grid-template-columns: 1fr; padding: 80px 40px; gap: 48px; }
           .ah-story-left { position: static; }
           .ah-quote-strip { padding: 80px 40px; }
@@ -265,7 +276,8 @@ export default function AboutHarsha() {
           .ah-cta { padding: 80px 40px; }
         }
         @media (max-width: 600px) {
-          .ah-hero-content { padding: 0 28px 60px; }
+          .ah-hero-left { padding: 100px 28px 56px; }
+          .ah-hero-right { height: 70vw; }
           .ah-story { padding: 60px 28px; }
           .ah-quote-strip { padding: 60px 28px; }
           .ah-believes { padding: 60px 28px; }
@@ -278,17 +290,21 @@ export default function AboutHarsha() {
 
       {/* HERO */}
       <section className="ah-hero">
-        <div className="ah-hero-img" />
-        <div className="ah-hero-overlay" />
-        <div className="ah-hero-content">
+        <div className="ah-hero-left">
           <p className="ah-hero-eyebrow">About Harsha</p>
           <h1 className="ah-hero-h1">
-            Ten years ago, I went to Ladakh.<br />
-            I have been returning ever since.
+            Ten years ago,<br />
+            I went to Ladakh.<br />
+            I have been returning<br />
+            ever since.
           </h1>
           <p className="ah-hero-tagline">
             Founder of PuraVida with Harsha. Transformational travel guide. Based in Dubai.
           </p>
+          <p className="ah-hero-scroll">Scroll to read her story</p>
+        </div>
+        <div className="ah-hero-right">
+          <div className="ah-hero-img" />
         </div>
       </section>
 
