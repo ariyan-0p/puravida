@@ -53,7 +53,7 @@ function Glyph({ name = 'Trees', variant = 'Charcoal', size = 48, opacity = 0.3 
 const JOURNEYS = [
   { slug: "bhutan", img: "/assets/journey-bhutan.jpg", dest: "Bhutan", tag: "Mountains and Monasteries", dates: "November 2026", dur: "8 Days", ready: true },
   { slug: "ladakh", img: "/assets/journey-ladakh.jpg", dest: "Ladakh", tag: "High Passes and Living Monasteries", dates: "September 5 to 12, 2026", dur: "8 Days", ready: true },
-  { slug: "bali", img: "/assets/journey-bali.jpg", dest: "Bali", tag: "Ritual, Rice, and Renewal", dates: "October 1 to 6, 2026", dur: "6 Days", ready: false },
+  { slug: "bali", img: "/assets/journey-srilanka.jpg", dest: "Bali", tag: "Ritual, Rice, and Renewal", dates: "October 1 to 6, 2026", dur: "6 Days", ready: false },
   { slug: "japan", img: "/assets/journey-japan.jpg", dest: "Japan", tag: "Stillness in Snow, Hokkaido", dates: "December 2026", dur: "7 Days", ready: false },
 ];
 
@@ -264,7 +264,7 @@ export default function Homepage() {
         .hp-pillar-num {
           font-family: 'Playfair Display', serif;
           font-size: 2.4rem; font-weight: 700;
-          color: rgba(51,51,51,0.2); line-height: 1;
+          color: #333333; line-height: 1;
           margin-bottom: 20px;
         }
         .hp-pillar-title {
@@ -429,7 +429,7 @@ export default function Homepage() {
         }
         .hp-contact-body {
           font-family: 'Lato', sans-serif; font-size: 16px;
-          line-height: 1.75; color: rgba(51,51,51,0.85);
+          line-height: 1.75; color: #333333;
           max-width: 520px; margin: 0 auto 48px;
         }
         .hp-contact-actions {
@@ -656,7 +656,7 @@ export default function Homepage() {
             <p className="hp-immersive-attr">From the Bhutan Itinerary</p>
           </div>
         </FU>
-        <span style={{ position:'absolute', bottom:14, right:18, zIndex:3, fontFamily:'Lato,sans-serif', fontSize:11, color:'rgba(255,255,255,0.5)', letterSpacing:'0.06em' }}>Photo: Kelly Dorji</span>
+        <span className="hp-hero-credit">Photo: Kelly Dorji</span>
       </div>
 
       {/* ══ 7. TESTIMONIALS ══ */}

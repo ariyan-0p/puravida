@@ -219,7 +219,7 @@ export const tripsData = {
     tagline: "Ritual, Rice, and Renewal",
     subtitle: "Island of Offerings",
     hero: {
-      image: "/assets/hero-bali.jpg",
+      image: "/assets/journey-srilanka.jpg",
       gradient: "linear-gradient(158deg, #4a7050 0%, #2e4d32 40%, #142416 100%)"
     },
     dates: "October 1\u20136, 2026",

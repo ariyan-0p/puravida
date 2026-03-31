@@ -137,7 +137,7 @@ export default function Philosophy() {
           font-family: 'Lato', sans-serif;
           font-size: 12px; font-weight: 700;
           letter-spacing: 0.12em;
-          color: rgba(51,51,51,0.3);
+          color: #333333;
           padding-top: 8px;
         }
         .ph-pillar-content {}
