@@ -68,7 +68,7 @@ export default function Footer() {
             <p className="f-tagline">Where stillness finds you.<br />Dubai. Bhutan. Ladakh. Bali. Japan.</p>
             <div className="f-contact">
               <p><a href="mailto:harsha@puravidawithharsha.com">harsha@puravidawithharsha.com</a></p>
-              <p><a href="https://wa.me/+971562216643">+971 56 221 6643</a></p>
+              <p><a href="https://wa.me/+971562216643?text=Hello%20Harsha%2C%20I%20would%20love%20to%20learn%20more%20about%20your%202026%20journeys.">+971 56 221 6643</a></p>
             </div>
           </div>
 
@@ -85,17 +85,17 @@ export default function Footer() {
           <div>
             <p className="f-head">Company</p>
             <ul className="f-list">
-              <li><a href="/#about">About Harsha</a></li>
-              <li><a href="/#philosophy">Philosophy</a></li>
-              <li><a href="/#journeys">All Journeys</a></li>
-              <li><a href="/#voices">Testimonials</a></li>
+              <li><Link to="/about">About Harsha</Link></li>
+              <li><Link to="/philosophy">Philosophy</Link></li>
+              <li><a href="/#journeys" onClick={(e) => { if (window.location.pathname === '/') { e.preventDefault(); document.getElementById('journeys')?.scrollIntoView({behavior:'smooth'}); } }}>All Journeys</a></li>
+              <li><a href="/#voices" onClick={(e) => { if (window.location.pathname === '/') { e.preventDefault(); document.getElementById('voices')?.scrollIntoView({behavior:'smooth'}); } }}>Testimonials</a></li>
             </ul>
           </div>
 
           <div>
             <p className="f-head">Connect</p>
             <ul className="f-list">
-              <li><a href="https://wa.me/+971562216643" target="_blank" rel="noopener noreferrer">Begin a Conversation</a></li>
+              <li><a href="https://wa.me/+971562216643?text=Hello%20Harsha%2C%20I%20would%20love%20to%20learn%20more%20about%20your%202026%20journeys." target="_blank" rel="noopener noreferrer">Begin a Conversation</a></li>
               <li><a href="https://instagram.com/puravida.withharsha" target="_blank" rel="noopener noreferrer">Instagram</a></li>
             </ul>
           </div>

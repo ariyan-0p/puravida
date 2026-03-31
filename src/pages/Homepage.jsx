@@ -429,7 +429,7 @@ export default function Homepage() {
         }
         .hp-contact-body {
           font-family: 'Lato', sans-serif; font-size: 16px;
-          line-height: 1.75; color: #333333; opacity: 0.8;
+          line-height: 1.75; color: rgba(51,51,51,0.85);
           max-width: 520px; margin: 0 auto 48px;
         }
         .hp-contact-actions {
@@ -656,6 +656,7 @@ export default function Homepage() {
             <p className="hp-immersive-attr">From the Bhutan Itinerary</p>
           </div>
         </FU>
+        <span style={{ position:'absolute', bottom:14, right:18, zIndex:3, fontFamily:'Lato,sans-serif', fontSize:11, color:'rgba(255,255,255,0.5)', letterSpacing:'0.06em' }}>Photo: Kelly Dorji</span>
       </div>
 
       {/* ══ 7. TESTIMONIALS ══ */}
@@ -692,7 +693,7 @@ export default function Homepage() {
             We begin with a conversation. Message Harsha directly. Tell her where you are. What you are carrying. What you are looking for.
           </p>
           <div className="hp-contact-actions">
-            <a href="https://wa.me/+971562216643" className="hp-contact-btn" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/+971562216643?text=Hello%20Harsha%2C%20I%20would%20love%20to%20learn%20more%20about%20your%202026%20journeys." className="hp-contact-btn" target="_blank" rel="noopener noreferrer">
               Message Harsha
             </a>
             <a href="mailto:harsha@puravidawithharsha.com" className="hp-contact-link">Email</a>

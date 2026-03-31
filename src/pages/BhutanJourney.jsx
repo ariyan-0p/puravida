@@ -254,7 +254,7 @@ const DAYS = [
 export default function BhutanJourney() {
   const [progress, setProgress] = useState(0);
 
-  useEffect(() => { window.scrollTo(0, 0); }, []);
+  useEffect(() => { window.scrollTo(0, 0); document.title = 'Bhutan | PuraVida with Harsha'; }, []);
 
   useEffect(() => {
     const fn = () => setProgress(
@@ -859,7 +859,7 @@ export default function BhutanJourney() {
             ask any questions you may have, and we will take it from there.
           </p>
           <div>
-            <a href="https://wa.me/+971562216643" className="bj-cta-wa" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/+971562216643?text=Hello%20Harsha%2C%20I%20am%20interested%20in%20the%20Bhutan%20journey%20and%20would%20love%20to%20learn%20more." className="bj-cta-wa" target="_blank" rel="noopener noreferrer">
               <img
                 src="/assets/04. ICONS/PNG/Charcoal/48px/Whatsapp  - 48px.png"
                 alt=""

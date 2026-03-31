@@ -190,7 +190,7 @@ export default function Nav() {
           <Link to="/contact" className="pv-mobile-link" onClick={() => setMenuOpen(false)}>Contact</Link>
         </div>
         <div className="pv-mobile-footer">
-          <a href="https://wa.me/+971562216643" className="pv-mobile-wa" target="_blank" rel="noopener noreferrer" onClick={() => setMenuOpen(false)}>
+          <a href="https://wa.me/+971562216643?text=Hello%20Harsha%2C%20I%20would%20love%20to%20learn%20more%20about%20your%202026%20journeys." className="pv-mobile-wa" target="_blank" rel="noopener noreferrer" onClick={() => setMenuOpen(false)}>
             Begin a Conversation
           </a>
         </div>
@@ -209,7 +209,7 @@ export default function Nav() {
             <li><Link to="/contact">Contact</Link></li>
           </ul>
 
-          <a href="https://wa.me/+971562216643" className="pv-nav-cta" target="_blank" rel="noopener noreferrer">
+          <a href="https://wa.me/+971562216643?text=Hello%20Harsha%2C%20I%20would%20love%20to%20learn%20more%20about%20your%202026%20journeys." className="pv-nav-cta" target="_blank" rel="noopener noreferrer">
             Begin a Conversation
           </a>
 

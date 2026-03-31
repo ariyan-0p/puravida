@@ -238,6 +238,7 @@ export default function LadakhJourney() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    document.title = 'Ladakh | PuraVida with Harsha';
     const fn = () => setProgress((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
     window.addEventListener('scroll', fn, { passive: true });
     return () => window.removeEventListener('scroll', fn);
@@ -773,7 +774,7 @@ export default function LadakhJourney() {
           <img src="/assets/01. LOGOS/Logo-Main.png" alt="PuraVida" className="lk-cta-logo" />
           <h2 className="lk-cta-heading">Your Journey Begins<br />with a Message</h2>
           {/* Correct WhatsApp icon */}
-          <a href="https://wa.me/+971562216643" className="lk-cta-wa" target="_blank" rel="noopener noreferrer">
+          <a href="https://wa.me/+971562216643?text=Hello%20Harsha%2C%20I%20am%20interested%20in%20the%20Ladakh%20journey%20and%20would%20love%20to%20learn%20more." className="lk-cta-wa" target="_blank" rel="noopener noreferrer">
             <img
               src="/assets/04. ICONS/PNG/Charcoal/48px/Whatsapp  - 48px.png"
               alt=""

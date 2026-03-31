@@ -8,7 +8,7 @@ export const tripsData = {
       image: "/assets/hero-bhutan.jpg",
       gradient: "linear-gradient(158deg, #4a6050 0%, #2e3d32 40%, #141e16 100%)"
     },
-    dates: "April 9\u201316, 2026",
+    dates: "November 2026",
     duration: "8 Days",
     price: "From AED 12,100",
     groupSize: "8\u201312 travellers",
@@ -267,7 +267,7 @@ export const tripsData = {
       image: "/assets/hero-japan.jpg",
       gradient: "linear-gradient(158deg, #b8a0a0 0%, #887070 45%, #503838 100%)"
     },
-    dates: "November 15\u201321, 2026",
+    dates: "December 2026",
     duration: "7 Days",
     price: "Details coming soon",
     groupSize: "8\u201315 travellers",
