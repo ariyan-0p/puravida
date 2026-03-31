@@ -526,7 +526,7 @@ export default function Homepage() {
             <span className="hp-hero-h1-line"><span className="hp-hero-h1-inner hp-l3">ready.</span></span>
           </h1>
           <p className="hp-hero-body">
-            Boutique transformational travel for those who are ready to sit with silence. Small groups. Unhurried itineraries. Just presence.
+            Boutique transformational travel for professionals ready to rediscover stillness. Small groups. Unhurried itineraries. Presence at every step.
           </p>
           <div className="hp-hero-cta">
             <a href="https://wa.me/+971562216643" className="hp-btn" target="_blank" rel="noopener noreferrer">
