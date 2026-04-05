@@ -268,56 +268,97 @@ export default function LadakhJourney() {
             rgba(0,0,0,0.15) 70%, rgba(0,0,0,0.50) 100%);
         }
         .lk-hero-logo {
-          position: absolute; top: 100px; left: 50%; z-index: 3;
-          transform: translateX(-50%);
-          height: 80px; width: auto;
+          display: none;
         }
         .lk-hero-content {
           position: relative; z-index: 2;
           max-width: 700px; padding: 0 40px;
+          display: flex; flex-direction: column; align-items: center;
+          flex: 1; justify-content: center; margin-top: -10vh;
         }
         .lk-hero-title {
           font-family: 'Playfair Display', serif; font-weight: 700;
           font-size: clamp(5rem, 14vw, 10rem);
-          color: white; line-height: 0.9; margin-bottom: 48px;
+          color: white; line-height: 0.9;
           text-shadow: 0 4px 40px rgba(0,0,0,0.3);
         }
         .lk-hero-dates {
+          position: absolute; bottom: 60px; left: 50%; transform: translateX(-50%);
+          z-index: 2;
           font-family: 'Lato', sans-serif;
           font-size: clamp(1.1rem, 2.2vw, 1.5rem); font-weight: 400;
-          color: rgba(255,255,255,0.85); letter-spacing: 0.1em; margin-bottom: 32px;
+          color: rgba(255,255,255,0.9); letter-spacing: 0.08em;
+          text-align: center; line-height: 1.5;
         }
-        .lk-hero-tagline {
-          font-family: 'Lora', serif; font-style: italic;
-          font-size: clamp(1rem, 2vw, 1.4rem);
-          /* Turmeric Gold per brand guidelines */
-          color: #D4A42C;
+        .lk-hero-dates sup {
+          font-size: 0.65em; vertical-align: super;
         }
 
         /* ── INVITATION FROM HARSHA ── */
         .lk-invite {
-          background: #B7C8B5; padding: 100px 80px;
-          display: grid; grid-template-columns: 0.8fr 1fr;
-          gap: 80px; align-items: center;
+          background: #B7C8B5;
+          padding: 80px 60px 100px;
+          position: relative;
         }
-        .lk-invite-photo-wrap { position: relative; max-width: 340px; }
-        .lk-invite-img { width: 100%; display: block; border-radius: 4px; box-shadow: 0 16px 48px rgba(0,0,0,0.12); }
+        .lk-invite-top {
+          display: flex; align-items: center;
+          margin-bottom: 48px; gap: 0;
+        }
+        .lk-invite-photo-wrap {
+          position: relative; flex-shrink: 0;
+          width: clamp(160px, 30vw, 260px);
+          overflow: visible;
+        }
+        .lk-invite-photo-inner {
+          overflow: hidden;
+          border-radius: 0 100% 0 0 / 0 35% 0 0;
+          display: block;
+        }
+        .lk-invite-img {
+          width: 100%; display: block;
+          position: relative; z-index: 1;
+        }
         .lk-invite-frame {
-          position: absolute; top: 50%; left: 50%;
-          transform: translate(-50%, -50%);
-          width: 115%; height: auto; pointer-events: none;
+          position: absolute;
+          top: -3%; left: -8%;
+          width: 110%; height: 106%;
+          object-fit: fill;
+          pointer-events: none; z-index: 2;
+        }
+        .lk-invite-heading-area {
+          padding-left: clamp(8px, 2vw, 20px);
+          flex: 1;
+        }
+        .lk-invite-divider {
+          width: clamp(120px, 20vw, 200px);
+          opacity: 0.5; display: block;
         }
         .lk-invite-heading {
           font-family: 'Playfair Display', serif;
-          font-size: clamp(2.4rem, 4vw, 3.8rem); font-weight: 700;
-          color: #333333; line-height: 1.15; margin-bottom: 40px;
+          font-size: clamp(1.8rem, 5vw, 3.6rem); font-weight: 700;
+          font-style: normal;
+          color: #333333; line-height: 1.12;
+          margin: 12px 0;
+        }
+        .lk-invite-heading .lk-from {
+          font-style: normal; font-weight: 400;
+          font-size: clamp(1.2rem, 3vw, 2rem);
+          display: block; margin-top: 2px;
+        }
+        .lk-invite-heading .lk-name {
+          font-style: normal; font-weight: 400;
+          font-size: clamp(1.6rem, 4.5vw, 3.4rem);
+          display: block;
         }
         .lk-invite-body {
           font-family: 'Lato', sans-serif;
           font-size: 16px; line-height: 1.75; color: #333333;
-          margin-bottom: 16px; max-width: 520px;
+          margin-bottom: 16px; max-width: 480px;
         }
-        .lk-invite-trees { display: flex; gap: 8px; margin-top: 40px; }
+        .lk-invite-trees {
+          position: absolute; bottom: 28px; right: 40px;
+          display: flex; gap: 2px; align-items: flex-end;
+        }
 
         /* ── WALK LADAKH WITH JUMA MALIK ── */
         /* Clay Rose background is correct per brand guidelines page 49 */
@@ -502,7 +543,7 @@ export default function LadakhJourney() {
 
         /* ── RESPONSIVE ── */
         @media (max-width: 1024px) {
-          .lk-invite { padding: 80px 48px; gap: 48px; }
+          .lk-invite { padding: 60px 40px 100px; }
           .lk-guide { padding: 80px 48px; }
           .lk-day-header { padding: 48px 48px 24px; }
           .lk-day-body { padding: 0 48px 48px; }
@@ -512,8 +553,8 @@ export default function LadakhJourney() {
           .lk-cta { padding: 80px 48px; }
         }
         @media (max-width: 768px) {
-          .lk-invite { grid-template-columns: 1fr; padding: 60px 32px; gap: 40px; }
-          .lk-invite-photo-wrap { max-width: 260px; margin: 0 auto; }
+          .lk-invite { padding: 48px 24px 100px; }
+          .lk-invite-trees { bottom: 20px; right: 24px; }
           .lk-guide { padding: 60px 32px; }
           .lk-guide-photo-wrap { width: 220px; height: 220px; }
           .lk-guide-img { width: 180px; height: 180px; }
@@ -532,6 +573,8 @@ export default function LadakhJourney() {
           .lk-farewell-wrap { padding: 60px 32px; }
           .lk-farewell-card { padding: 28px 24px; }
           .lk-final-quote { padding: 16px 24px; }
+          .lk-hero-logo { height: 56px; top: 20px; left: 20px; }
+          .lk-hero-dates { bottom: 40px; }
           .lk-final-quote p { font-size: 1.25rem; }
         }
       `}</style>
@@ -548,45 +591,59 @@ export default function LadakhJourney() {
         <img src="/assets/01. LOGOS/Logo-Main-White.png" alt="PuraVida" className="lk-hero-logo" />
         <div className="lk-hero-content">
           <h1 className="lk-hero-title">Ladakh</h1>
-          <p className="lk-hero-dates">September 20 to 27, 2026</p>
-          <p className="lk-hero-tagline">Where stillness finds you</p>
         </div>
+        <p className="lk-hero-dates">
+          September<br />20<sup>th</sup>–27<sup>th</sup>, 2026
+        </p>
       </section>
 
       {/* ══ INVITATION FROM HARSHA ══ */}
       <section className="lk-invite">
         <FU>
-          <div className="lk-invite-photo-wrap">
-            <img src="/assets/harsha-portrait.jpg" alt="Harsha" className="lk-invite-img" />
-            <img
-              src="/assets/05. GRAPHIC ELEMENTS/Puravida_Photo-Frame-2/Puravida_Photo-Frame-2.png"
-              alt="" aria-hidden="true" className="lk-invite-frame"
-            />
+          <div className="lk-invite-top">
+            <div className="lk-invite-photo-wrap">
+              <div className="lk-invite-photo-inner">
+                <img src="/assets/harsha-portrait.jpg" alt="Harsha" className="lk-invite-img" />
+              </div>
+              <img
+                src="/assets/05. GRAPHIC ELEMENTS/Puravida_Photo-Frame-2/Puravida_Photo-Frame-2.png"
+                alt="" aria-hidden="true" className="lk-invite-frame"
+              />
+            </div>
+            <div className="lk-invite-heading-area">
+              <img
+                src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png"
+                alt="" aria-hidden="true" className="lk-invite-divider"
+              />
+              <h2 className="lk-invite-heading">
+                An<br />Invitation<br />
+                <span className="lk-from">from</span>
+                <span className="lk-name">Harsha</span>
+              </h2>
+              <img
+                src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png"
+                alt="" aria-hidden="true" className="lk-invite-divider"
+              />
+            </div>
           </div>
         </FU>
         <FU d={1}>
-          <Divider width={240} />
-          <h2 className="lk-invite-heading" style={{ marginTop: 32 }}>
-            An Invitation<br />From Harsha
-          </h2>
-          <Divider width={240} />
-          <p className="lk-invite-body" style={{ marginTop: 32 }}>
+          <p className="lk-invite-body">
             There are places you visit, and then there are places that claim you.
           </p>
           <p className="lk-invite-body">
-            Ladakh claimed me in 2010, and I have been returning ever since. At nearly 3,500 metres, the mountains are a presence. Ancient, indifferent to everything modern life considers urgent. Monasteries cling to cliffsides as they have for centuries. The light here is unlike anything else on earth.
+            Ladakh claimed me in 2010 — and I have been returning ever since. At nearly 3,500 metres, the mountains are not a backdrop, they are a presence. Ancient, indifferent to everything modern life considers urgent. Monasteries cling to cliffsides as they have for centuries. The light here is unlike anything else on earth.
           </p>
           <p className="lk-invite-body">This is where clarity returns.</p>
           <p className="lk-invite-body">
             I am taking a small, carefully chosen group of travellers here. Unhurried. Personal. Deeply rooted in place.
           </p>
           <p className="lk-invite-body">If this speaks to you, I would love to tell you more.</p>
-          <div className="lk-invite-trees">
-            <Glyph name="Trees" size={48} opacity={0.3} />
-            <Glyph name="Trees" size={56} opacity={0.3} />
-            <Glyph name="Trees" size={44} opacity={0.3} />
-          </div>
         </FU>
+        <div className="lk-invite-trees">
+          <Glyph name="Trees" variant="White" size={76} opacity={0.8} />
+          <Glyph name="Trees" variant="White" size={108} opacity={0.8} />
+        </div>
       </section>
 
       {/* ══ WALK LADAKH WITH JUMA MALIK ══ */}
