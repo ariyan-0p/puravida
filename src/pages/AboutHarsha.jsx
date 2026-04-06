@@ -185,6 +185,38 @@ export default function AboutHarsha() {
           color: rgba(51,51,51,0.55);
         }
 
+        /* ── RIVER MOMENT ── */
+        .ah-river {
+          display: grid;
+          grid-template-columns: 60fr 40fr;
+          min-height: 70vh;
+          overflow: hidden;
+        }
+        .ah-river-img {
+          background: url('/assets/harsha%20serene%20by%20the%20river.JPG') center / cover no-repeat;
+        }
+        .ah-river-text {
+          background: #F5F0EB;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding: 80px 64px;
+        }
+        .ah-river-quote {
+          font-family: 'Lora', serif;
+          font-style: italic;
+          font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+          line-height: 1.8;
+          color: #333333;
+          margin-bottom: 28px;
+        }
+        .ah-river-attr {
+          font-family: 'Lato', sans-serif;
+          font-size: 12px; font-weight: 700;
+          letter-spacing: 0.14em; text-transform: uppercase;
+          color: rgba(51,51,51,0.4);
+        }
+
         /* ── BELIEVES ── */
         .ah-believes {
           background: #F5F0EB;
@@ -272,6 +304,9 @@ export default function AboutHarsha() {
           .ah-story { grid-template-columns: 1fr; padding: 80px 40px; gap: 48px; }
           .ah-story-left { position: static; }
           .ah-quote-strip { padding: 80px 40px; }
+          .ah-river { grid-template-columns: 1fr; }
+          .ah-river-img { height: 60vw; min-height: 280px; }
+          .ah-river-text { padding: 60px 40px; }
           .ah-believes { padding: 80px 40px; }
           .ah-cta { padding: 80px 40px; }
         }
@@ -280,6 +315,8 @@ export default function AboutHarsha() {
           .ah-hero-right { height: 70vw; }
           .ah-story { padding: 60px 28px; }
           .ah-quote-strip { padding: 60px 28px; }
+          .ah-river-img { height: 70vw; }
+          .ah-river-text { padding: 48px 28px; }
           .ah-believes { padding: 60px 28px; }
           .ah-cta { padding: 60px 28px; }
         }
@@ -378,6 +415,17 @@ export default function AboutHarsha() {
           <div style={{ marginTop: 40 }}><Divider width={160} opacity={0.4} /></div>
         </FU>
       </div>
+
+      {/* RIVER MOMENT */}
+      <section className="ah-river">
+        <div className="ah-river-img" />
+        <FU className="ah-river-text">
+          <p className="ah-river-quote">
+            Stillness is not found in retreat. It is found in the ordinary moment, fully entered.
+          </p>
+          <p className="ah-river-attr">Harsha</p>
+        </FU>
+      </section>
 
       {/* BELIEVES */}
       <section className="ah-believes">
