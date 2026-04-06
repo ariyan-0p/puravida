@@ -398,6 +398,12 @@ export default function BhutanJourney() {
           border-radius: 8px 8px 0 0;
         }
         .bj-day-head-glyph { position: absolute; top: 16px; right: 24px; opacity: 0.12; }
+        .bj-day-divider-row { position: relative; margin-top: 16px; }
+        .bj-day-divider-row img.bj-day-divider-line { width: 100%; height: auto; opacity: 0.5; display: block; }
+        .bj-day-divider-mountain {
+          position: absolute; right: 10%; bottom: 40%;
+          height: clamp(48px, 6vw, 72px); width: auto; opacity: 0.85;
+        }
         .bj-day-label {
           font-family: 'Lato', sans-serif; font-size: 13px; font-weight: 700;
           letter-spacing: 0.18em; text-transform: uppercase; color: #333333; margin-bottom: 8px;
@@ -412,11 +418,13 @@ export default function BhutanJourney() {
           opacity: 0.6; font-style: italic; margin-bottom: 16px;
         }
         .bj-day-body {
-          background: #F5ECD8;
-          border: 1px solid rgba(51,51,51,0.1); border-top: none; border-bottom: none;
-          padding: 32px 40px; position: relative;
+          background: transparent;
+          border: none;
+          padding: 40px 48px; position: relative;
         }
-        .bj-day-body-pause { position: absolute; bottom: 16px; right: 24px; pointer-events: none; }
+        .bj-day-card-frame { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+        .bj-day-card-frame img { width: 100%; height: 100%; object-fit: fill; display: block; opacity: 0.7; }
+        .bj-day-body-pause { position: absolute; bottom: 16px; right: 24px; pointer-events: none; z-index: 2; }
 
         .bj-period { margin-bottom: 28px; }
         .bj-period:last-child { margin-bottom: 0; }
@@ -437,26 +445,41 @@ export default function BhutanJourney() {
 
         /* Overnight footer — Sage per brand guidelines */
         .bj-day-foot {
-          background: #B7C8B5; padding: 20px 40px;
-          display: flex; align-items: center; justify-content: center; gap: 16px;
-          border-radius: 0 0 8px 8px;
+          background: #B7C8B5; padding: 24px 24px 0;
+          position: relative;
+        }
+        .bj-overnight-content {
+          display: flex; align-items: center; justify-content: center; gap: 20px;
+          padding-bottom: 16px;
         }
         .bj-day-foot-text {
           font-family: 'Lato', sans-serif; font-size: 15px; font-weight: 700;
           color: #333333; letter-spacing: 0.02em;
         }
+        .bj-overnight-divider-line { width: 100%; height: auto; opacity: 0.35; display: block; }
 
         /* Farewell card */
+        .bj-farewell-wrap { background: #F5F0EB; padding: 60px 24px 80px; text-align: center; overflow: visible; }
         .bj-farewell-card {
-          text-align: center; padding: 40px;
-          background: #F5F0EB;
-          border: 1px solid rgba(51,51,51,0.1);
-          border-radius: 0 0 8px 8px;
+          display: block; background: transparent; border: none; border-radius: 0;
+          padding: 56px 64px; max-width: 420px; margin: 0 auto; position: relative;
         }
+        .bj-farewell-frame {
+          position: absolute; inset: -10px -10px -16px -20px;
+          pointer-events: none; z-index: 0;
+          display: flex; align-items: center; justify-content: center;
+        }
+        .bj-farewell-frame img { width: 100%; height: auto; display: block; opacity: 0.85; }
         .bj-farewell-text {
           font-family: 'Lora', serif; font-style: italic;
           font-size: 20px; line-height: 1.6; color: #333333;
+          white-space: pre-line; position: relative; z-index: 1;
         }
+        .bj-farewell-deco {
+          display: flex; justify-content: center; align-items: flex-end;
+          gap: 8px; margin-top: 80px; padding: 0 16px 20px;
+        }
+        .bj-farewell-deco img { flex-shrink: 1; min-width: 0; max-width: 30vw; }
 
         /* ══ INVESTMENT ══ */
         .bj-invest { background: #F5F0EB; padding: 100px 80px; }
@@ -512,38 +535,79 @@ export default function BhutanJourney() {
         .bj-cancel p { font-family: 'Lato', sans-serif; font-size: 15px; line-height: 1.8; color: #333333; }
 
         /* ══ CTA ══ */
-        .bj-cta { background: #F5F0EB; padding: 100px 80px; text-align: center; }
-        .bj-cta-logo { width: 140px; margin: 0 auto 48px; display: block; }
-        /* heading is Playfair Bold — NOT italic, per brand guidelines typography table */
-        .bj-cta h2 {
-          font-family: 'Playfair Display', serif;
-          font-weight: 700; font-style: normal;
-          font-size: clamp(1.8rem, 3vw, 2.6rem);
-          line-height: 1.3; color: #333333; margin-bottom: 32px;
+        .bj-cta {
+          background: #F5F0EB; padding: 100px 80px 0;
+          text-align: center; display: flex; flex-direction: column; align-items: center;
+          position: relative; overflow: hidden;
         }
-        .bj-cta-body {
-          font-family: 'Lato', sans-serif; font-size: 16px; line-height: 1.8;
-          color: #333333; max-width: 560px; margin: 0 auto 24px;
+        .bj-cta > .bfu {
+          width: 100%; display: flex; flex-direction: column; align-items: center;
+        }
+        .bj-cta-circle {
+          position: absolute; border-radius: 50%; pointer-events: none;
+        }
+        .bj-cta-circle--pink-lg {
+          width: clamp(180px, 30vw, 300px); height: clamp(180px, 30vw, 300px);
+          top: -40px; right: -30px;
+          background: radial-gradient(circle, rgba(195,140,140,0.25) 0%, rgba(195,140,140,0.08) 60%, transparent 80%);
+          border: 2px solid rgba(195,140,140,0.18);
+        }
+        .bj-cta-circle--pink-sm {
+          width: clamp(100px, 18vw, 180px); height: clamp(100px, 18vw, 180px);
+          top: clamp(20px, 5vw, 60px); right: clamp(60px, 12vw, 160px);
+          background: radial-gradient(circle, rgba(180,120,130,0.18) 0%, rgba(180,120,130,0.05) 60%, transparent 80%);
+          border: 2px solid rgba(180,120,130,0.15);
+        }
+        .bj-cta-circle--sage-lg {
+          width: clamp(140px, 22vw, 220px); height: clamp(140px, 22vw, 220px);
+          top: 10px; left: -40px;
+          background: radial-gradient(circle, rgba(140,170,140,0.2) 0%, rgba(140,170,140,0.06) 60%, transparent 80%);
+          border: 2px solid rgba(140,170,140,0.15);
+        }
+        .bj-cta-circle--sage-sm {
+          width: clamp(80px, 14vw, 140px); height: clamp(80px, 14vw, 140px);
+          bottom: 120px; right: 40px;
+          background: radial-gradient(circle, rgba(140,170,140,0.15) 0%, rgba(140,170,140,0.04) 60%, transparent 80%);
+          border: 2px solid rgba(140,170,140,0.12);
+        }
+        .bj-cta-leaf {
+          position: absolute; pointer-events: none; opacity: 0.25;
+        }
+        .bj-cta-leaf--left { top: 50%; left: 20px; transform: translateY(-50%); }
+        .bj-cta-leaf--right { bottom: 140px; right: 24px; }
+        .bj-cta-heading {
+          font-family: 'Playfair Display', serif; font-weight: 700;
+          font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+          color: #333333; margin-bottom: 40px; line-height: 1.25; max-width: 500px;
         }
         .bj-cta-wa {
-          display: inline-flex; align-items: center; gap: 12px;
-          font-family: 'Lato', sans-serif; font-size: 18px; font-weight: 700;
-          color: #333333; text-decoration: none;
-          padding: 16px 40px; background: #B7C8B5;
-          border-radius: 4px; margin-bottom: 40px;
-          transition: background 0.35s, color 0.35s; min-height: 48px;
+          display: inline-flex; align-items: center; gap: 14px;
+          font-family: 'Lato', sans-serif; font-size: 16px; font-weight: 400;
+          color: #333333; text-decoration: none; margin-bottom: 48px;
+          padding: 16px 32px; border: 1px solid rgba(51,51,51,0.15); border-radius: 4px;
+          transition: border-color 0.3s, background 0.3s;
         }
-        .bj-cta-wa:hover { background: #96AD93; color: #fff; }
+        .bj-cta-wa:hover { border-color: #D9A6A1; background: rgba(217,166,161,0.08); }
         .bj-cta-wa img { width: 24px; height: 24px; opacity: 0.7; }
-        .bj-cta-date {
-          background: #D9A6A1; padding: 20px 40px;
-          border-radius: 4px; display: inline-block; margin-bottom: 40px;
+        .bj-cta-wa-text { display: flex; flex-direction: column; align-items: flex-start; font-size: 14px; line-height: 1.5; }
+        .bj-cta-wa-text strong { font-size: 16px; font-weight: 700; letter-spacing: 0.02em; }
+        .bj-cta-date-bar {
+          background: #D9A6A1; padding: 28px 32px; border-radius: 0;
+          display: flex; align-items: center; justify-content: space-between; gap: 16px;
+          align-self: stretch; margin: 0 -80px; box-sizing: border-box;
         }
-        .bj-cta-date p {
-          font-family: 'Lato', sans-serif; font-size: 16px; font-weight: 700;
-          color: #333333; letter-spacing: 0.05em;
+        .bj-cta-date-label {
+          font-family: 'Lato', sans-serif; font-size: 14px; color: rgba(255,255,255,0.75);
+          letter-spacing: 0.12em; margin-bottom: 6px;
         }
-        .bj-cta-glyphs { display: flex; justify-content: center; gap: 32px; margin-top: 16px; }
+        .bj-cta-date-val {
+          display: flex; align-items: center; justify-content: center; gap: 8px;
+          font-family: 'Playfair Display', serif; color: white;
+        }
+        .bj-cta-date-part { font-size: 1.1rem; font-weight: 400; }
+        .bj-cta-date-big { font-size: 2.2rem; font-weight: 700; line-height: 1; }
+        .bj-cta-date-big sup { font-size: 0.5em; vertical-align: super; }
+        .bj-cta-date-sep { font-size: 1.4rem; opacity: 0.5; font-weight: 300; }
 
         /* ══ FINAL QUOTE STRIP ══ */
         .bj-final {
