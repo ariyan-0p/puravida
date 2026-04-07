@@ -247,7 +247,7 @@ const DAYS = [
         { icon: 'transport', text: 'Transfer to Paro International Airport for departure' },
       ]},
     ],
-    farewell: 'Tashi Delek, until we meet again.',
+    farewell: '\u201CTashi Delek,\nuntil we meet again.\u201D',
   },
 ];
 
@@ -323,79 +323,130 @@ export default function BhutanJourney() {
         @keyframes bjFade { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
 
         /* ══ INVITATION FROM HARSHA ══ */
-        .bj-invite { background: #B7C8B5; padding: 100px 80px; }
-        .bj-invite-inner {
-          max-width: 1120px; margin: 0 auto;
-          display: grid; grid-template-columns: 0.45fr 0.55fr;
-          gap: 80px; align-items: center;
+        .bj-invite {
+          background: #B7C8B5;
+          padding: 64px clamp(28px, 5vw, 60px) 140px;
+          position: relative;
         }
-        .bj-invite-photo-wrap { position: relative; max-width: 400px; }
+        @media (min-width: 1025px) {
+          .bj-invite { padding: 64px calc((100% - 640px) / 2) 140px; }
+        }
+        .bj-invite-top {
+          display: flex; align-items: center;
+          margin-bottom: 40px;
+        }
+        .bj-invite-photo-wrap {
+          position: relative; flex-shrink: 0;
+          width: clamp(140px, 28vw, 200px);
+          overflow: visible;
+        }
         .bj-invite-photo {
-          width: 100%; display: block; aspect-ratio: 3/4; object-fit: cover;
+          width: 100%; display: block;
+          position: relative; z-index: 1;
         }
-        .bj-invite-frame {
-          position: absolute; inset: -6%;
-          width: 112%; height: 112%;
-          object-fit: contain; pointer-events: none;
+        .bj-invite-heading-area {
+          padding-left: clamp(4px, 1.5vw, 16px);
+          flex: 1; min-width: 0;
+          display: flex; flex-direction: column; align-items: flex-start;
         }
-        .bj-invite-text h2 {
+        .bj-invite-divider {
+          width: clamp(100px, 18vw, 180px);
+          opacity: 0.5; display: block;
+        }
+        .bj-invite-heading {
+          font-family: 'Playfair Display', serif;
+          font-size: clamp(2rem, 6.5vw, 2.8rem); font-weight: 700;
+          font-style: normal;
+          color: #333333; line-height: 1.05;
+          margin: 12px 0; text-align: left;
+        }
+        .bj-invite-heading span { display: block; }
+        .bj-invite-heading .bj-from {
           font-family: 'Playfair Display', serif; font-weight: 700;
-          font-size: clamp(1.8rem, 3vw, 2.6rem);
-          line-height: 1.25; color: #333333; margin: 32px 0;
+          font-size: clamp(1.4rem, 4vw, 2rem);
+          margin-top: 4px;
         }
-        .bj-invite-text p {
+        .bj-invite-body {
           font-family: 'Lato', sans-serif;
-          font-size: 16px; line-height: 1.8; color: #333333; margin-bottom: 24px;
+          font-size: 15px; line-height: 1.75; color: #333333;
+          margin-bottom: 16px; max-width: 480px;
         }
-        .bj-invite-glyphs { display: flex; justify-content: center; gap: 24px; margin-top: 48px; }
+        .bj-invite-trees {
+          position: absolute; bottom: 16px; right: clamp(24px, 5vw, 60px);
+          display: flex; gap: -4px; align-items: flex-end;
+        }
 
         /* ══ WALK WITH KELLY DORJI ══ */
-        /* Clay Rose background is correct per brand guidelines page 49 */
-        .bj-kelly { background: #D9A6A1; padding: 100px 80px; }
-        .bj-kelly-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+        .bj-kelly {
+          background: #C5A3A3;
+          padding: clamp(72px, 11vw, 108px) clamp(28px, 6vw, 88px) 0;
+          text-align: center; position: relative; overflow: hidden;
+        }
+        .bj-kelly-column { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
         .bj-kelly-photo-wrap {
           position: relative; display: inline-block;
-          width: 240px; height: 240px; margin-bottom: 40px;
+          width: clamp(268px, 58vw, 336px); height: clamp(268px, 58vw, 336px);
+          margin: 0 auto clamp(32px, 5vw, 44px);
         }
         .bj-kelly-photo {
-          width: 100%; height: 100%;
-          border-radius: 50%; object-fit: cover; display: block;
+          width: 76%; height: 76%; max-width: 254px; max-height: 254px;
+          border-radius: 50%; object-fit: cover;
+          position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+          border: 2px solid rgba(30,30,30,0.42);
         }
         .bj-kelly-frame {
-          position: absolute; inset: -10%;
-          width: 120%; height: 120%;
-          object-fit: contain; pointer-events: none;
+          position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+          width: 100%; height: 100%; object-fit: contain; pointer-events: none;
         }
+        .bj-kelly-rule { display: flex; justify-content: center; margin: 0; }
+        .bj-kelly-rule--above { margin-bottom: clamp(18px, 3vw, 26px); }
+        .bj-kelly-rule--below { margin-top: clamp(18px, 3vw, 26px); margin-bottom: clamp(20px, 3.5vw, 28px); }
+        .bj-kelly-rule img { width: clamp(220px, 62vw, 400px); opacity: 0.52; }
+        .bj-kelly-head { max-width: 520px; margin: 0 auto; }
         .bj-kelly h2 {
           font-family: 'Playfair Display', serif; font-weight: 700;
-          font-size: clamp(1.8rem, 3vw, 2.6rem);
-          line-height: 1.25; color: #333333; margin-bottom: 12px;
+          font-size: clamp(1.85rem, 4.2vw, 2.85rem);
+          line-height: 1.18; color: #252525; margin: 0;
         }
         .bj-kelly-subtitle {
           font-family: 'Lora', serif; font-style: italic;
-          font-size: 18px; color: #333333; margin-bottom: 32px;
+          font-size: clamp(1.05rem, 2.4vw, 1.2rem); font-weight: 400;
+          color: rgba(255,252,250,0.92); margin: 0 0 clamp(28px, 5vw, 40px); letter-spacing: 0.02em;
+        }
+        .bj-kelly-body-wrap {
+          max-width: 600px; margin: 0 auto; text-align: left;
+          padding-bottom: clamp(60px, 14vw, 140px);
         }
         .bj-kelly-body {
           font-family: 'Lato', sans-serif;
-          font-size: 16px; line-height: 1.8;
-          color: #333333; max-width: 680px; margin: 0 auto;
+          font-size: clamp(15px, 1.8vw, 17px); line-height: 1.85;
+          color: #252525;
         }
+        .bj-kelly-mountains {
+          position: absolute; left: 0; right: 0; bottom: 0; z-index: 0;
+          display: flex; justify-content: space-between; align-items: flex-end;
+          pointer-events: none; line-height: 0;
+        }
+        .bj-kelly-mountain-side { display: flex; align-items: flex-end; line-height: 0; flex: 0 1 auto; min-width: 0; overflow: hidden; }
+        .bj-kelly-mountain-img {
+          display: block; height: auto; width: clamp(220px, 38vw, 480px);
+          object-fit: contain; opacity: 0.55; margin-bottom: -2%;
+        }
+        .bj-kelly-mountain-right .bj-kelly-mountain-img { transform: scaleX(-1); }
 
         /* ══ ITINERARY ══ */
-        .bj-itin { background: #F5F0EB; padding: 100px 80px; }
-        .bj-itin-header { text-align: center; max-width: 700px; margin: 0 auto 72px; }
+        .bj-itin { background: #F5F0EB; padding: 100px 0; }
+        .bj-itin-header { text-align: center; max-width: 700px; margin: 0 auto 72px; padding: 0 80px; }
         .bj-itin-header h2 {
           font-family: 'Playfair Display', serif; font-weight: 700;
           font-size: clamp(2rem, 3.5vw, 3rem); line-height: 1.2; color: #333333; margin-bottom: 16px;
         }
         .bj-itin-header p { font-family: 'Lato', sans-serif; font-size: 16px; line-height: 1.7; color: #333333; }
 
-        .bj-day { max-width: 880px; margin: 0 auto 56px; }
+        .bj-day { margin: 0; }
         .bj-day-head {
-          background: #F5F0EB; padding: 32px 40px 24px;
-          position: relative; overflow: hidden;
-          border: 1px solid rgba(51,51,51,0.08); border-bottom: none;
-          border-radius: 8px 8px 0 0;
+          background: #F5F0EB; padding: 60px 80px 32px;
+          position: relative;
         }
         .bj-day-head-glyph { position: absolute; top: 16px; right: 24px; opacity: 0.12; }
         .bj-day-divider-row { position: relative; margin-top: 16px; }
@@ -417,14 +468,14 @@ export default function BhutanJourney() {
           font-family: 'Lato', sans-serif; font-size: 14px; color: #333333;
           opacity: 0.6; font-style: italic; margin-bottom: 16px;
         }
-        .bj-day-body {
-          background: transparent;
-          border: none;
+        .bj-day-body { background: #F5F0EB; padding: 0 80px 60px; }
+        .bj-day-card {
+          background: transparent; border: none;
           padding: 40px 48px; position: relative;
         }
         .bj-day-card-frame { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
         .bj-day-card-frame img { width: 100%; height: 100%; object-fit: fill; display: block; opacity: 0.7; }
-        .bj-day-body-pause { position: absolute; bottom: 16px; right: 24px; pointer-events: none; z-index: 2; }
+        .bj-day-body-pause { position: absolute; bottom: 12px; right: 12px; pointer-events: none; z-index: 2; }
 
         .bj-period { margin-bottom: 28px; }
         .bj-period:last-child { margin-bottom: 0; }
@@ -483,42 +534,35 @@ export default function BhutanJourney() {
 
         /* ══ INVESTMENT ══ */
         .bj-invest { background: #F5F0EB; padding: 100px 80px; }
-        .bj-invest-inner { max-width: 960px; margin: 0 auto; }
-        .bj-invest-header { text-align: center; margin-bottom: 56px; }
-        .bj-invest-header h2 {
+        .bj-inv-title {
           font-family: 'Playfair Display', serif; font-weight: 700;
-          font-size: clamp(2rem, 3vw, 2.8rem); line-height: 1.2; color: #333333; margin-bottom: 16px;
+          font-size: clamp(2rem, 3vw, 2.8rem); line-height: 1.2; color: #333333; margin-bottom: 12px;
         }
-        .bj-invest-header p { font-family: 'Lato', sans-serif; font-size: 16px; line-height: 1.7; color: #333333; }
 
-        .bj-pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 56px; }
-        .bj-pricing-card {
-          background: #F5ECD8; border: 1px solid rgba(51,51,51,0.08);
-          padding: 40px 36px; text-align: center; border-radius: 8px;
+        .bj-inv-grid {
+          display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+          border: 1.5px solid rgba(51,51,51,0.1); background: transparent;
+          margin-bottom: 48px; max-width: 650px;
         }
-        .bj-pricing-card-title {
-          font-family: 'Playfair Display', serif; font-weight: 700;
-          font-size: 20px; color: #333333; margin-bottom: 32px;
-          padding-bottom: 16px; border-bottom: 1px solid rgba(51,51,51,0.08);
+        .bj-inv-col { padding: 32px 40px; }
+        .bj-inv-col:first-child { border-right: 1.5px solid rgba(51,51,51,0.1); }
+        .bj-inv-col-title {
+          font-family: 'Lato', sans-serif; font-size: 14px; font-weight: 400;
+          letter-spacing: 0.1em; color: #333333; opacity: 0.6; margin-bottom: 16px;
         }
-        .bj-pricing-row {
-          display: flex; justify-content: space-between; align-items: baseline;
-          padding: 12px 0; border-bottom: 1px solid rgba(51,51,51,0.05);
-        }
-        .bj-pricing-row:last-child { border-bottom: none; }
-        .bj-pricing-type { font-family: 'Lato', sans-serif; font-size: 15px; color: #333333; }
-        .bj-pricing-amount { font-family: 'Lato', sans-serif; font-size: 20px; font-weight: 700; color: #333333; }
-        .bj-pricing-note { font-family: 'Lato', sans-serif; font-size: 13px; color: #333333; opacity: 0.6; display: block; margin-top: 2px; }
+        .bj-inv-label { font-family: 'Lato', sans-serif; font-size: 14px; color: #333333; opacity: 0.6; margin-bottom: 4px; }
+        .bj-inv-price { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: #333333; }
+        .bj-inv-price span { font-size: 0.85rem; font-weight: 400; }
+        .bj-inv-price-row { margin-bottom: 8px; }
+        .bj-inv-price-row:last-child { margin-bottom: 0; }
 
-        /* Inclusions/Exclusions — icon grid per brand guidelines page 47 */
-        .bj-invest-section { margin-bottom: 48px; }
-        .bj-invest-section h3 {
-          font-family: 'Playfair Display', serif; font-weight: 700;
-          font-size: 20px; color: #333333; margin-bottom: 32px; text-align: center;
+        .bj-section-subtitle {
+          font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700;
+          color: #333333; margin: 48px 0 28px;
         }
         .bj-icon-grid {
           display: grid; grid-template-columns: repeat(4, 1fr);
-          gap: 32px 24px; max-width: 800px; margin: 0 auto;
+          gap: 32px 24px; margin-bottom: 48px;
         }
         .bj-icon-item { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; }
         .bj-icon-item img { width: 36px; height: 36px; opacity: 0.7; }
@@ -527,10 +571,10 @@ export default function BhutanJourney() {
           line-height: 1.5; color: #333333; text-align: center;
         }
 
-        .bj-cancel { max-width: 640px; margin: 0 auto; text-align: center; }
+        .bj-cancel { max-width: 640px; }
         .bj-cancel h3 {
           font-family: 'Playfair Display', serif; font-weight: 700;
-          font-size: 20px; color: #333333; margin-bottom: 20px;
+          font-size: 1.6rem; color: #333333; margin-bottom: 20px;
         }
         .bj-cancel p { font-family: 'Lato', sans-serif; font-size: 15px; line-height: 1.8; color: #333333; }
 
@@ -618,50 +662,59 @@ export default function BhutanJourney() {
           position: absolute; inset: 0;
           background: url('/assets/hero-bhutan.jpg') center 30% / cover no-repeat;
         }
-        .bj-final-bg::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.6); }
-        .bj-final-content { position: relative; z-index: 2; text-align: center; padding: 80px 40px; max-width: 700px; }
-        .bj-final-quote-upper,
-        .bj-final-quote-lower { width: 80px; display: block; margin: 0 auto; opacity: 0.7; }
+        .bj-final-bg::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.10); }
+        .bj-final-content {
+          position: relative; z-index: 2; max-width: 260px; text-align: center;
+          padding: 48px 40px; margin: 0 auto;
+        }
+        .bj-final-quote-frame {
+          position: absolute; inset: -12px -16px -18px -16px;
+          pointer-events: none; z-index: 0;
+          display: flex; align-items: center; justify-content: center;
+        }
+        .bj-final-quote-frame img { width: 100%; height: 100%; object-fit: fill; display: block; opacity: 0.85; }
         .bj-final-quote {
           font-family: 'Lora', serif; font-style: italic;
-          font-size: clamp(1.4rem, 3vw, 2.2rem); line-height: 1.55; color: #fff; margin: 24px 0;
+          font-size: 1.15rem; line-height: 1.5; color: #fff;
+          text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+          position: relative; z-index: 1;
         }
 
         /* ══ RESPONSIVE ══ */
         @media (max-width: 900px) {
-          .bj-invite { padding: 80px 40px; }
-          .bj-invite-inner { grid-template-columns: 1fr; gap: 48px; text-align: center; }
-          .bj-invite-photo-wrap { max-width: 300px; margin: 0 auto; }
-          .bj-kelly { padding: 80px 40px; }
-          .bj-itin { padding: 80px 40px; }
+          .bj-invite { padding: 56px 36px 120px; }
+          .bj-kelly-mountain-img { width: clamp(180px, 42vw, 320px); }
+          .bj-itin { padding: 80px 0; }
+          .bj-itin-header { padding: 0 40px; }
           .bj-day-head { padding: 28px 28px 20px; }
-          .bj-day-body { padding: 28px; }
-          .bj-day-foot { padding: 16px 28px; }
+          .bj-day-body { padding: 28px 32px; }
+          .bj-day-foot { padding: 20px 24px 0; }
           .bj-invest { padding: 80px 40px; }
-          .bj-pricing-grid { grid-template-columns: 1fr; gap: 24px; }
+          .bj-inv-grid { grid-template-columns: 1fr; }
+          .bj-inv-col:first-child { border-right: none; border-bottom: 1.5px solid rgba(51,51,51,0.1); }
           .bj-icon-grid { grid-template-columns: repeat(2, 1fr); }
-          .bj-cta { padding: 80px 40px; }
+          .bj-cta { padding: 80px 40px 0; }
+          .bj-cta-date-bar { margin: 0 -40px; }
           .bj-final { min-height: 40vh; }
+          .bj-day-divider-mountain { height: clamp(40px, 10vw, 56px); }
+          .bj-farewell-card { padding: 28px 24px; }
         }
         @media (max-width: 600px) {
           .bj-hero-logo { width: 120px; margin-bottom: 48px; }
-          .bj-invite { padding: 60px 24px; }
-          .bj-invite-inner { gap: 40px; }
-          .bj-invite-text h2 { font-size: 1.6rem; }
-          .bj-kelly { padding: 60px 24px; }
-          .bj-kelly-photo-wrap { width: 180px; height: 180px; }
-          .bj-itin { padding: 60px 24px; }
+          .bj-invite { padding: 48px 24px 120px; }
+          .bj-kelly-mountain-img { width: clamp(160px, 46vw, 240px); }
+          .bj-itin { padding: 60px 0; }
+          .bj-itin-header { padding: 0 24px; }
           .bj-day-head { padding: 24px 20px 16px; }
           .bj-day-body { padding: 24px 20px; }
-          .bj-day-foot { padding: 14px 20px; flex-direction: column; gap: 8px; }
+          .bj-day-foot { padding: 16px 20px 0; }
           .bj-invest { padding: 60px 24px; }
-          .bj-pricing-card { padding: 32px 24px; }
+          .bj-inv-col { padding: 24px 20px; }
           .bj-icon-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
-          .bj-cta { padding: 60px 24px; }
-          .bj-cta-wa { font-size: 16px; padding: 14px 32px; }
-          .bj-cta-date { padding: 16px 28px; }
-          .bj-final-content { padding: 60px 24px; }
-          .bj-farewell-card { padding: 32px 24px; }
+          .bj-cta { padding: 60px 24px 0; }
+          .bj-cta-date-bar { margin: 0 -24px; }
+          .bj-final-content { padding: 32px 24px; }
+          .bj-farewell-card { padding: 28px 20px; }
         }
       `}</style>
 
@@ -685,69 +738,76 @@ export default function BhutanJourney() {
 
       {/* ══ 2. INVITATION FROM HARSHA ══ */}
       <section className="bj-invite">
-        <div className="bj-invite-inner">
-          <FU>
+        <FU>
+          <div className="bj-invite-top">
             <div className="bj-invite-photo-wrap">
-              <img src="/assets/harsha-portrait.jpg" alt="Harsha" className="bj-invite-photo" />
-              <img
-                src="/assets/05. GRAPHIC ELEMENTS/Puravida_Photo-Frame-2/Puravida_Photo-Frame-2.png"
-                alt="" aria-hidden="true" className="bj-invite-frame"
-              />
+              <img src="/assets/Puravida_Photo-Frame-2-Harsha.png" alt="Harsha" className="bj-invite-photo" />
             </div>
-          </FU>
-          <FU d={1}>
-            <div className="bj-invite-text">
-              <Divider width={160} opacity={0.4} />
-              <h2>An Invitation From Harsha</h2>
-              <Divider width={160} opacity={0.4} />
-              <p style={{ marginTop: 32 }}>
-                Bhutan holds a kind of quiet that stays with you long after you return.
-                It asks you to slow down, breathe deeper, and notice the gentle details
-                of life that cities often blur.
-              </p>
-              <p>
-                This journey is crafted for those who want more than travel. It is for
-                those who want presence, connection, and the kind of beauty you feel in
-                your heart. We move slowly. We listen. We walk with people who carry the
-                land in their stories. If this calls to you, I would love for you to join me in Bhutan.
-              </p>
-              <div className="bj-invite-glyphs">
-                <Glyph name="Trees" variant="Charcoal" size={40} opacity={0.2} />
-                <Glyph name="Trees" variant="Charcoal" size={48} opacity={0.25} />
-                <Glyph name="Trees" variant="Charcoal" size={40} opacity={0.2} />
-              </div>
+            <div className="bj-invite-heading-area">
+              <img src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png" alt="" aria-hidden="true" className="bj-invite-divider" />
+              <h2 className="bj-invite-heading">
+                <span>An</span>
+                <span>Invitation</span>
+                <span className="bj-from">from</span>
+                <span>Harsha</span>
+              </h2>
+              <img src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png" alt="" aria-hidden="true" className="bj-invite-divider" />
             </div>
-          </FU>
+          </div>
+        </FU>
+        <FU d={1}>
+          <p className="bj-invite-body">
+            Bhutan holds a kind of quiet that stays with you long after you return.
+            It asks you to slow down, breathe deeper, and notice the gentle details
+            of life that cities often blur.
+          </p>
+          <p className="bj-invite-body">
+            This journey is crafted for those who want more than travel. It is for
+            those who want presence, connection, and the kind of beauty you feel in
+            your heart. We move slowly. We listen. We walk with people who carry the
+            land in their stories. If this calls to you, I would love for you to join me in Bhutan.
+          </p>
+        </FU>
+        <div className="bj-invite-trees">
+          <Glyph name="Trees" variant="White" size={160} opacity={0.85} />
         </div>
       </section>
 
       {/* ══ 3. WALK BHUTAN WITH KELLY DORJI ══ */}
       <section className="bj-kelly">
-        <div className="bj-kelly-inner">
-          <FU>
+        <FU>
+          <div className="bj-kelly-column">
             <div className="bj-kelly-photo-wrap">
               <img src="/assets/kelly-dorji.jpg" alt="Kelly Dorji" className="bj-kelly-photo" />
-              <img
-                src="/assets/05. GRAPHIC ELEMENTS/Puravida_Photo-Frame-1/Puravida_Photo-Frame-1.png"
-                alt="" aria-hidden="true" className="bj-kelly-frame"
-              />
+              <img src="/assets/Puravida_Photo-Frame-1-Juma.png" alt="" aria-hidden="true" className="bj-kelly-frame" />
             </div>
-          </FU>
-          <FU d={1}>
-            <Divider width={160} opacity={0.4} />
-            <h2 style={{ marginTop: 24 }}>Walk Bhutan with Kelly Dorji</h2>
-            <Divider width={160} opacity={0.4} />
-            <p className="bj-kelly-subtitle" style={{ marginTop: 16 }}>Your cultural bridge.</p>
-            <p className="bj-kelly-body">
-              Kelly is one of Bhutan's most respected cultural custodians, rooted in
-              Himalayan heritage, art, and spirituality. He brings depth, humour, and a lived
-              understanding of the land that few possess. Walking Bhutan with him feels like being
-              guided by someone who sees both the visible and the unseen. His presence is an experience in itself.
-            </p>
-          </FU>
-          <FU d={2}>
-            <div style={{ marginTop: 40 }}><Divider width={160} opacity={0.4} /></div>
-          </FU>
+            <div className="bj-kelly-head">
+              <div className="bj-kelly-rule bj-kelly-rule--above">
+                <img src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png" alt="" aria-hidden="true" />
+              </div>
+              <h2>Walk Bhutan<br />with Kelly Dorji</h2>
+              <p className="bj-kelly-subtitle">Your cultural bridge.</p>
+            </div>
+            <div className="bj-kelly-body-wrap">
+              <div className="bj-kelly-rule bj-kelly-rule--below">
+                <img src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png" alt="" aria-hidden="true" />
+              </div>
+              <p className="bj-kelly-body">
+                Kelly is one of Bhutan's most respected cultural custodians, rooted in
+                Himalayan heritage, art, and spirituality. He brings depth, humour, and a lived
+                understanding of the land that few possess. Walking Bhutan with him feels like being
+                guided by someone who sees both the visible and the unseen. His presence is an experience in itself.
+              </p>
+            </div>
+          </div>
+        </FU>
+        <div className="bj-kelly-mountains">
+          <div className="bj-kelly-mountain-side">
+            <img src={encodeURI('/assets/05. GRAPHIC ELEMENTS/Glyphs/Charcoal/Mountains/Mountains.png')} alt="" aria-hidden="true" className="bj-kelly-mountain-img" />
+          </div>
+          <div className="bj-kelly-mountain-side bj-kelly-mountain-right">
+            <img src={encodeURI('/assets/05. GRAPHIC ELEMENTS/Glyphs/Charcoal/Mountains/Mountains.png')} alt="" aria-hidden="true" className="bj-kelly-mountain-img" />
+          </div>
         </div>
       </section>
 
@@ -772,43 +832,61 @@ export default function BhutanJourney() {
                 <p className="bj-day-label">DAY- <span className="bj-day-label-num">{day.num}</span></p>
                 <h3 className="bj-day-title">{day.title}</h3>
                 {day.travel && <p className="bj-day-travel">{day.travel}</p>}
-                <Divider width={140} opacity={0.35} />
+                <div className="bj-day-divider-row">
+                  <img src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png" alt="" aria-hidden="true" className="bj-day-divider-line" />
+                  <img src="/assets/05. GRAPHIC ELEMENTS/Glyphs/Charcoal/Mountains/Mountains.png" alt="" aria-hidden="true" className="bj-day-divider-mountain" />
+                </div>
               </div>
 
               <div className="bj-day-body">
-                {day.periods.map((period, pi) => (
-                  <div key={period.label}>
-                    {pi > 0 && (
-                      <div className="bj-period-divider"><Divider width={100} opacity={0.25} /></div>
-                    )}
-                    <div className="bj-period">
-                      <p className="bj-period-label">{period.label}</p>
-                      {period.items.map((act, ai) => (
-                        <div className="bj-activity" key={ai}>
-                          <DayIcon type={act.icon} />
-                          <span className="bj-activity-text">{act.text}</span>
-                        </div>
-                      ))}
+                <div className="bj-day-card">
+                  <div className="bj-day-card-frame"><img src="/assets/Frame.png" alt="" aria-hidden="true" /></div>
+                  {day.periods.map((period, pi) => (
+                    <div key={period.label} style={{ position: 'relative', zIndex: 2 }}>
+                      {pi > 0 && (
+                        <div className="bj-period-divider"><Divider width={160} opacity={0.35} /></div>
+                      )}
+                      <div className="bj-period">
+                        <p className="bj-period-label">{period.label}</p>
+                        {period.items.map((act, ai) => (
+                          <div className="bj-activity" key={ai}>
+                            <DayIcon type={act.icon} />
+                            <span className="bj-activity-text">{act.text}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
+                  ))}
+                  <div className="bj-day-body-pause">
+                    <Glyph name="Pause" variant="Charcoal" size={48} opacity={0.15} />
                   </div>
-                ))}
-                <div className="bj-day-body-pause">
-                  <Glyph name="Pause" variant="Charcoal" size={40} opacity={0.15} />
                 </div>
               </div>
 
               {day.farewell ? (
-                <div className="bj-farewell-card">
-                  <Glyph name="Mountains" variant="Charcoal" size={36} opacity={0.2} />
-                  {/* No curly-quote entities — quote frame handles visual quoting */}
-                  <p className="bj-farewell-text" style={{ marginTop: 16 }}>{day.farewell}</p>
+                <>
+                <div className="bj-farewell-wrap">
+                  <div className="bj-farewell-card">
+                    <div className="bj-farewell-frame">
+                      <img src="/assets/Puravida_Quote-Frame-2-20260405T104951Z-3-001/Puravida_Quote-Frame-2/Frame.png" alt="" aria-hidden="true" />
+                    </div>
+                    <p className="bj-farewell-text">{day.farewell}</p>
+                  </div>
+                  <div className="bj-farewell-deco">
+                    <Glyph name="Mountains" variant="Charcoal" size={60} opacity={0.25} />
+                    <Glyph name="Sunset" variant="Charcoal" size={68} opacity={0.3} />
+                    <Glyph name="Mountains" variant="Charcoal" size={52} opacity={0.22} />
+                  </div>
                 </div>
+                </>
               ) : (
                 <div className="bj-day-foot">
-                  <Glyph name="Trees" variant="Charcoal" size={24} opacity={0.3} />
-                  {/* Comma separator per brand guidelines — no en/em dash */}
-                  <span className="bj-day-foot-text">Overnight in {day.city}, {day.hotel}</span>
-                  <Glyph name="Trees" variant="Charcoal" size={24} opacity={0.3} />
+                  <div className="bj-overnight-content">
+                    <Glyph name="Trees" variant="Charcoal" size={48} opacity={0.4} />
+                    <span className="bj-day-foot-text">Overnight in {day.city} &ndash; {day.hotel}</span>
+                    <Glyph name="Trees" variant="Charcoal" size={48} opacity={0.4} />
+                  </div>
+                  <img src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png" className="bj-overnight-divider-line" alt="" aria-hidden="true" />
                 </div>
               )}
             </div>
@@ -818,126 +896,134 @@ export default function BhutanJourney() {
 
       {/* ══ 5. INVESTMENT ══ */}
       <section className="bj-invest" id="investment">
-        <div className="bj-invest-inner">
-          <FU>
-            <div className="bj-invest-header">
-              <Divider width={180} opacity={0.4} />
-              <h2 style={{ marginTop: 32 }}>Your Investment</h2>
-              <p>All prices are per person in AED. This journey is limited to a small group to preserve the intimacy and depth of every experience.</p>
-            </div>
-          </FU>
+        <FU>
+          <h2 className="bj-inv-title">Your Investment</h2>
+          <div className="bj-day-divider-row">
+            <img
+              src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png"
+              alt="" aria-hidden="true"
+              className="bj-day-divider-line"
+            />
+            <img
+              src="/assets/05. GRAPHIC ELEMENTS/Glyphs/Charcoal/Trees/Trees.png"
+              alt="" aria-hidden="true"
+              className="bj-day-divider-mountain"
+              style={{ height: 'clamp(40px, 6vw, 56px)' }}
+            />
+          </div>
 
-          <FU d={1}>
-            <div className="bj-pricing-grid">
-              <div className="bj-pricing-card">
-                <h3 className="bj-pricing-card-title">Indian Passport Holders</h3>
-                <div className="bj-pricing-row">
-                  <span className="bj-pricing-type">Solo Traveller</span>
-                  <span className="bj-pricing-amount">AED 13,350</span>
+          <div className="bj-inv-grid" style={{ marginTop: 24 }}>
+            <div className="bj-inv-col">
+              <p className="bj-inv-col-title">Indian Passport Holders</p>
+              <Divider width={180} opacity={0.3} />
+              <div style={{ marginTop: 16 }}>
+                <div className="bj-inv-price-row">
+                  <p className="bj-inv-label">Solo Traveler</p>
+                  <p className="bj-inv-price">AED 13,350</p>
                 </div>
-                <div className="bj-pricing-row">
-                  <span className="bj-pricing-type">Double Sharing</span>
-                  <div>
-                    <span className="bj-pricing-amount">AED 12,100</span>
-                    <span className="bj-pricing-note">per person</span>
-                  </div>
-                </div>
-              </div>
-              <div className="bj-pricing-card">
-                <h3 className="bj-pricing-card-title">Other Nationalities</h3>
-                <div className="bj-pricing-row">
-                  <span className="bj-pricing-type">Solo Traveller</span>
-                  <span className="bj-pricing-amount">AED 20,500</span>
-                </div>
-                <div className="bj-pricing-row">
-                  <span className="bj-pricing-type">Double Sharing</span>
-                  <div>
-                    <span className="bj-pricing-amount">AED 18,500</span>
-                    <span className="bj-pricing-note">per person</span>
-                  </div>
+                <div className="bj-inv-price-row" style={{ marginTop: 16 }}>
+                  <p className="bj-inv-label">Double Occupancy</p>
+                  <p className="bj-inv-price">AED 12,100 <span>pp</span></p>
                 </div>
               </div>
             </div>
-          </FU>
-
-          <FU d={2}>
-            <Divider width={160} opacity={0.3} />
-            {/* Inclusions: icon grid, 4 per row, icon above label — brand guidelines page 47 */}
-            <div className="bj-invest-section" style={{ marginTop: 48 }}>
-              <h3>What is Included</h3>
-              <div className="bj-icon-grid">
-                {INCLUSIONS.map((item, i) => (
-                  <div className="bj-icon-item" key={i}>
-                    <DayIcon type={item.icon} />
-                    <p className="bj-icon-label">{item.label}</p>
-                  </div>
-                ))}
+            <div className="bj-inv-col">
+              <p className="bj-inv-col-title">Other Nationalities</p>
+              <Divider width={180} opacity={0.3} />
+              <div style={{ marginTop: 16 }}>
+                <div className="bj-inv-price-row">
+                  <p className="bj-inv-label">Solo Traveler</p>
+                  <p className="bj-inv-price">AED 20,500</p>
+                </div>
+                <div className="bj-inv-price-row" style={{ marginTop: 16 }}>
+                  <p className="bj-inv-label">Double Occupancy</p>
+                  <p className="bj-inv-price">AED 18,500 <span>pp</span></p>
+                </div>
               </div>
             </div>
-          </FU>
+          </div>
 
-          <FU d={3}>
-            <Divider width={160} opacity={0.3} />
-            {/* Exclusions: icon row */}
-            <div className="bj-invest-section" style={{ marginTop: 48 }}>
-              <h3>What is Not Included</h3>
-              <div className="bj-icon-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)', maxWidth: 600 }}>
-                {EXCLUSIONS.map((item, i) => (
-                  <div className="bj-icon-item" key={i}>
-                    <DayIcon type={item.icon} />
-                    <p className="bj-icon-label">{item.label}</p>
-                  </div>
-                ))}
+          <div className="bj-cancel" style={{ marginTop: 48 }}>
+            <h3>Cancellations</h3>
+            <p>Payments are refundable up to 4 weeks before departure. Modest deductions may apply when third-party bookings or deposits have been committed.</p>
+          </div>
+
+          <div className="bj-day-divider-row" style={{ marginTop: 48 }}>
+            <img
+              src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png"
+              alt="" aria-hidden="true"
+              className="bj-day-divider-line"
+            />
+          </div>
+
+          <h3 className="bj-section-subtitle">Inclusions</h3>
+          <div className="bj-icon-grid">
+            {INCLUSIONS.map((item, i) => (
+              <div className="bj-icon-item" key={i}>
+                <DayIcon type={item.icon} />
+                <p className="bj-icon-label">{item.label}</p>
               </div>
-            </div>
-          </FU>
+            ))}
+          </div>
 
-          <FU d={4}>
-            <Divider width={160} opacity={0.3} />
-            <div className="bj-cancel" style={{ marginTop: 48 }}>
-              <h3>Cancellation Policy</h3>
-              <p>Payments are refundable up to 4 weeks before departure.</p>
-              <p>Modest deductions may apply when third-party bookings or deposits have been committed.</p>
-              <p style={{ marginTop: 16, opacity: 0.6, fontSize: 14 }}>
-                All cancellations must be communicated in writing via email or WhatsApp.
-              </p>
-            </div>
-          </FU>
+          <div className="bj-day-divider-row">
+            <img
+              src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png"
+              alt="" aria-hidden="true"
+              className="bj-day-divider-line"
+            />
+          </div>
 
-          <FU d={5}>
-            <div style={{ textAlign: 'center', marginTop: 48 }}>
-              <Glyph name="Trees" variant="Charcoal" size={48} opacity={0.2} />
-            </div>
-          </FU>
-        </div>
+          <h3 className="bj-section-subtitle">Exclusions</h3>
+          <div className="bj-icon-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
+            {EXCLUSIONS.map((item, i) => (
+              <div className="bj-icon-item" key={i}>
+                <DayIcon type={item.icon} />
+                <p className="bj-icon-label">{item.label}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="bj-day-divider-row">
+            <img
+              src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png"
+              alt="" aria-hidden="true"
+              className="bj-day-divider-line"
+            />
+          </div>
+        </FU>
       </section>
 
       {/* ══ 6. CTA ══ */}
       <section className="bj-cta">
+        <div className="bj-cta-circle bj-cta-circle--pink-lg" />
+        <div className="bj-cta-circle bj-cta-circle--pink-sm" />
+        <div className="bj-cta-circle bj-cta-circle--sage-lg" />
+        <div className="bj-cta-circle bj-cta-circle--sage-sm" />
+        <div className="bj-cta-leaf bj-cta-leaf--left"><Glyph name="Trees" variant="Sage" size={32} opacity={1} /></div>
+        <div className="bj-cta-leaf bj-cta-leaf--right"><Glyph name="Trees" variant="Sage" size={28} opacity={1} /></div>
         <FU>
-          <img src="/assets/01. LOGOS/Logo-Main.png" alt="PuraVida with Harsha" className="bj-cta-logo" />
-          <h2>Your Journey Begins with a Message</h2>
-          <Divider width={160} opacity={0.4} />
-          <p className="bj-cta-body" style={{ marginTop: 32 }}>
-            Reach out to Harsha directly on WhatsApp. Share what draws you to Bhutan,
-            ask any questions you may have, and we will take it from there.
-          </p>
-          <div>
-            <a href="https://wa.me/+971562216643?text=Hello%20Harsha%2C%20I%20am%20interested%20in%20the%20Bhutan%20journey%20and%20would%20love%20to%20learn%20more." className="bj-cta-wa" target="_blank" rel="noopener noreferrer">
-              <img
-                src="/assets/04. ICONS/PNG/Charcoal/48px/Whatsapp  - 48px.png"
-                alt=""
-              />
-              Message Harsha on WhatsApp
-            </a>
-          </div>
-          <div style={{ marginBottom: 8 }}>
-            <div className="bj-cta-date"><p>Join us by March 01, 2026</p></div>
-          </div>
-          <div className="bj-cta-glyphs">
-            <Glyph name="Trees" variant="Charcoal" size={40} opacity={0.2} />
-            <Glyph name="Trees" variant="Charcoal" size={48} opacity={0.25} />
-            <Glyph name="Trees" variant="Charcoal" size={40} opacity={0.2} />
+          <h2 className="bj-cta-heading">Your Journey Begins<br />with a Message</h2>
+          <a href="https://wa.me/+971562216643?text=Hello%20Harsha%2C%20I%20am%20interested%20in%20the%20Bhutan%20journey%20and%20would%20love%20to%20learn%20more." className="bj-cta-wa" target="_blank" rel="noopener noreferrer">
+            <img src="/assets/04. ICONS/PNG/Charcoal/48px/Whatsapp  - 48px.png" alt="" />
+            <div className="bj-cta-wa-text">
+              <strong>WhatsApp Harsha</strong>
+              +971 56 2216643
+            </div>
+          </a>
+          <div className="bj-cta-date-bar">
+            <Glyph name="Trees" variant="White" size={48} opacity={0.6} />
+            <div style={{ textAlign: 'center' }}>
+              <p className="bj-cta-date-label">Join us by</p>
+              <div className="bj-cta-date-val">
+                <span className="bj-cta-date-part">March</span>
+                <span className="bj-cta-date-sep">|</span>
+                <span className="bj-cta-date-big">01<sup>st</sup></span>
+                <span className="bj-cta-date-sep">|</span>
+                <span className="bj-cta-date-part">2026</span>
+              </div>
+            </div>
+            <Glyph name="Trees" variant="White" size={48} opacity={0.6} />
           </div>
         </FU>
       </section>
@@ -947,15 +1033,10 @@ export default function BhutanJourney() {
         <div className="bj-final-bg" />
         <FU>
           <div className="bj-final-content">
-            <img
-              src="/assets/05. GRAPHIC ELEMENTS/Puravida_Quote-Frame-1/Quote-Upper.png"
-              alt="" aria-hidden="true" className="bj-final-quote-upper"
-            />
-            <p className="bj-final-quote">If Bhutan is calling, this is your moment to answer.</p>
-            <img
-              src="/assets/05. GRAPHIC ELEMENTS/Puravida_Quote-Frame-1/Quote-Lower.png"
-              alt="" aria-hidden="true" className="bj-final-quote-lower"
-            />
+            <div className="bj-final-quote-frame">
+              <img src="/assets/Puravida_Quote-Frame-1/Frame.png" alt="" aria-hidden="true" />
+            </div>
+            <p className="bj-final-quote">{"\u201C"}If Bhutan is calling, this is your moment to answer.{"\u201D"}</p>
           </div>
         </FU>
       </section>
