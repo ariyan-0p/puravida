@@ -778,8 +778,7 @@ export default function BhutanJourney() {
         <FU>
           <div className="bj-kelly-column">
             <div className="bj-kelly-photo-wrap">
-              <img src="/assets/kelly-dorji.jpg" alt="Kelly Dorji" className="bj-kelly-photo" />
-              <img src="/assets/Puravida_Photo-Frame-1-Juma.png" alt="" aria-hidden="true" className="bj-kelly-frame" />
+              <img src="/assets/Frame Juma-Malik.png" alt="Kelly Dorji" className="bj-kelly-frame" />
             </div>
             <div className="bj-kelly-head">
               <div className="bj-kelly-rule bj-kelly-rule--above">

@@ -29,6 +29,16 @@ function FU({ children, d = 0, className = '', style = {} }) {
   );
 }
 
+function Glyph({ name = 'Trees', variant = 'Charcoal', size = 48, opacity = 0.3 }) {
+  return (
+    <img
+      src={encodeURI(`/assets/05. GRAPHIC ELEMENTS/Glyphs/${variant}/${name}/${name}.png`)}
+      alt="" aria-hidden="true"
+      style={{ height: size, width: 'auto', opacity, display: 'block' }}
+    />
+  );
+}
+
 function Divider({ width = 200, opacity = 0.5 }) {
   return (
     <img
@@ -103,6 +113,27 @@ export default function AboutHarsha() {
           background: rgba(255,255,255,0.2);
           flex-shrink: 0;
         }
+        .ah-hero-pause {
+          position: absolute;
+          bottom: 100px;
+          left: 72px;
+          pointer-events: none;
+          line-height: 0;
+        }
+        .ah-hero-divider {
+          position: relative;
+          z-index: 3;
+          text-align: center;
+          margin-top: -20px;
+          margin-bottom: -20px;
+          line-height: 0;
+        }
+        .ah-hero-divider img {
+          width: 100%;
+          max-width: 100%;
+          opacity: 0.5;
+          display: block;
+        }
         .ah-hero-right {
           position: relative;
           overflow: hidden;
@@ -124,6 +155,24 @@ export default function AboutHarsha() {
         .ah-story-left {
           position: sticky;
           top: 120px;
+        }
+        .ah-story-img-wrap {
+          position: relative;
+          display: inline-block;
+        }
+        .ah-story-leaf-accent {
+          position: absolute;
+          top: -28px;
+          left: -28px;
+          width: clamp(100px, 14vw, 160px);
+          opacity: 0.55;
+          pointer-events: none;
+          z-index: 3;
+          transform: rotate(180deg);
+        }
+        .ah-story-divider {
+          margin: 48px 0;
+          text-align: center;
         }
         .ah-story-img {
           width: 100%;
@@ -184,6 +233,30 @@ export default function AboutHarsha() {
           letter-spacing: 0.12em;
           color: rgba(51,51,51,0.55);
         }
+        .ah-quote-wrap {
+          position: relative;
+          z-index: 1;
+          max-width: 600px;
+          margin: 0 auto;
+          text-align: center;
+          padding: 48px 40px;
+        }
+        .ah-quote-frame {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          z-index: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .ah-quote-frame img {
+          width: 100%;
+          height: 100%;
+          object-fit: fill;
+          display: block;
+          opacity: 0.55;
+        }
 
         /* ── RIVER MOMENT ── */
         .ah-river {
@@ -201,6 +274,15 @@ export default function AboutHarsha() {
           flex-direction: column;
           justify-content: center;
           padding: 80px 64px;
+          position: relative;
+          overflow: hidden;
+        }
+        .ah-river-glyph {
+          position: absolute;
+          bottom: 24px;
+          right: 28px;
+          opacity: 0.15;
+          pointer-events: none;
         }
         .ah-river-quote {
           font-family: 'Lora', serif;
@@ -300,6 +382,8 @@ export default function AboutHarsha() {
         @media (max-width: 900px) {
           .ah-hero { grid-template-columns: 1fr; min-height: auto; }
           .ah-hero-left { padding: 120px 40px 64px; justify-content: flex-start; min-height: 60vh; }
+          .ah-hero-pause { bottom: 80px; left: 40px; }
+          .ah-hero-divider { margin-top: -12px; margin-bottom: -12px; }
           .ah-hero-right { height: 55vw; min-height: 320px; }
           .ah-story { grid-template-columns: 1fr; padding: 80px 40px; gap: 48px; }
           .ah-story-left { position: static; }
@@ -312,6 +396,7 @@ export default function AboutHarsha() {
         }
         @media (max-width: 600px) {
           .ah-hero-left { padding: 100px 28px 56px; }
+          .ah-hero-pause { bottom: 60px; left: 28px; }
           .ah-hero-right { height: 70vw; }
           .ah-story { padding: 60px 28px; }
           .ah-quote-strip { padding: 60px 28px; }
@@ -327,7 +412,7 @@ export default function AboutHarsha() {
 
       {/* HERO */}
       <section className="ah-hero">
-        <div className="ah-hero-left">
+        <div className="ah-hero-left" style={{ position: 'relative' }}>
           <p className="ah-hero-eyebrow">About Harsha</p>
           <h1 className="ah-hero-h1">
             Ten years ago,<br />
@@ -339,20 +424,34 @@ export default function AboutHarsha() {
             Founder of PuraVida with Harsha. Transformational travel guide. Based in Dubai.
           </p>
           <p className="ah-hero-scroll">Scroll to read her story</p>
+          <div className="ah-hero-pause" aria-hidden="true">
+            <Glyph name="Pause" variant="White" size={80} opacity={0.15} />
+          </div>
         </div>
         <div className="ah-hero-right">
           <div className="ah-hero-img" />
         </div>
       </section>
 
+      {/* ── Hero → Story divider ── */}
+      <div className="ah-hero-divider">
+        <img src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png" alt="" aria-hidden="true" />
+      </div>
+
       {/* STORY */}
       <section className="ah-story">
         <FU className="ah-story-left">
-          <img
-            src="/assets/harsha-portrait.jpg"
-            alt="Harsha, founder of PuraVida"
-            className="ah-story-img"
-          />
+          <div className="ah-story-img-wrap">
+            <img
+              src="/assets/05. GRAPHIC ELEMENTS/Puravida_Photo-Frame-2/Puravida_Photo-Frame-2.png"
+              alt="" aria-hidden="true" className="ah-story-leaf-accent"
+            />
+            <img
+              src="/assets/harsha-portrait.jpg"
+              alt="Harsha, founder of PuraVida"
+              className="ah-story-img"
+            />
+          </div>
           <p className="ah-story-img-caption">Harsha · Dubai</p>
         </FU>
 
@@ -373,7 +472,9 @@ export default function AboutHarsha() {
             </p>
           </FU>
 
-          <FU d={1} style={{ marginTop: 64 }}>
+          <div className="ah-story-divider"><Divider width={180} opacity={0.4} /></div>
+
+          <FU d={1} style={{ marginTop: 0 }}>
             <p className="ah-story-eyebrow">Why PuraVida Exists</p>
             <h2 className="ah-story-h2">
               What if travel was about arriving fully?
@@ -389,7 +490,9 @@ export default function AboutHarsha() {
             </p>
           </FU>
 
-          <FU d={2} style={{ marginTop: 64 }}>
+          <div className="ah-story-divider"><Divider width={180} opacity={0.4} /></div>
+
+          <FU d={2} style={{ marginTop: 0 }}>
             <p className="ah-story-eyebrow">How I Work</p>
             <h2 className="ah-story-h2">
               Personal attention. Founder-led. Fully present.
@@ -404,16 +507,30 @@ export default function AboutHarsha() {
         </div>
       </section>
 
+      {/* ── Story → Quote divider ── */}
+      <div className="ah-hero-divider">
+        <img src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png" alt="" aria-hidden="true" />
+      </div>
+
       {/* QUOTE STRIP */}
       <div className="ah-quote-strip">
         <FU>
-          <Divider width={160} opacity={0.4} />
-          <p className="ah-quote" style={{ marginTop: 40 }}>
-            Tea tastes different in Bhutan: slower, quieter, exactly where you are.
-          </p>
-          <p className="ah-quote-attr" style={{ marginTop: 20 }}>Harsha</p>
-          <div style={{ marginTop: 40 }}><Divider width={160} opacity={0.4} /></div>
+          <div className="ah-quote-wrap">
+            <div className="ah-quote-frame">
+              <img src="/assets/Puravida_Quote-Frame-1/Frame.png" alt="" aria-hidden="true" />
+            </div>
+            <p className="ah-quote">
+              Tea tastes different in Bhutan: slower, quieter, exactly where you are.
+            </p>
+          </div>
+          <Divider width={160} opacity={0.35} />
+          <p className="ah-quote-attr" style={{ marginTop: 16 }}>Harsha</p>
         </FU>
+      </div>
+
+      {/* ── Quote → River divider ── */}
+      <div className="ah-hero-divider">
+        <img src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png" alt="" aria-hidden="true" />
       </div>
 
       {/* RIVER MOMENT */}
@@ -424,8 +541,16 @@ export default function AboutHarsha() {
             Stillness arrives in the ordinary moment, fully entered.
           </p>
           <p className="ah-river-attr">Harsha</p>
+          <div className="ah-river-glyph">
+            <Glyph name="Pause" variant="Charcoal" size={72} opacity={1} />
+          </div>
         </FU>
       </section>
+
+      {/* ── River → Believes divider ── */}
+      <div className="ah-hero-divider">
+        <img src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png" alt="" aria-hidden="true" />
+      </div>
 
       {/* BELIEVES */}
       <section className="ah-believes">
@@ -434,6 +559,9 @@ export default function AboutHarsha() {
           <h2 className="ah-believes-h2">
             Stillness arrives. It is allowed.
           </h2>
+          <div style={{ display: 'flex', justifyContent: 'center', margin: '8px 0 28px' }}>
+            <Glyph name="Pause" variant="Charcoal" size={48} opacity={0.2} />
+          </div>
           <p className="ah-believes-body">
             I believe in the slow accumulation of real moments: a bowl of morning tea, a conversation at altitude, the sound of butter lamps in the dark. The ordinary things that turn out to be extraordinary.
           </p>
@@ -449,6 +577,11 @@ export default function AboutHarsha() {
           <div className="ah-sig">Harsha</div>
         </FU>
       </section>
+
+      {/* ── Believes → CTA divider ── */}
+      <div className="ah-hero-divider">
+        <img src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png" alt="" aria-hidden="true" />
+      </div>
 
       {/* CTA */}
       <section className="ah-cta">

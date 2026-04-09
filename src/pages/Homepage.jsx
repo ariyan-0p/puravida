@@ -30,12 +30,20 @@ function FU({ children, d = 0, className = '', style = {} }) {
   );
 }
 
+const DIVIDER_CENTER_SRC = encodeURI(
+  '/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png'
+);
+
+function glyphSrc(name, variant) {
+  return encodeURI(`/assets/05. GRAPHIC ELEMENTS/Glyphs/${variant}/${name}/${name}.png`);
+}
+
 function Divider({ width = 200, opacity = 0.5 }) {
   return (
     <img
-      src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png"
+      src={DIVIDER_CENTER_SRC}
       alt="" aria-hidden="true"
-      style={{ width, opacity, display: 'block', margin: '0 auto' }}
+      style={{ width, maxWidth: '100%', opacity, display: 'block', margin: '0 auto' }}
     />
   );
 }
@@ -43,7 +51,7 @@ function Divider({ width = 200, opacity = 0.5 }) {
 function Glyph({ name = 'Trees', variant = 'Charcoal', size = 48, opacity = 0.3 }) {
   return (
     <img
-      src={`/assets/05. GRAPHIC ELEMENTS/Glyphs/${variant}/${name}/${name}.png`}
+      src={glyphSrc(name, variant)}
       alt="" aria-hidden="true"
       style={{ height: size, width: 'auto', opacity }}
     />
@@ -64,10 +72,10 @@ const VOICES = [
 ];
 
 const PILLARS = [
-  { n: "01", t: "Stillness Over Speed", p: "We allow breath, space, and pause between every experience. Altitude becomes meditation. Silence becomes teacher." },
-  { n: "02", t: "Presence as Luxury", p: "Guided moments for reconnection with place, people, and self. The luxury of being unreachable." },
-  { n: "03", t: "Authentic Reverence", p: "Real village meals. Real rituals. Real people: relationships built over years. You are welcomed as a guest." },
-  { n: "04", t: "Founder Led, Always", p: "Harsha leads every single journey. Your experience stays with Harsha, every step. This is handcrafted." },
+  { n: "01", t: "Stillness Over Speed", p: "We allow breath, space, and pause between every experience. Altitude becomes meditation. Silence becomes teacher.", glyph: "Pause", glyphSize: 64 },
+  { n: "02", t: "Presence as Luxury", p: "Guided moments for reconnection with place, people, and self. The luxury of being unreachable.", glyph: "Sunset", glyphSize: 64 },
+  { n: "03", t: "Authentic Reverence", p: "Real village meals. Real rituals. Real people: relationships built over years. You are welcomed as a guest.", glyph: "Trees" },
+  { n: "04", t: "Founder Led, Always", p: "Harsha leads every single journey. Your experience stays with Harsha, every step. This is handcrafted.", glyph: "Mountains" },
 ];
 
 export default function Homepage() {
@@ -160,12 +168,26 @@ export default function Homepage() {
           color: rgba(255,255,255,0.7); text-shadow: 0 1px 3px rgba(0,0,0,0.4);
         }
         .hp-hero-tree-glyph {
-          position: absolute; bottom: 40px; right: 40px; z-index: 2;
+          position: absolute;
+          bottom: 16px;
+          right: clamp(24px, 5vw, 60px);
+          z-index: 2;
           pointer-events: none;
+          line-height: 0;
         }
         .hp-section-divider {
-          position: relative; z-index: 3; text-align: center;
-          margin-top: -20px; margin-bottom: -20px;
+          position: relative;
+          z-index: 3;
+          text-align: center;
+          margin-top: -20px;
+          margin-bottom: -20px;
+          line-height: 0;
+        }
+        .hp-section-divider img {
+          width: 100% !important;
+          max-width: 100%;
+          opacity: 0.5;
+          display: block;
         }
 
         /* ── 2. EDITORIAL QUOTE ── */
@@ -186,6 +208,30 @@ export default function Homepage() {
           letter-spacing: 0.12em; color: #333333; opacity: 0.6;
           margin-top: 24px;
         }
+        .hp-quote-wrap {
+          position: relative;
+          z-index: 1;
+          max-width: 520px;
+          margin: 0 auto;
+          text-align: center;
+          padding: 48px 40px;
+        }
+        .hp-quote-frame {
+          position: absolute;
+          inset: -12px -16px -18px -16px;
+          pointer-events: none;
+          z-index: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .hp-quote-frame img {
+          width: 100%;
+          height: 100%;
+          object-fit: fill;
+          display: block;
+          opacity: 0.55;
+        }
 
         /* ── 3. ABOUT HARSHA ── */
         .hp-about {
@@ -199,6 +245,16 @@ export default function Homepage() {
           width: 100%; aspect-ratio: 3/4;
           object-fit: cover; display: block;
           box-shadow: 0 24px 60px rgba(51,51,51,0.08);
+        }
+        .hp-about-leaf-accent {
+          position: absolute;
+          top: -28px;
+          left: -28px;
+          width: clamp(100px, 14vw, 160px);
+          opacity: 0.55;
+          pointer-events: none;
+          z-index: 3;
+          transform: rotate(180deg);
         }
         .hp-about-float {
           position: absolute; bottom: -24px; right: -24px;
@@ -269,11 +325,16 @@ export default function Homepage() {
         }
         .hp-pillar:first-child { border-left: none; }
         .hp-pillar:hover { background: rgba(255,255,255,0.5); }
+        .hp-pillar-num-row {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          margin-bottom: 20px;
+        }
         .hp-pillar-num {
           font-family: 'Playfair Display', serif;
           font-size: 2.4rem; font-weight: 700;
           color: #333333; line-height: 1;
-          margin-bottom: 20px;
         }
         .hp-pillar-title {
           font-family: 'Playfair Display', serif;
@@ -352,6 +413,7 @@ export default function Homepage() {
         .hp-immersive {
           position: relative; min-height: 60vh; overflow: hidden;
           display: flex; align-items: center; justify-content: center;
+          padding: 80px 60px;
         }
         .hp-immersive-bg {
           position: absolute; inset: 0;
@@ -364,7 +426,28 @@ export default function Homepage() {
         }
         .hp-immersive-content {
           position: relative; z-index: 2;
-          text-align: center; max-width: 640px; padding: 0 40px;
+          text-align: center; max-width: 560px;
+          padding: 48px 56px;
+        }
+        .hp-immersive-leaf {
+          position: absolute;
+          width: clamp(28px, 4.5vw, 40px);
+          pointer-events: none;
+          z-index: 3;
+          opacity: 0.85;
+          filter: brightness(2);
+        }
+        .hp-immersive-leaf--upper {
+          top: 0;
+          left: 8px;
+        }
+        .hp-immersive-leaf--lower {
+          bottom: 48px;
+          right: 8px;
+        }
+        .hp-immersive-divider {
+          filter: invert(1) brightness(2);
+          margin-bottom: 16px;
         }
         .hp-immersive-q {
           font-family: 'Lora', serif;
@@ -415,6 +498,14 @@ export default function Homepage() {
           margin-bottom: 28px; position: relative; z-index: 1;
         }
         .hp-v-sep { width: 20px; height: 1px; background: #D9A6A1; margin-bottom: 16px; }
+        .hp-v-leaf {
+          position: absolute;
+          bottom: 12px;
+          right: 12px;
+          width: 28px;
+          opacity: 0.2;
+          pointer-events: none;
+        }
         .hp-v-name {
           font-family: 'Lato', sans-serif; font-size: 14px;
           font-weight: 700; color: #333333; margin-bottom: 2px;
@@ -429,6 +520,28 @@ export default function Homepage() {
           background: #B7C8B5;
           padding: 100px 80px;
           text-align: center;
+          position: relative;
+          overflow: hidden;
+        }
+        .hp-contact-corner {
+          position: absolute;
+          pointer-events: none;
+          z-index: 0;
+        }
+        .hp-contact-corner--tr {
+          top: -24px;
+          right: -24px;
+          opacity: 0.12;
+        }
+        .hp-contact-corner--br {
+          bottom: -24px;
+          right: -24px;
+          opacity: 0.12;
+        }
+        .hp-contact-corner--bl {
+          bottom: 8px;
+          left: clamp(16px, 4vw, 48px);
+          opacity: 0.18;
         }
         .hp-contact-h2 {
           font-family: 'Playfair Display', serif;
@@ -477,6 +590,14 @@ export default function Homepage() {
           .hp-hero-right { flex: none; height: auto; width: 100%; aspect-ratio: 4/3; position: relative; }
           .hp-hero-img::after { background: linear-gradient(to bottom, rgba(245,240,235,0.3) 0%, transparent 20%); }
           .hp-hero-credit { bottom: 16px; right: 16px; font-size: 11px; }
+          .hp-hero-tree-glyph {
+            bottom: 12px;
+            right: 16px;
+            transform: scale(0.85);
+            transform-origin: bottom right;
+          }
+          .hp-section-divider { margin-top: -12px; margin-bottom: -12px; }
+          .hp-section-divider img { width: 100% !important; }
           .hp-about { grid-template-columns: 1fr; padding: 80px 40px; gap: 48px; }
           .hp-about-float { display: none; }
           .hp-phil { padding: 80px 40px; }
@@ -496,7 +617,17 @@ export default function Homepage() {
           .hp-hero-left { padding: 100px 28px 40px; }
           .hp-hero-right { aspect-ratio: 3/2; }
           .hp-hero-h1 { font-size: clamp(2.8rem, 11vw, 4rem); margin-bottom: 28px; }
-          .hp-hero-tagline { margin-bottom: 32px; }
+          .hp-hero-tagline {
+            margin-bottom: 32px;
+            font-size: clamp(14px, 3.8vw, 16px);
+          }
+          .hp-hero-tree-glyph {
+            bottom: 10px;
+            right: max(12px, env(safe-area-inset-right, 0px));
+            transform: scale(0.7);
+            transform-origin: bottom right;
+          }
+          .hp-section-divider img { width: 100% !important; }
           .hp-hero-body { margin-bottom: 36px; }
           .hp-j-grid { grid-template-columns: 1fr; }
           .hp-j-card { aspect-ratio: 4/3; }
@@ -507,7 +638,8 @@ export default function Homepage() {
           .hp-contact { padding: 60px 28px; }
           .hp-quote-strip { padding: 60px 28px; }
           .hp-contact-actions { flex-direction: column; align-items: center; }
-          .hp-immersive { min-height: 40vh; }
+          .hp-immersive { min-height: 40vh; padding: 40px 20px; }
+          .hp-immersive-content { padding: 40px 32px; }
           .hp-immersive-q { font-size: clamp(1.2rem, 5vw, 1.6rem); }
         }
       `}</style>
@@ -545,7 +677,7 @@ export default function Homepage() {
         <div className="hp-hero-right">
           <div className="hp-hero-img" style={{ backgroundImage: "url('/assets/hero-bhutan.jpg')" }} />
           <div className="hp-hero-tree-glyph" aria-hidden="true">
-            <Glyph name="Trees" variant="White" size={60} opacity={0.15} />
+            <Glyph name="Trees" variant="White" size={160} opacity={0.85} />
           </div>
           <span className="hp-hero-credit">Photo: Kelly Dorji</span>
         </div>
@@ -553,25 +685,38 @@ export default function Homepage() {
 
       {/* ── Hero → Quote divider ── */}
       <div className="hp-section-divider">
-        <Divider width={240} opacity={0.45} />
+        <img src={DIVIDER_CENTER_SRC} alt="" aria-hidden="true" />
       </div>
 
       {/* ══ 2. EDITORIAL QUOTE ══ */}
       <section className="hp-quote-strip">
         <FU>
-          <Divider width={200} opacity={0.4} />
-          <p className="hp-quote">
-            I walk beside you. Every relationship we hold was built over years of quiet return visits. Years of showing up.
-          </p>
-          <p className="hp-quote-attr">Harsha, Founder</p>
-          <div style={{ marginTop: 32 }}><Divider width={200} opacity={0.4} /></div>
+          <div className="hp-quote-wrap">
+            <div className="hp-quote-frame">
+              <img src="/assets/Puravida_Quote-Frame-1/Frame.png" alt="" aria-hidden="true" />
+            </div>
+            <p className="hp-quote">
+              I walk beside you. Every relationship we hold was built over years of quiet return visits. Years of showing up.
+            </p>
+            <Divider width={160} opacity={0.35} />
+            <p className="hp-quote-attr">Harsha, Founder</p>
+          </div>
         </FU>
       </section>
+
+      {/* ── Quote → About divider ── */}
+      <div className="hp-section-divider">
+        <img src={DIVIDER_CENTER_SRC} alt="" aria-hidden="true" />
+      </div>
 
       {/* ══ 3. ABOUT HARSHA ══ */}
       <section className="hp-about" id="about">
         <FU>
           <div className="hp-about-img-wrap">
+            <img
+              src="/assets/05. GRAPHIC ELEMENTS/Puravida_Photo-Frame-2/Puravida_Photo-Frame-2.png"
+              alt="" aria-hidden="true" className="hp-about-leaf-accent"
+            />
             <img src="/assets/harsha-portrait.jpg" alt="Harsha" className="hp-about-img" />
             <div className="hp-about-float">
               <img
@@ -604,6 +749,11 @@ export default function Homepage() {
         </FU>
       </section>
 
+      {/* ── About → Philosophy divider ── */}
+      <div className="hp-section-divider">
+        <img src={DIVIDER_CENTER_SRC} alt="" aria-hidden="true" />
+      </div>
+
       {/* ══ 4. PHILOSOPHY ══ */}
       <section className="hp-phil" id="philosophy">
         <div className="hp-phil-header">
@@ -611,13 +761,17 @@ export default function Homepage() {
             <Divider width={160} opacity={0.4} />
             <h2 className="hp-phil-h2">We allow breath, space, pause.</h2>
             <p className="hp-phil-intro">Every journey is led by Harsha herself. Personal attention. Unhurried pace. Presence at every moment.</p>
+            <Divider width={160} opacity={0.4} />
           </FU>
         </div>
         <div className="hp-phil-grid">
           {PILLARS.map((p, i) => (
             <FU key={i} d={i * 0.5}>
               <div className="hp-pillar">
-                <p className="hp-pillar-num">{p.n}</p>
+                <div className="hp-pillar-num-row">
+                  <p className="hp-pillar-num">{p.n}</p>
+                  <Glyph name={p.glyph} variant="Charcoal" size={p.glyphSize || 32} opacity={0.4} />
+                </div>
                 <h3 className="hp-pillar-title">{p.t}</h3>
                 <p className="hp-pillar-text">{p.p}</p>
               </div>
@@ -625,6 +779,11 @@ export default function Homepage() {
           ))}
         </div>
       </section>
+
+      {/* ── Philosophy → Journeys divider ── */}
+      <div className="hp-section-divider">
+        <img src={DIVIDER_CENTER_SRC} alt="" aria-hidden="true" />
+      </div>
 
       {/* ══ 5. JOURNEYS ══ */}
       <section className="hp-journeys" id="journeys">
@@ -661,24 +820,46 @@ export default function Homepage() {
         </div>
       </section>
 
+      {/* ── Journeys → Immersive divider ── */}
+      <div className="hp-section-divider">
+        <img src={DIVIDER_CENTER_SRC} alt="" aria-hidden="true" />
+      </div>
+
       {/* ══ 6. IMMERSIVE STRIP ══ */}
       <div className="hp-immersive">
         <div className="hp-immersive-bg" />
         <FU>
           <div className="hp-immersive-content">
+            <img
+              src="/assets/05. GRAPHIC ELEMENTS/Puravida_Quote-Frame-3/Quote - Upper.png"
+              alt="" aria-hidden="true" className="hp-immersive-leaf hp-immersive-leaf--upper"
+            />
+            <div className="hp-immersive-divider"><Divider width={120} opacity={0.6} /></div>
             <p className="hp-immersive-q">
               Bhutan holds a kind of quiet that stays with you long after you return. It asks you to slow down, breathe deeper, and notice the gentle details of life that cities often blur.
             </p>
+            <img
+              src="/assets/05. GRAPHIC ELEMENTS/Puravida_Quote-Frame-3/Quote - Lower.png"
+              alt="" aria-hidden="true" className="hp-immersive-leaf hp-immersive-leaf--lower"
+            />
             <p className="hp-immersive-attr">From the Bhutan Itinerary</p>
           </div>
         </FU>
         <span className="hp-hero-credit">Photo: Kelly Dorji</span>
       </div>
 
+      {/* ── Immersive → Testimonials divider ── */}
+      <div className="hp-section-divider">
+        <img src={DIVIDER_CENTER_SRC} alt="" aria-hidden="true" />
+      </div>
+
       {/* ══ 7. TESTIMONIALS ══ */}
       <section className="hp-voices" id="voices">
         <div className="hp-voices-header">
-          <FU><h2 className="hp-voices-h2">What past travellers say</h2></FU>
+          <FU>
+            <Divider width={160} opacity={0.4} />
+            <h2 className="hp-voices-h2">What past travellers say</h2>
+          </FU>
         </div>
         <div className="hp-voices-grid">
           {VOICES.map((v, i) => (
@@ -692,14 +873,33 @@ export default function Homepage() {
                 <div className="hp-v-sep" />
                 <p className="hp-v-name">{v.name}</p>
                 <p className="hp-v-trip">{v.trip}</p>
+                <img
+                  src="/assets/05. GRAPHIC ELEMENTS/Puravida_Quote-Frame-3/Quote - Lower.png"
+                  alt="" aria-hidden="true" className="hp-v-leaf"
+                />
               </div>
             </FU>
           ))}
         </div>
       </section>
 
+      {/* ── Testimonials → Contact divider ── */}
+      <div className="hp-section-divider">
+        <img src={DIVIDER_CENTER_SRC} alt="" aria-hidden="true" />
+      </div>
+
       {/* ══ 8. CONTACT ══ */}
       <section className="hp-contact" id="contact">
+        {/* Decorative brush-circle corners */}
+        <div className="hp-contact-corner hp-contact-corner--tr">
+          <Glyph name="Pause" variant="Sage" size={160} opacity={1} />
+        </div>
+        <div className="hp-contact-corner hp-contact-corner--br">
+          <Glyph name="Mountains" variant="Charcoal" size={140} opacity={1} />
+        </div>
+        <div className="hp-contact-corner hp-contact-corner--bl">
+          <Glyph name="Trees" variant="Charcoal" size={100} opacity={1} />
+        </div>
         <FU>
           <Divider width={160} opacity={0.4} />
           <h2 className="hp-contact-h2">
@@ -716,11 +916,6 @@ export default function Homepage() {
             <a href="https://instagram.com/puravida.withharsha" className="hp-contact-link" target="_blank" rel="noopener noreferrer">Instagram</a>
           </div>
           <Divider width={160} opacity={0.4} />
-          <div className="hp-contact-glyphs">
-            <Glyph name="Trees" variant="Charcoal" size={40} opacity={0.2} />
-            <Glyph name="Trees" variant="Charcoal" size={48} opacity={0.2} />
-            <Glyph name="Trees" variant="Charcoal" size={40} opacity={0.2} />
-          </div>
         </FU>
       </section>
 

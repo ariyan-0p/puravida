@@ -39,6 +39,16 @@ function Divider({ width = 200, opacity = 0.5 }) {
   );
 }
 
+function Glyph({ name = 'Trees', variant = 'Charcoal', size = 48, opacity = 0.3 }) {
+  return (
+    <img
+      src={encodeURI(`/assets/05. GRAPHIC ELEMENTS/Glyphs/${variant}/${name}/${name}.png`)}
+      alt="" aria-hidden="true"
+      style={{ height: size, width: 'auto', opacity, display: 'block' }}
+    />
+  );
+}
+
 const PILLARS = [
   {
     n: "01",
@@ -83,6 +93,9 @@ export default function Philosophy() {
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&family=Lora:ital,wght@0,400;1,400&display=swap');
 
         .pfu { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
+
+        .ph-section-divider { line-height: 0; margin-top: -12px; margin-bottom: -12px; }
+        .ph-section-divider img { width: 100%; opacity: 0.5; display: block; }
         .pin { opacity: 1; transform: translateY(0); }
 
         /* ── HERO ── */
@@ -243,8 +256,16 @@ export default function Philosophy() {
             Every journey is led by Harsha herself. Personal attention. Unhurried pace. Presence at every moment.
           </p>
           <Divider width={160} opacity={0.4} />
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: 32 }}>
+            <Glyph name="Sunset" variant="Charcoal" size={64} opacity={0.2} />
+          </div>
         </FU>
       </section>
+
+      {/* ── Hero → Pillars divider ── */}
+      <div className="ph-section-divider">
+        <img src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png" alt="" aria-hidden="true" />
+      </div>
 
       {/* PILLARS */}
       <section className="ph-pillars">
