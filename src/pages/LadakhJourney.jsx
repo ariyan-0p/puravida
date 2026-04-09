@@ -127,10 +127,10 @@ const DAYS = [
     ],
     afternoon: [
       { icon: 'sight', text: "Explore Leh's rich history with a visit to the ancient Leh Palace, which overlooks the Old Town. Afterward, wander through the town's narrow, winding lanes, past mud-brick homes and fluttering prayer flags. Observe the coexistence of mosque, temples, chortens and family shrines. Leh Old Town reveals the city's original rhythm \u2013 intimate, layered and lived in, far removed from the pace of the modern market streets. Lunch is at your discretion at the market or back at the property." },
-      { icon: 'wellness', text: "It is still imperative that we rest as it's still acclimatisation time. We listen to our body and take it super slow today." },
+      { icon: 'wellness', text: "We continue to honour the altitude today. Rest is part of the journey. Listen to your body and move gently." },
     ],
     evening: [
-      { icon: 'meal', text: "Dinner at Bon Appetit, Leh. This restaurant is a dream project made real by two women who returned from the city in 2009 with an idea. The minimal look of the decor blends Ladakhi charm with contemporary elegance. All ingredients are fresh and locally sourced. This is my absolute most favourite restaurant in the whole world! The stars, the music, the bonfire, and the hostess who is one day going to hire me so I can stay back in Ladakh!" },
+      { icon: 'meal', text: "Dinner at Bon Appetit, Leh. This restaurant is a dream project made real by two women who returned from the city in 2009 with an idea. The minimal look of the decor blends Ladakhi charm with contemporary elegance. All ingredients are fresh and locally sourced. This is my favourite restaurant in the world. The stars, the music, the bonfire, and the hostess who I am convinced will one day hire me so I can stay in Ladakh." },
     ],
     overnight: "Leh", hotel: "Dolkhar Resort", farewell: null,
   },
@@ -150,7 +150,7 @@ const DAYS = [
     overnight: "Uley", hotel: "Uley Ethnic Resort", farewell: null,
   },
   {
-    day: "04", title: "Moonscapes and Mountain", subtitle: "Wisdom : Temisgam",
+    day: "04", title: "Moonscapes and Mountain", subtitle: "Wisdom: Temisgam",
     morning: [
       { icon: 'transport', text: "After breakfast we drive to Lamayuru Monastery (approximately 1 hour 30 minutes). This is one of the oldest and most spectacular monasteries in Ladakh. The journey itself is mesmerising with dramatic mountain landscapes and winding Himalayan roads." },
       { icon: 'sight', text: "Perched dramatically on a rocky hill, Lamayuru Monastery (Yuru Gompa) dates back to the 11th Century and belongs to the Drikung Kagyu lineage of Tibetan Buddhism. We shall spin prayer wheels and enjoy panoramic valley views." },
@@ -183,7 +183,7 @@ const DAYS = [
   {
     day: "06", title: "Monastic Dawn and Hemis", subtitle: "",
     morning: [
-      { icon: 'culture', text: "Before sunrise, we will take part in the sacred morning puja at Thiksey Monastery. The deep chanting of monks and the resonant call of horns create a powerful and unforgettable spiritual experience. The rhythmic beat of drums and cymbals, butter lamps glowing softly in the prayer hall....make sure to soak it all in. We shall sit in the prayer halls with the monks absorbing sights, sounds and incense fragrances in meditative silence. This is what they do everyday. Wow!" },
+      { icon: 'culture', text: "Before sunrise, we will take part in the sacred morning puja at Thiksey Monastery. The deep chanting of monks and the resonant call of horns create a powerful and unforgettable spiritual experience. The rhythmic beat of drums and cymbals, butter lamps glowing softly in the prayer hall....let it settle into your body. This is what the monks do every day. A rhythm of devotion, unchanged. We shall sit in the prayer halls with the monks absorbing sights, sounds and incense fragrances in meditative silence." },
       { icon: 'sight', text: "Then, let us return to our guesthouse for a slow breakfast before driving to Hemis, Ladakh's largest monastery. The visit focuses on observing daily rituals, architecture, and silence rather than simply moving through it as a landmark. Observation over explanation is the idea." },
     ],
     afternoon: [
@@ -205,7 +205,7 @@ const DAYS = [
       { icon: 'culture', text: "She shall be our host this afternoon talking us through the museum followed by demonstrating her craft celebrating local ingredients, slow cooking, and the soulful storytelling of Ladakh's culinary heritage. Our lunch venue is the private \u201cZabskhang\u201d dining hall of the 200-year-old Stok Palace." },
     ],
     evening: [
-      { icon: 'meal', text: "Our last dinner at the property as we bid farewell to the Land of High Passes. We shall gather one last time around the bonfire overlooking the Indus Valley. I invite you to share your take backs, thoughts, or intentions as we close our trip in a meaningful way." },
+      { icon: 'meal', text: "Our last dinner at the property as we bid farewell to the Land of High Passes. We shall gather one last time around the bonfire overlooking the Indus Valley. I invite you to share what you are carrying, what has shifted, or what you intend to hold onto as we close our trip in a meaningful way." },
     ],
     overnight: "Ayu Saboo", hotel: "Ladakh Sarai", farewell: null,
   },
@@ -282,6 +282,14 @@ export default function LadakhJourney() {
         }
         .lk-hero-dates sup {
           font-size: 0.65em; vertical-align: super;
+        }
+        .lk-hero-tagline {
+          position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+          z-index: 2;
+          font-family: 'Lora', serif; font-style: italic;
+          font-size: clamp(18px, 2.5vw, 24px); line-height: 1.5;
+          color: #D4A42C; letter-spacing: 0.04em;
+          text-align: center; white-space: nowrap;
         }
 
         /* ── INVITATION FROM HARSHA ── */
@@ -497,7 +505,7 @@ export default function LadakhJourney() {
           position: absolute;
           right: 10%;
           bottom: 40%;
-          height: clamp(48px, 6vw, 72px);
+          height: clamp(72px, 10vw, 100px);
           width: auto;
           opacity: 0.85;
         }
@@ -524,7 +532,7 @@ export default function LadakhJourney() {
         .lk-time-section { margin-bottom: 32px; }
         .lk-time-section:last-child { margin-bottom: 0; }
         .lk-time-heading {
-          font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 400;
+          font-family: 'Playfair Display', serif; font-size: clamp(24px, 3vw, 32px); font-weight: 400;
           color: #333333; margin-bottom: 20px;
         }
         .lk-activity { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 16px; }
@@ -808,7 +816,7 @@ export default function LadakhJourney() {
           .lk-day-header { padding: 40px 24px 20px; }
           .lk-day-body { padding: 0 24px 40px; }
           .lk-day-card { padding: 28px 24px; }
-          .lk-day-divider-mountain { height: clamp(40px, 10vw, 56px); }
+          .lk-day-divider-mountain { height: clamp(56px, 10vw, 80px); }
           .lk-overnight { padding: 20px 24px; }
           .lk-investment { padding: 60px 20px; }
           .lk-inv-grid { grid-template-columns: 1fr 1fr; }
@@ -868,8 +876,9 @@ export default function LadakhJourney() {
           <h1 className="lk-hero-title">Ladakh</h1>
         </div>
         <p className="lk-hero-dates">
-          September<br />20<sup>th</sup>&ndash;27<sup>th</sup>, 2026
+          September<br />20<sup>th</sup> to 27<sup>th</sup>, 2026
         </p>
+        <p className="lk-hero-tagline">Where stillness finds you</p>
       </section>
 
       {/* ══ INVITATION FROM HARSHA ══ */}
@@ -899,10 +908,10 @@ export default function LadakhJourney() {
         </FU>
         <FU d={1}>
           <p className="lk-invite-body">
-            There are places you visit, and then there are places that claim you.
+            Some places claim you the moment you arrive. Ladakh claimed me in 2010.
           </p>
           <p className="lk-invite-body">
-            Ladakh claimed me in 2010 &mdash; and I have been returning ever since. At nearly 3,500 metres, the mountains are not a backdrop, they are a presence. Ancient, indifferent to everything modern life considers urgent. Monasteries cling to cliffsides as they have for centuries. The light here is unlike anything else on earth.
+            I have been returning ever since. At nearly 3,500 metres, the mountains are not a backdrop, they are a presence. Ancient, indifferent to everything modern life considers urgent. Monasteries cling to cliffsides as they have for centuries. The light here is unlike anything else on earth.
           </p>
           <p className="lk-invite-body">This is where clarity returns.</p>
           <p className="lk-invite-body">
@@ -1195,7 +1204,7 @@ export default function LadakhJourney() {
               <div className="lk-cta-date-val">
                 <span className="lk-cta-date-part">August</span>
                 <span className="lk-cta-date-sep">|</span>
-                <span className="lk-cta-date-big">20<sup>st</sup></span>
+                <span className="lk-cta-date-big">20<sup>th</sup></span>
                 <span className="lk-cta-date-sep">|</span>
                 <span className="lk-cta-date-part">2026</span>
               </div>

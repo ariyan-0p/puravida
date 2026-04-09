@@ -51,8 +51,8 @@ function Glyph({ name = 'Trees', variant = 'Charcoal', size = 48, opacity = 0.3 
 }
 
 const JOURNEYS = [
-  { slug: "bhutan", img: "/assets/journey-bhutan.jpg", dest: "Bhutan", tag: "Mountains and Monasteries", dates: "November 2026", dur: "8 Days", ready: true },
-  { slug: "ladakh", img: "/assets/journey-ladakh.jpg", dest: "Ladakh", tag: "High Passes and Living Monasteries", dates: "September 5 to 12, 2026", dur: "8 Days", ready: true },
+  { slug: "bhutan", img: "/assets/journey-bhutan.jpg", dest: "Bhutan", tag: "Mountains and Monasteries", dates: "April 2026", dur: "8 Days", ready: true },
+  { slug: "ladakh", img: "/assets/journey-ladakh.jpg", dest: "Ladakh", tag: "High Passes and Living Monasteries", dates: "September 20 to 27, 2026", dur: "8 Days", ready: true },
   { slug: "bali", img: "/assets/journey-srilanka.jpg", dest: "Bali", tag: "Ritual, Rice, and Renewal", dates: "October 1 to 6, 2026", dur: "6 Days", ready: false },
   { slug: "japan", img: "/assets/journey-japan.jpg", dest: "Japan", tag: "Stillness in Snow, Hokkaido", dates: "December 2026", dur: "7 Days", ready: false },
 ];
@@ -158,6 +158,14 @@ export default function Homepage() {
           position: absolute; bottom: 16px; right: 20px; z-index: 3;
           font-family: 'Lato', sans-serif; font-size: 12px;
           color: rgba(255,255,255,0.7); text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+        }
+        .hp-hero-tree-glyph {
+          position: absolute; bottom: 40px; right: 40px; z-index: 2;
+          pointer-events: none;
+        }
+        .hp-section-divider {
+          position: relative; z-index: 3; text-align: center;
+          margin-top: -20px; margin-bottom: -20px;
         }
 
         /* ── 2. EDITORIAL QUOTE ── */
@@ -536,9 +544,17 @@ export default function Homepage() {
         </div>
         <div className="hp-hero-right">
           <div className="hp-hero-img" style={{ backgroundImage: "url('/assets/hero-bhutan.jpg')" }} />
+          <div className="hp-hero-tree-glyph" aria-hidden="true">
+            <Glyph name="Trees" variant="White" size={60} opacity={0.15} />
+          </div>
           <span className="hp-hero-credit">Photo: Kelly Dorji</span>
         </div>
       </section>
+
+      {/* ── Hero → Quote divider ── */}
+      <div className="hp-section-divider">
+        <Divider width={240} opacity={0.45} />
+      </div>
 
       {/* ══ 2. EDITORIAL QUOTE ══ */}
       <section className="hp-quote-strip">
@@ -594,7 +610,7 @@ export default function Homepage() {
           <FU>
             <Divider width={160} opacity={0.4} />
             <h2 className="hp-phil-h2">We allow breath, space, pause.</h2>
-            <p className="hp-phil-intro">Every journey is led by Harsha herself. No tour managers. No scripts. Only presence.</p>
+            <p className="hp-phil-intro">Every journey is led by Harsha herself. Personal attention. Unhurried pace. Presence at every moment.</p>
           </FU>
         </div>
         <div className="hp-phil-grid">

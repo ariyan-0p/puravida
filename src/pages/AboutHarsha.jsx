@@ -382,7 +382,7 @@ export default function AboutHarsha() {
               I kept returning to Ladakh, to Bhutan, to the places that had changed me. Each time, I brought someone with me. A colleague. A friend going through something difficult. A stranger who had emailed asking if they could come along.
             </p>
             <p className="ah-story-body">
-              PuraVida began with a single question: what if travel was not about ticking destinations, but about arriving fully, and being changed by that arrival?
+              PuraVida began with a single question: what if travel was about arriving fully, and being changed by that arrival?
             </p>
             <p className="ah-story-body">
               Every journey I lead, I lead because I have walked that ground myself. Because the families in Ladakh and Bhutan pour tea for me the way they pour it for family. Because I know which mornings are worth waking for at four in the dark.
