@@ -871,7 +871,6 @@ export default function LadakhJourney() {
       <section className="lk-hero">
         <div className="lk-hero-bg" />
         <div className="lk-hero-overlay" />
-        <img src="/assets/01. LOGOS/Logo-Main-White.png" alt="PuraVida" className="lk-hero-logo" />
         <div className="lk-hero-content">
           <h1 className="lk-hero-title">Ladakh</h1>
         </div>
