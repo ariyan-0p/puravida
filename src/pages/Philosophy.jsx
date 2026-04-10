@@ -51,7 +51,7 @@ function Glyph({ name = 'Trees', variant = 'Charcoal', size = 48, opacity = 0.3 
 
 const PILLARS = [
   {
-    n: "01",
+    n: "01", glyph: "Pause", glyphSize: 64,
     t: "Stillness Over Speed",
     body: [
       "We allow breath, space, and pause between every experience. An unhurried morning at altitude is the whole point.",
@@ -59,7 +59,7 @@ const PILLARS = [
     ],
   },
   {
-    n: "02",
+    n: "02", glyph: "Sunset", glyphSize: 64,
     t: "Presence as Luxury",
     body: [
       "The luxury we offer is presence: the freedom of a day with no agenda beyond witnessing what is in front of you.",
@@ -67,7 +67,7 @@ const PILLARS = [
     ],
   },
   {
-    n: "03",
+    n: "03", glyph: "Trees", glyphSize: 32,
     t: "Authentic Reverence",
     body: [
       "Real village meals. Real rituals. Real people: relationships built over years of quiet return visits. You are welcomed as a guest, with the warmth of long-held friendships.",
@@ -75,7 +75,7 @@ const PILLARS = [
     ],
   },
   {
-    n: "04",
+    n: "04", glyph: "Mountains", glyphSize: 32,
     t: "Founder Led, Always",
     body: [
       "Harsha leads every single journey. Your experience stays in her hands, from arrival to departure. Founder-led, always personal.",
@@ -142,16 +142,21 @@ export default function Philosophy() {
           grid-template-columns: 80px 1fr;
           gap: 0 48px;
           padding: 64px 0;
-          border-top: 1px solid rgba(217,166,161,0.25);
           max-width: 960px;
           margin: 0 auto;
+        }
+        .ph-pillar-num-wrap {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 12px;
+          padding-top: 8px;
         }
         .ph-pillar-num {
           font-family: 'Lato', sans-serif;
           font-size: 12px; font-weight: 700;
           letter-spacing: 0.12em;
           color: #333333;
-          padding-top: 8px;
         }
         .ph-pillar-content {}
         .ph-pillar-title {
@@ -176,6 +181,30 @@ export default function Philosophy() {
           background: #B7C8B5;
           padding: 100px 80px;
           text-align: center;
+        }
+        .ph-quote-wrap {
+          position: relative;
+          z-index: 1;
+          max-width: 600px;
+          margin: 0 auto;
+          text-align: center;
+          padding: 48px 40px;
+        }
+        .ph-quote-frame {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          z-index: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .ph-quote-frame img {
+          width: 100%;
+          height: 100%;
+          object-fit: fill;
+          display: block;
+          opacity: 0.55;
         }
         .ph-quote {
           font-family: 'Lora', serif;
@@ -257,7 +286,7 @@ export default function Philosophy() {
           </p>
           <Divider width={160} opacity={0.4} />
           <div style={{ display: 'flex', justifyContent: 'center', marginTop: 32 }}>
-            <Glyph name="Sunset" variant="Charcoal" size={64} opacity={0.2} />
+            <Glyph name="Sunset" variant="Charcoal" size={120} opacity={0.2} />
           </div>
         </FU>
       </section>
@@ -271,8 +300,16 @@ export default function Philosophy() {
       <section className="ph-pillars">
         {PILLARS.map((p, i) => (
           <FU key={i} d={i * 0.3}>
+            {i > 0 && (
+              <div style={{ maxWidth: 960, margin: '0 auto' }}>
+                <Divider width="100%" opacity={0.4} />
+              </div>
+            )}
             <div className="ph-pillar">
-              <p className="ph-pillar-num">{p.n}</p>
+              <div className="ph-pillar-num-wrap">
+                <p className="ph-pillar-num">{p.n}</p>
+                <Glyph name={p.glyph} variant="Charcoal" size={p.glyphSize} opacity={0.3} />
+              </div>
               <div className="ph-pillar-content">
                 <h2 className="ph-pillar-title">{p.t}</h2>
                 {p.body.map((para, j) => (
@@ -284,16 +321,30 @@ export default function Philosophy() {
         ))}
       </section>
 
+      {/* ── Pillars → Quote divider ── */}
+      <div className="ph-section-divider">
+        <img src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png" alt="" aria-hidden="true" />
+      </div>
+
       {/* QUOTE */}
       <div className="ph-quote-strip">
         <FU>
-          <Divider width={160} opacity={0.4} />
-          <p className="ph-quote" style={{ marginTop: 40 }}>
-            I walk beside you. Every relationship we hold was built over years of quiet return visits. Years of showing up.
-          </p>
-          <p className="ph-quote-attr" style={{ marginTop: 20 }}>Harsha, Founder</p>
-          <div style={{ marginTop: 40 }}><Divider width={160} opacity={0.4} /></div>
+          <div className="ph-quote-wrap">
+            <div className="ph-quote-frame">
+              <img src="/assets/Puravida_Quote-Frame-1/Frame.png" alt="" aria-hidden="true" />
+            </div>
+            <p className="ph-quote">
+              I walk beside you. Every relationship we hold was built over years of quiet return visits. Years of showing up.
+            </p>
+          </div>
+          <Divider width={160} opacity={0.35} />
+          <p className="ph-quote-attr" style={{ marginTop: 16 }}>Harsha, Founder</p>
         </FU>
+      </div>
+
+      {/* ── Quote → CTA divider ── */}
+      <div className="ph-section-divider">
+        <img src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png" alt="" aria-hidden="true" />
       </div>
 
       {/* CTA */}
@@ -315,6 +366,11 @@ export default function Philosophy() {
           </a>
         </FU>
       </section>
+
+      {/* ── CTA → Footer divider ── */}
+      <div className="ph-section-divider">
+        <img src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png" alt="" aria-hidden="true" />
+      </div>
 
       <Footer />
     </>

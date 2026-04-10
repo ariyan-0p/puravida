@@ -7,6 +7,7 @@ export default function Nav() {
   const location = useLocation();
   const navigate = useNavigate();
   const isHomePage = location.pathname === '/';
+  const isLightHero = ['/', '/about', '/philosophy', '/contact'].includes(location.pathname);
 
   useEffect(() => {
     const fn = () => setStuck(window.scrollY > 80);
@@ -74,13 +75,13 @@ export default function Nav() {
         .pv-nav-cta:hover { background: #c08e88; color: white; }
         .pv-nav-burger span { background: white; }
 
-        .pv-nav.home:not(.stuck) .pv-nav-logo-img { filter: none; }
-        .pv-nav.home:not(.stuck) .pv-nav-links a { color: #666666; }
-        .pv-nav.home:not(.stuck) .pv-nav-links a:hover { color: #333333; }
-        .pv-nav.home:not(.stuck) .pv-nav-links a::after { background: #D9A6A1; }
-        .pv-nav.home:not(.stuck) .pv-nav-cta { color: #333333; background: #D9A6A1; }
-        .pv-nav.home:not(.stuck) .pv-nav-cta:hover { background: #c08e88; color: white; }
-        .pv-nav.home:not(.stuck) .pv-nav-burger span { background: #333333; }
+        .pv-nav.light-hero:not(.stuck) .pv-nav-logo-img { filter: none; }
+        .pv-nav.light-hero:not(.stuck) .pv-nav-links a { color: #666666; }
+        .pv-nav.light-hero:not(.stuck) .pv-nav-links a:hover { color: #333333; }
+        .pv-nav.light-hero:not(.stuck) .pv-nav-links a::after { background: #D9A6A1; }
+        .pv-nav.light-hero:not(.stuck) .pv-nav-cta { color: #333333; background: #D9A6A1; }
+        .pv-nav.light-hero:not(.stuck) .pv-nav-cta:hover { background: #c08e88; color: white; }
+        .pv-nav.light-hero:not(.stuck) .pv-nav-burger span { background: #333333; }
 
         .pv-nav.stuck .pv-nav-logo-img { filter: none; }
         .pv-nav.stuck .pv-nav-links a { color: #666666; }
@@ -196,7 +197,7 @@ export default function Nav() {
         </div>
       </div>
 
-      <nav className={`pv-nav${stuck ? ' stuck' : ''}${isHomePage ? ' home' : ''}`}>
+      <nav className={`pv-nav${stuck ? ' stuck' : ''}${isHomePage ? ' home' : ''}${isLightHero ? ' light-hero' : ''}`}>
         <div className="pv-nav-inner">
           <Link to="/" className="pv-nav-logo">
             <img src="/assets/01. LOGOS/Logo-Main.png" alt="PuraVida with Harsha" className="pv-nav-logo-img" />
