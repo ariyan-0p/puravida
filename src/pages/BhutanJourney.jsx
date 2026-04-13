@@ -882,7 +882,7 @@ export default function BhutanJourney() {
                 <div className="bj-day-foot">
                   <div className="bj-overnight-content">
                     <Glyph name="Trees" variant="Charcoal" size={48} opacity={0.4} />
-                    <span className="bj-day-foot-text">Overnight in {day.city} &ndash; {day.hotel}</span>
+                    <span className="bj-day-foot-text">Overnight in {day.city}: {day.hotel}</span>
                     <Glyph name="Trees" variant="Charcoal" size={48} opacity={0.4} />
                   </div>
                   <img src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png" className="bj-overnight-divider-line" alt="" aria-hidden="true" />
