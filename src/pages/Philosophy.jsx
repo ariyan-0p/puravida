@@ -9,12 +9,24 @@ function useFadeUp() {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    const inView = () => {
+      const r = el.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      return r.top < vh && r.bottom > 0;
+    };
+    if (inView()) { setVis(true); return; }
     const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setVis(true); obs.disconnect(); } },
-      { threshold: 0.06, rootMargin: '0px 0px -40px 0px' }
+      ([e]) => { if (e.isIntersecting) { setVis(true); cleanup(); } },
+      { threshold: 0, rootMargin: '0px' }
     );
+    const onScroll = () => { if (inView()) { setVis(true); cleanup(); } };
+    const cleanup = () => {
+      obs.disconnect();
+      window.removeEventListener('scroll', onScroll);
+    };
     obs.observe(el);
-    return () => obs.disconnect();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return cleanup;
   }, []);
   return [ref, vis];
 }
