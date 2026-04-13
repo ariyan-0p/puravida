@@ -14,12 +14,24 @@ function useFadeUp() {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    const inView = () => {
+      const r = el.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      return r.top < vh && r.bottom > 0;
+    };
+    if (inView()) { setVis(true); return; }
     const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setVis(true); obs.disconnect(); } },
-      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+      ([e]) => { if (e.isIntersecting) { setVis(true); cleanup(); } },
+      { threshold: 0, rootMargin: '0px' }
     );
+    const onScroll = () => { if (inView()) { setVis(true); cleanup(); } };
+    const cleanup = () => {
+      obs.disconnect();
+      window.removeEventListener('scroll', onScroll);
+    };
     obs.observe(el);
-    return () => obs.disconnect();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return cleanup;
   }, []);
   return [ref, vis];
 }
@@ -75,12 +87,13 @@ function Glyph({ name = 'Trees', variant = 'Charcoal', size = 48, opacity = 0.3 
   );
 }
 
-function DayActivity({ icon, text }) {
+function DayActivity({ icon, text, note }) {
   return (
     <div className="lk-activity">
       <DayIcon type={icon} />
       <div>
         <p className="lk-activity-text">{text}</p>
+        {note && <p className="lk-activity-note">{note}</p>}
       </div>
     </div>
   );
@@ -116,14 +129,14 @@ const DAYS = [
       { icon: 'leisure', text: "The afternoon is for rest and gentle acclimatisation to the high altitude. Settle in room with its sweeping mountain views and enjoy lunch at Dolkhar Resort." },
     ],
     evening: [
-      { icon: 'leisure', text: "As dusk settles, we take a slow, mindful walk through the property grounds. Dinner will be served at the property." },
+      { icon: 'leisure', text: "As dusk settles, we take a slow, mindful walk through the property grounds. Dinner will be served at the property.", note: "The light at this hour turns the mountains gold. Let your breath find its rhythm at altitude." },
     ],
     overnight: "Leh", hotel: "Dolkhar Resort", farewell: null,
   },
   {
     day: "02", title: "Leh | Shanti Stupa", subtitle: "",
     morning: [
-      { icon: 'sight', text: "If up early we may greet the dawn with a visit to the Shanti Stupa, perched high above the town. Here, one experiences a moment of profound peace and meditation as the valley awakens with the first light." },
+      { icon: 'sight', text: "If up early we may greet the dawn with a visit to the Shanti Stupa, perched high above the town. Here, one experiences a moment of profound peace and meditation as the valley awakens with the first light.", note: "The valley awakens below you in slow folds of light. The silence here is its own teaching." },
     ],
     afternoon: [
       { icon: 'sight', text: "Explore Leh's rich history with a visit to the ancient Leh Palace, which overlooks the Old Town. Afterward, wander through the town's narrow, winding lanes, past mud-brick homes and fluttering prayer flags. Observe the coexistence of mosque, temples, chortens and family shrines. Leh Old Town reveals the city's original rhythm \u2013 intimate, layered and lived in, far removed from the pace of the modern market streets. Lunch is at your discretion at the market or back at the property." },
@@ -137,7 +150,7 @@ const DAYS = [
   {
     day: "03", title: "The Artistic Soul of", subtitle: "Sham Valley",
     morning: [
-      { icon: 'transport', text: "After breakfast at Dolkhar Resort, enjoy a scenic drive along the Indus River to the village of Alchi. Here we shall visit the Alchi Monastery, an artistic treasure known for its beautifully preserved, thousand-year-old murals." },
+      { icon: 'transport', text: "After breakfast at Dolkhar Resort, enjoy a scenic drive along the Indus River to the village of Alchi. Here we shall visit the Alchi Monastery, an artistic treasure known for its beautifully preserved, thousand-year-old murals.", note: "The murals are a thousand years old. The pigments still hold their colour, the devotion still hangs in the air." },
     ],
     afternoon: [
       { icon: 'meal', text: "Experience authentic Ladakhi cuisine, from thukpa and momos to khambir, prepared with fresh local ingredients. Cooked in an open, women-led kitchen, it offers a warm, cultural, and home-style dining experience. Alchi Kitchen is a cozy stop just steps from the monastery, blending food, tradition, and village." },
@@ -157,7 +170,7 @@ const DAYS = [
       { icon: 'sight', text: "Just below the monastery lies the famous Moonland landscape \u2013 a surreal terrain of eroded clay hills that resemble the surface of the moon. The contrast of golden earth formations against the blue sky creates an unforgettable sight." },
     ],
     afternoon: [
-      { icon: 'culture', text: "After soaking in the beauty of Lamayuru, we drive to Nurla (approximately 50 minutes) for a traditional warm Ladakhi lunch and some time to relax before our afternoon session with Amchi Tsewang Smanla. Sowa Rigpa \u2013 is the traditional Tibetan Healing System. During our interactive session Amchi Tsewang Smanla shall share insights about the philosophy of Sowa Rigpa, balance of the 3 humors (Lung, Tripa, Beken), medicinal herbs found in the Himalayas, traditional healing methods and lifestyle practices. Our lunch venue is with the Amchi and his family in Nurla." },
+      { icon: 'culture', text: "After soaking in the beauty of Lamayuru, we drive to Nurla (approximately 50 minutes) for a traditional warm Ladakhi lunch and some time to relax before our afternoon session with Amchi Tsewang Smanla. Sowa Rigpa \u2013 is the traditional Tibetan Healing System. During our interactive session Amchi Tsewang Smanla shall share insights about the philosophy of Sowa Rigpa, balance of the 3 humors (Lung, Tripa, Beken), medicinal herbs found in the Himalayas, traditional healing methods and lifestyle practices. Our lunch venue is with the Amchi and his family in Nurla.", note: "He takes your wrist gently between his fingers and listens. A diagnosis without instruments. A reading of you that is older than medicine as we know it." },
       { icon: 'transport', text: "We bid our byes to the Amchi and drive approximately 30 minutes to arrive at Temisgam and check in to the TIH Namra Village House. A serene village retreat offering simple, comfortable cottages with stunning mountain views." },
     ],
     evening: [
@@ -183,7 +196,7 @@ const DAYS = [
   {
     day: "06", title: "Monastic Dawn and Hemis", subtitle: "",
     morning: [
-      { icon: 'culture', text: "Before sunrise, we will take part in the sacred morning puja at Thiksey Monastery. The deep chanting of monks and the resonant call of horns create a powerful and unforgettable spiritual experience. The rhythmic beat of drums and cymbals, butter lamps glowing softly in the prayer hall....let it settle into your body. This is what the monks do every day. A rhythm of devotion, unchanged. We shall sit in the prayer halls with the monks absorbing sights, sounds and incense fragrances in meditative silence." },
+      { icon: 'culture', text: "Before sunrise, we will take part in the sacred morning puja at Thiksey Monastery. The deep chanting of monks and the resonant call of horns create a powerful and unforgettable spiritual experience. The rhythmic beat of drums and cymbals, butter lamps glowing softly in the prayer hall....let it settle into your body. This is what the monks do every day. A rhythm of devotion, unchanged. We shall sit in the prayer halls with the monks absorbing sights, sounds and incense fragrances in meditative silence.", note: "The deep chanting of monks vibrates in your chest before it reaches your ears. This rhythm has not changed in centuries." },
       { icon: 'sight', text: "Then, let us return to our guesthouse for a slow breakfast before driving to Hemis, Ladakh's largest monastery. The visit focuses on observing daily rituals, architecture, and silence rather than simply moving through it as a landmark. Observation over explanation is the idea." },
     ],
     afternoon: [
@@ -201,7 +214,7 @@ const DAYS = [
       { icon: 'sight', text: "We then continue to Stok Palace, the current residence of the Ladakh Royal family, where a museum offers a fascinating glimpse into the region's heritage. We shall see Thanka paintings and ancient weaponry, stunning views of the Stok Kangri range, and be fascinated with the history revealed to us by our special guide Kunzes Angmo." },
     ],
     afternoon: [
-      { icon: 'meal', text: "Artisanal Alchemy \u2013 Ladakhi Lunch by Chef Kunzes Angmo. Kunzes Angmo is a visionary Ladakhi chef who revives ancestral recipes through a deeply personal, farm-to-table philosophy." },
+      { icon: 'meal', text: "Artisanal Alchemy \u2013 Ladakhi Lunch by Chef Kunzes Angmo. Kunzes Angmo is a visionary Ladakhi chef who revives ancestral recipes through a deeply personal, farm-to-table philosophy.", note: "She cooks the way she speaks: slowly, with reverence for ingredient and lineage. Each dish is a story she has chosen not to let disappear." },
       { icon: 'culture', text: "She shall be our host this afternoon talking us through the museum followed by demonstrating her craft celebrating local ingredients, slow cooking, and the soulful storytelling of Ladakh's culinary heritage. Our lunch venue is the private \u201cZabskhang\u201d dining hall of the 200-year-old Stok Palace." },
     ],
     evening: [
@@ -538,6 +551,9 @@ export default function LadakhJourney() {
         .lk-activity { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 16px; }
         .lk-activity:last-child { margin-bottom: 0; }
         .lk-activity-text { font-family: 'Lato', sans-serif; font-size: 15px; line-height: 1.75; color: #333333; word-break: normal; overflow-wrap: break-word; }
+        .lk-activity-note { font-family: 'Lora', serif; font-style: italic; font-size: 14px; line-height: 1.65; color: rgba(51,51,51,0.7); margin-top: 4px; max-width: 560px; }
+        .lk-pullquote { background: #F5F0EB; padding: 80px clamp(28px, 5vw, 60px); text-align: center; }
+        .lk-pullquote-text { font-family: 'Lora', serif; font-style: italic; font-size: 20px; line-height: 1.7; color: #333333; max-width: 640px; margin: 28px auto; }
 
         .lk-time-divider { margin: 28px 0; }
 
@@ -983,6 +999,17 @@ export default function LadakhJourney() {
       {/* ══ DAY-BY-DAY ITINERARY ══ */}
       {DAYS.map((day, idx) => (
         <div key={idx}>
+          {idx === 4 && (
+            <FU>
+              <div className="lk-pullquote">
+                <Divider width={160} opacity={0.4} />
+                <p className="lk-pullquote-text">
+                  At altitude, the unnecessary falls away. What remains is what matters.
+                </p>
+                <Divider width={160} opacity={0.4} />
+              </div>
+            </FU>
+          )}
           <FU>
             <div className="lk-day-header">
               <p className="lk-day-num">DAY- <span>{day.day}</span></p>
@@ -1013,7 +1040,7 @@ export default function LadakhJourney() {
                   <div className="lk-time-section">
                     <h3 className="lk-time-heading">Morning</h3>
                     {day.morning.map((a, i) => (
-                      <DayActivity key={i} icon={a.icon} text={a.text} />
+                      <DayActivity key={i} icon={a.icon} text={a.text} note={a.note} />
                     ))}
                   </div>
                 )}
@@ -1023,7 +1050,7 @@ export default function LadakhJourney() {
                     <div className="lk-time-section">
                       <h3 className="lk-time-heading">Afternoon</h3>
                       {day.afternoon.map((a, i) => (
-                        <DayActivity key={i} icon={a.icon} text={a.text} />
+                        <DayActivity key={i} icon={a.icon} text={a.text} note={a.note} />
                       ))}
                     </div>
                   </>
@@ -1034,7 +1061,7 @@ export default function LadakhJourney() {
                     <div className="lk-time-section">
                       <h3 className="lk-time-heading">Evening</h3>
                       {day.evening.map((a, i) => (
-                        <DayActivity key={i} icon={a.icon} text={a.text} />
+                        <DayActivity key={i} icon={a.icon} text={a.text} note={a.note} />
                       ))}
                     </div>
                   </>
@@ -1065,7 +1092,7 @@ export default function LadakhJourney() {
                 <div className="lk-overnight">
                   <div className="lk-overnight-content">
                     <Glyph name="Trees" size={48} opacity={0.4} />
-                    <p className="lk-overnight-text">Overnight in {day.overnight} &ndash; {day.hotel}</p>
+                    <p className="lk-overnight-text">Overnight in {day.overnight}: {day.hotel}</p>
                     <Glyph name="Trees" size={48} opacity={0.4} />
                   </div>
                   <img

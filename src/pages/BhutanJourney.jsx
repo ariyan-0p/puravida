@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import WhatsAppButton from '../components/WhatsAppButton';
@@ -98,7 +98,7 @@ const DAYS = [
     city: 'Thimphu', hotel: 'Himalayan Keys Forest Resort',
     periods: [
       { label: 'Morning', items: [
-        { icon: 'experience', text: 'Immigration at Paro Airport' },
+        { icon: 'experience', text: 'Immigration at Paro Airport', note: 'The valley opens beneath you as you descend. Mountains on every side. The air is thinner, cleaner, immediately different.' },
         { icon: 'experience', text: 'Stop at Tanchog Lhakhang Iron Bridge' },
         { icon: 'hotel',      text: 'Check in to hotel in Thimphu' },
         { icon: 'meal',       text: 'Enjoy lunch' },
@@ -118,7 +118,7 @@ const DAYS = [
     periods: [
       { label: 'Morning', items: [
         { icon: 'meal',       text: 'Breakfast' },
-        { icon: 'experience', text: 'Visit Buddha Dordenma' },
+        { icon: 'experience', text: 'Visit Buddha Dordenma', note: 'The bronze statue sits above the valley in perfect stillness. Below, Thimphu spreads quietly. Up here, the wind carries prayer flags and birdsong.' },
         { icon: 'experience', text: 'Scenic walk to Kelzang Textile' },
       ]},
       { label: 'Afternoon', items: [
@@ -146,7 +146,7 @@ const DAYS = [
       { label: 'Afternoon', items: [
         { icon: 'experience', text: '108 Druk Wangyal Chortens' },
         { icon: 'meal',       text: 'Lunch en route' },
-        { icon: 'transport',  text: 'Arrive Phobjikha Valley' },
+        { icon: 'transport',  text: 'Arrive Phobjikha Valley', note: 'The road climbs through blue pine forest, mist threading between the trunks. Phobjikha appears below you: wide, green, impossibly peaceful.' },
       ]},
       { label: 'Evening', items: [
         { icon: 'hotel', text: 'Check in' },
@@ -168,10 +168,10 @@ const DAYS = [
         { icon: 'meal',       text: 'Lunch en route' },
         { icon: 'experience', text: 'Chimi Lhakhang' },
         { icon: 'hotel',      text: 'Check in' },
-        { icon: 'experience', text: 'Punakha Dzong' },
+        { icon: 'experience', text: 'Punakha Dzong', note: 'The fortress stands at the meeting of two rivers. Jacaranda trees line the approach. Inside, monks move through corridors that have held the same prayers for centuries.' },
       ]},
       { label: 'Evening', items: [
-        { icon: 'experience', text: 'Punakha Suspension Bridge' },
+        { icon: 'experience', text: 'Punakha Suspension Bridge', note: 'Prayer flags stretch in every direction. The river is far below. Each step across the bridge is a small act of trust.' },
         { icon: 'meal',       text: 'Dinner' },
       ]},
     ],
@@ -204,7 +204,7 @@ const DAYS = [
     periods: [
       { label: 'Morning', items: [
         { icon: 'meal',       text: 'Breakfast' },
-        { icon: 'experience', text: 'Hike to Taktsang Monastery (900m above valley floor)' },
+        { icon: 'experience', text: 'Hike to Taktsang Monastery (900m above valley floor)', note: "The monastery clings to the cliff face at 3,120 metres. The climb takes three hours. Arrive slowly. There is no other way." },
       ]},
       { label: 'Afternoon', items: [
         { icon: 'meal',       text: 'Lunch at cafeteria viewpoint' },
@@ -488,9 +488,32 @@ export default function BhutanJourney() {
           gap: 14px; margin-bottom: 10px; padding: 6px 0;
         }
         .bj-activity:last-child { margin-bottom: 0; }
+        .bj-activity-body { display: flex; flex-direction: column; }
         .bj-activity-text {
           font-family: 'Lato', sans-serif;
           font-size: 16px; line-height: 1.7; color: #333333;
+        }
+        .bj-activity-note {
+          font-family: 'Lora', serif;
+          font-style: italic;
+          font-size: 14px; line-height: 1.65;
+          color: rgba(51,51,51,0.7);
+          margin-top: 4px;
+          max-width: 560px;
+        }
+        .bj-pullquote {
+          background: #F5F0EB;
+          padding: 80px clamp(28px, 5vw, 60px);
+          text-align: center;
+        }
+        .bj-pullquote-text {
+          font-family: 'Lora', serif;
+          font-style: italic;
+          font-size: 20px;
+          line-height: 1.7;
+          color: #333333;
+          max-width: 640px;
+          margin: 28px auto;
         }
         .bj-period-divider { margin: 24px 0; }
 
@@ -821,7 +844,8 @@ export default function BhutanJourney() {
         </div>
 
         {DAYS.map((day, di) => (
-          <FU key={day.num} d={di * 0.2}>
+          <React.Fragment key={day.num}>
+          <FU d={di * 0.2}>
             <div className="bj-day">
               <div className="bj-day-head">
                 <div className="bj-day-head-glyph">
@@ -850,7 +874,10 @@ export default function BhutanJourney() {
                         {period.items.map((act, ai) => (
                           <div className="bj-activity" key={ai}>
                             <DayIcon type={act.icon} />
-                            <span className="bj-activity-text">{act.text}</span>
+                            <div className="bj-activity-body">
+                              <span className="bj-activity-text">{act.text}</span>
+                              {act.note && <p className="bj-activity-note">{act.note}</p>}
+                            </div>
                           </div>
                         ))}
                       </div>
@@ -890,6 +917,18 @@ export default function BhutanJourney() {
               )}
             </div>
           </FU>
+          {di === 3 && (
+            <FU>
+              <div className="bj-pullquote">
+                <Divider width={160} opacity={0.4} />
+                <p className="bj-pullquote-text">
+                  The mountains do not ask anything of you. They hold you while you remember how to breathe.
+                </p>
+                <Divider width={160} opacity={0.4} />
+              </div>
+            </FU>
+          )}
+          </React.Fragment>
         ))}
       </section>
 

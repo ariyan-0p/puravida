@@ -464,7 +464,7 @@ export default function AboutHarsha() {
               className="ah-story-img"
             />
           </div>
-          <p className="ah-story-img-caption">Harsha · Dubai</p>
+          <p className="ah-story-img-caption">Harsha, Dubai</p>
         </FU>
 
         <div className="ah-story-right">
@@ -480,7 +480,7 @@ export default function AboutHarsha() {
               There was a monk at Hemis who sat with me for an afternoon without speaking. We watched butter lamps burn down together. When I finally left, he pressed his palms together and said nothing. I understood everything.
             </p>
             <p className="ah-story-body">
-              There was a family in a village above Leh who fed me tsampa and butter tea and asked nothing in return. Not my name. Not my profession. Not where I was from. Only: are you warm? Are you well? Eat more.
+              There was a family in a village above Leh who fed me tsampa and butter tea and asked nothing in return. They asked only: are you warm? Are you well? Eat more.
             </p>
           </FU>
 
@@ -554,7 +554,7 @@ export default function AboutHarsha() {
           </p>
           <p className="ah-river-attr">Harsha</p>
           <div className="ah-river-glyph">
-            <Glyph name="Pause" variant="Charcoal" size={72} opacity={1} />
+            <Glyph name="Pause" variant="Charcoal" size={72} opacity={0.15} />
           </div>
         </FU>
       </section>

@@ -685,7 +685,7 @@ export default function Homepage() {
             Boutique transformational travel for professionals ready to rediscover stillness. Small groups. Unhurried itineraries. Presence at every step.
           </p>
           <div className="hp-hero-cta">
-            <a href="https://wa.me/+971562216643" className="hp-btn" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/971562216643?text=Hello%20Harsha%2C%20I%E2%80%99d%20love%20to%20learn%20more%20about%20your%20journeys." className="hp-btn" target="_blank" rel="noopener noreferrer">
               Begin a Conversation
             </a>
           </div>
@@ -756,7 +756,7 @@ export default function Homepage() {
             The monk who taught me that silence carries its own kind of sound. The family who fed me tsampa and butter tea and asked nothing in return.
           </p>
           <p className="hp-about-body">
-            PuraVida began with a single question: What if travel was about arriving fully, and being changed by that arrival?
+            PuraVida began with a single question: what if travel was about arriving fully, and being changed by that arrival?
           </p>
           <p className="hp-about-body">
             Every journey I lead, I lead because I have walked that ground myself. Because the families in Ladakh and Bhutan pour tea for me the way they pour it for family.
@@ -810,27 +810,15 @@ export default function Homepage() {
         <div className="hp-j-grid">
           {JOURNEYS.map((j, i) => (
             <FU key={i} d={i * 0.3}>
-              {j.ready ? (
-                <Link to={`/${j.slug}`} className="hp-j-card">
-                  <div className="hp-j-card-img" style={{ backgroundImage: `url('${j.img}')` }} />
-                  <div className="hp-j-card-overlay" />
-                  <div className="hp-j-card-content">
-                    <h3 className="hp-j-card-dest">{j.dest}</h3>
-                    <p className="hp-j-card-tag">{j.tag}</p>
-                    <div className="hp-j-card-meta"><span>{j.dur}</span><span>{j.dates}</span></div>
-                  </div>
-                </Link>
-              ) : (
-                <a href="https://wa.me/+971562216643" className="hp-j-card" target="_blank" rel="noopener noreferrer">
-                  <div className="hp-j-card-img" style={{ backgroundImage: `url('${j.img}')` }} />
-                  <div className="hp-j-card-overlay" />
-                  <div className="hp-j-card-content">
-                    <h3 className="hp-j-card-dest">{j.dest}</h3>
-                    <p className="hp-j-card-tag">{j.tag}</p>
-                    <div className="hp-j-card-meta"><span>{j.dur}</span><span>{j.dates}</span></div>
-                  </div>
-                </a>
-              )}
+              <Link to={`/${j.slug}`} className="hp-j-card">
+                <div className="hp-j-card-img" style={{ backgroundImage: `url('${j.img}')` }} />
+                <div className="hp-j-card-overlay" />
+                <div className="hp-j-card-content">
+                  <h3 className="hp-j-card-dest">{j.dest}</h3>
+                  <p className="hp-j-card-tag">{j.tag}</p>
+                  <div className="hp-j-card-meta"><span>{j.dur}</span><span>{j.dates}</span></div>
+                </div>
+              </Link>
             </FU>
           ))}
         </div>
@@ -925,7 +913,7 @@ export default function Homepage() {
             We begin with a conversation. Message Harsha directly. Tell her where you are. What you are carrying. What you are looking for.
           </p>
           <div className="hp-contact-actions">
-            <a href="https://wa.me/+971562216643?text=Hello%20Harsha%2C%20I%20would%20love%20to%20learn%20more%20about%20your%202026%20journeys." className="hp-contact-btn" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/971562216643" className="hp-contact-btn" target="_blank" rel="noopener noreferrer">
               Message Harsha
             </a>
             <a href="mailto:harsha@puravidawithharsha.com" className="hp-contact-link">Email</a>

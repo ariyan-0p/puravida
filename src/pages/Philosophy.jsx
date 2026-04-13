@@ -369,7 +369,7 @@ export default function Philosophy() {
             Begin with a conversation. Message Harsha to learn about the 2026 journeys.
           </p>
           <a
-            href="https://wa.me/+971562216643?text=Hello%20Harsha%2C%20I%20would%20love%20to%20learn%20more%20about%20your%202026%20journeys."
+            href="https://wa.me/971562216643"
             className="ph-cta-btn"
             target="_blank"
             rel="noopener noreferrer"
