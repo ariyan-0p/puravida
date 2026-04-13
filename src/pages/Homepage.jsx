@@ -610,6 +610,10 @@ export default function Homepage() {
           .hp-voices { padding: 80px 40px; }
           .hp-voices-grid { grid-template-columns: 1fr; }
           .hp-contact { padding: 80px 40px; }
+          .hp-contact-corner img { height: 80px !important; }
+          .hp-contact-corner--tr { top: -12px; right: -12px; }
+          .hp-contact-corner--br { bottom: -12px; right: -12px; }
+          .hp-contact-corner--bl { bottom: 4px; left: 12px; }
           .hp-quote-strip { padding: 80px 40px; }
           .hp-immersive { min-height: 50vh; }
         }
