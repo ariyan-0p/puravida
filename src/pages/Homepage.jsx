@@ -191,8 +191,7 @@ export default function Homepage() {
           position: relative;
           z-index: 3;
           text-align: center;
-          margin-top: -20px;
-          margin-bottom: -20px;
+          height: 0;
           line-height: 0;
         }
         .hp-section-divider img {
@@ -200,6 +199,7 @@ export default function Homepage() {
           max-width: 100%;
           opacity: 0.5;
           display: block;
+          transform: translateY(-50%);
         }
 
         /* ── 2. EDITORIAL QUOTE ── */
@@ -608,7 +608,6 @@ export default function Homepage() {
             transform: scale(0.85);
             transform-origin: bottom right;
           }
-          .hp-section-divider { margin-top: -12px; margin-bottom: -12px; }
           .hp-section-divider img { width: 100% !important; }
           .hp-about { grid-template-columns: 1fr; padding: 80px 40px; gap: 48px; }
           .hp-about-float { display: none; }

@@ -136,8 +136,7 @@ export default function AboutHarsha() {
           position: relative;
           z-index: 3;
           text-align: center;
-          margin-top: -20px;
-          margin-bottom: -20px;
+          height: 0;
           line-height: 0;
         }
         .ah-hero-divider img {
@@ -145,6 +144,7 @@ export default function AboutHarsha() {
           max-width: 100%;
           opacity: 0.5;
           display: block;
+          transform: translateY(-50%);
         }
         .ah-hero-right {
           position: relative;
@@ -395,7 +395,6 @@ export default function AboutHarsha() {
           .ah-hero { grid-template-columns: 1fr; min-height: auto; }
           .ah-hero-left { padding: 120px 40px 64px; justify-content: flex-start; min-height: 60vh; }
           .ah-hero-pause { bottom: 80px; left: 40px; }
-          .ah-hero-divider { margin-top: -12px; margin-bottom: -12px; }
           .ah-hero-right { height: 55vw; min-height: 320px; }
           .ah-story { grid-template-columns: 1fr; padding: 80px 40px; gap: 48px; }
           .ah-story-left { position: static; }

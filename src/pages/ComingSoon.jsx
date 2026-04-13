@@ -134,8 +134,7 @@ export default function ComingSoon({ slug }) {
             position: relative;
             z-index: 3;
             text-align: center;
-            margin-top: -20px;
-            margin-bottom: -20px;
+            height: 0;
             line-height: 0;
           }
           .bp-divider img {
@@ -143,6 +142,7 @@ export default function ComingSoon({ slug }) {
             max-width: 100%;
             opacity: 0.5;
             display: block;
+            transform: translateY(-50%);
           }
 
           /* CTA */

@@ -106,8 +106,8 @@ export default function Philosophy() {
 
         .pfu { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
 
-        .ph-section-divider { line-height: 0; margin-top: -12px; margin-bottom: -12px; }
-        .ph-section-divider img { width: 100%; opacity: 0.5; display: block; }
+        .ph-section-divider { position: relative; z-index: 3; text-align: center; height: 0; line-height: 0; }
+        .ph-section-divider img { width: 100%; opacity: 0.5; display: block; transform: translateY(-50%); }
         .pin { opacity: 1; transform: translateY(0); }
 
         /* ── HERO ── */
