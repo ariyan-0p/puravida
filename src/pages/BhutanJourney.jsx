@@ -719,7 +719,7 @@ export default function BhutanJourney() {
           .bj-cta { padding: 80px 40px 0; }
           .bj-cta-date-bar { margin: 0 -40px; }
           .bj-final { min-height: 40vh; }
-          .bj-day-divider-mountain { height: clamp(56px, 10vw, 80px); }
+          .bj-day-divider-mountain { height: clamp(40px, 8vw, 60px); right: 6%; bottom: 0; }
           .bj-farewell-card { padding: 28px 24px; }
         }
         @media (max-width: 600px) {
@@ -729,6 +729,7 @@ export default function BhutanJourney() {
           .bj-itin { padding: 60px 0; }
           .bj-itin-header { padding: 0 24px; }
           .bj-day-head { padding: 24px 20px 16px; }
+          .bj-day-divider-mountain { height: 36px; right: 4%; bottom: 0; }
           .bj-day-body { padding: 24px 20px; }
           .bj-day-foot { padding: 16px 20px 0; }
           .bj-invest { padding: 60px 24px; }
@@ -737,7 +738,9 @@ export default function BhutanJourney() {
           .bj-cta { padding: 60px 24px 0; }
           .bj-cta-date-bar { margin: 0 -24px; }
           .bj-final-content { padding: 32px 24px; }
-          .bj-farewell-card { padding: 28px 20px; }
+          .bj-farewell-card { padding: 28px 24px; max-width: 280px; }
+          .bj-farewell-text { font-size: 16px; }
+          .bj-farewell-frame { inset: -6px -6px -10px -12px; }
         }
       `}</style>
 

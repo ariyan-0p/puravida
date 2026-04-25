@@ -127,7 +127,7 @@ export default function Homepage() {
           line-height: 1.05; color: #333333;
           margin-bottom: 40px; letter-spacing: 0.01em;
         }
-        .hp-hero-h1-line { display: block; overflow: hidden; }
+        .hp-hero-h1-line { display: block; overflow: hidden; padding-bottom: 0.12em; }
         .hp-hero-h1-inner { display: block; animation: hpReveal 1s cubic-bezier(.16,1,.3,1) forwards; }
         .hp-l1 { animation-delay: 2.2s; }
         .hp-l2 { animation-delay: 2.35s; }
@@ -229,7 +229,7 @@ export default function Homepage() {
         .hp-quote-frame img {
           width: 100%;
           height: 100%;
-          object-fit: fill;
+          object-fit: contain;
           display: block;
           opacity: 0.55;
         }
@@ -646,6 +646,7 @@ export default function Homepage() {
           .hp-voices { padding: 60px 28px; }
           .hp-contact { padding: 60px 28px; }
           .hp-quote-strip { padding: 60px 28px; }
+          .hp-quote-attr { margin-top: 56px; }
           .hp-contact-actions { flex-direction: column; align-items: center; }
           .hp-immersive { min-height: 40vh; padding: 40px 20px; }
           .hp-immersive-content { padding: 40px 32px; }
@@ -686,7 +687,7 @@ export default function Homepage() {
         <div className="hp-hero-right">
           <div className="hp-hero-img" style={{ backgroundImage: "url('/assets/hero-bhutan.jpg')" }} />
           <div className="hp-hero-tree-glyph" aria-hidden="true">
-            <Glyph name="Trees" variant="White" size={160} opacity={0.85} />
+            <Glyph name="Trees" variant="White" size={112} opacity={0.6} />
           </div>
           <span className="hp-hero-credit">Photo: Kelly Dorji</span>
         </div>
@@ -707,7 +708,6 @@ export default function Homepage() {
             <p className="hp-quote">
               I walk beside you. Every relationship we hold was built over years of quiet return visits. Years of showing up.
             </p>
-            <Divider width={160} opacity={0.35} />
             <p className="hp-quote-attr">Harsha, Founder</p>
           </div>
         </FU>
@@ -849,7 +849,6 @@ export default function Homepage() {
       <section className="hp-voices" id="voices">
         <div className="hp-voices-header">
           <FU>
-            <Divider width={160} opacity={0.4} />
             <h2 className="hp-voices-h2">What past travellers say</h2>
           </FU>
         </div>
