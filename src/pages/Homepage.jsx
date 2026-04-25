@@ -109,9 +109,9 @@ export default function Homepage() {
         }
         .hp-hero-left {
           position: relative; z-index: 2;
-          flex: 0 0 48%; display: flex; flex-direction: column;
+          flex: 0 0 42%; display: flex; flex-direction: column;
           justify-content: center;
-          padding: 120px 80px 80px;
+          padding: 120px 56px 80px 80px;
         }
         .hp-hero-tagline {
           font-family: 'Lora', serif;
@@ -161,7 +161,7 @@ export default function Homepage() {
         }
         .hp-hero-img::after {
           content: ''; position: absolute; inset: 0;
-          background: linear-gradient(to right, #F5F0EB 0%, rgba(245,240,235,0.3) 8%, transparent 20%);
+          background: linear-gradient(to right, #F5F0EB 0%, rgba(245,240,235,0.4) 3%, transparent 9%);
         }
         .hp-hero-credit {
           position: absolute; bottom: 16px; right: 20px; z-index: 3;
