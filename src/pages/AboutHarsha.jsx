@@ -9,24 +9,13 @@ function useFadeUp() {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const inView = () => {
-      const r = el.getBoundingClientRect();
-      const vh = window.innerHeight || document.documentElement.clientHeight;
-      return r.top < vh && r.bottom > 0;
-    };
-    if (inView()) { setVis(true); return; }
+    if (typeof IntersectionObserver === 'undefined') { setVis(true); return; }
     const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setVis(true); cleanup(); } },
-      { threshold: 0, rootMargin: '0px' }
+      ([e]) => { if (e.isIntersecting) { setVis(true); obs.disconnect(); } },
+      { threshold: 0.06, rootMargin: '0px 0px -40px 0px' }
     );
-    const onScroll = () => { if (inView()) { setVis(true); cleanup(); } };
-    const cleanup = () => {
-      obs.disconnect();
-      window.removeEventListener('scroll', onScroll);
-    };
     obs.observe(el);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return cleanup;
+    return () => obs.disconnect();
   }, []);
   return [ref, vis];
 }
@@ -70,7 +59,7 @@ export default function AboutHarsha() {
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&family=Lora:ital,wght@0,400;1,400&display=swap');
 
         .afu { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
-        .ain { opacity: 1; transform: translateY(0); }
+        .afu.ain { opacity: 1; transform: translateY(0); }
 
         /* ── HERO ── */
         .ah-hero {
