@@ -243,9 +243,8 @@ export default function Homepage() {
         }
         .hp-about-img-wrap { position: relative; }
         .hp-about-img {
-          width: 100%; aspect-ratio: 3/4;
-          object-fit: cover; display: block;
-          box-shadow: 0 24px 60px rgba(51,51,51,0.08);
+          width: 100%; height: auto;
+          display: block;
         }
         .hp-about-leaf-accent {
           position: absolute;
@@ -331,6 +330,7 @@ export default function Homepage() {
           align-items: center;
           gap: 12px;
           margin-bottom: 20px;
+          min-height: 64px;
         }
         .hp-pillar-num {
           font-family: 'Playfair Display', serif;
@@ -342,6 +342,9 @@ export default function Homepage() {
           font-size: 1.15rem; font-weight: 700;
           color: #333333; margin-bottom: 14px;
           line-height: 1.3;
+          min-height: calc(1.3em * 2);
+          display: flex;
+          align-items: flex-start;
         }
         .hp-pillar-text {
           font-family: 'Lato', sans-serif;
@@ -454,11 +457,13 @@ export default function Homepage() {
           font-family: 'Lora', serif;
           font-style: italic;
           font-size: clamp(1.5rem, 2.8vw, 2.2rem);
-          line-height: 1.5; color: white; margin-bottom: 24px;
+          line-height: 1.5; color: #FFFFFF; margin-bottom: 24px;
+          text-shadow: 0 2px 16px rgba(0,0,0,0.95), 0 1px 3px rgba(0,0,0,1);
         }
         .hp-immersive-attr {
           font-family: 'Lato', sans-serif; font-size: 14px;
-          letter-spacing: 0.12em; color: #D9A6A1;
+          letter-spacing: 0.12em; color: #F5E6B8;
+          text-shadow: 0 2px 14px rgba(0,0,0,0.95), 0 1px 3px rgba(0,0,0,1);
         }
 
         /* ── 7. TESTIMONIALS ── */
@@ -717,11 +722,7 @@ export default function Homepage() {
       <section className="hp-about" id="about">
         <FU>
           <div className="hp-about-img-wrap">
-            <img
-              src="/assets/05. GRAPHIC ELEMENTS/Puravida_Photo-Frame-2/Puravida_Photo-Frame-2.png"
-              alt="" aria-hidden="true" className="hp-about-leaf-accent"
-            />
-            <img src="/assets/harsha-portrait.jpg" alt="Harsha" className="hp-about-img" />
+            <img src="/assets/Puravida_Photo-Frame-2-Harsha.png" alt="Harsha" className="hp-about-img" />
             <div className="hp-about-float">
               <img
                 src="/assets/05. GRAPHIC ELEMENTS/Puravida_Quote-Frame-1/Quote-Upper.png"
@@ -762,7 +763,6 @@ export default function Homepage() {
       <section className="hp-phil" id="philosophy">
         <div className="hp-phil-header">
           <FU>
-            <Divider width={160} opacity={0.4} />
             <h2 className="hp-phil-h2">We allow breath, space, pause.</h2>
             <p className="hp-phil-intro">Every journey is led by Harsha herself. Personal attention. Unhurried pace. Presence at every moment.</p>
             <Divider width={160} opacity={0.4} />
