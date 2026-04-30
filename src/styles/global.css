@@ -45,10 +45,21 @@ body {
   object-fit: contain;
   opacity: 0; animation: pFade 0.8s ease 0.4s forwards;
 }
-.pre-line {
-  width: 1px; height: 0;
+.pre-dots {
+  margin-top: 28px;
+  display: flex; gap: 10px;
+  opacity: 0; animation: pFade 0.6s ease 1s forwards;
+}
+.pre-dots span {
+  width: 8px; height: 8px; border-radius: 50%;
   background: var(--clay);
-  margin-top: 28px; animation: pLine 1.2s ease 1s forwards;
+  animation: pBounce 1.2s ease-in-out infinite;
+}
+.pre-dots span:nth-child(2) { animation-delay: 0.2s; }
+.pre-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes pBounce {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+  40% { transform: translateY(-8px); opacity: 1; }
 }
 .pre-sub {
   margin-top: 18px; font-size: 14px;
@@ -59,7 +70,6 @@ body {
   opacity: 0; animation: pFade 0.6s ease 1.8s forwards;
 }
 @keyframes pFade { to { opacity: 1; } }
-@keyframes pLine { to { height: 80px; } }
 
 /* ── GRAIN OVERLAY ── */
 .grain {

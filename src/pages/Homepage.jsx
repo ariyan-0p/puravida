@@ -669,7 +669,9 @@ export default function Homepage() {
       {/* Preloader */}
       <div className={`pre-wrap${loaded ? ' done' : ''}`}>
         <img src="/assets/01. LOGOS/Logo-Main.png" alt="PuraVida with Harsha" className="pre-logo-img" />
-        <div className="pre-line" />
+        <div className="pre-dots" aria-hidden="true">
+          <span /><span /><span />
+        </div>
         <p className="pre-sub">Where stillness finds you</p>
       </div>
 
