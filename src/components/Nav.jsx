@@ -61,11 +61,11 @@ export default function Nav() {
 
         .pv-nav-logo { display: flex; align-items: center; text-decoration: none; }
         .pv-nav-logo-img {
-          height: 80px; width: auto; display: block;
+          height: 100px; width: auto; display: block;
           object-fit: contain;
           transition: height 0.4s ease, filter 0.5s ease;
         }
-        .pv-nav.stuck .pv-nav-logo-img { height: 56px; }
+        .pv-nav.stuck .pv-nav-logo-img { height: 70px; }
 
         .pv-nav-logo-img { filter: brightness(0) invert(1); }
         .pv-nav-links a { color: rgba(255,255,255,0.85); }
@@ -174,8 +174,8 @@ export default function Nav() {
           .pv-nav.stuck .pv-nav-inner { height: 60px; }
           .pv-nav-links, .pv-nav-cta { display: none; }
           .pv-nav-burger { display: flex; }
-          .pv-nav-logo-img { height: 56px; }
-          .pv-nav.stuck .pv-nav-logo-img { height: 44px; }
+          .pv-nav-logo-img { height: 70px; }
+          .pv-nav.stuck .pv-nav-logo-img { height: 55px; }
         }
       `}</style>
 
@@ -191,8 +191,8 @@ export default function Nav() {
           <Link to="/contact" className="pv-mobile-link" onClick={() => setMenuOpen(false)}>Contact</Link>
         </div>
         <div className="pv-mobile-footer">
-          <a href="https://wa.me/+971562216643?text=Hello%20Harsha%2C%20I%20would%20love%20to%20learn%20more%20about%20your%202026%20journeys." className="pv-mobile-wa" target="_blank" rel="noopener noreferrer" onClick={() => setMenuOpen(false)}>
-            Begin a Conversation
+          <a href="https://chat.whatsapp.com/HFwRN3lWDJM9zH4fgUKGbt" className="pv-mobile-wa" target="_blank" rel="noopener noreferrer" onClick={() => setMenuOpen(false)}>
+            Join Community
           </a>
         </div>
       </div>
@@ -210,8 +210,8 @@ export default function Nav() {
             <li><Link to="/contact">Contact</Link></li>
           </ul>
 
-          <a href="https://wa.me/+971562216643?text=Hello%20Harsha%2C%20I%20would%20love%20to%20learn%20more%20about%20your%202026%20journeys." className="pv-nav-cta" target="_blank" rel="noopener noreferrer">
-            Begin a Conversation
+          <a href="https://chat.whatsapp.com/HFwRN3lWDJM9zH4fgUKGbt" className="pv-nav-cta" target="_blank" rel="noopener noreferrer">
+            Join Community
           </a>
 
           <button className="pv-nav-burger" onClick={() => setMenuOpen(true)} aria-label="Open menu">

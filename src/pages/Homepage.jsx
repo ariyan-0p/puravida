@@ -103,7 +103,7 @@ export default function Homepage() {
 
         /* ── 1. HERO ── */
         .hp-hero {
-          min-height: 100vh; position: relative; overflow: hidden;
+          height: 100vh; min-height: 640px; position: relative; overflow: hidden;
           display: flex; align-items: stretch;
           background: #F5F0EB;
         }
@@ -111,21 +111,22 @@ export default function Homepage() {
           position: relative; z-index: 2;
           flex: 0 0 42%; display: flex; flex-direction: column;
           justify-content: center;
-          padding: 120px 56px 80px 80px;
+          padding: 110px 56px 56px 80px;
+          min-height: 0;
         }
         .hp-hero-tagline {
           font-family: 'Lora', serif;
           font-style: italic; font-size: 16px;
-          /* Turmeric Gold per brand guidelines — taglines use Gold */
           color: #D4A42C; letter-spacing: 0.08em;
-          margin-bottom: 48px;
+          margin-bottom: clamp(20px, 3vw, 36px);
           opacity: 0; animation: hpFade 0.8s ease 2s forwards;
         }
         .hp-hero-h1 {
           font-family: 'Playfair Display', serif;
-          font-weight: 700; font-size: clamp(3.6rem, 6vw, 5.5rem);
+          font-weight: 700;
+          font-size: clamp(2.8rem, 5vw, 4.6rem);
           line-height: 1.05; color: #333333;
-          margin-bottom: 40px; letter-spacing: 0.01em;
+          margin-bottom: clamp(20px, 3vw, 32px); letter-spacing: 0.01em;
         }
         .hp-hero-h1-line { display: block; overflow: hidden; padding-bottom: 0.12em; }
         .hp-hero-h1-inner { display: block; animation: hpReveal 1s cubic-bezier(.16,1,.3,1) forwards; }
@@ -134,8 +135,8 @@ export default function Homepage() {
         .hp-l3 { animation-delay: 2.5s; }
         .hp-hero-body {
           font-family: 'Lato', sans-serif;
-          font-size: 16px; line-height: 1.75; color: #333333;
-          max-width: 440px; margin-bottom: 48px;
+          font-size: 15px; line-height: 1.65; color: #333333;
+          max-width: 440px; margin-bottom: clamp(20px, 3vw, 32px);
           opacity: 0; animation: hpFade 0.8s ease 2.8s forwards;
         }
         .hp-hero-cta {
@@ -241,6 +242,15 @@ export default function Homepage() {
           display: grid; grid-template-columns: 1fr 1fr;
           gap: 80px; align-items: center;
         }
+        @media (min-width: 1025px) {
+          .hp-about {
+            height: 100vh; min-height: 640px;
+            padding: clamp(48px, 6vw, 80px) 80px;
+            overflow: hidden;
+          }
+          .hp-about-img-wrap { max-height: 100%; }
+          .hp-about-img-wrap .hp-about-img { max-height: 80vh; width: auto; max-width: 100%; object-fit: contain; margin: 0 auto; }
+        }
         .hp-about-img-wrap { position: relative; }
         .hp-about-img {
           width: 100%; height: auto;
@@ -274,22 +284,22 @@ export default function Homepage() {
           width: 24px; opacity: 0.35; margin-top: 8px; display: block; margin-left: auto;
         }
         .hp-about-eyebrow {
-          font-family: 'Lato', sans-serif; font-size: 14px;
+          font-family: 'Lato', sans-serif; font-size: 13px;
           letter-spacing: 0.2em; text-transform: uppercase;
-          color: #D9A6A1; margin-bottom: 32px;
+          color: #D9A6A1; margin-bottom: clamp(14px, 2vw, 22px);
         }
         .hp-about-h2 {
           font-family: 'Playfair Display', serif;
-          font-size: clamp(2rem, 3vw, 2.8rem); font-weight: 700;
-          line-height: 1.25; color: #333333; margin-bottom: 36px;
+          font-size: clamp(1.6rem, 2.6vw, 2.4rem); font-weight: 700;
+          line-height: 1.2; color: #333333; margin-bottom: clamp(16px, 2.4vw, 24px);
         }
         .hp-about-body {
           font-family: 'Lato', sans-serif;
-          font-size: 16px; line-height: 1.75; color: #333333;
-          margin-bottom: 16px; max-width: 500px;
+          font-size: 15px; line-height: 1.6; color: #333333;
+          margin-bottom: 12px; max-width: 500px;
         }
         .hp-about-sig {
-          margin-top: 40px;
+          margin-top: clamp(16px, 2.4vw, 24px);
           font-family: 'Lora', serif;
           font-style: italic; font-size: 1.05rem; color: #D9A6A1;
           display: flex; align-items: center; gap: 12px;
@@ -328,9 +338,10 @@ export default function Homepage() {
         .hp-pillar-num-row {
           display: flex;
           align-items: center;
+          justify-content: flex-start;
           gap: 12px;
           margin-bottom: 20px;
-          min-height: 64px;
+          min-height: 72px;
         }
         .hp-pillar-num {
           font-family: 'Playfair Display', serif;
@@ -486,7 +497,6 @@ export default function Homepage() {
         .hp-v-card {
           background: #FFFFFF;
           padding: 48px 36px;
-          border-left: 3px solid #D9A6A1;
           position: relative;
           transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
@@ -686,9 +696,6 @@ export default function Homepage() {
         </div>
         <div className="hp-hero-right">
           <div className="hp-hero-img" style={{ backgroundImage: "url('/assets/hero-bhutan.jpg')" }} />
-          <div className="hp-hero-tree-glyph" aria-hidden="true">
-            <Glyph name="Trees" variant="White" size={112} opacity={0.6} />
-          </div>
           <span className="hp-hero-credit">Photo: Kelly Dorji</span>
         </div>
       </section>
@@ -723,17 +730,6 @@ export default function Homepage() {
         <FU>
           <div className="hp-about-img-wrap">
             <img src="/assets/Puravida_Photo-Frame-2-Harsha.png" alt="Harsha" className="hp-about-img" />
-            <div className="hp-about-float">
-              <img
-                src="/assets/05. GRAPHIC ELEMENTS/Puravida_Quote-Frame-1/Quote-Upper.png"
-                alt="" aria-hidden="true" className="hp-about-float-q-upper"
-              />
-              <p>Tea tastes different in Bhutan: slower, quieter, exactly where you are.</p>
-              <img
-                src="/assets/05. GRAPHIC ELEMENTS/Puravida_Quote-Frame-1/Quote-Lower.png"
-                alt="" aria-hidden="true" className="hp-about-float-q-lower"
-              />
-            </div>
           </div>
         </FU>
         <FU d={1}>
@@ -773,8 +769,7 @@ export default function Homepage() {
             <FU key={i} d={i * 0.5}>
               <div className="hp-pillar">
                 <div className="hp-pillar-num-row">
-                  <p className="hp-pillar-num">{p.n}</p>
-                  <Glyph name={p.glyph} variant="Charcoal" size={p.glyphSize || 32} opacity={0.4} />
+                  <Glyph name={p.glyph} variant="Charcoal" size={64} opacity={0.5} />
                 </div>
                 <h3 className="hp-pillar-title">{p.t}</h3>
                 <p className="hp-pillar-text">{p.p}</p>
@@ -792,8 +787,7 @@ export default function Homepage() {
       {/* ══ 5. JOURNEYS ══ */}
       <section className="hp-journeys" id="journeys">
         <div className="hp-j-header">
-          <FU><h2 className="hp-j-h2">Current Journeys</h2></FU>
-          <FU d={0.5}><p className="hp-j-count">2026 Portfolio: Four Destinations</p></FU>
+          <FU><h2 className="hp-j-h2">Journeys</h2></FU>
         </div>
         <div className="hp-j-grid">
           {JOURNEYS.map((j, i) => (
@@ -811,34 +805,6 @@ export default function Homepage() {
           ))}
         </div>
       </section>
-
-      {/* ── Journeys → Immersive divider ── */}
-      <div className="hp-section-divider">
-        <img src={DIVIDER_CENTER_SRC} alt="" aria-hidden="true" />
-      </div>
-
-      {/* ══ 6. IMMERSIVE STRIP ══ */}
-      <div className="hp-immersive">
-        <div className="hp-immersive-bg" />
-        <FU>
-          <div className="hp-immersive-content">
-            <img
-              src="/assets/05. GRAPHIC ELEMENTS/Puravida_Quote-Frame-3/Quote - Upper.png"
-              alt="" aria-hidden="true" className="hp-immersive-leaf hp-immersive-leaf--upper"
-            />
-            <div className="hp-immersive-divider"><Divider width={120} opacity={0.6} /></div>
-            <p className="hp-immersive-q">
-              Bhutan holds a kind of quiet that stays with you long after you return. It asks you to slow down, breathe deeper, and notice the gentle details of life that cities often blur.
-            </p>
-            <img
-              src="/assets/05. GRAPHIC ELEMENTS/Puravida_Quote-Frame-3/Quote - Lower.png"
-              alt="" aria-hidden="true" className="hp-immersive-leaf hp-immersive-leaf--lower"
-            />
-            <p className="hp-immersive-attr">From the Bhutan Itinerary</p>
-          </div>
-        </FU>
-        <span className="hp-hero-credit">Photo: Kelly Dorji</span>
-      </div>
 
       {/* ── Immersive → Testimonials divider ── */}
       <div className="hp-section-divider">
@@ -865,7 +831,7 @@ export default function Homepage() {
                 <p className="hp-v-name">{v.name}</p>
                 <p className="hp-v-trip">{v.trip}</p>
                 <img
-                  src="/assets/05. GRAPHIC ELEMENTS/Puravida_Quote-Frame-3/Quote - Lower.png"
+                  src="/assets/05. GRAPHIC ELEMENTS/Puravida_Quote-Frame-1/Quote-Lower.png"
                   alt="" aria-hidden="true" className="hp-v-leaf"
                 />
               </div>

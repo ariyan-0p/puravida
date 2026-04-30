@@ -113,7 +113,7 @@ const DAYS = [
     farewell: null,
   },
   {
-    num: '02', title: 'Thimphu Sightseeing and Night Out', travel: null,
+    num: '02', title: 'Thimphu Sightseeing & Night Out', travel: null,
     city: 'Thimphu', hotel: 'Himalayan Keys Forest Resort',
     periods: [
       { label: 'Morning', items: [
@@ -310,11 +310,27 @@ export default function BhutanJourney() {
         }
         .bj-hero-tagline {
           font-family: 'Lora', serif; font-style: italic;
-          font-size: clamp(18px, 2.5vw, 24px); line-height: 1.5;
-          /* Turmeric Gold per brand guidelines */
-          color: #D4A42C;
+          font-size: clamp(20px, 2.8vw, 28px); line-height: 1.4;
+          color: #FFFFFF;
           opacity: 0; animation: bjFade 1s ease 1.2s forwards;
+          display: inline-grid;
+          grid-template-columns: auto auto auto;
+          grid-template-rows: auto auto;
+          align-items: center; justify-items: center;
+          column-gap: 14px; row-gap: 0;
+          margin: 0;
         }
+        .bj-tagline-text {
+          grid-column: 2; grid-row: 1 / span 2;
+          text-align: center;
+        }
+        .bj-tagline-orn {
+          width: clamp(16px, 1.8vw, 22px);
+          height: auto; flex-shrink: 0;
+          filter: brightness(0) invert(1);
+        }
+        .bj-tagline-orn-left { grid-column: 1; grid-row: 1; align-self: start; }
+        .bj-tagline-orn-right { grid-column: 3; grid-row: 2; align-self: end; }
         .bj-hero-credit {
           position: absolute; bottom: 20px; right: 24px; z-index: 3;
           font-family: 'Lato', sans-serif; font-size: 12px;
@@ -374,6 +390,7 @@ export default function BhutanJourney() {
         .bj-invite-trees {
           position: absolute; bottom: 16px; right: clamp(24px, 5vw, 60px);
           display: flex; gap: -4px; align-items: flex-end;
+          transform: scaleX(-1);
         }
 
         /* ══ WALK WITH KELLY DORJI ══ */
@@ -399,14 +416,22 @@ export default function BhutanJourney() {
           width: 100%; height: 100%; object-fit: contain; pointer-events: none;
         }
         .bj-kelly-rule { display: flex; justify-content: center; margin: 0; }
-        .bj-kelly-rule--above { margin-bottom: clamp(18px, 3vw, 26px); }
-        .bj-kelly-rule--below { margin-top: clamp(18px, 3vw, 26px); margin-bottom: clamp(20px, 3.5vw, 28px); }
-        .bj-kelly-rule img { width: clamp(220px, 62vw, 400px); opacity: 0.52; }
+        .bj-kelly-rule--above { margin-bottom: clamp(20px, 3.2vw, 32px); }
+        .bj-kelly-rule--below { margin-top: clamp(18px, 3vw, 28px); margin-bottom: clamp(14px, 2.4vw, 22px); }
+        .bj-kelly-rule img { width: clamp(280px, 78vw, 520px); opacity: 0.78; }
         .bj-kelly-head { max-width: 520px; margin: 0 auto; }
         .bj-kelly h2 {
           font-family: 'Playfair Display', serif; font-weight: 700;
-          font-size: clamp(1.85rem, 4.2vw, 2.85rem);
-          line-height: 1.18; color: #252525; margin: 0;
+          line-height: 1.12; color: #252525; margin: 0;
+          display: flex; flex-direction: column; align-items: center;
+        }
+        .bj-kelly-h2-top {
+          font-size: clamp(2.1rem, 4.8vw, 3.2rem);
+          font-weight: 700;
+        }
+        .bj-kelly-h2-bottom {
+          font-size: clamp(1.7rem, 3.9vw, 2.55rem);
+          font-weight: 500;
         }
         .bj-kelly-subtitle {
           font-family: 'Lora', serif; font-style: italic;
@@ -445,15 +470,16 @@ export default function BhutanJourney() {
 
         .bj-day { margin: 0; }
         .bj-day-head {
-          background: #F5F0EB; padding: 60px 80px 32px;
+          background: #F5F0EB; padding: 96px 80px 32px;
           position: relative;
         }
         .bj-day-head-glyph { position: absolute; top: 16px; right: 24px; opacity: 0.12; }
-        .bj-day-divider-row { position: relative; margin-top: 16px; }
-        .bj-day-divider-row img.bj-day-divider-line { width: 100%; height: auto; opacity: 0.5; display: block; }
+        .bj-day-divider-row { position: relative; margin-top: clamp(56px, 9vw, 88px); }
+        .bj-day-divider-row img.bj-day-divider-line { width: 100%; height: auto; opacity: 0.5; display: block; position: relative; z-index: 1; }
         .bj-day-divider-mountain {
-          position: absolute; right: 10%; bottom: 40%;
-          height: clamp(72px, 10vw, 100px); width: auto; opacity: 0.85;
+          position: absolute; right: 4%; bottom: 50%;
+          height: clamp(56px, 9vw, 88px); width: auto; opacity: 0.9;
+          z-index: 2;
         }
         .bj-day-label {
           font-family: 'Lato', sans-serif; font-size: 13px; font-weight: 700;
@@ -462,7 +488,8 @@ export default function BhutanJourney() {
         .bj-day-label-num { color: #D9A6A1; }
         .bj-day-title {
           font-family: 'Playfair Display', serif; font-weight: 700;
-          font-size: clamp(1.25rem, 2vw, 1.6rem); line-height: 1.3; color: #333333; margin-bottom: 4px;
+          font-size: clamp(1.4rem, 2.4vw, 1.85rem); line-height: 1.2; color: #333333; margin-bottom: 4px;
+          max-width: 18ch;
         }
         .bj-day-travel {
           font-family: 'Lato', sans-serif; font-size: 14px; color: #333333;
@@ -515,22 +542,31 @@ export default function BhutanJourney() {
           max-width: 640px;
           margin: 28px auto;
         }
-        .bj-period-divider { margin: 24px 0; }
+        .bj-period-divider { margin: 8px 0 22px; display: flex; justify-content: center; }
+        .bj-period-divider img { width: 100%; max-width: none; opacity: 0.7; }
 
         /* Overnight footer — Sage per brand guidelines */
         .bj-day-foot {
-          background: #B7C8B5; padding: 24px 24px 0;
+          background: #B7C8B5; padding: 28px 24px 14px;
           position: relative;
         }
         .bj-overnight-content {
-          display: flex; align-items: center; justify-content: center; gap: 20px;
-          padding-bottom: 16px;
+          display: grid;
+          grid-template-columns: 1fr auto 1fr;
+          align-items: end; justify-items: center;
+          gap: clamp(12px, 3vw, 32px);
+          padding-bottom: 6px; max-width: 760px; margin: 0 auto;
         }
+        .bj-overnight-trees { line-height: 0; }
+        .bj-overnight-trees--left { justify-self: end; }
+        .bj-overnight-trees--right { justify-self: start; transform: scaleX(-1); }
+        .bj-overnight-trees img { width: clamp(48px, 14vw, 92px); height: auto; }
         .bj-day-foot-text {
-          font-family: 'Lato', sans-serif; font-size: 15px; font-weight: 700;
-          color: #333333; letter-spacing: 0.02em;
+          font-family: 'Playfair Display', serif; font-weight: 700;
+          font-size: clamp(15px, 2vw, 20px); line-height: 1.35;
+          color: #333333; text-align: center;
         }
-        .bj-overnight-divider-line { width: 100%; height: auto; opacity: 0.35; display: block; }
+        .bj-overnight-divider-line { width: 100%; height: auto; opacity: 0.6; display: block; }
 
         /* Farewell card */
         .bj-farewell-wrap { background: #F5F0EB; padding: 60px 24px 80px; text-align: center; overflow: visible; }
@@ -709,7 +745,7 @@ export default function BhutanJourney() {
           .bj-kelly-mountain-img { width: clamp(180px, 42vw, 320px); }
           .bj-itin { padding: 80px 0; }
           .bj-itin-header { padding: 0 40px; }
-          .bj-day-head { padding: 28px 28px 20px; }
+          .bj-day-head { padding: 64px 28px 20px; }
           .bj-day-body { padding: 28px 32px; }
           .bj-day-foot { padding: 20px 24px 0; }
           .bj-invest { padding: 80px 40px; }
@@ -719,7 +755,7 @@ export default function BhutanJourney() {
           .bj-cta { padding: 80px 40px 0; }
           .bj-cta-date-bar { margin: 0 -40px; }
           .bj-final { min-height: 40vh; }
-          .bj-day-divider-mountain { height: clamp(40px, 8vw, 60px); right: 6%; bottom: 0; }
+          .bj-day-divider-mountain { height: clamp(50px, 9vw, 76px); right: 4%; bottom: 50%; }
           .bj-farewell-card { padding: 28px 24px; }
         }
         @media (max-width: 600px) {
@@ -728,10 +764,10 @@ export default function BhutanJourney() {
           .bj-kelly-mountain-img { width: clamp(160px, 46vw, 240px); }
           .bj-itin { padding: 60px 0; }
           .bj-itin-header { padding: 0 24px; }
-          .bj-day-head { padding: 24px 20px 16px; }
-          .bj-day-divider-mountain { height: 36px; right: 4%; bottom: 0; }
+          .bj-day-head { padding: 56px 20px 16px; }
+          .bj-day-divider-mountain { height: 52px; right: 3%; bottom: 50%; }
           .bj-day-body { padding: 24px 20px; }
-          .bj-day-foot { padding: 16px 20px 0; }
+          .bj-day-foot { padding: 20px 20px 12px; }
           .bj-invest { padding: 60px 24px; }
           .bj-inv-col { padding: 24px 20px; }
           .bj-icon-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
@@ -754,10 +790,13 @@ export default function BhutanJourney() {
       <section className="bj-hero">
         <div className="bj-hero-bg" />
         <div className="bj-hero-content">
-          <img src="/assets/01. LOGOS/Logo-Main-White.png" alt="PuraVida with Harsha" className="bj-hero-logo" />
           <h1 className="bj-hero-title">Bhutan</h1>
           <p className="bj-hero-dates">April 9 to 16, 2026</p>
-          <p className="bj-hero-tagline">Where stillness finds you</p>
+          <p className="bj-hero-tagline">
+            <img src="/assets/Puravida_Quote-Frame-2-20260405T104951Z-3-001/Puravida_Quote-Frame-2/Quote-Upper.png" alt="" className="bj-tagline-orn bj-tagline-orn-left" />
+            <span className="bj-tagline-text">Where stillness<br />finds you</span>
+            <img src="/assets/Puravida_Quote-Frame-2-20260405T104951Z-3-001/Puravida_Quote-Frame-2/Quote-Lower.png" alt="" className="bj-tagline-orn bj-tagline-orn-right" />
+          </p>
         </div>
         <span className="bj-hero-credit">Photo: Kelly Dorji</span>
       </section>
@@ -810,13 +849,13 @@ export default function BhutanJourney() {
               <div className="bj-kelly-rule bj-kelly-rule--above">
                 <img src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png" alt="" aria-hidden="true" />
               </div>
-              <h2>Walk Bhutan<br />with Kelly Dorji</h2>
-              <p className="bj-kelly-subtitle">Your cultural bridge.</p>
-            </div>
-            <div className="bj-kelly-body-wrap">
+              <h2><span className="bj-kelly-h2-top">Walk Bhutan</span><span className="bj-kelly-h2-bottom">with Kelly Dorji</span></h2>
               <div className="bj-kelly-rule bj-kelly-rule--below">
                 <img src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png" alt="" aria-hidden="true" />
               </div>
+              <p className="bj-kelly-subtitle">Your cultural bridge.</p>
+            </div>
+            <div className="bj-kelly-body-wrap">
               <p className="bj-kelly-body">
                 Kelly is one of Bhutan's most respected cultural custodians, rooted in
                 Himalayan heritage, art, and spirituality. He brings depth, humour, and a lived
@@ -828,10 +867,10 @@ export default function BhutanJourney() {
         </FU>
         <div className="bj-kelly-mountains">
           <div className="bj-kelly-mountain-side">
-            <img src={encodeURI('/assets/05. GRAPHIC ELEMENTS/Glyphs/Charcoal/Mountains/Mountains.png')} alt="" aria-hidden="true" className="bj-kelly-mountain-img" />
+            <img src={encodeURI('/assets/05. GRAPHIC ELEMENTS/Glyphs/White/Mountains/Mountains.png')} alt="" aria-hidden="true" className="bj-kelly-mountain-img" />
           </div>
           <div className="bj-kelly-mountain-side bj-kelly-mountain-right">
-            <img src={encodeURI('/assets/05. GRAPHIC ELEMENTS/Glyphs/Charcoal/Mountains/Mountains.png')} alt="" aria-hidden="true" className="bj-kelly-mountain-img" />
+            <img src={encodeURI('/assets/05. GRAPHIC ELEMENTS/Glyphs/White/Mountains/Mountains.png')} alt="" aria-hidden="true" className="bj-kelly-mountain-img" />
           </div>
         </div>
       </section>
@@ -869,9 +908,6 @@ export default function BhutanJourney() {
                   <div className="bj-day-card-frame"><img src="/assets/Frame.png" alt="" aria-hidden="true" /></div>
                   {day.periods.map((period, pi) => (
                     <div key={period.label} style={{ position: 'relative', zIndex: 2 }}>
-                      {pi > 0 && (
-                        <div className="bj-period-divider"><Divider width={160} opacity={0.35} /></div>
-                      )}
                       <div className="bj-period">
                         <p className="bj-period-label">{period.label}</p>
                         {period.items.map((act, ai) => (
@@ -883,6 +919,9 @@ export default function BhutanJourney() {
                             </div>
                           </div>
                         ))}
+                      </div>
+                      <div className="bj-period-divider">
+                        <img src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png" alt="" aria-hidden="true" />
                       </div>
                     </div>
                   ))}
@@ -911,9 +950,13 @@ export default function BhutanJourney() {
               ) : (
                 <div className="bj-day-foot">
                   <div className="bj-overnight-content">
-                    <Glyph name="Trees" variant="Charcoal" size={48} opacity={0.4} />
-                    <span className="bj-day-foot-text">Overnight in {day.city}: {day.hotel}</span>
-                    <Glyph name="Trees" variant="Charcoal" size={48} opacity={0.4} />
+                    <div className="bj-overnight-trees bj-overnight-trees--left">
+                      <Glyph name="Trees" variant="Charcoal" size={92} opacity={0.85} />
+                    </div>
+                    <span className="bj-day-foot-text">Overnight in {day.city} &ndash;<br />{day.hotel}.</span>
+                    <div className="bj-overnight-trees bj-overnight-trees--right">
+                      <Glyph name="Trees" variant="Charcoal" size={92} opacity={0.85} />
+                    </div>
                   </div>
                   <img src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png" className="bj-overnight-divider-line" alt="" aria-hidden="true" />
                 </div>

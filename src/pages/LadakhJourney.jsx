@@ -286,7 +286,7 @@ export default function LadakhJourney() {
           text-shadow: 0 4px 40px rgba(0,0,0,0.3);
         }
         .lk-hero-dates {
-          position: absolute; bottom: 60px; left: 50%; transform: translateX(-50%);
+          position: absolute; bottom: 140px; left: 50%; transform: translateX(-50%);
           z-index: 2;
           font-family: 'Lato', sans-serif;
           font-size: clamp(1.1rem, 2.2vw, 1.5rem); font-weight: 400;
@@ -297,13 +297,29 @@ export default function LadakhJourney() {
           font-size: 0.65em; vertical-align: super;
         }
         .lk-hero-tagline {
-          position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+          position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
           z-index: 2;
           font-family: 'Lora', serif; font-style: italic;
-          font-size: clamp(18px, 2.5vw, 24px); line-height: 1.5;
-          color: #D4A42C; letter-spacing: 0.04em;
+          font-size: clamp(20px, 2.8vw, 28px); line-height: 1.4;
+          color: #FFFFFF; letter-spacing: 0.02em;
+          margin: 0;
+          display: inline-grid;
+          grid-template-columns: auto auto auto;
+          grid-template-rows: auto auto;
+          align-items: center; justify-items: center;
+          column-gap: 14px; row-gap: 0;
+        }
+        .lk-tagline-text {
+          grid-column: 2; grid-row: 1 / span 2;
           text-align: center; white-space: nowrap;
         }
+        .lk-tagline-orn {
+          width: clamp(16px, 1.8vw, 22px);
+          height: auto; flex-shrink: 0;
+          filter: brightness(0) invert(1);
+        }
+        .lk-tagline-orn-left { grid-column: 1; grid-row: 1; align-self: start; }
+        .lk-tagline-orn-right { grid-column: 3; grid-row: 2; align-self: end; }
 
         /* ── INVITATION FROM HARSHA ── */
         .lk-invite {
@@ -418,17 +434,25 @@ export default function LadakhJourney() {
           justify-content: center;
           margin: 0;
         }
-        .lk-guide-rule--above { margin-bottom: clamp(18px, 3vw, 26px); }
-        .lk-guide-rule--below { margin-top: clamp(18px, 3vw, 26px); margin-bottom: clamp(20px, 3.5vw, 28px); }
-        .lk-guide-rule img { width: clamp(220px, 62vw, 400px); opacity: 0.52; }
+        .lk-guide-rule--above { margin-bottom: clamp(20px, 3.2vw, 32px); }
+        .lk-guide-rule--below { margin-top: clamp(18px, 3vw, 28px); margin-bottom: clamp(14px, 2.4vw, 22px); }
+        .lk-guide-rule img { width: clamp(280px, 78vw, 520px); opacity: 0.78; }
         .lk-guide-head { max-width: 520px; margin: 0 auto; }
         .lk-guide-title {
           font-family: 'Playfair Display', serif;
-          font-size: clamp(1.85rem, 4.2vw, 2.85rem);
           font-weight: 700;
           color: #252525;
-          line-height: 1.18;
+          line-height: 1.12;
           margin: 0;
+          display: flex; flex-direction: column; align-items: center;
+        }
+        .lk-guide-title-top {
+          font-size: clamp(2.1rem, 4.8vw, 3.2rem);
+          font-weight: 700;
+        }
+        .lk-guide-title-bottom {
+          font-size: clamp(1.7rem, 3.9vw, 2.55rem);
+          font-weight: 500;
         }
         .lk-guide-subtitle {
           font-family: 'Lora', serif;
@@ -492,7 +516,7 @@ export default function LadakhJourney() {
         }
 
         /* ── DAY CARDS ── */
-        .lk-day-header { background: #F5F0EB; padding: 60px 80px 32px; position: relative; }
+        .lk-day-header { background: #F5F0EB; padding: 96px 80px 32px; position: relative; }
         .lk-day-num {
           font-family: 'Lato', sans-serif; font-size: 14px; font-weight: 400;
           letter-spacing: 0.1em; text-transform: uppercase; color: #333333; margin-bottom: 4px;
@@ -500,27 +524,31 @@ export default function LadakhJourney() {
         .lk-day-num span { color: #D9A6A1; font-weight: 700; }
         .lk-day-title {
           font-family: 'Playfair Display', serif;
-          font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700;
-          color: #333333; line-height: 1.15; max-width: 550px;
+          font-size: clamp(1.4rem, 2.4vw, 1.85rem); font-weight: 700;
+          color: #333333; line-height: 1.2; max-width: 18ch;
+          margin-bottom: 4px;
         }
         .lk-day-subtitle { font-family: 'Lato', sans-serif; font-size: 14px; color: #333333; opacity: 0.6; margin-top: 8px; font-style: italic; }
         .lk-day-divider-row {
           position: relative;
-          margin-top: 16px;
+          margin-top: clamp(56px, 9vw, 88px);
         }
         .lk-day-divider-row img.lk-day-divider-line {
           width: 100%;
           height: auto;
           opacity: 0.5;
           display: block;
+          position: relative;
+          z-index: 1;
         }
         .lk-day-divider-mountain {
           position: absolute;
-          right: 10%;
-          bottom: 40%;
-          height: clamp(72px, 10vw, 100px);
+          right: 4%;
+          bottom: 50%;
+          height: clamp(56px, 9vw, 88px);
           width: auto;
-          opacity: 0.85;
+          opacity: 0.9;
+          z-index: 2;
         }
 
         .lk-day-body { background: #F5F0EB; padding: 0 80px 60px; }
@@ -555,29 +583,38 @@ export default function LadakhJourney() {
         .lk-pullquote { background: #F5F0EB; padding: 80px clamp(28px, 5vw, 60px); text-align: center; }
         .lk-pullquote-text { font-family: 'Lora', serif; font-style: italic; font-size: 20px; line-height: 1.7; color: #333333; max-width: 640px; margin: 28px auto; }
 
-        .lk-time-divider { margin: 28px 0; }
+        .lk-time-divider { margin: 8px 0 22px; display: flex; justify-content: center; }
+        .lk-time-divider img { width: 100%; max-width: none; opacity: 0.7; }
 
         /* Overnight footer */
         .lk-overnight {
           background: #B7C8B5;
-          padding: 24px 24px 0;
+          padding: 28px 24px 14px;
           position: relative;
         }
         .lk-overnight-content {
-          display: flex; align-items: center; justify-content: center; gap: 20px;
-          padding-bottom: 16px;
+          display: grid;
+          grid-template-columns: 1fr auto 1fr;
+          align-items: end; justify-items: center;
+          gap: clamp(12px, 3vw, 32px);
+          padding-bottom: 6px; max-width: 760px; margin: 0 auto;
         }
         .lk-overnight-divider-line {
           width: 100%;
           height: auto;
-          opacity: 0.35;
+          opacity: 0.6;
           display: block;
         }
         .lk-overnight-text {
-          font-family: 'Lato', sans-serif; font-size: 1.15rem; font-weight: 700;
+          font-family: 'Playfair Display', serif; font-weight: 700;
+          font-size: clamp(15px, 2vw, 20px); line-height: 1.35;
           color: #333333; text-align: center;
+          margin: 0;
         }
-        .lk-overnight-trees { display: flex; gap: 4px; }
+        .lk-overnight-trees { line-height: 0; }
+        .lk-overnight-trees--left { justify-self: end; }
+        .lk-overnight-trees--right { justify-self: start; transform: scaleX(-1); }
+        .lk-overnight-trees img { width: clamp(48px, 14vw, 92px); height: auto; }
 
         /* Farewell card */
         .lk-farewell-wrap { background: #F5F0EB; padding: 60px 24px 80px; text-align: center; overflow: visible; }
@@ -780,9 +817,9 @@ export default function LadakhJourney() {
             padding-right: max(40px, env(safe-area-inset-right, 0px));
           }
           .lk-guide-mountains { gap: clamp(10px, 4vw, 48px); }
-          .lk-day-header { padding: 48px 48px 24px; }
+          .lk-day-header { padding: 64px 48px 24px; }
           .lk-day-body { padding: 0 48px 48px; }
-          .lk-overnight { padding: 24px 48px; }
+          .lk-overnight { padding: 24px 48px 14px; }
           .lk-investment { padding: 80px 48px; }
           .lk-icon-grid { grid-template-columns: repeat(3, 1fr); }
           .lk-cta { padding: 80px 48px 0; }
@@ -829,11 +866,11 @@ export default function LadakhJourney() {
           .lk-guide-img { width: 74%; height: 74%; max-width: 182px; max-height: 182px; }
           .lk-guide-rule img { width: min(88vw, 360px); }
           .lk-guide-title { font-size: clamp(1.55rem, 5.2vw, 2.4rem); }
-          .lk-day-header { padding: 40px 24px 20px; }
+          .lk-day-header { padding: 56px 24px 20px; }
           .lk-day-body { padding: 0 24px 40px; }
           .lk-day-card { padding: 28px 24px; }
-          .lk-day-divider-mountain { height: clamp(56px, 10vw, 80px); }
-          .lk-overnight { padding: 20px 24px; }
+          .lk-day-divider-mountain { height: clamp(50px, 9vw, 76px); right: 3%; bottom: 0; }
+          .lk-overnight { padding: 20px 24px 12px; }
           .lk-investment { padding: 60px 20px; }
           .lk-inv-grid { grid-template-columns: 1fr 1fr; }
           .lk-inv-col { padding: 16px 12px; }
@@ -846,7 +883,7 @@ export default function LadakhJourney() {
           .lk-farewell-card { padding: 28px 24px; }
           .lk-final-quote { padding: 16px 24px; }
           .lk-hero-logo { height: 56px; top: 20px; left: 20px; }
-          .lk-hero-dates { bottom: 40px; }
+          .lk-hero-dates { bottom: 120px; }
           .lk-final-quote p { font-size: 1.25rem; }
         }
         @media (max-width: 480px) {
@@ -893,7 +930,11 @@ export default function LadakhJourney() {
         <p className="lk-hero-dates">
           September<br />20<sup>th</sup> to 27<sup>th</sup>, 2026
         </p>
-        <p className="lk-hero-tagline">Where stillness finds you</p>
+        <p className="lk-hero-tagline">
+          <img src="/assets/Puravida_Quote-Frame-2-20260405T104951Z-3-001/Puravida_Quote-Frame-2/Quote-Upper.png" alt="" className="lk-tagline-orn lk-tagline-orn-left" />
+          <span className="lk-tagline-text">Where stillness<br />finds you</span>
+          <img src="/assets/Puravida_Quote-Frame-2-20260405T104951Z-3-001/Puravida_Quote-Frame-2/Quote-Lower.png" alt="" className="lk-tagline-orn lk-tagline-orn-right" />
+        </p>
       </section>
 
       {/* ══ INVITATION FROM HARSHA ══ */}
@@ -958,7 +999,8 @@ export default function LadakhJourney() {
                 />
               </div>
               <h2 className="lk-guide-title">
-                Walk Ladakh<br />with Juma Malik
+                <span className="lk-guide-title-top">Walk Ladakh</span>
+                <span className="lk-guide-title-bottom">with Juma Malik</span>
               </h2>
               <div className="lk-guide-rule lk-guide-rule--below">
                 <img
@@ -1037,32 +1079,41 @@ export default function LadakhJourney() {
                   <img src="/assets/Frame.png" alt="" />
                 </div>
                 {day.morning.length > 0 && (
-                  <div className="lk-time-section">
-                    <h3 className="lk-time-heading">Morning</h3>
-                    {day.morning.map((a, i) => (
-                      <DayActivity key={i} icon={a.icon} text={a.text} note={a.note} />
-                    ))}
-                  </div>
+                  <>
+                    <div className="lk-time-section">
+                      <h3 className="lk-time-heading">Morning</h3>
+                      {day.morning.map((a, i) => (
+                        <DayActivity key={i} icon={a.icon} text={a.text} note={a.note} />
+                      ))}
+                    </div>
+                    <div className="lk-time-divider">
+                      <img src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png" alt="" aria-hidden="true" />
+                    </div>
+                  </>
                 )}
                 {day.afternoon.length > 0 && (
                   <>
-                    <div className="lk-time-divider"><Divider width={160} opacity={0.35} /></div>
                     <div className="lk-time-section">
                       <h3 className="lk-time-heading">Afternoon</h3>
                       {day.afternoon.map((a, i) => (
                         <DayActivity key={i} icon={a.icon} text={a.text} note={a.note} />
                       ))}
                     </div>
+                    <div className="lk-time-divider">
+                      <img src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png" alt="" aria-hidden="true" />
+                    </div>
                   </>
                 )}
                 {day.evening.length > 0 && (
                   <>
-                    <div className="lk-time-divider"><Divider width={160} opacity={0.35} /></div>
                     <div className="lk-time-section">
                       <h3 className="lk-time-heading">Evening</h3>
                       {day.evening.map((a, i) => (
                         <DayActivity key={i} icon={a.icon} text={a.text} note={a.note} />
                       ))}
+                    </div>
+                    <div className="lk-time-divider">
+                      <img src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png" alt="" aria-hidden="true" />
                     </div>
                   </>
                 )}
@@ -1091,9 +1142,13 @@ export default function LadakhJourney() {
               <>
                 <div className="lk-overnight">
                   <div className="lk-overnight-content">
-                    <Glyph name="Trees" size={48} opacity={0.4} />
-                    <p className="lk-overnight-text">Overnight in {day.overnight}: {day.hotel}</p>
-                    <Glyph name="Trees" size={48} opacity={0.4} />
+                    <div className="lk-overnight-trees lk-overnight-trees--left">
+                      <Glyph name="Trees" size={92} opacity={0.85} />
+                    </div>
+                    <p className="lk-overnight-text">Overnight in {day.overnight} &ndash;<br />{day.hotel}.</p>
+                    <div className="lk-overnight-trees lk-overnight-trees--right">
+                      <Glyph name="Trees" size={92} opacity={0.85} />
+                    </div>
                   </div>
                   <img
                     src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png"
