@@ -714,12 +714,12 @@ export default function BhutanJourney() {
 
         /* ══ FINAL QUOTE STRIP ══ */
         .bj-final {
-          position: relative; min-height: 50vh;
+          position: relative; min-height: 70vh;
           display: flex; align-items: center; justify-content: center; overflow: hidden;
         }
         .bj-final-bg {
           position: absolute; inset: 0;
-          background: url('/assets/hero-bhutan.jpg') center 30% / cover no-repeat;
+          background: url('/assets/hero-bhutan.jpg') center 65% / cover no-repeat;
         }
         .bj-final-bg::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.10); }
         .bj-final-content {
@@ -926,7 +926,7 @@ export default function BhutanJourney() {
                     </div>
                   ))}
                   <div className="bj-day-body-pause">
-                    <Glyph name="Pause" variant="Charcoal" size={48} opacity={0.15} />
+                    <Glyph name="Pause" variant="Charcoal" size={64} opacity={0.5} />
                   </div>
                 </div>
               </div>
@@ -963,17 +963,6 @@ export default function BhutanJourney() {
               )}
             </div>
           </FU>
-          {di === 3 && (
-            <FU>
-              <div className="bj-pullquote">
-                <Divider width={160} opacity={0.4} />
-                <p className="bj-pullquote-text">
-                  The mountains do not ask anything of you. They hold you while you remember how to breathe.
-                </p>
-                <Divider width={160} opacity={0.4} />
-              </div>
-            </FU>
-          )}
           </React.Fragment>
         ))}
       </section>
