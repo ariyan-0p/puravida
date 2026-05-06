@@ -547,26 +547,24 @@ export default function BhutanJourney() {
 
         /* Overnight footer — Sage per brand guidelines */
         .bj-day-foot {
-          background: #B7C8B5; padding: 28px 24px 14px;
+          background: #B7C8B5;
+          padding: clamp(28px, 5vw, 48px) clamp(20px, 4vw, 48px) clamp(14px, 2.5vw, 24px);
           position: relative;
         }
-        .bj-overnight-content {
-          display: grid;
-          grid-template-columns: 1fr auto 1fr;
-          align-items: end; justify-items: center;
-          gap: clamp(12px, 3vw, 32px);
-          padding-bottom: 6px; max-width: 760px; margin: 0 auto;
+        .bj-overnight-tree-divider {
+          position: relative; max-width: 880px; margin: 0 auto;
         }
-        .bj-overnight-trees { line-height: 0; }
-        .bj-overnight-trees--left { justify-self: end; }
-        .bj-overnight-trees--right { justify-self: start; transform: scaleX(-1); }
-        .bj-overnight-trees img { width: clamp(48px, 14vw, 92px); height: auto; }
+        .bj-overnight-tree-divider img {
+          width: 100%; height: auto; display: block; opacity: 0.85;
+        }
         .bj-day-foot-text {
+          position: absolute;
+          top: 42%; left: 50%; transform: translate(-50%, -50%);
           font-family: 'Playfair Display', serif; font-weight: 700;
-          font-size: clamp(15px, 2vw, 20px); line-height: 1.35;
+          font-size: clamp(13px, 2vw, 20px); line-height: 1.3;
           color: #333333; text-align: center;
+          width: 56%;
         }
-        .bj-overnight-divider-line { width: 100%; height: auto; opacity: 0.6; display: block; }
 
         /* Farewell card */
         .bj-farewell-wrap { background: #F5F0EB; padding: 60px 24px 80px; text-align: center; overflow: visible; }
@@ -949,16 +947,10 @@ export default function BhutanJourney() {
                 </>
               ) : (
                 <div className="bj-day-foot">
-                  <div className="bj-overnight-content">
-                    <div className="bj-overnight-trees bj-overnight-trees--left">
-                      <Glyph name="Trees" variant="Charcoal" size={92} opacity={0.85} />
-                    </div>
+                  <div className="bj-overnight-tree-divider">
+                    <img src="/assets/05. GRAPHIC ELEMENTS/Dividers/Tree-Divider.png" alt="" aria-hidden="true" />
                     <span className="bj-day-foot-text">Overnight in {day.city} &ndash;<br />{day.hotel}.</span>
-                    <div className="bj-overnight-trees bj-overnight-trees--right">
-                      <Glyph name="Trees" variant="Charcoal" size={92} opacity={0.85} />
-                    </div>
                   </div>
-                  <img src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png" className="bj-overnight-divider-line" alt="" aria-hidden="true" />
                 </div>
               )}
             </div>

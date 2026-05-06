@@ -589,32 +589,24 @@ export default function LadakhJourney() {
         /* Overnight footer */
         .lk-overnight {
           background: #B7C8B5;
-          padding: 28px 24px 14px;
+          padding: clamp(28px, 5vw, 48px) clamp(20px, 4vw, 48px) clamp(14px, 2.5vw, 24px);
           position: relative;
         }
-        .lk-overnight-content {
-          display: grid;
-          grid-template-columns: 1fr auto 1fr;
-          align-items: end; justify-items: center;
-          gap: clamp(12px, 3vw, 32px);
-          padding-bottom: 6px; max-width: 760px; margin: 0 auto;
+        .lk-overnight-tree-divider {
+          position: relative; max-width: 880px; margin: 0 auto;
         }
-        .lk-overnight-divider-line {
-          width: 100%;
-          height: auto;
-          opacity: 0.6;
-          display: block;
+        .lk-overnight-tree-divider img {
+          width: 100%; height: auto; display: block; opacity: 0.85;
         }
         .lk-overnight-text {
+          position: absolute;
+          top: 42%; left: 50%; transform: translate(-50%, -50%);
           font-family: 'Playfair Display', serif; font-weight: 700;
-          font-size: clamp(15px, 2vw, 20px); line-height: 1.35;
+          font-size: clamp(13px, 2vw, 20px); line-height: 1.3;
           color: #333333; text-align: center;
           margin: 0;
+          width: 56%;
         }
-        .lk-overnight-trees { line-height: 0; }
-        .lk-overnight-trees--left { justify-self: end; }
-        .lk-overnight-trees--right { justify-self: start; transform: scaleX(-1); }
-        .lk-overnight-trees img { width: clamp(48px, 14vw, 92px); height: auto; }
 
         /* Farewell card */
         .lk-farewell-wrap { background: #F5F0EB; padding: 60px 24px 80px; text-align: center; overflow: visible; }
@@ -1141,20 +1133,13 @@ export default function LadakhJourney() {
             ) : day.overnight ? (
               <>
                 <div className="lk-overnight">
-                  <div className="lk-overnight-content">
-                    <div className="lk-overnight-trees lk-overnight-trees--left">
-                      <Glyph name="Trees" size={92} opacity={0.85} />
-                    </div>
+                  <div className="lk-overnight-tree-divider">
+                    <img
+                      src="/assets/05. GRAPHIC ELEMENTS/Dividers/Tree-Divider.png"
+                      alt="" aria-hidden="true"
+                    />
                     <p className="lk-overnight-text">Overnight in {day.overnight} &ndash;<br />{day.hotel}.</p>
-                    <div className="lk-overnight-trees lk-overnight-trees--right">
-                      <Glyph name="Trees" size={92} opacity={0.85} />
-                    </div>
                   </div>
-                  <img
-                    src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png"
-                    alt="" aria-hidden="true"
-                    className="lk-overnight-divider-line"
-                  />
                 </div>
               </>
             ) : null}
