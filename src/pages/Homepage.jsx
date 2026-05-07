@@ -281,8 +281,7 @@ export default function Homepage() {
         }
         .hp-about-float {
           background: transparent;
-          padding: 20px;
-          border-left: 3px solid #D9A6A1;
+          padding: 20px 0;
         }
         .hp-about-float p {
           font-family: 'Lora', serif;
@@ -697,7 +696,6 @@ export default function Homepage() {
       {/* ══ 1. HERO ══ */}
       <section className="hp-hero" id="home">
         <div className="hp-hero-left">
-          <p className="hp-hero-tagline">Where stillness finds you</p>
           <h1 className="hp-hero-h1">
             <span className="hp-hero-h1-line"><span className="hp-hero-h1-inner hp-l1">When</span></span>
             <span className="hp-hero-h1-line"><span className="hp-hero-h1-inner hp-l2">you are</span></span>
