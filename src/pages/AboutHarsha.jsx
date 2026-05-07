@@ -247,23 +247,26 @@ export default function AboutHarsha() {
           font-size: 13px;
           letter-spacing: 0.12em;
           color: rgba(51,51,51,0.55);
+          margin-top: 20px;
+          position: relative;
+          z-index: 1;
         }
         .ah-quote-wrap {
           position: relative;
           z-index: 1;
-          max-width: 600px;
+          max-width: 520px;
           margin: 0 auto;
           text-align: center;
-          padding: 48px 40px;
+          padding: 72px 64px 72px;
         }
         .ah-quote-frame {
           position: absolute;
-          inset: 0;
+          top: 50%; left: 50%;
+          transform: translate(-50%, -50%);
+          width: 100%;
+          aspect-ratio: 1080 / 717;
           pointer-events: none;
           z-index: 0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
         }
         .ah-quote-frame img {
           width: 100%;
@@ -573,9 +576,8 @@ export default function AboutHarsha() {
             <p className="ah-quote">
               Tea tastes different in Bhutan: slower, quieter, exactly where you are.
             </p>
+            <p className="ah-quote-attr">Harsha</p>
           </div>
-          <Divider width={160} opacity={0.35} />
-          <p className="ah-quote-attr" style={{ marginTop: 16 }}>Harsha</p>
         </FU>
       </div>
 
@@ -610,9 +612,6 @@ export default function AboutHarsha() {
           <h2 className="ah-believes-h2">
             Stillness arrives. If it is allowed.
           </h2>
-          <div style={{ display: 'flex', justifyContent: 'center', margin: '8px 0 28px' }}>
-            <Glyph name="Pause" variant="Charcoal" size={36} opacity={0.25} />
-          </div>
           <p className="ah-believes-body">
             I believe in the slow accumulation of real moments: a bowl of morning tea, a conversation at altitude, the sound of butter lamps in the dark. The ordinary things that turn out to be extraordinary.
           </p>
