@@ -7,7 +7,8 @@ export default function Nav() {
   const location = useLocation();
   const navigate = useNavigate();
   const isHomePage = location.pathname === '/';
-  const isLightHero = ['/', '/about', '/philosophy', '/contact'].includes(location.pathname);
+  const isLightHero = ['/', '/philosophy', '/contact'].includes(location.pathname);
+  const isSplitHero = location.pathname === '/about';
 
   useEffect(() => {
     const fn = () => setStuck(window.scrollY > 80);
@@ -71,6 +72,12 @@ export default function Nav() {
         .pv-nav-links a { color: rgba(255,255,255,0.85); }
         .pv-nav-links a:hover { color: white; }
         .pv-nav-links a::after { background: rgba(255,255,255,0.6); }
+
+        .pv-nav.split-hero:not(.stuck) .pv-nav-links a {
+          color: #ffffff;
+          text-shadow: 0 1px 12px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.45);
+        }
+        .pv-nav.split-hero:not(.stuck) .pv-nav-links a:hover { color: #ffffff; }
         .pv-nav-cta { color: #333333; background: #D9A6A1; border: none; }
         .pv-nav-cta:hover { background: #c08e88; color: white; }
         .pv-nav-burger span { background: white; }
@@ -197,7 +204,7 @@ export default function Nav() {
         </div>
       </div>
 
-      <nav className={`pv-nav${stuck ? ' stuck' : ''}${isHomePage ? ' home' : ''}${isLightHero ? ' light-hero' : ''}`}>
+      <nav className={`pv-nav${stuck ? ' stuck' : ''}${isHomePage ? ' home' : ''}${isLightHero ? ' light-hero' : ''}${isSplitHero ? ' split-hero' : ''}`}>
         <div className="pv-nav-inner">
           <Link to="/" className="pv-nav-logo">
             <img src="/assets/01. LOGOS/Logo-Main.png" alt="PuraVida with Harsha" className="pv-nav-logo-img" />
