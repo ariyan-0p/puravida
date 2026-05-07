@@ -441,9 +441,6 @@ export default function AboutHarsha() {
             Founder of PuraVida with Harsha. Classical Pilates trainer. Travel curator. Based in Dubai.
           </p>
           <p className="ah-hero-scroll">Scroll to read her story</p>
-          <div className="ah-hero-pause" aria-hidden="true">
-            <Glyph name="Pause" variant="White" size={80} opacity={0.15} />
-          </div>
         </div>
         <div className="ah-hero-right">
           <div className="ah-hero-img" />
