@@ -149,7 +149,7 @@ export default function AboutHarsha() {
           background: #F5F0EB;
           padding: 120px 80px;
           display: grid;
-          grid-template-columns: 1fr 1fr;
+          grid-template-columns: 38fr 62fr;
           gap: 80px;
           align-items: start;
         }
@@ -191,27 +191,41 @@ export default function AboutHarsha() {
         .ah-story-right {}
         .ah-story-eyebrow {
           font-family: 'Lato', sans-serif;
-          font-size: 11px; font-weight: 700;
+          font-size: 12px; font-weight: 700;
           letter-spacing: 0.18em; text-transform: uppercase;
-          color: #C9A050;
+          color: rgba(51,51,51,0.5);
           margin-bottom: 24px;
         }
         .ah-story-h2 {
           font-family: 'Playfair Display', serif;
           font-weight: 700;
-          font-size: clamp(1.8rem, 3vw, 2.6rem);
-          line-height: 1.2;
+          font-size: 28px;
+          line-height: 1.25;
           color: #333333;
-          margin-bottom: 32px;
+          margin-bottom: 28px;
+          max-width: 540px;
         }
         .ah-story-body {
           font-family: 'Lato', sans-serif;
-          font-size: 17px;
+          font-size: 16px;
           line-height: 1.85;
           color: #333333;
-          margin-bottom: 24px;
+          margin-bottom: 20px;
+          max-width: 540px;
         }
         .ah-story-body:last-of-type { margin-bottom: 0; }
+        .ah-story-pull {
+          font-family: 'Lora', serif;
+          font-style: italic;
+          font-size: 18px;
+          line-height: 1.7;
+          color: #333333;
+          text-align: center;
+          max-width: 540px;
+          margin: 32px 0 0;
+        }
+        .ah-story-pull span { display: block; }
+        .ah-story-pull span + span { margin-top: 8px; }
 
         /* ── QUOTE STRIP ── */
         .ah-quote-strip {
@@ -304,9 +318,11 @@ export default function AboutHarsha() {
         .ah-believes {
           background: #F5F0EB;
           padding: 120px 80px;
-          max-width: 880px;
+          max-width: 680px;
           margin: 0 auto;
+          text-align: center;
         }
+        .ah-believes-body { text-align: left; }
         .ah-believes-eyebrow {
           font-family: 'Lato', sans-serif;
           font-size: 11px; font-weight: 700;
@@ -336,12 +352,13 @@ export default function AboutHarsha() {
           color: #D9A6A1;
           margin-top: 48px;
           display: flex;
+          flex-direction: column;
           align-items: center;
-          gap: 16px;
+          gap: 14px;
         }
         .ah-sig::before {
           content: '';
-          width: 32px; height: 1px;
+          width: 48px; height: 1px;
           background: #D9A6A1;
           flex-shrink: 0;
         }
@@ -415,13 +432,10 @@ export default function AboutHarsha() {
         <div className="ah-hero-left" style={{ position: 'relative' }}>
           <p className="ah-hero-eyebrow">About Harsha</p>
           <h1 className="ah-hero-h1">
-            Ten years ago,<br />
-            I went to Ladakh.<br />
-            I have been returning<br />
-            ever since.
+            Ten years ago, I went to Ladakh. I have been returning ever since.
           </h1>
           <p className="ah-hero-tagline">
-            Founder of PuraVida with Harsha. Transformational travel guide. Based in Dubai.
+            Founder of PuraVida with Harsha. Classical Pilates trainer. Travel curator. Based in Dubai.
           </p>
           <p className="ah-hero-scroll">Scroll to read her story</p>
           <div className="ah-hero-pause" aria-hidden="true">
@@ -459,16 +473,29 @@ export default function AboutHarsha() {
           <FU>
             <p className="ah-story-eyebrow">The Beginning</p>
             <h2 className="ah-story-h2">
-              I drove into Ladakh with a rucksack and no itinerary.
+              2010 is when I first visited Ladakh. I have been returning ever since.
             </h2>
             <p className="ah-story-body">
-              Three weeks later, I came back changed in a way I could not name. The altitude had done something. The silence had done something. The people had done something.
+              I flew to Leh with a camera and a backpack. A week later I returned to Dubai, changed. The altitude, the colour of the sky, and the people I met had done something that lives beyond words.
             </p>
             <p className="ah-story-body">
-              There was a monk at Hemis who sat with me for an afternoon without speaking. We watched butter lamps burn down together. When I finally left, he pressed his palms together and said nothing. I understood everything.
+              The silence and clarity that had long eluded me arrived the moment I started simply being, present, in observation.
             </p>
             <p className="ah-story-body">
-              There was a family in a village above Leh who fed me tsampa and butter tea and asked nothing in return. They asked only: are you warm? Are you well? Eat more.
+              A stillness settled in. And from that stillness, a heart decision emerged: to sponsor children affected by the floods. With nothing but intention, the universe answered. Friends stepped forward. Strangers followed. A waitlist of open hearts grew, and just like that, 53 children found sponsors. A family was born, one we called New Lives, New Beginnings.
+            </p>
+            <p className="ah-story-body">
+              Ten years of returning. Ten years of bonds that were, and remain, beautifully real.
+            </p>
+            <p className="ah-story-body">
+              That chapter found its natural close.
+            </p>
+            <p className="ah-story-body">
+              Yet the pull remains: to wander into places that stretch beyond comfort, to stay in that constant state of observation and seeking within.
+            </p>
+            <p className="ah-story-pull">
+              <span>A Stillness. A wholesome emptiness. A filled Nothingness.</span>
+              <span>And always, the knowing that the next journey is calling.</span>
             </p>
           </FU>
 
@@ -480,10 +507,13 @@ export default function AboutHarsha() {
               What if travel was about arriving fully?
             </h2>
             <p className="ah-story-body">
-              I kept returning to Ladakh, to Bhutan, to the places that had changed me. Each time, I brought someone with me. A colleague. A friend going through something difficult. A stranger who had emailed asking if they could come along.
+              I kept returning to Ladakh, to Bhutan, to the places that had changed me. Each time I was joined by sponsors of the children or friends, or strangers even.
             </p>
             <p className="ah-story-body">
               PuraVida began with a single question: what if travel was about arriving fully, and being changed by that arrival?
+            </p>
+            <p className="ah-story-body">
+              Pura Vida. In Costa Rican tradition, it means pure life: a way of being that is unhurried, grateful, and fully present. For me, it has always been a practice. It runs through every journey I curate and every session I teach.
             </p>
             <p className="ah-story-body">
               Every journey I lead, I lead because I have walked that ground myself. Because the families in Ladakh and Bhutan pour tea for me the way they pour it for family. Because I know which mornings are worth waking for at four in the dark.
@@ -493,6 +523,27 @@ export default function AboutHarsha() {
           <div className="ah-story-divider"><Divider width={180} opacity={0.4} /></div>
 
           <FU d={2} style={{ marginTop: 0 }}>
+            <p className="ah-story-eyebrow">The Body Knows</p>
+            <h2 className="ah-story-h2">
+              Presence starts in the body.
+            </h2>
+            <p className="ah-story-body">
+              I have been teaching classical Pilates since 2010. Joseph Pilates called his method the Art of Contrology: the complete coordination of body, mind, and spirit. Nearly a century later, it remains one of the most intelligent, anatomically precise approaches to movement the world has known.
+            </p>
+            <p className="ah-story-body">
+              I teach from my private studio in Dubai, one-to-one, exclusively with women and teenagers. The work is slow, precise, and deeply personal. Each body carries its own history. Each spine tells its own story.
+            </p>
+            <p className="ah-story-body">
+              This dual practice, the discipline of the body alongside the expansion of the world, is the foundation of everything I create. When the body is centred and the mind is open, travel becomes something else entirely: a conversation with life itself.
+            </p>
+            <p className="ah-story-pull">
+              <span>Take care of your spine, and your spine will take care of you.</span>
+            </p>
+          </FU>
+
+          <div className="ah-story-divider"><Divider width={180} opacity={0.4} /></div>
+
+          <FU d={3} style={{ marginTop: 0 }}>
             <p className="ah-story-eyebrow">How I Work</p>
             <h2 className="ah-story-h2">
               Personal attention. Founder-led. Fully present.
@@ -557,22 +608,22 @@ export default function AboutHarsha() {
         <FU>
           <p className="ah-believes-eyebrow">What I Believe</p>
           <h2 className="ah-believes-h2">
-            Stillness arrives. It is allowed.
+            Stillness arrives. If it is allowed.
           </h2>
           <div style={{ display: 'flex', justifyContent: 'center', margin: '8px 0 28px' }}>
-            <Glyph name="Pause" variant="Charcoal" size={48} opacity={0.2} />
+            <Glyph name="Pause" variant="Charcoal" size={36} opacity={0.25} />
           </div>
           <p className="ah-believes-body">
             I believe in the slow accumulation of real moments: a bowl of morning tea, a conversation at altitude, the sound of butter lamps in the dark. The ordinary things that turn out to be extraordinary.
           </p>
           <p className="ah-believes-body">
-            I believe that the people who guide us matter as much as the places we visit. Every host, every monk, every family I introduce you to: these are relationships I have tended for years. You are welcomed as a guest, with the warmth of long-held relationships.
+            I believe that the people who guide us matter as much as the places we visit. Every host, every monk, every family I introduce you to: these are relationships I have tended for years. You are welcomed as a guest, with the warmth of long-held friendships.
           </p>
           <p className="ah-believes-body">
             And I believe that the right journey, at the right time, can do something that nothing else can. It can give you back to yourself.
           </p>
-          <p className="ah-believes-body">
-            I hope you will join us.
+          <p className="ah-believes-body" style={{ textAlign: 'center', marginTop: 32 }}>
+            I hope you will join me.
           </p>
           <div className="ah-sig">Harsha</div>
         </FU>

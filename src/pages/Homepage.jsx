@@ -62,8 +62,8 @@ function Glyph({ name = 'Trees', variant = 'Charcoal', size = 48, opacity = 0.3 
 const JOURNEYS = [
   { slug: "bhutan", img: "/assets/journey-bhutan.jpg", dest: "Bhutan", tag: "Mountains and Monasteries", dates: "April 2026", dur: "8 Days", ready: true },
   { slug: "ladakh", img: "/assets/journey-ladakh.jpg", dest: "Ladakh", tag: "High Passes and Living Monasteries", dates: "September 20 to 27, 2026", dur: "8 Days", ready: true },
-  { slug: "bali", img: "/assets/journey-srilanka.jpg", dest: "Bali", tag: "Ritual, Rice, and Renewal", dates: "October 1 to 6, 2026", dur: "6 Days", ready: false },
-  { slug: "japan", img: "/assets/journey-japan.jpg", dest: "Japan", tag: "Stillness in Snow, Hokkaido", dates: "December 2026", dur: "7 Days", ready: false },
+  { slug: "bali", img: "/assets/journey-srilanka.jpg", dest: "Bali", tag: "Ritual, Rice, and Renewal", dates: "October 2026", dur: "6 Days", ready: false },
+  { slug: "japan", img: "/assets/journey-japan.jpg", dest: "Japan", tag: "Stillness in Snow", dates: "December 2026", dur: "7 Days", ready: false },
 ];
 
 const VOICES = [
@@ -73,10 +73,9 @@ const VOICES = [
 ];
 
 const PILLARS = [
-  { n: "01", t: "Stillness Over Speed", p: "We allow breath, space, and pause between every experience. Altitude becomes meditation. Silence becomes teacher.", glyph: "Pause", glyphSize: 64 },
-  { n: "02", t: "Presence as Luxury", p: "Guided moments for reconnection with place, people, and self. The luxury of being unreachable.", glyph: "Sunset", glyphSize: 64 },
-  { n: "03", t: "Authentic Reverence", p: "Real village meals. Real rituals. Real people: relationships built over years. You are welcomed as a guest.", glyph: "Trees" },
-  { n: "04", t: "Founder Led, Always", p: "Harsha leads every single journey. Your experience stays with Harsha, every step. This is handcrafted.", glyph: "Mountains" },
+  { t: "Stillness over speed", glyph: "Pause" },
+  { t: "Time as luxury", glyph: "Sunset" },
+  { t: "Authentic immersion", glyph: "Trees" },
 ];
 
 export default function Homepage() {
@@ -109,7 +108,7 @@ export default function Homepage() {
         }
         .hp-hero-left {
           position: relative; z-index: 2;
-          flex: 0 0 42%; display: flex; flex-direction: column;
+          flex: 0 0 48%; display: flex; flex-direction: column;
           justify-content: center;
           padding: 110px 56px 56px 80px;
           min-height: 0;
@@ -117,14 +116,14 @@ export default function Homepage() {
         .hp-hero-tagline {
           font-family: 'Lora', serif;
           font-style: italic; font-size: 16px;
-          color: #D4A42C; letter-spacing: 0.08em;
+          color: #C9A050; letter-spacing: 0.08em;
           margin-bottom: clamp(20px, 3vw, 36px);
           opacity: 0; animation: hpFade 0.8s ease 2s forwards;
         }
         .hp-hero-h1 {
           font-family: 'Playfair Display', serif;
           font-weight: 700;
-          font-size: clamp(2.8rem, 5vw, 4.6rem);
+          font-size: clamp(4rem, 7vw, 8rem);
           line-height: 1.05; color: #333333;
           margin-bottom: clamp(20px, 3vw, 32px); letter-spacing: 0.01em;
         }
@@ -135,7 +134,7 @@ export default function Homepage() {
         .hp-l3 { animation-delay: 2.5s; }
         .hp-hero-body {
           font-family: 'Lato', sans-serif;
-          font-size: 15px; line-height: 1.65; color: #333333;
+          font-size: 16px; line-height: 1.65; color: #333333;
           max-width: 440px; margin-bottom: clamp(20px, 3vw, 32px);
           opacity: 0; animation: hpFade 0.8s ease 2.8s forwards;
         }
@@ -176,6 +175,9 @@ export default function Homepage() {
           z-index: 2;
           pointer-events: none;
           line-height: 0;
+          display: flex;
+          gap: 8px;
+          align-items: flex-end;
         }
         .hp-section-divider {
           position: relative;
@@ -201,14 +203,14 @@ export default function Homepage() {
         .hp-quote {
           font-family: 'Lora', serif;
           font-style: italic;
-          font-size: clamp(1.5rem, 2.8vw, 2.2rem);
-          line-height: 1.6; color: #333333;
-          max-width: 680px; margin: 32px auto;
+          font-size: 26px;
+          line-height: 1.55; color: #333333;
+          max-width: 640px; margin: 32px auto;
         }
         .hp-quote-attr {
           font-family: 'Lato', sans-serif; font-size: 14px;
           letter-spacing: 0.12em; color: #333333; opacity: 0.6;
-          margin-top: 24px;
+          margin-top: 16px;
         }
         .hp-quote-wrap {
           position: relative;
@@ -232,28 +234,39 @@ export default function Homepage() {
           height: 100%;
           object-fit: contain;
           display: block;
-          opacity: 0.55;
+          opacity: 0.85;
         }
 
         /* ── 3. ABOUT HARSHA ── */
         .hp-about {
-          background: #FFFFFF;
-          padding: 100px 80px;
-          display: grid; grid-template-columns: 1fr 1fr;
-          gap: 80px; align-items: center;
+          background: #333333;
+          padding: 64px 80px;
+          display: grid; grid-template-columns: 45% 55%;
+          gap: 64px; align-items: center;
         }
-        @media (min-width: 1025px) {
+        @media (min-width: 901px) {
           .hp-about {
-            height: 100vh; min-height: 640px;
-            padding: clamp(48px, 6vw, 80px) 80px;
-            overflow: hidden;
+            min-height: 100vh;
+            box-sizing: border-box;
           }
-          .hp-about-img-wrap { max-height: 100%; }
-          .hp-about-img-wrap .hp-about-img { max-height: 80vh; width: auto; max-width: 100%; object-fit: contain; margin: 0 auto; }
         }
-        .hp-about-img-wrap { position: relative; }
+        .hp-about-left {
+          display: flex; flex-direction: column; gap: 20px;
+          min-height: 0;
+        }
+        .hp-about-img-wrap {
+          position: relative;
+          flex: 1 1 auto;
+          min-height: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
         .hp-about-img {
-          width: 100%; height: auto;
+          width: auto;
+          max-width: 100%;
+          max-height: calc(100vh - 64px - 64px - 20px - 110px);
+          object-fit: contain;
           display: block;
         }
         .hp-about-leaf-accent {
@@ -267,44 +280,46 @@ export default function Homepage() {
           transform: rotate(180deg);
         }
         .hp-about-float {
-          position: absolute; bottom: -24px; right: -24px;
-          background: #FFFFFF; padding: 28px 32px;
-          max-width: 240px; z-index: 2;
-          box-shadow: 0 8px 32px rgba(51,51,51,0.06);
+          background: transparent;
+          padding: 20px;
           border-left: 3px solid #D9A6A1;
-        }
-        .hp-about-float-q-upper {
-          width: 24px; opacity: 0.35; margin-bottom: 8px; display: block;
         }
         .hp-about-float p {
           font-family: 'Lora', serif;
-          font-style: italic; font-size: 15px; line-height: 1.6; color: #333333;
-        }
-        .hp-about-float-q-lower {
-          width: 24px; opacity: 0.35; margin-top: 8px; display: block; margin-left: auto;
+          font-style: italic;
+          font-size: 16px;
+          line-height: 1.6;
+          color: rgba(255,255,255,0.8);
+          margin: 0;
         }
         .hp-about-eyebrow {
-          font-family: 'Lato', sans-serif; font-size: 13px;
+          font-family: 'Lato', sans-serif; font-size: 12px;
           letter-spacing: 0.2em; text-transform: uppercase;
-          color: #D9A6A1; margin-bottom: clamp(14px, 2vw, 22px);
+          color: #C9A050; margin-bottom: clamp(14px, 2vw, 22px);
         }
         .hp-about-h2 {
           font-family: 'Playfair Display', serif;
-          font-size: clamp(1.6rem, 2.6vw, 2.4rem); font-weight: 700;
-          line-height: 1.2; color: #333333; margin-bottom: clamp(16px, 2.4vw, 24px);
+          font-size: 32px; font-weight: 700;
+          line-height: 1.25; color: #FFFFFF;
+          margin-bottom: clamp(16px, 2.4vw, 24px);
         }
         .hp-about-body {
           font-family: 'Lato', sans-serif;
-          font-size: 15px; line-height: 1.6; color: #333333;
-          margin-bottom: 12px; max-width: 500px;
+          font-size: 16px; line-height: 1.85;
+          color: rgba(255,255,255,0.8);
+          margin-bottom: 18px; max-width: 560px;
         }
-        .hp-about-sig {
-          margin-top: clamp(16px, 2.4vw, 24px);
-          font-family: 'Lora', serif;
-          font-style: italic; font-size: 1.05rem; color: #D9A6A1;
-          display: flex; align-items: center; gap: 12px;
+        .hp-about-link {
+          display: inline-block;
+          margin-top: clamp(12px, 2vw, 20px);
+          font-family: 'Lato', sans-serif; font-size: 14px;
+          color: #D9A6A1; text-decoration: none;
+          letter-spacing: 0.04em;
+          border-bottom: 1px solid rgba(217,166,161,0.4);
+          padding-bottom: 2px;
+          transition: color 0.3s ease, border-color 0.3s ease;
         }
-        .hp-about-sig::before { content: ''; width: 24px; height: 1px; background: #D9A6A1; opacity: 0.6; }
+        .hp-about-link:hover { color: #FFFFFF; border-color: #FFFFFF; }
 
         /* ── 4. PHILOSOPHY ── */
         .hp-phil {
@@ -325,41 +340,27 @@ export default function Homepage() {
           line-height: 1.7; color: #333333;
         }
         .hp-phil-grid {
-          display: grid; grid-template-columns: repeat(4, 1fr);
-          gap: 0; max-width: 1100px; margin: 0 auto;
+          display: grid; grid-template-columns: repeat(3, 1fr);
+          gap: 24px; max-width: 960px; margin: 0 auto;
         }
         .hp-pillar {
           padding: 48px 32px;
-          border-left: 1px solid rgba(217,166,161,0.25);
-          transition: background 0.4s ease;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
         }
-        .hp-pillar:first-child { border-left: none; }
-        .hp-pillar:hover { background: rgba(255,255,255,0.5); }
-        .hp-pillar-num-row {
+        .hp-pillar-icon {
+          margin-bottom: 24px;
           display: flex;
           align-items: center;
-          justify-content: flex-start;
-          gap: 12px;
-          margin-bottom: 20px;
-          min-height: 72px;
-        }
-        .hp-pillar-num {
-          font-family: 'Playfair Display', serif;
-          font-size: 2.4rem; font-weight: 700;
-          color: #333333; line-height: 1;
+          justify-content: center;
         }
         .hp-pillar-title {
           font-family: 'Playfair Display', serif;
-          font-size: 1.15rem; font-weight: 700;
-          color: #333333; margin-bottom: 14px;
+          font-size: 20px; font-weight: 700;
+          color: #333333;
           line-height: 1.3;
-          min-height: calc(1.3em * 2);
-          display: flex;
-          align-items: flex-start;
-        }
-        .hp-pillar-text {
-          font-family: 'Lato', sans-serif;
-          font-size: 14px; line-height: 1.7; color: #333333;
         }
 
         /* ── 5. JOURNEYS ── */
@@ -392,13 +393,12 @@ export default function Homepage() {
           transition: transform 0.5s ease;
           text-decoration: none; display: block;
         }
-        .hp-j-card:hover { transform: translateY(-6px); }
+        .hp-j-card:hover { transform: scale(1.02); }
         .hp-j-card-img {
           position: absolute; inset: 0;
           background: center / cover no-repeat;
           transition: transform 0.8s ease;
         }
-        .hp-j-card:hover .hp-j-card-img { transform: scale(1.05); }
         .hp-j-card-overlay {
           position: absolute; inset: 0;
           background: linear-gradient(to top,
@@ -467,14 +467,30 @@ export default function Homepage() {
         .hp-immersive-q {
           font-family: 'Lora', serif;
           font-style: italic;
-          font-size: clamp(1.5rem, 2.8vw, 2.2rem);
-          line-height: 1.5; color: #FFFFFF; margin-bottom: 24px;
+          font-size: 22px;
+          line-height: 1.6; color: #FFFFFF; margin-bottom: 20px;
           text-shadow: 0 2px 16px rgba(0,0,0,0.95), 0 1px 3px rgba(0,0,0,1);
         }
         .hp-immersive-attr {
           font-family: 'Lato', sans-serif; font-size: 14px;
-          letter-spacing: 0.12em; color: #F5E6B8;
+          letter-spacing: 0.12em; color: #D9A6A1;
           text-shadow: 0 2px 14px rgba(0,0,0,0.95), 0 1px 3px rgba(0,0,0,1);
+        }
+        .hp-immersive-frame {
+          position: absolute;
+          inset: -8px -16px;
+          pointer-events: none;
+          z-index: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .hp-immersive-frame img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          opacity: 0.85;
+          filter: brightness(2);
         }
 
         /* ── 7. TESTIMONIALS ── */
@@ -562,12 +578,13 @@ export default function Homepage() {
         .hp-contact-h2 {
           font-family: 'Playfair Display', serif;
           font-size: clamp(2.2rem, 4vw, 3.6rem); font-weight: 700;
-          line-height: 1.2; color: #333333; margin: 32px 0 28px;
+          line-height: 1.2; color: #333333;
+          max-width: 600px; margin: 32px auto 28px;
         }
         .hp-contact-body {
           font-family: 'Lato', sans-serif; font-size: 16px;
           line-height: 1.75; color: #333333;
-          max-width: 520px; margin: 0 auto 48px;
+          max-width: 600px; margin: 0 auto 48px;
         }
         .hp-contact-actions {
           display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;
@@ -602,9 +619,9 @@ export default function Homepage() {
         }
         @media (max-width: 900px) {
           .hp-hero { flex-direction: column; min-height: auto; }
-          .hp-hero-left { padding: 120px 40px 48px; flex: none; }
-          .hp-hero-right { flex: none; height: auto; width: 100%; aspect-ratio: 4/3; position: relative; }
-          .hp-hero-img::after { background: linear-gradient(to bottom, rgba(245,240,235,0.3) 0%, transparent 20%); }
+          .hp-hero-left { padding: 120px 40px 24px; flex: none; }
+          .hp-hero-right { flex: none; height: auto; width: 100%; aspect-ratio: 4/3; position: relative; margin-top: -1px; }
+          .hp-hero-img::after { background: linear-gradient(to bottom, #F5F0EB 0%, rgba(245,240,235,0.85) 6%, rgba(245,240,235,0.5) 14%, transparent 28%); }
           .hp-hero-credit { bottom: 16px; right: 16px; font-size: 11px; }
           .hp-hero-tree-glyph {
             bottom: 12px;
@@ -614,7 +631,6 @@ export default function Homepage() {
           }
           .hp-section-divider img { width: 100% !important; }
           .hp-about { grid-template-columns: 1fr; padding: 80px 40px; gap: 48px; }
-          .hp-about-float { display: none; }
           .hp-phil { padding: 80px 40px; }
           .hp-phil-grid { grid-template-columns: 1fr; }
           .hp-pillar { border-left: none; border-top: 1px solid rgba(217,166,161,0.25); }
@@ -688,16 +704,20 @@ export default function Homepage() {
             <span className="hp-hero-h1-line"><span className="hp-hero-h1-inner hp-l3">ready.</span></span>
           </h1>
           <p className="hp-hero-body">
-            Boutique transformational travel for professionals ready to rediscover stillness. Small groups. Unhurried itineraries. Presence at every step.
+            Boutique transformational travel to rediscover stillness and joy. Small groups with unhurried itineraries.
           </p>
           <div className="hp-hero-cta">
-            <a href="https://wa.me/971562216643?text=Hello%20Harsha%2C%20I%E2%80%99d%20love%20to%20learn%20more%20about%20your%20journeys." className="hp-btn" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/971562216643?text=Hello%20Harsha%2C%20I%20would%20love%20to%20learn%20more%20about%20your%20journeys." className="hp-btn" target="_blank" rel="noopener noreferrer">
               Begin a Conversation
             </a>
           </div>
         </div>
         <div className="hp-hero-right">
           <div className="hp-hero-img" style={{ backgroundImage: "url('/assets/hero-bhutan.jpg')" }} />
+          <div className="hp-hero-tree-glyph" aria-hidden="true">
+            <Glyph name="Trees" variant="White" size={60} opacity={0.8} />
+            <Glyph name="Trees" variant="White" size={60} opacity={0.8} />
+          </div>
           <span className="hp-hero-credit">Photo: Kelly Dorji</span>
         </div>
       </section>
@@ -715,7 +735,7 @@ export default function Homepage() {
               <img src="/assets/Puravida_Quote-Frame-1/Frame.png" alt="" aria-hidden="true" />
             </div>
             <p className="hp-quote">
-              I walk beside you. Every relationship we hold was built over years of quiet return visits. Years of showing up.
+              I walk beside you and together we shall explore simple joys of life.
             </p>
             <p className="hp-quote-attr">Harsha, Founder</p>
           </div>
@@ -730,25 +750,28 @@ export default function Homepage() {
       {/* ══ 3. ABOUT HARSHA ══ */}
       <section className="hp-about" id="about">
         <FU>
-          <div className="hp-about-img-wrap">
-            <img src="/assets/Puravida_Photo-Frame-2-Harsha.png" alt="Harsha" className="hp-about-img" />
+          <div className="hp-about-left">
+            <div className="hp-about-img-wrap">
+              <img src="/assets/Puravida_Photo-Frame-2-Harsha.png" alt="Harsha" className="hp-about-img" />
+            </div>
+            <div className="hp-about-float">
+              <p>An inward journey towards growth is often inspired by where we choose to visit and with whom.</p>
+            </div>
           </div>
         </FU>
         <FU d={1}>
           <p className="hp-about-eyebrow">About Harsha</p>
-          <h2 className="hp-about-h2">
-            Ten years ago, I went to Ladakh for three weeks. I came back changed.
-          </h2>
+          <h2 className="hp-about-h2">The skies of Ladakh changed me.</h2>
           <p className="hp-about-body">
-            The monk who taught me that silence carries its own kind of sound. The family who fed me tsampa and butter tea and asked nothing in return.
+            The high altitude mountain air truly stripped me of all that was unreal and left only what was real and true.
           </p>
           <p className="hp-about-body">
-            PuraVida began with a single question: what if travel was about arriving fully, and being changed by that arrival?
+            I am a classically trained Pilates teacher, and the founder of PuraVida with Harsha. The thread that runs through these is the practice of being present in the moment. In your body on the mat or on a mountain.
           </p>
           <p className="hp-about-body">
-            Every journey I lead, I lead because I have walked that ground myself. Because the families in Ladakh and Bhutan pour tea for me the way they pour it for family.
+            Every trip I have led has been curated by me keeping in mind what I need from the journey and how I want you to feel. What will be your experience to carry home. And every time the answer that comes to my mind is joy through simple experiences. Like sharing butter tea in a Ladakhi street corner or enjoying a home cooked meal with a family in Bhutan sitting on the floor around shared stories and laughter.
           </p>
-          <div className="hp-about-sig">Harsha</div>
+          <Link to="/about" className="hp-about-link">Read Harsha's full story</Link>
         </FU>
       </section>
 
@@ -761,23 +784,30 @@ export default function Homepage() {
       <section className="hp-phil" id="philosophy">
         <div className="hp-phil-header">
           <FU>
-            <h2 className="hp-phil-h2">We allow breath, space, pause.</h2>
-            <p className="hp-phil-intro">Every journey is led by Harsha herself. Personal attention. Unhurried pace. Presence at every moment.</p>
-            <Divider width={160} opacity={0.4} />
+            <h2 className="hp-phil-h2">We allow pauses for breath and space.</h2>
+            <p className="hp-phil-intro">Every journey is led by me with personal attention at an unhurried pace.</p>
+            <p className="hp-phil-intro" style={{ marginTop: 16 }}>
+              The silent paced journey is intentional to allow you to be. Present in the moment to absorb. Real people, real rituals, real meals to build real relationships. I want to create a canvas for us to grow old together and take back memories of togetherness or emptiness of mind. Both are welcome.
+            </p>
+            <div style={{ marginTop: 32 }}>
+              <Divider width={160} opacity={0.4} />
+            </div>
           </FU>
         </div>
         <div className="hp-phil-grid">
           {PILLARS.map((p, i) => (
             <FU key={i} d={i * 0.5}>
               <div className="hp-pillar">
-                <div className="hp-pillar-num-row">
-                  <Glyph name={p.glyph} variant="Charcoal" size={64} opacity={0.5} />
+                <div className="hp-pillar-icon">
+                  <Glyph name={p.glyph} variant="Charcoal" size={48} opacity={0.5} />
                 </div>
                 <h3 className="hp-pillar-title">{p.t}</h3>
-                <p className="hp-pillar-text">{p.p}</p>
               </div>
             </FU>
           ))}
+        </div>
+        <div style={{ marginTop: 48, textAlign: 'center' }}>
+          <Divider width={160} opacity={0.4} />
         </div>
       </section>
 
@@ -808,7 +838,7 @@ export default function Homepage() {
         </div>
       </section>
 
-      {/* ── Immersive → Testimonials divider ── */}
+      {/* ── Journeys → Testimonials divider ── */}
       <div className="hp-section-divider">
         <img src={DIVIDER_CENTER_SRC} alt="" aria-hidden="true" />
       </div>
@@ -862,7 +892,7 @@ export default function Homepage() {
         <FU>
           <Divider width={160} opacity={0.4} />
           <h2 className="hp-contact-h2">
-            The right journey finds you<br />when you are truly ready.
+            The right journey finds you when you are truly ready.
           </h2>
           <p className="hp-contact-body">
             We begin with a conversation. Message Harsha directly. Tell her where you are. What you are carrying. What you are looking for.
