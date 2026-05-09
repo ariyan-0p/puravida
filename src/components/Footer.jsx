@@ -18,8 +18,8 @@ export default function Footer() {
           opacity: 0.85;
         }
         .f-tagline {
-          font-family: 'Lato', sans-serif; font-size: 14px;
-          color: rgba(255,255,255,0.5); line-height: 1.85; margin-bottom: 28px;
+          font-family: 'Lora', serif; font-style: italic; font-size: 15px;
+          color: rgba(255,255,255,0.65); line-height: 1.85; margin-bottom: 28px;
         }
         .f-contact {
           font-family: 'Lato', sans-serif; font-size: 14px; font-weight: 400;
@@ -63,9 +63,8 @@ export default function Footer() {
       <footer className="pv-footer">
         <div className="footer-top">
           <div>
-            {/* Logo-Main-White.png is already white — no filter needed */}
             <img src="/assets/01. LOGOS/Logo-Main-White.png" alt="PuraVida with Harsha" className="f-brand-logo" />
-            <p className="f-tagline">Where stillness finds you.<br />Dubai. Bhutan. Ladakh. Bali. Japan.</p>
+            <p className="f-tagline">Where stillness finds you.</p>
             <div className="f-contact">
               <p><a href="mailto:harsha@puravidawithharsha.com">harsha@puravidawithharsha.com</a></p>
               <p><a href="https://wa.me/+971562216643?text=Hello%20Harsha%2C%20I%20would%20love%20to%20learn%20more%20about%20your%202026%20journeys.">+971 56 221 6643</a></p>

@@ -6,7 +6,7 @@ import WhatsAppButton from '../components/WhatsAppButton';
 const DESTINATIONS = {
   bali: {
     name: "Bali",
-    tagline: "Where stillness finds you",
+    tagline: "",
     dates: "October 1 to 6, 2026",
     duration: "6 Days",
     hero: "/assets/journey-bali.jpg",
@@ -27,7 +27,7 @@ const DESTINATIONS = {
   },
   japan: {
     name: "Japan",
-    tagline: "Where stillness finds you",
+    tagline: "",
     dates: "December 2026",
     duration: "7 Days",
     hero: "/assets/journey-japan.jpg",

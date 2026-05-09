@@ -790,11 +790,6 @@ export default function BhutanJourney() {
         <div className="bj-hero-content">
           <h1 className="bj-hero-title">Bhutan</h1>
           <p className="bj-hero-dates">April 9 to 16, 2026</p>
-          <p className="bj-hero-tagline">
-            <img src="/assets/Puravida_Quote-Frame-2-20260405T104951Z-3-001/Puravida_Quote-Frame-2/Quote-Upper.png" alt="" className="bj-tagline-orn bj-tagline-orn-left" />
-            <span className="bj-tagline-text">Where stillness<br />finds you</span>
-            <img src="/assets/Puravida_Quote-Frame-2-20260405T104951Z-3-001/Puravida_Quote-Frame-2/Quote-Lower.png" alt="" className="bj-tagline-orn bj-tagline-orn-right" />
-          </p>
         </div>
         <span className="bj-hero-credit">Photo: Kelly Dorji</span>
       </section>
@@ -949,7 +944,7 @@ export default function BhutanJourney() {
                 <div className="bj-day-foot">
                   <div className="bj-overnight-tree-divider">
                     <img src="/assets/05. GRAPHIC ELEMENTS/Dividers/Tree-Divider.png" alt="" aria-hidden="true" />
-                    <span className="bj-day-foot-text">Overnight in {day.city} &ndash;<br />{day.hotel}.</span>
+                    <span className="bj-day-foot-text">Overnight in {day.city}:<br />{day.hotel}.</span>
                   </div>
                 </div>
               )}

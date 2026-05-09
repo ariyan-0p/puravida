@@ -922,11 +922,6 @@ export default function LadakhJourney() {
         <p className="lk-hero-dates">
           September<br />20<sup>th</sup> to 27<sup>th</sup>, 2026
         </p>
-        <p className="lk-hero-tagline">
-          <img src="/assets/Puravida_Quote-Frame-2-20260405T104951Z-3-001/Puravida_Quote-Frame-2/Quote-Upper.png" alt="" className="lk-tagline-orn lk-tagline-orn-left" />
-          <span className="lk-tagline-text">Where stillness<br />finds you</span>
-          <img src="/assets/Puravida_Quote-Frame-2-20260405T104951Z-3-001/Puravida_Quote-Frame-2/Quote-Lower.png" alt="" className="lk-tagline-orn lk-tagline-orn-right" />
-        </p>
       </section>
 
       {/* ══ INVITATION FROM HARSHA ══ */}

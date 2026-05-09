@@ -60,16 +60,15 @@ function Glyph({ name = 'Trees', variant = 'Charcoal', size = 48, opacity = 0.3 
 }
 
 const JOURNEYS = [
-  { slug: "bhutan", img: "/assets/journey-bhutan.jpg", dest: "Bhutan", tag: "Mountains and Monasteries", dates: "April 2026", dur: "8 Days", ready: true },
-  { slug: "ladakh", img: "/assets/journey-ladakh.jpg", dest: "Ladakh", tag: "High Passes and Living Monasteries", dates: "September 20 to 27, 2026", dur: "8 Days", ready: true },
-  { slug: "bali", img: "/assets/journey-srilanka.jpg", dest: "Bali", tag: "Ritual, Rice, and Renewal", dates: "October 2026", dur: "6 Days", ready: false },
-  { slug: "japan", img: "/assets/journey-japan.jpg", dest: "Japan", tag: "Stillness in Snow", dates: "December 2026", dur: "7 Days", ready: false },
+  { slug: "ladakh", img: "/assets/journey-ladakh.jpg", dest: "Ladakh", tag: "High Passes and Living Monasteries", dates: "September 25 to October 2, 2026", dur: "8 Days", ready: true },
+  { slug: "bali", img: "/assets/journey-srilanka.jpg", dest: "Bali", tag: "Ritual, Rice, and Renewal", dates: "October 23 to 28, 2026", dur: "6 Days", ready: false },
+  { slug: "japan", img: "/assets/journey-japan.jpg", dest: "Japan", tag: "Stillness in Snow", dates: "November 17 to 24, 2026", dur: "7 Days", ready: false },
 ];
 
 const VOICES = [
   { q: "Bhutan, the country, the pace of life, the clean spiritual air, and of course Harsha. A beautiful mix of everything my heart needed.", name: "T.", trip: "Bhutan, 2024" },
   { q: "Details, precision, and thoughtfulness. Beautiful experiences organised with so much love and care for individual needs.", name: "F.V.", trip: "Bhutan, 2024" },
-  { q: "Japan with Harsha was an apprenticeship in noticing. I learned to see.", name: "A.", trip: "Japan, 2023" },
+  { q: "Bhutan was a treasure trove of authenticity, with nature's splendour as the backdrop. But the magic was in the perfect planning of Harsha.", name: "S.N.", trip: "Bhutan" },
 ];
 
 const PILLARS = [
@@ -83,7 +82,7 @@ export default function Homepage() {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    document.title = 'PuraVida with Harsha | Where Stillness Finds You';
+    document.title = 'PuraVida with Harsha';
     const t = setTimeout(() => setLoaded(true), 2400);
     return () => clearTimeout(t);
   }, []);
@@ -364,25 +363,25 @@ export default function Homepage() {
 
         /* ── 5. JOURNEYS ── */
         .hp-journeys {
-          background: #FFFFFF;
+          background: #333333;
           padding: 100px 80px;
         }
         .hp-j-header {
           display: flex; align-items: flex-end; justify-content: space-between;
           margin-bottom: 64px; padding-bottom: 32px;
-          border-bottom: 1px solid rgba(217,166,161,0.15);
+          border-bottom: 1px solid rgba(255,255,255,0.15);
         }
         .hp-j-h2 {
           font-family: 'Playfair Display', serif;
           font-size: clamp(2.2rem, 3.5vw, 3.2rem); font-weight: 700;
-          color: #333333; line-height: 1.15;
+          color: #FFFFFF; line-height: 1.15;
         }
         .hp-j-count {
           font-family: 'Lato', sans-serif; font-size: 14px;
-          color: #333333; letter-spacing: 0.1em;
+          color: rgba(255,255,255,0.7); letter-spacing: 0.1em;
         }
         .hp-j-grid {
-          display: grid; grid-template-columns: repeat(4, 1fr);
+          display: grid; grid-template-columns: repeat(3, 1fr);
           gap: 20px;
         }
         .hp-j-card {
@@ -687,7 +686,6 @@ export default function Homepage() {
         <div className="pre-dots" aria-hidden="true">
           <span /><span /><span />
         </div>
-        <p className="pre-sub">Where stillness finds you</p>
       </div>
 
       <Nav />
@@ -761,13 +759,13 @@ export default function Homepage() {
           <p className="hp-about-eyebrow">About Harsha</p>
           <h2 className="hp-about-h2">The skies of Ladakh changed me.</h2>
           <p className="hp-about-body">
-            The high altitude mountain air truly stripped me of all that was unreal and left only what was real and true.
+            The high altitude mountain air truly stripped me off all that was unreal and left only what was real and true.
           </p>
           <p className="hp-about-body">
-            I am a classically trained Pilates teacher, and the founder of PuraVida with Harsha. The thread that runs through these is the practice of being present in the moment. In your body on the mat or on a mountain.
+            I am a classical trained Pilates teacher, and the founder of PuraVida with Harsha. The thread that runs through these is practice of being present in the moment. In your body on the mat or on a mountain.
           </p>
           <p className="hp-about-body">
-            Every trip I have led has been curated by me keeping in mind what I need from the journey and how I want you to feel. What will be your experience to carry home. And every time the answer that comes to my mind is joy through simple experiences. Like sharing butter tea in a Ladakhi street corner or enjoying a home cooked meal with a family in Bhutan sitting on the floor around shared stories and laughter.
+            Every trip I have led has been curated by me keeping in mind what do I need and how do I want you to feel. What will be your take back. And everytime the answer that comes to my mind is Joy through simple experiences. Like sharing butter tea in a Ladakhi street corner or enjoying a home cooked meal with a family in Bhutan sitting on the floor around shared stories and laughter.
           </p>
           <Link to="/about" className="hp-about-link">Read Harsha's full story</Link>
         </FU>
@@ -785,7 +783,10 @@ export default function Homepage() {
             <h2 className="hp-phil-h2">We allow pauses for breath and space.</h2>
             <p className="hp-phil-intro">Every journey is led by me with personal attention at an unhurried pace.</p>
             <p className="hp-phil-intro" style={{ marginTop: 16 }}>
-              The silent paced journey is intentional to allow you to be. Present in the moment to absorb. Real people, real rituals, real meals to build real relationships. I want to create a canvas for us to grow old together and take back memories of togetherness or emptiness of mind. Both are welcome.
+              The silent paced journey is intentional to allow you to be. Present in the moment to absorb.
+            </p>
+            <p className="hp-phil-intro" style={{ marginTop: 16 }}>
+              Real people, real rituals, real meals to build real relationships. I want to create a canvas for us to grow old together and take back memories of togetherness or emptiness of mind. Both are welcome.
             </p>
             <div style={{ marginTop: 32 }}>
               <Divider width={160} opacity={0.4} />
@@ -893,7 +894,7 @@ export default function Homepage() {
             The right journey finds you when you are truly ready.
           </h2>
           <p className="hp-contact-body">
-            We begin with a conversation. Message Harsha directly. Tell her where you are. What you are carrying. What you are looking for.
+            Message me directly and share - what you are seeking for, and where do you wish to go.
           </p>
           <div className="hp-contact-actions">
             <a href="https://wa.me/971562216643" className="hp-contact-btn" target="_blank" rel="noopener noreferrer">
