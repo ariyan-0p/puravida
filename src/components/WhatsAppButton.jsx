@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 export default function WhatsAppButton() {
   const [open, setOpen] = useState(false);
   const wrapRef = useRef(null);
+  const closeTimer = useRef(null);
 
   useEffect(() => {
     if (!open) return;
@@ -17,6 +18,17 @@ export default function WhatsAppButton() {
       document.removeEventListener('keydown', onKey);
     };
   }, [open]);
+
+  const cancelClose = () => {
+    if (closeTimer.current) {
+      clearTimeout(closeTimer.current);
+      closeTimer.current = null;
+    }
+  };
+  const scheduleClose = () => {
+    cancelClose();
+    closeTimer.current = setTimeout(() => setOpen(false), 250);
+  };
 
   return (
     <>
@@ -45,6 +57,10 @@ export default function WhatsAppButton() {
           pointer-events: none;
           transition: opacity 0.2s ease, transform 0.2s ease;
         }
+        .wa-menu::after {
+          content: ''; position: absolute; left: 0; right: 0;
+          bottom: -16px; height: 16px;
+        }
         .wa-wrap.open .wa-menu {
           opacity: 1; transform: translateY(0) scale(1);
           pointer-events: auto;
@@ -69,7 +85,12 @@ export default function WhatsAppButton() {
           fill: #25D366;
         }
       `}</style>
-      <div ref={wrapRef} className={`wa-wrap${open ? ' open' : ''}`}>
+      <div
+        ref={wrapRef}
+        className={`wa-wrap${open ? ' open' : ''}`}
+        onMouseEnter={() => { cancelClose(); setOpen(true); }}
+        onMouseLeave={scheduleClose}
+      >
         <div className="wa-menu" role="menu" aria-hidden={!open}>
           <a
             className="wa-menu-item"

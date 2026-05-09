@@ -14,8 +14,8 @@ export default function Footer() {
           border-bottom: 1px solid rgba(255,255,255,0.08);
         }
         .f-brand-logo {
-          height: 56px; width: auto; display: block; margin-bottom: 16px;
-          opacity: 0.85;
+          height: 110px; width: auto; display: block; margin-bottom: 24px;
+          opacity: 0.95;
         }
         .f-tagline {
           font-family: 'Lora', serif; font-style: italic; font-size: 15px;
