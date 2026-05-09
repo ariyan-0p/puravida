@@ -64,7 +64,6 @@ export default function Footer() {
         <div className="footer-top">
           <div>
             <img src="/assets/01. LOGOS/Logo-Main-White.png" alt="PuraVida with Harsha" className="f-brand-logo" />
-            <p className="f-tagline">Where stillness finds you.</p>
             <div className="f-contact">
               <p><a href="mailto:harsha@puravidawithharsha.com">harsha@puravidawithharsha.com</a></p>
               <p><a href="https://wa.me/+971562216643?text=Hello%20Harsha%2C%20I%20would%20love%20to%20learn%20more%20about%20your%202026%20journeys.">+971 56 221 6643</a></p>
