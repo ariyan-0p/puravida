@@ -366,6 +366,56 @@ export default function AboutHarsha() {
           flex-shrink: 0;
         }
 
+        /* ── PHILOSOPHY ── */
+        .ah-phil {
+          background: #F5F0EB;
+          padding: 120px 80px;
+          text-align: center;
+        }
+        .ah-phil-header { max-width: 720px; margin: 0 auto 64px; }
+        .ah-phil-h2 {
+          font-family: 'Playfair Display', serif;
+          font-weight: 700;
+          font-size: clamp(1.8rem, 3vw, 2.6rem);
+          line-height: 1.2;
+          color: #333333;
+          margin-bottom: 28px;
+        }
+        .ah-phil-intro {
+          font-family: 'Lato', sans-serif;
+          font-size: 16px;
+          line-height: 1.85;
+          color: #333333;
+          margin-bottom: 16px;
+        }
+        .ah-phil-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 48px;
+          max-width: 960px;
+          margin: 48px auto 0;
+        }
+        .ah-pillar {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 18px;
+          padding: 0 16px;
+        }
+        .ah-pillar-title {
+          font-family: 'Playfair Display', serif;
+          font-weight: 700;
+          font-size: 18px;
+          color: #333333;
+        }
+        @media (max-width: 900px) {
+          .ah-phil { padding: 80px 40px; }
+          .ah-phil-grid { grid-template-columns: 1fr; gap: 32px; }
+        }
+        @media (max-width: 600px) {
+          .ah-phil { padding: 60px 28px; }
+        }
+
         /* ── CTA ── */
         .ah-cta {
           background: #333333;
@@ -625,7 +675,42 @@ export default function AboutHarsha() {
         </FU>
       </section>
 
-      {/* ── Believes → CTA divider ── */}
+      {/* ── Believes → Philosophy divider ── */}
+      <div className="ah-hero-divider">
+        <img src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png" alt="" aria-hidden="true" />
+      </div>
+
+      {/* PHILOSOPHY (moved from Homepage) */}
+      <section className="ah-phil" id="philosophy">
+        <div className="ah-phil-header">
+          <FU>
+            <h2 className="ah-phil-h2">We allow pauses for breath and space.</h2>
+            <p className="ah-phil-intro">Every journey is led by me with personal attention at an unhurried pace.</p>
+            <p className="ah-phil-intro">
+              The silent paced journey is intentional to allow you to be. Present in the moment to absorb.
+            </p>
+            <p className="ah-phil-intro">
+              Real people, real rituals, real meals to build real relationships. I want to create a canvas for us to grow old together and take back memories of togetherness or emptiness of mind. Both are welcome.
+            </p>
+          </FU>
+        </div>
+        <div className="ah-phil-grid">
+          {[
+            { t: "Stillness over speed", glyph: "Pause" },
+            { t: "Time as luxury", glyph: "Sunset" },
+            { t: "Authentic immersion", glyph: "Trees" },
+          ].map((p, i) => (
+            <FU key={i} d={i * 0.4}>
+              <div className="ah-pillar">
+                <Glyph name={p.glyph} variant="Charcoal" size={48} opacity={0.5} />
+                <h3 className="ah-pillar-title">{p.t}</h3>
+              </div>
+            </FU>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Philosophy → CTA divider ── */}
       <div className="ah-hero-divider">
         <img src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png" alt="" aria-hidden="true" />
       </div>

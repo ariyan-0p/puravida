@@ -103,7 +103,7 @@ export default function Homepage() {
         .hp-hero {
           height: 100vh; min-height: 640px; position: relative; overflow: hidden;
           display: flex; align-items: stretch;
-          background: #F5F0EB;
+          background: #333333;
         }
         .hp-hero-left {
           position: relative; z-index: 2;
@@ -120,10 +120,11 @@ export default function Homepage() {
           opacity: 0; animation: hpFade 0.8s ease 2s forwards;
         }
         .hp-hero-h1 {
-          font-family: 'Playfair Display', serif;
+          font-family: 'Lora', serif;
           font-weight: 700;
+          font-style: italic;
           font-size: clamp(4rem, 7vw, 8rem);
-          line-height: 1.05; color: #333333;
+          line-height: 1.05; color: #C9A050;
           margin-bottom: clamp(20px, 3vw, 32px); letter-spacing: 0.01em;
         }
         .hp-hero-h1-line { display: block; overflow: hidden; padding-bottom: 0.12em; }
@@ -133,7 +134,7 @@ export default function Homepage() {
         .hp-l3 { animation-delay: 2.5s; }
         .hp-hero-body {
           font-family: 'Lato', sans-serif;
-          font-size: 16px; line-height: 1.65; color: #333333;
+          font-size: 16px; line-height: 1.65; color: #F5F0EB;
           max-width: 440px; margin-bottom: clamp(20px, 3vw, 32px);
           opacity: 0; animation: hpFade 0.8s ease 2.8s forwards;
         }
@@ -160,7 +161,9 @@ export default function Homepage() {
         }
         .hp-hero-img::after {
           content: ''; position: absolute; inset: 0;
-          background: linear-gradient(to right, #F5F0EB 0%, rgba(245,240,235,0.4) 3%, transparent 9%);
+          background:
+            linear-gradient(to right, #333333 0%, rgba(51,51,51,0.4) 3%, transparent 9%),
+            linear-gradient(to bottom, transparent 40%, rgba(51,51,51,0.35) 60%, rgba(51,51,51,0.75) 80%, #333333 100%);
         }
         .hp-hero-credit {
           position: absolute; bottom: 16px; right: 20px; z-index: 3;
@@ -195,22 +198,24 @@ export default function Homepage() {
 
         /* ── 2. EDITORIAL QUOTE ── */
         .hp-quote-strip {
-          background: #B7C8B5;
+          background: #333333;
           padding: 100px 80px;
           text-align: center;
         }
         .hp-quote {
           font-family: 'Lora', serif;
           font-style: italic;
-          font-size: 26px;
-          line-height: 1.55; color: #333333;
-          max-width: 640px; margin: 32px auto;
+          font-size: clamp(14px, 1.5vw, 18px);
+          line-height: 1.55; color: #F5F0EB;
+          max-width: 420px; margin: 16px auto;
         }
         .hp-quote-attr {
           font-family: 'Lato', sans-serif; font-size: 14px;
-          letter-spacing: 0.12em; color: #333333; opacity: 0.6;
-          margin-top: 16px;
+          letter-spacing: 0.12em; color: #F5F0EB; opacity: 0.7;
+          margin-top: -8px;
+          text-align: right;
         }
+        .hp-quote-frame img { filter: brightness(0) invert(1); }
         .hp-quote-wrap {
           position: relative;
           z-index: 1;
@@ -242,6 +247,22 @@ export default function Homepage() {
           padding: 64px 80px;
           display: grid; grid-template-columns: 45% 55%;
           gap: 64px; align-items: center;
+        }
+        .hp-about.hp-about--text-only {
+          display: block;
+          padding: 120px 80px;
+        }
+        .hp-about.hp-about--text-only > * {
+          max-width: 760px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+        @media (max-width: 900px) {
+          .hp-about.hp-about--text-only { padding: 80px 40px; }
+          .hp-about.hp-about--text-only > * { margin-left: 0; margin-right: 0; }
+        }
+        @media (max-width: 600px) {
+          .hp-about.hp-about--text-only { padding: 60px 28px; }
         }
         @media (min-width: 901px) {
           .hp-about {
@@ -617,9 +638,15 @@ export default function Homepage() {
         }
         @media (max-width: 900px) {
           .hp-hero { flex-direction: column; min-height: auto; }
-          .hp-hero-left { padding: 120px 40px 24px; flex: none; }
-          .hp-hero-right { flex: none; height: auto; width: 100%; aspect-ratio: 4/3; position: relative; margin-top: -1px; }
-          .hp-hero-img::after { background: linear-gradient(to bottom, #F5F0EB 0%, rgba(245,240,235,0.85) 6%, rgba(245,240,235,0.5) 14%, transparent 28%); }
+          .hp-hero-left { padding: 110px 40px 16px; flex: none; }
+          .hp-hero-right { flex: none; height: 70vh; min-height: 480px; width: 100%; position: relative; margin-top: -1px; }
+          .hp-hero-img { background-position: center 25% !important; }
+          .hp-hero-img::after { background:
+            linear-gradient(to bottom, #333333 0%, rgba(51,51,51,0.85) 6%, rgba(51,51,51,0.5) 14%, transparent 24%, transparent 82%, rgba(51,51,51,0.4) 90%, rgba(51,51,51,0.9) 96%, #333333 100%);
+          }
+          .hp-hero-right { margin-bottom: -2px; }
+          .hp-hero { margin-bottom: -1px; }
+          .hp-quote-strip { margin-top: -1px; padding-top: 80px; }
           .hp-hero-credit { bottom: 16px; right: 16px; font-size: 11px; }
           .hp-hero-tree-glyph {
             bottom: 12px;
@@ -670,7 +697,7 @@ export default function Homepage() {
           .hp-voices { padding: 60px 28px; }
           .hp-contact { padding: 60px 28px; }
           .hp-quote-strip { padding: 60px 28px; }
-          .hp-quote-attr { margin-top: 56px; }
+          .hp-quote-attr { margin-top: -4px; }
           .hp-contact-actions { flex-direction: column; align-items: center; }
           .hp-immersive { min-height: 40vh; padding: 40px 20px; }
           .hp-immersive-content { padding: 40px 32px; }
@@ -697,11 +724,8 @@ export default function Homepage() {
           <h1 className="hp-hero-h1">
             <span className="hp-hero-h1-line"><span className="hp-hero-h1-inner hp-l1">When</span></span>
             <span className="hp-hero-h1-line"><span className="hp-hero-h1-inner hp-l2">you are</span></span>
-            <span className="hp-hero-h1-line"><span className="hp-hero-h1-inner hp-l3">ready.</span></span>
+            <span className="hp-hero-h1-line"><span className="hp-hero-h1-inner hp-l3">ready....</span></span>
           </h1>
-          <p className="hp-hero-body">
-            Boutique transformational travel to rediscover stillness and joy. Small groups with unhurried itineraries.
-          </p>
           <div className="hp-hero-cta">
             <a href="https://wa.me/971562216643?text=Hello%20Harsha%2C%20I%20would%20love%20to%20learn%20more%20about%20your%20journeys." className="hp-btn" target="_blank" rel="noopener noreferrer">
               Begin a Conversation
@@ -709,19 +733,14 @@ export default function Homepage() {
           </div>
         </div>
         <div className="hp-hero-right">
-          <div className="hp-hero-img" style={{ backgroundImage: "url('/assets/hero-bhutan.jpg')" }} />
+          <div className="hp-hero-img" style={{ backgroundImage: "url('/assets/harsha-portrait.jpg')" }} />
           <div className="hp-hero-tree-glyph" aria-hidden="true">
             <Glyph name="Trees" variant="White" size={60} opacity={0.8} />
             <Glyph name="Trees" variant="White" size={60} opacity={0.8} />
           </div>
-          <span className="hp-hero-credit">Photo: Kelly Dorji</span>
+          <span className="hp-hero-credit">Harsha</span>
         </div>
       </section>
-
-      {/* ── Hero → Quote divider ── */}
-      <div className="hp-section-divider">
-        <img src={DIVIDER_CENTER_SRC} alt="" aria-hidden="true" />
-      </div>
 
       {/* ══ 2. EDITORIAL QUOTE ══ */}
       <section className="hp-quote-strip">
@@ -731,30 +750,31 @@ export default function Homepage() {
               <img src="/assets/Puravida_Quote-Frame-1/Frame.png" alt="" aria-hidden="true" />
             </div>
             <p className="hp-quote">
-              I walk beside you and together we shall explore simple joys of life.
+              &ldquo;An inward journey towards growth is often inspired by where we choose to go and with whom. I am Harsha and I invite you to join me to rediscover joy through travel in small groups with a slow paced itinerary.&rdquo;
             </p>
-            <p className="hp-quote-attr">Harsha, Founder</p>
+            <p className="hp-quote-attr">Harsha</p>
           </div>
         </FU>
       </section>
 
-      {/* ── Quote → About divider ── */}
-      <div className="hp-section-divider">
-        <img src={DIVIDER_CENTER_SRC} alt="" aria-hidden="true" />
-      </div>
-
-      {/* ══ 3. ABOUT HARSHA ══ */}
-      <section className="hp-about" id="about">
+      {/* ── (old: I walk beside you... quote — removed per request)
+      <section className="hp-quote-strip">
         <FU>
-          <div className="hp-about-left">
-            <div className="hp-about-img-wrap">
-              <img src="/assets/Puravida_Photo-Frame-2-Harsha.png" alt="Harsha" className="hp-about-img" />
+          <div className="hp-quote-wrap">
+            <div className="hp-quote-frame">
+              <img src="/assets/Puravida_Quote-Frame-1/Frame.png" alt="" aria-hidden="true" />
             </div>
-            <div className="hp-about-float">
-              <p>An inward journey towards growth is often inspired by where we choose to visit and with whom.</p>
-            </div>
+            <p className="hp-quote">
+              &ldquo;I walk beside you and together we shall explore simple joys of life.&rdquo;
+            </p>
+            <p className="hp-quote-attr">Harsha</p>
           </div>
         </FU>
+      </section>
+      ── */}
+
+      {/* ══ 3. ABOUT HARSHA ══ */}
+      <section className="hp-about hp-about--text-only" id="about">
         <FU d={1}>
           <p className="hp-about-eyebrow">About Harsha</p>
           <h2 className="hp-about-h2">The skies of Ladakh changed me.</h2>
@@ -771,49 +791,7 @@ export default function Homepage() {
         </FU>
       </section>
 
-      {/* ── About → Philosophy divider ── */}
-      <div className="hp-section-divider">
-        <img src={DIVIDER_CENTER_SRC} alt="" aria-hidden="true" />
-      </div>
-
-      {/* ══ 4. PHILOSOPHY ══ */}
-      <section className="hp-phil" id="philosophy">
-        <div className="hp-phil-header">
-          <FU>
-            <h2 className="hp-phil-h2">We allow pauses for breath and space.</h2>
-            <p className="hp-phil-intro">Every journey is led by me with personal attention at an unhurried pace.</p>
-            <p className="hp-phil-intro" style={{ marginTop: 16 }}>
-              The silent paced journey is intentional to allow you to be. Present in the moment to absorb.
-            </p>
-            <p className="hp-phil-intro" style={{ marginTop: 16 }}>
-              Real people, real rituals, real meals to build real relationships. I want to create a canvas for us to grow old together and take back memories of togetherness or emptiness of mind. Both are welcome.
-            </p>
-            <div style={{ marginTop: 32 }}>
-              <Divider width={160} opacity={0.4} />
-            </div>
-          </FU>
-        </div>
-        <div className="hp-phil-grid">
-          {PILLARS.map((p, i) => (
-            <FU key={i} d={i * 0.5}>
-              <div className="hp-pillar">
-                <div className="hp-pillar-icon">
-                  <Glyph name={p.glyph} variant="Charcoal" size={48} opacity={0.5} />
-                </div>
-                <h3 className="hp-pillar-title">{p.t}</h3>
-              </div>
-            </FU>
-          ))}
-        </div>
-        <div style={{ marginTop: 48, textAlign: 'center' }}>
-          <Divider width={160} opacity={0.4} />
-        </div>
-      </section>
-
-      {/* ── Philosophy → Journeys divider ── */}
-      <div className="hp-section-divider">
-        <img src={DIVIDER_CENTER_SRC} alt="" aria-hidden="true" />
-      </div>
+      {/* (Philosophy "We allow pauses…" section moved to /about page) */}
 
       {/* ══ 5. JOURNEYS ══ */}
       <section className="hp-journeys" id="journeys">

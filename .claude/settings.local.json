@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "mcp__Claude_Preview__preview_start",
-      "Bash(pip install:*)"
+      "Bash(pip install:*)",
+      "PowerShell($pdf = \"C:\\\\Users\\\\creep\\\\Downloads\\\\PVH Brand Book Final 24032026.pdf\"; \\(Get-Item $pdf\\).Length)"
     ]
   }
 }

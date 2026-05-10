@@ -7,7 +7,7 @@ export default function Nav() {
   const location = useLocation();
   const navigate = useNavigate();
   const isHomePage = location.pathname === '/';
-  const isLightHero = ['/', '/philosophy', '/contact'].includes(location.pathname);
+  const isLightHero = ['/philosophy', '/contact'].includes(location.pathname);
   const isSplitHero = location.pathname === '/about';
 
   useEffect(() => {
@@ -62,13 +62,14 @@ export default function Nav() {
 
         .pv-nav-logo { display: flex; align-items: center; text-decoration: none; }
         .pv-nav-logo-img {
-          height: 100px; width: auto; display: block;
+          height: 125px; width: auto; display: block;
           object-fit: contain;
           transition: height 0.4s ease, filter 0.5s ease;
         }
-        .pv-nav.stuck .pv-nav-logo-img { height: 70px; }
+        .pv-nav.stuck .pv-nav-logo-img { height: 88px; }
 
         .pv-nav-logo-img { filter: brightness(0) invert(1); }
+        .pv-nav.home:not(.stuck) .pv-nav-logo-img { filter: none; }
         .pv-nav-links a { color: rgba(255,255,255,0.85); }
         .pv-nav-links a:hover { color: white; }
         .pv-nav-links a::after { background: rgba(255,255,255,0.6); }
@@ -81,6 +82,7 @@ export default function Nav() {
         .pv-nav-cta { color: #333333; background: #D9A6A1; border: none; }
         .pv-nav-cta:hover { background: #c08e88; color: white; }
         .pv-nav-burger span { background: white; }
+        .pv-nav.home:not(.stuck) .pv-nav-burger span { background: #C9A050; }
 
         .pv-nav.light-hero:not(.stuck) .pv-nav-logo-img { filter: none; }
         .pv-nav.light-hero:not(.stuck) .pv-nav-links a { color: #666666; }
@@ -181,8 +183,8 @@ export default function Nav() {
           .pv-nav.stuck .pv-nav-inner { height: 60px; }
           .pv-nav-links, .pv-nav-cta { display: none; }
           .pv-nav-burger { display: flex; }
-          .pv-nav-logo-img { height: 70px; }
-          .pv-nav.stuck .pv-nav-logo-img { height: 55px; }
+          .pv-nav-logo-img { height: 88px; }
+          .pv-nav.stuck .pv-nav-logo-img { height: 69px; }
         }
       `}</style>
 
