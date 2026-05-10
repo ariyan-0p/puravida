@@ -38,15 +38,16 @@ export default function WhatsAppButton() {
         }
         .wa-float {
           width: 48px; height: 48px; border-radius: 50%;
-          background: #333333;
+          background: #25D366;
           display: flex; align-items: center; justify-content: center;
-          box-shadow: 0 4px 20px rgba(51,51,51,0.18);
+          box-shadow: 0 4px 20px rgba(37,211,102,0.3);
           text-decoration: none; border: none; cursor: pointer; padding: 0;
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
         }
         .wa-float:hover {
+          background: #1DA851;
           transform: translateY(-2px);
-          box-shadow: 0 8px 32px rgba(51,51,51,0.24);
+          box-shadow: 0 8px 32px rgba(37,211,102,0.45);
         }
         .wa-float svg { width: 24px; height: 24px; fill: #FFFFFF; }
         .wa-menu {

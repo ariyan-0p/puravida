@@ -100,6 +100,16 @@ export default function Nav() {
         .pv-nav.stuck .pv-nav-cta:hover { background: #c08e88; color: white; }
         .pv-nav.stuck .pv-nav-burger span { background: #333333; }
 
+        /* Charcoal stuck navbar on homepage */
+        .pv-nav.home.stuck {
+          background: rgba(51,51,51,0.96);
+          box-shadow: 0 1px 0 rgba(201,160,80,0.22);
+        }
+        .pv-nav.home.stuck .pv-nav-links a { color: rgba(245,240,235,0.85); }
+        .pv-nav.home.stuck .pv-nav-links a:hover { color: #C9A050; }
+        .pv-nav.home.stuck .pv-nav-links a::after { background: #C9A050; }
+        .pv-nav.home.stuck .pv-nav-burger span { background: #C9A050; }
+
         .pv-nav-links {
           display: flex; gap: 40px; list-style: none; align-items: center;
         }
@@ -135,7 +145,7 @@ export default function Nav() {
 
         .pv-mobile {
           position: fixed; inset: 0; z-index: 300;
-          background: #F5F0EB;
+          background: #333333;
           display: flex; flex-direction: column;
           opacity: 0; visibility: hidden;
           transition: opacity 0.45s ease, visibility 0.45s ease;
@@ -144,15 +154,15 @@ export default function Nav() {
         .pv-mobile-top {
           display: flex; align-items: center; justify-content: space-between;
           padding: 24px 32px;
-          border-bottom: 1px solid rgba(217,166,161,0.15);
+          border-bottom: 1px solid rgba(201,160,80,0.18);
         }
         .pv-mobile-logo { height: 56px; width: auto; }
         .pv-mobile-close {
           width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
-          background: none; border: 1px solid rgba(217,166,161,0.2); border-radius: 50%;
-          cursor: pointer; font-size: 18px; color: #333333; transition: border-color 0.3s;
+          background: none; border: 1px solid rgba(201,160,80,0.35); border-radius: 50%;
+          cursor: pointer; font-size: 18px; color: #C9A050; transition: border-color 0.3s, color 0.3s;
         }
-        .pv-mobile-close:hover { border-color: #D9A6A1; }
+        .pv-mobile-close:hover { border-color: #C9A050; color: #F5F0EB; }
         .pv-mobile-body {
           flex: 1; display: flex; flex-direction: column;
           align-items: center; justify-content: center; gap: 40px; padding: 40px;
@@ -160,13 +170,13 @@ export default function Nav() {
         .pv-mobile-link {
           font-family: 'Playfair Display', serif;
           font-size: 2.4rem; font-weight: 400;
-          color: #333333; text-decoration: none;
+          color: #F5F0EB; text-decoration: none;
           letter-spacing: 0.02em; transition: color 0.3s; cursor: pointer;
         }
-        .pv-mobile-link:hover { color: #D9A6A1; }
+        .pv-mobile-link:hover { color: #C9A050; }
         .pv-mobile-footer {
           padding: 32px; text-align: center;
-          border-top: 1px solid rgba(217,166,161,0.15);
+          border-top: 1px solid rgba(201,160,80,0.18);
         }
         .pv-mobile-wa {
           font-family: 'Lato', sans-serif; font-size: 16px; font-weight: 700;
