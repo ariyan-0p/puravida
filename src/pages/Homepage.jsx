@@ -681,7 +681,7 @@ export default function Homepage() {
             flex-direction: column;
           }
           .hp-hero-left {
-            padding: 140px 28px 56px;
+            padding: 140px 28px 28px;
             flex: 0 0 auto;
           }
           .hp-hero-right {
@@ -699,20 +699,20 @@ export default function Homepage() {
           .hp-hero-img {
             top: 48px !important;
             bottom: 0 !important;
-            background-position: center 22% !important;
+            background-position: center 35% !important;
           }
           .hp-hero-img::after {
             inset: 0 !important;
             background:
-              radial-gradient(ellipse 95% 92% at 50% 50%,
+              radial-gradient(ellipse 98% 96% at 50% 55%,
                 transparent 0%,
-                transparent 75%,
-                rgba(51,51,51,0.45) 95%,
+                transparent 82%,
+                rgba(51,51,51,0.4) 96%,
                 #333333 100%),
               linear-gradient(to bottom,
                 #333333 0%,
                 transparent 28%,
-                transparent 72%,
+                transparent 88%,
                 #333333 100%) !important;
           }
           .hp-hero-credit { display: none; }
