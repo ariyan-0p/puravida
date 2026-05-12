@@ -210,9 +210,11 @@ export default function Homepage() {
           max-width: 420px; margin: 16px auto;
         }
         .hp-quote-attr {
-          font-family: 'Lato', sans-serif; font-size: 14px;
-          letter-spacing: 0.12em; color: #F5F0EB; opacity: 0.7;
-          margin-top: -8px;
+          font-family: 'Lora', serif;
+          font-style: italic;
+          font-size: clamp(14px, 1.5vw, 18px);
+          color: #F5F0EB; opacity: 0.85;
+          margin-top: -20px;
           text-align: right;
         }
         .hp-quote-frame img { filter: brightness(0) invert(1); }
@@ -317,7 +319,8 @@ export default function Homepage() {
           color: #C9A050; margin-bottom: clamp(14px, 2vw, 22px);
         }
         .hp-about-h2 {
-          font-family: 'Playfair Display', serif;
+          font-family: 'Lora', serif;
+          font-style: italic;
           font-size: 32px; font-weight: 700;
           line-height: 1.25; color: #FFFFFF;
           margin-bottom: clamp(16px, 2.4vw, 24px);
@@ -836,13 +839,10 @@ export default function Homepage() {
           <p className="hp-about-eyebrow">About Harsha</p>
           <h2 className="hp-about-h2">The skies of Ladakh changed me.</h2>
           <p className="hp-about-body">
-            The high altitude mountain air truly stripped me off all that was unreal and left only what was real and true.
+            I am a classical trained Pilates teacher, and the founder of PuraVida with Harsha. The thread that runs through these, is the practice of being present in the moment. In your body on the Pilates mat or on a mountain.
           </p>
           <p className="hp-about-body">
-            I am a classical trained Pilates teacher, and the founder of PuraVida with Harsha. The thread that runs through these is practice of being present in the moment. In your body on the mat or on a mountain.
-          </p>
-          <p className="hp-about-body">
-            Every trip I have led has been curated by me keeping in mind what do I need and how do I want you to feel. What will be your take back. And everytime the answer that comes to my mind is Joy through simple experiences. Like sharing butter tea in a Ladakhi street corner or enjoying a home cooked meal with a family in Bhutan sitting on the floor around shared stories and laughter.
+            Every trip I have led has been curated by me keeping in mind what do I need and how do I want you to feel. What will be your take back. And everytime the answer that comes to my mind is,Joy through simple experiences. Like sharing butter tea in a Ladakhi street corner or enjoying a home cooked meal with a family in Bhutan sitting on the floor around shared stories and laughter.
           </p>
           <Link to="/about" className="hp-about-link">Read Harsha's full story</Link>
         </FU>
