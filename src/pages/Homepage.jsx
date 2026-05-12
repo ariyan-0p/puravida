@@ -674,9 +674,66 @@ export default function Homepage() {
           .hp-immersive { min-height: 50vh; }
         }
         @media (max-width: 600px) {
-          .hp-hero-left { padding: 100px 28px 40px; }
-          .hp-hero-right { aspect-ratio: 3/2; }
-          .hp-hero-h1 { font-size: clamp(2.8rem, 11vw, 4rem); margin-bottom: 28px; }
+          .hp-hero {
+            height: 100vh;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+          }
+          .hp-hero-left {
+            padding: 140px 28px 56px;
+            flex: 0 0 auto;
+          }
+          .hp-hero-right {
+            flex: 1 1 auto;
+            aspect-ratio: auto;
+            min-height: 0;
+            height: auto;
+            width: 100%;
+            background: #333333;
+          }
+          .hp-hero-img {
+            background-size: cover !important;
+            background-position: center 20% !important;
+          }
+          .hp-hero-img {
+            top: 48px !important;
+            bottom: 0 !important;
+            background-position: center 22% !important;
+          }
+          .hp-hero-img::after {
+            inset: 0 !important;
+            background:
+              radial-gradient(ellipse 95% 92% at 50% 50%,
+                transparent 0%,
+                transparent 75%,
+                rgba(51,51,51,0.45) 95%,
+                #333333 100%),
+              linear-gradient(to bottom,
+                #333333 0%,
+                transparent 28%,
+                transparent 72%,
+                #333333 100%) !important;
+          }
+          .hp-hero-credit { display: none; }
+          .hp-hero { position: relative; overflow: hidden; }
+          .hp-hero::after {
+            content: '';
+            position: absolute;
+            left: 0; right: 0; bottom: -1px;
+            height: 80px;
+            background: linear-gradient(to bottom, rgba(51,51,51,0) 0%, #333333 60%, #333333 100%);
+            z-index: 4;
+            pointer-events: none;
+          }
+          .hp-hero-tree-glyph { z-index: 5; }
+          .hp-hero-h1 {
+            font-size: clamp(1.6rem, 7vw, 2.4rem);
+            margin-bottom: 22px;
+            white-space: nowrap;
+          }
+          .hp-hero-h1-line { display: inline-block; vertical-align: top; }
+          .hp-hero-h1-line:not(:last-child) { margin-right: 0.28em; }
           .hp-hero-tagline {
             margin-bottom: 32px;
             font-size: clamp(14px, 3.8vw, 16px);
