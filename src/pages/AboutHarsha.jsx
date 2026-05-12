@@ -146,12 +146,20 @@ export default function AboutHarsha() {
 
         /* ── STORY ── */
         .ah-story {
-          background: #F5F0EB;
+          background: #333333;
           padding: 120px 80px;
           display: grid;
           grid-template-columns: 38fr 62fr;
           gap: 80px;
           align-items: start;
+        }
+        .ah-story.ah-story--text-only {
+          display: block;
+          padding-top: 180px;
+        }
+        .ah-story.ah-story--text-only .ah-story-right {
+          max-width: 760px;
+          margin: 0 auto;
         }
         .ah-story-left {
           position: sticky;
@@ -191,27 +199,27 @@ export default function AboutHarsha() {
         .ah-story-right {}
         .ah-story-eyebrow {
           font-family: 'Lato', sans-serif;
-          font-size: 12px; font-weight: 700;
-          letter-spacing: 0.18em; text-transform: uppercase;
-          color: rgba(51,51,51,0.5);
-          margin-bottom: 24px;
+          font-size: 12px;
+          letter-spacing: 0.2em; text-transform: uppercase;
+          color: #C9A050;
+          margin-bottom: clamp(14px, 2vw, 22px);
         }
         .ah-story-h2 {
-          font-family: 'Playfair Display', serif;
-          font-weight: 700;
-          font-size: 28px;
-          line-height: 1.25;
-          color: #333333;
-          margin-bottom: 28px;
-          max-width: 540px;
+          font-family: 'Lato', sans-serif;
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 1.85;
+          color: rgba(255,255,255,0.8);
+          margin-bottom: 20px;
+          max-width: 560px;
         }
         .ah-story-body {
           font-family: 'Lato', sans-serif;
           font-size: 16px;
           line-height: 1.85;
-          color: #333333;
+          color: rgba(255,255,255,0.8);
           margin-bottom: 20px;
-          max-width: 540px;
+          max-width: 560px;
         }
         .ah-story-body:last-of-type { margin-bottom: 0; }
         .ah-story-pull {
@@ -219,7 +227,7 @@ export default function AboutHarsha() {
           font-style: italic;
           font-size: 18px;
           line-height: 1.7;
-          color: #333333;
+          color: rgba(255,255,255,0.85);
           text-align: center;
           max-width: 540px;
           margin: 32px 0 0;
@@ -229,25 +237,27 @@ export default function AboutHarsha() {
 
         /* ── QUOTE STRIP ── */
         .ah-quote-strip {
-          background: #B7C8B5;
+          background: #333333;
           padding: 100px 80px;
           text-align: center;
         }
         .ah-quote {
           font-family: 'Lora', serif;
           font-style: italic;
-          font-size: clamp(1.2rem, 2.2vw, 1.7rem);
-          line-height: 1.75;
-          color: #333333;
-          max-width: 720px;
-          margin: 0 auto 20px;
+          font-size: clamp(14px, 1.5vw, 18px);
+          line-height: 1.55;
+          color: #F5F0EB;
+          max-width: 420px;
+          margin: 16px auto;
         }
         .ah-quote-attr {
-          font-family: 'Lato', sans-serif;
-          font-size: 13px;
-          letter-spacing: 0.12em;
-          color: rgba(51,51,51,0.55);
-          margin-top: 20px;
+          font-family: 'Lora', serif;
+          font-style: italic;
+          font-size: clamp(14px, 1.5vw, 18px);
+          color: #F5F0EB;
+          opacity: 0.85;
+          margin-top: -20px;
+          text-align: right;
           position: relative;
           z-index: 1;
         }
@@ -257,23 +267,28 @@ export default function AboutHarsha() {
           max-width: 520px;
           margin: 0 auto;
           text-align: center;
-          padding: 72px 64px 72px;
+          padding: 72px 56px;
+          min-height: 240px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
         }
         .ah-quote-frame {
           position: absolute;
-          top: 50%; left: 50%;
-          transform: translate(-50%, -50%);
-          width: 100%;
-          aspect-ratio: 1080 / 717;
+          inset: -12px -16px -18px -16px;
           pointer-events: none;
           z-index: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
         .ah-quote-frame img {
           width: 100%;
           height: 100%;
           object-fit: fill;
           display: block;
-          opacity: 0.55;
+          opacity: 0.85;
+          filter: brightness(0) invert(1);
         }
 
         /* ── RIVER MOMENT ── */
@@ -480,129 +495,70 @@ export default function AboutHarsha() {
       <Nav />
       <WhatsAppButton />
 
-      {/* HERO */}
-      <section className="ah-hero">
-        <div className="ah-hero-left" style={{ position: 'relative' }}>
-          <p className="ah-hero-eyebrow">About Harsha</p>
-          <h1 className="ah-hero-h1">
-            Ten years ago, I went to Ladakh. I have been returning ever since.
-          </h1>
-          <p className="ah-hero-tagline">
-            Founder of PuraVida with Harsha. Classical Pilates trainer. Travel curator. Based in Dubai.
-          </p>
-          <p className="ah-hero-scroll">Scroll to read her story</p>
-        </div>
-        <div className="ah-hero-right">
-          <div className="ah-hero-img" />
-        </div>
-      </section>
-
-      {/* ── Hero → Story divider ── */}
-      <div className="ah-hero-divider">
-        <img src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png" alt="" aria-hidden="true" />
-      </div>
-
       {/* STORY */}
-      <section className="ah-story">
-        <FU className="ah-story-left">
-          <div className="ah-story-img-wrap">
-            <img
-              src="/assets/05. GRAPHIC ELEMENTS/Puravida_Photo-Frame-2/Puravida_Photo-Frame-2.png"
-              alt="" aria-hidden="true" className="ah-story-leaf-accent"
-            />
-            <img
-              src="/assets/harsha-portrait.jpg"
-              alt="Harsha, founder of PuraVida"
-              className="ah-story-img"
-            />
-          </div>
-          <p className="ah-story-img-caption">Harsha, Dubai</p>
-        </FU>
-
+      <section className="ah-story ah-story--text-only">
         <div className="ah-story-right">
           <FU>
-            <p className="ah-story-eyebrow">The Beginning</p>
-            <h2 className="ah-story-h2">
-              2010 is when I first visited Ladakh. I have been returning ever since.
-            </h2>
+            <p className="ah-story-eyebrow">About Me</p>
             <p className="ah-story-body">
-              I flew to Leh with a camera and a backpack. A week later I returned to Dubai, changed. The altitude, the colour of the sky, and the people I met had done something that lives beyond words.
+              September 2010, 23 days post the flash floods, is when I landed in Leh Air Force Base Airport with a backpack and camera. I saw the Indian Air Force planes parked on the tarmac and felt for the first time this sense of freedom and national pride.
             </p>
             <p className="ah-story-body">
-              The silence and clarity that had long eluded me arrived the moment I started simply being, present, in observation.
+              I saw mountains around me that were dotted with monasteries and I was blank and in awe. Indescribable the beauty that hit me hard and I had inexplicable tears.
             </p>
             <p className="ah-story-body">
-              A stillness settled in. And from that stillness, a heart decision emerged: to sponsor children affected by the floods. With nothing but intention, the universe answered. Friends stepped forward. Strangers followed. A waitlist of open hearts grew, and just like that, 53 children found sponsors. A family was born, one we called New Lives, New Beginnings.
+              A few days of exploring and interacting with the common people and soldiers I was deeply in love with everyone and everything. Even the dry mountain air, the trees, the colour of the skies, the rivers, the maroon clad monks, the white homes with carved wooden windows and the momos. I wanted to feel this way. Everyday. I wanted everyone to feel this way. Everyday.
             </p>
             <p className="ah-story-body">
-              Ten years of returning. Ten years of bonds that were, and remain, beautifully real.
+              Understanding more deeply the lives of the soldiers around a bonfire left me deeply impacted. Naturally, I dived into the political history of this land and the lives of the soldiers at high altitude. In a constant state of absorbing and learning, I was mesmerised. I had found my calling. I am a vagabond in my heart. I love humans and their stories. I wish to wander and be in wonder.
             </p>
             <p className="ah-story-body">
-              That chapter found its natural close.
+              The silence and clarity arrived at high altitude. My brain was decluttered. I wanted to learn and grow through travel and witness the lives of different cultures.
             </p>
             <p className="ah-story-body">
-              Yet the pull remains: to wander into places that stretch beyond comfort, to stay in that constant state of observation and seeking within.
+              A stillness settled in my heart and from that emerged a decision to sponsor children affected by the floods. The universe played its part — a waitlist of open hearts grew, and just like that, 53 children found sponsors.
             </p>
-            <p className="ah-story-pull">
-              <span>A Stillness. A wholesome emptiness. A filled Nothingness.</span>
-              <span>And always, the knowing that the next journey is calling.</span>
+            <p className="ah-story-body">
+              10 years of returning and of bonds that were, and remain, beautifully real. That chapter found its natural close.
+            </p>
+            <p className="ah-story-body">
+              Yet the pull remains: to wander into places that stretch beyond comfort, to stay in that constant state of observation and seeking within a stillness, wholesome emptiness and a filled nothingness.
             </p>
           </FU>
 
           <div className="ah-story-divider"><Divider width={180} opacity={0.4} /></div>
 
           <FU d={1} style={{ marginTop: 0 }}>
-            <p className="ah-story-eyebrow">Why PuraVida Exists</p>
-            <h2 className="ah-story-h2">
-              What if travel was about arriving fully?
-            </h2>
+            <p className="ah-story-eyebrow">Why PuraVida with Harsha exists?</p>
             <p className="ah-story-body">
-              I kept returning to Ladakh, to Bhutan, to the places that had changed me. Each time I was joined by sponsors of the children or friends, or strangers even.
+              PuraVida in Costa Rican tradition means &ldquo;Pure Life&rdquo; — a way of being that is unhurried, grateful, and fully present. For me, this is how I wish to live.
             </p>
             <p className="ah-story-body">
-              PuraVida began with a single question: what if travel was about arriving fully, and being changed by that arrival?
+              What if travel was about arriving fully, being present and being changed by that arrival?
             </p>
             <p className="ah-story-body">
-              Pura Vida. In Costa Rican tradition, it means pure life: a way of being that is unhurried, grateful, and fully present. For me, it has always been a practice. It runs through every journey I curate and every session I teach.
-            </p>
-            <p className="ah-story-body">
-              Every journey I lead, I lead because I have walked that ground myself. Because the families in Ladakh and Bhutan pour tea for me the way they pour it for family. Because I know which mornings are worth waking for at four in the dark.
+              This is the essence of every journey I curate. Being present. Being present together — in that arrival, in that change. For growth. For transformation.
             </p>
           </FU>
 
           <div className="ah-story-divider"><Divider width={180} opacity={0.4} /></div>
 
           <FU d={2} style={{ marginTop: 0 }}>
-            <p className="ah-story-eyebrow">The Body Knows</p>
-            <h2 className="ah-story-h2">
-              Presence starts in the body.
-            </h2>
+            <p className="ah-story-eyebrow">PuraVida Pilates</p>
             <p className="ah-story-body">
-              I have been teaching classical Pilates since 2010. Joseph Pilates called his method the Art of Contrology: the complete coordination of body, mind, and spirit. Nearly a century later, it remains one of the most intelligent, anatomically precise approaches to movement the world has known.
+              I am a certified classical Pilates teacher. Pilates — a complete coordination of body, mind, and spirit — remains one of the most intelligent, anatomically precise approaches to movement.
             </p>
             <p className="ah-story-body">
-              I teach from my private studio in Dubai, one-to-one, exclusively with women and teenagers. The work is slow, precise, and deeply personal. Each body carries its own history. Each spine tells its own story.
+              I teach from my private studio in Dubai and work exclusively with women and teenagers. The work is slow, precise, and deeply personal. Each body carries its own history. Each spine tells its own story.
             </p>
             <p className="ah-story-body">
-              This dual practice, the discipline of the body alongside the expansion of the world, is the foundation of everything I create. When the body is centred and the mind is open, travel becomes something else entirely: a conversation with life itself.
-            </p>
-            <p className="ah-story-pull">
-              <span>Take care of your spine, and your spine will take care of you.</span>
-            </p>
-          </FU>
-
-          <div className="ah-story-divider"><Divider width={180} opacity={0.4} /></div>
-
-          <FU d={3} style={{ marginTop: 0 }}>
-            <p className="ah-story-eyebrow">How I Work</p>
-            <h2 className="ah-story-h2">
-              Personal attention. Founder-led. Fully present.
-            </h2>
-            <p className="ah-story-body">
-              I lead every journey personally. I am with you at the monastery at dawn and at the dinner table at dusk. The itinerary is handcrafted each season, composed with full attention.
+              I stay present and focused with a commitment to restoration. Our spine and breath carry us through life and I believe that self-discipline begins within — first knowing your body and respecting it at every stage of life.
             </p>
             <p className="ah-story-body">
-              Groups stay small, below twenty people, because intimacy is the point. You will know each person by the second day. You will likely know yourself a little differently by the last.
+              The same presence I bring to the studio, I carry into every journey I curate.
+            </p>
+            <p className="ah-story-body">
+              I welcome you to begin the PuraVida way. In the body, in the breath.
             </p>
           </FU>
         </div>
@@ -621,7 +577,7 @@ export default function AboutHarsha() {
               <img src="/assets/Puravida_Quote-Frame-1/Frame.png" alt="" aria-hidden="true" />
             </div>
             <p className="ah-quote">
-              Tea tastes different in Bhutan: slower, quieter, exactly where you are.
+              &ldquo;Tea tastes different in Bhutan: slower, quieter, exactly where you are.&rdquo;
             </p>
             <p className="ah-quote-attr">Harsha</p>
           </div>
@@ -702,7 +658,7 @@ export default function AboutHarsha() {
           ].map((p, i) => (
             <FU key={i} d={i * 0.4}>
               <div className="ah-pillar">
-                <Glyph name={p.glyph} variant="Charcoal" size={48} opacity={0.5} />
+                <Glyph name={p.glyph} variant="Charcoal" size={i === 1 ? 96 : 48} opacity={0.5} />
                 <h3 className="ah-pillar-title">{p.t}</h3>
               </div>
             </FU>

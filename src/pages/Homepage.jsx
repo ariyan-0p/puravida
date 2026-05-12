@@ -392,8 +392,7 @@ export default function Homepage() {
         }
         .hp-j-header {
           display: flex; align-items: flex-end; justify-content: space-between;
-          margin-bottom: 64px; padding-bottom: 32px;
-          border-bottom: 1px solid rgba(255,255,255,0.15);
+          margin-bottom: 32px; padding-bottom: 0;
         }
         .hp-j-h2 {
           font-family: 'Playfair Display', serif;
@@ -524,9 +523,11 @@ export default function Homepage() {
           text-align: center; margin-bottom: 64px;
         }
         .hp-voices-h2 {
-          font-family: 'Playfair Display', serif;
-          font-size: clamp(2rem, 3vw, 2.8rem); font-weight: 700;
+          font-family: 'Lora', serif;
+          font-style: italic;
+          font-size: clamp(1.5rem, 3vw, 2.8rem); font-weight: 700;
           color: #333333; margin-bottom: 12px;
+          white-space: nowrap;
         }
         .hp-voices-grid {
           display: grid; grid-template-columns: repeat(3, 1fr);
@@ -598,7 +599,8 @@ export default function Homepage() {
           opacity: 0.18;
         }
         .hp-contact-h2 {
-          font-family: 'Playfair Display', serif;
+          font-family: 'Lora', serif;
+          font-style: italic;
           font-size: clamp(2.2rem, 4vw, 3.6rem); font-weight: 700;
           line-height: 1.2; color: #333333;
           max-width: 600px; margin: 32px auto 28px;
@@ -620,12 +622,12 @@ export default function Homepage() {
         }
         .hp-contact-btn:hover { background: #c08e88; color: #FFFFFF; }
         .hp-contact-link {
-          font-family: 'Lato', sans-serif; font-size: 16px;
-          color: #333333; text-decoration: none;
-          padding: 16px 36px; border: 1px solid rgba(51,51,51,0.25);
-          border-radius: 4px; transition: all 0.35s;
+          font-family: 'Lato', sans-serif; font-size: 16px; font-weight: 700;
+          color: #333333; background: #D9A6A1;
+          padding: 16px 36px; border-radius: 4px;
+          text-decoration: none; transition: background 0.35s, color 0.35s;
         }
-        .hp-contact-link:hover { border-color: #333333; }
+        .hp-contact-link:hover { background: #c08e88; color: #FFFFFF; }
         .hp-contact-glyphs {
           display: flex; justify-content: center; gap: 16px;
           margin-top: 16px;
@@ -850,6 +852,11 @@ export default function Homepage() {
 
       {/* (Philosophy "We allow pauses…" section moved to /about page) */}
 
+      {/* ── About → Journeys divider ── */}
+      <div className="hp-section-divider">
+        <img src={DIVIDER_CENTER_SRC} alt="" aria-hidden="true" />
+      </div>
+
       {/* ══ 5. JOURNEYS ══ */}
       <section className="hp-journeys" id="journeys">
         <div className="hp-j-header">
@@ -863,8 +870,7 @@ export default function Homepage() {
                 <div className="hp-j-card-overlay" />
                 <div className="hp-j-card-content">
                   <h3 className="hp-j-card-dest">{j.dest}</h3>
-                  <p className="hp-j-card-tag">{j.tag}</p>
-                  <div className="hp-j-card-meta"><span>{j.dur}</span><span>{j.dates}</span></div>
+                  <div className="hp-j-card-meta"><span>{j.dates}</span></div>
                 </div>
               </Link>
             </FU>
@@ -881,7 +887,7 @@ export default function Homepage() {
       <section className="hp-voices" id="voices">
         <div className="hp-voices-header">
           <FU>
-            <h2 className="hp-voices-h2">What past travellers say</h2>
+            <h2 className="hp-voices-h2">What past travellers say....</h2>
           </FU>
         </div>
         <div className="hp-voices-grid">
