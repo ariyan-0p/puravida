@@ -681,7 +681,7 @@ export default function Homepage() {
             flex-direction: column;
           }
           .hp-hero-left {
-            padding: 140px 28px 28px;
+            padding: 180px 28px 28px;
             flex: 0 0 auto;
           }
           .hp-hero-right {
