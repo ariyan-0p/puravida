@@ -207,7 +207,7 @@ export default function Homepage() {
           font-style: italic;
           font-size: clamp(14px, 1.5vw, 18px);
           line-height: 1.55; color: #F5F0EB;
-          max-width: 420px; margin: 16px auto;
+          max-width: 380px; margin: 16px auto;
         }
         .hp-quote-attr {
           font-family: 'Lora', serif;
@@ -221,10 +221,10 @@ export default function Homepage() {
         .hp-quote-wrap {
           position: relative;
           z-index: 1;
-          max-width: 520px;
+          max-width: 560px;
           margin: 0 auto;
           text-align: center;
-          padding: 48px 40px;
+          padding: 56px 72px 56px 96px;
         }
         .hp-quote-frame {
           position: absolute;
