@@ -565,69 +565,6 @@ export default function AboutHarsha() {
         </FU>
       </section>
 
-      {/* ── Believes → Philosophy divider ── */}
-      <div className="ah-hero-divider">
-        <img src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png" alt="" aria-hidden="true" />
-      </div>
-
-      {/* PHILOSOPHY (moved from Homepage) */}
-      <section className="ah-phil" id="philosophy">
-        <div className="ah-phil-header">
-          <FU>
-            <h2 className="ah-phil-h2">We allow pauses for breath and space.</h2>
-          </FU>
-        </div>
-        <div className="ah-phil-grid">
-          {[
-            { t: "Stillness over speed", glyph: "Pause" },
-            { t: "Time as luxury", glyph: "Sunset" },
-            { t: "Authentic immersion", icon: "/assets/04. ICONS/PNG/Charcoal/128px/Wellness - 128px.png" },
-          ].map((p, i) => (
-            <FU key={i} d={i * 0.4}>
-              <div className="ah-pillar">
-                <div className="ah-pillar-icon">
-                  {p.icon ? (
-                    <img
-                      src={encodeURI(p.icon)}
-                      alt=""
-                      aria-hidden="true"
-                      style={{ height: 56, width: 'auto', opacity: 0.5, display: 'block' }}
-                    />
-                  ) : (
-                    <Glyph name={p.glyph} variant="Charcoal" size={56} opacity={0.5} />
-                  )}
-                </div>
-                <h3 className="ah-pillar-title">{p.t}</h3>
-              </div>
-            </FU>
-          ))}
-        </div>
-      </section>
-
-      {/* ── Philosophy → CTA divider ── */}
-      <div className="ah-hero-divider">
-        <img src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png" alt="" aria-hidden="true" />
-      </div>
-
-      {/* CTA */}
-      <section className="ah-cta">
-        <FU>
-          <h2 className="ah-cta-h2">
-            There is space for you,<br />if it calls.
-          </h2>
-          <a
-            href="https://wa.me/+971562216643?text=Hello%20Harsha%2C%20I%20would%20love%20to%20learn%20more%20about%20your%202026%20journeys."
-            className="ah-cta-btn"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Begin a Conversation
-          </a>
-          <div style={{ marginTop: 56 }}>
-            <Divider width={180} opacity={0.45} />
-          </div>
-        </FU>
-      </section>
 
       <div className="ah-hero-divider">
         <img src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png" alt="" aria-hidden="true" />

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-export default function Footer() {
+export default function Footer({ hideTagline = false }) {
   const handleJourneysClick = (e) => {
     if (window.location.pathname === '/') {
       e.preventDefault();
@@ -78,13 +78,11 @@ export default function Footer() {
       `}</style>
 
       <footer className="pv-footer">
-        <p className="f-tagline">…the right journey awaits you.</p>
+        {!hideTagline && (
+          <p className="f-tagline">…the right journey awaits you.</p>
+        )}
 
         <img src="/assets/01. LOGOS/Logo-Main.png" alt="PuraVida with Harsha" className="f-logo" />
-
-        <Link to="/#journeys" className="f-journeys" onClick={handleJourneysClick}>
-          Journeys
-        </Link>
 
         <div className="f-social">
           <a href="mailto:harsha@puravidawithharsha.com" aria-label="Email">

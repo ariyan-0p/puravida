@@ -177,6 +177,13 @@ export default function Nav() {
           text-rendering: optimizeLegibility;
           -webkit-tap-highlight-color: transparent;
           outline: none;
+          white-space: nowrap;
+        }
+        @media (max-width: 420px) {
+          .pv-mobile-link { font-size: 2rem; }
+        }
+        @media (max-width: 360px) {
+          .pv-mobile-link { font-size: 1.75rem; }
         }
         .pv-mobile-link:hover,
         .pv-mobile-link:focus,
@@ -214,7 +221,6 @@ export default function Nav() {
         </div>
         <div className="pv-mobile-body">
           <Link to="/about" className="pv-mobile-link" onClick={() => setMenuOpen(false)}>About me</Link>
-          <Link to="/why-we-exist" className="pv-mobile-link" onClick={() => setMenuOpen(false)}>Why PuraVida exists</Link>
           <a href="#journeys" className="pv-mobile-link" onClick={(e) => handleHashLink(e, 'journeys')}>PuraVida Journeys</a>
           <Link to="/pilates" className="pv-mobile-link" onClick={() => setMenuOpen(false)}>PuraVida Pilates</Link>
           <Link to="/contact" className="pv-mobile-link" onClick={() => setMenuOpen(false)}>Get in touch</Link>
@@ -234,7 +240,6 @@ export default function Nav() {
 
           <ul className="pv-nav-links">
             <li><Link to="/about">About me</Link></li>
-            <li><Link to="/why-we-exist">Why PuraVida exists</Link></li>
             <li><a href="#journeys" onClick={(e) => handleHashLink(e, 'journeys')}>PuraVida Journeys</a></li>
             <li><Link to="/pilates">PuraVida Pilates</Link></li>
             <li><Link to="/contact">Get in touch</Link></li>

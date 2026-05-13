@@ -194,31 +194,10 @@ export default function Contact() {
       {/* HERO */}
       <section className="ct-hero">
         <FU>
-          <p className="ct-hero-eyebrow">Begin Here</p>
           <h1 className="ct-hero-h1">
-            The right journey finds you<br />when you are truly ready.
+            I would love to hear from you. Begin with a conversation about where you are and what is calling you.
           </h1>
-          <p className="ct-hero-body">
-            We begin with a conversation. Message Harsha directly. Tell her where you are. What you are carrying. What you are looking for.
-          </p>
           <Divider width={140} opacity={0.4} />
-        </FU>
-      </section>
-
-      {/* PRIMARY CTA */}
-      <section className="ct-primary">
-        <FU>
-          <div>
-            <a
-              href="https://wa.me/+971562216643?text=Hello%20Harsha%2C%20I%20would%20love%20to%20learn%20more%20about%20your%202026%20journeys."
-              className="ct-wa-btn"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Message Harsha on WhatsApp
-            </a>
-          </div>
-          <p className="ct-wa-label">The most direct way to reach Harsha</p>
         </FU>
       </section>
 
@@ -255,23 +234,6 @@ export default function Contact() {
           </a>
         </FU>
       </div>
-
-      {/* NOTE */}
-      <section className="ct-note">
-        <FU>
-          <Divider width={140} opacity={0.35} />
-          <p className="ct-note-q" style={{ marginTop: 48 }}>
-            I would love to hear from you. Begin with a conversation about where you are and what is calling you.
-          </p>
-          <p className="ct-note-attr">Harsha</p>
-          <Divider width={140} opacity={0.35} />
-          <div className="ct-glyphs">
-            <Glyph name="Mountains" variant="Charcoal" size={36} opacity={0.18} />
-            <Glyph name="Sunset" variant="Charcoal" size={44} opacity={0.18} />
-            <Glyph name="Pause" variant="Charcoal" size={36} opacity={0.18} />
-          </div>
-        </FU>
-      </section>
 
       <Footer />
     </>

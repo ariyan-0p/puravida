@@ -138,17 +138,19 @@ export default function Homepage() {
           max-width: 440px; margin-bottom: clamp(20px, 3vw, 32px);
           opacity: 0; animation: hpFade 0.8s ease 2.8s forwards;
         }
-        .hp-hero-cta {
-          opacity: 0; animation: hpFade 0.8s ease 3s forwards;
+        .hp-awaits-strip {
+          background: #333333;
+          padding: 28px 40px 40px;
+          text-align: center;
         }
-        .hp-btn {
-          display: inline-block;
-          font-family: 'Lato', sans-serif; font-size: 16px; font-weight: 700;
-          color: #333333; background: #D9A6A1;
-          padding: 16px 36px; border-radius: 4px;
-          text-decoration: none; transition: background 0.35s, color 0.35s;
+        .hp-hero-awaits {
+          font-family: 'Lora', serif;
+          font-style: italic; font-weight: 700;
+          font-size: clamp(1.1rem, 1.8vw, 1.6rem);
+          line-height: 1.4;
+          color: #C9A050;
+          margin: 0;
         }
-        .hp-btn:hover { background: #c08e88; color: #FFFFFF; }
 
         .hp-hero-right {
           flex: 1; position: relative;
@@ -198,26 +200,32 @@ export default function Homepage() {
 
         /* ── 2. EDITORIAL QUOTE ── */
         .hp-quote-strip {
-          background: #333333;
+          background: #B7C8B5;
           padding: 100px 80px;
           text-align: center;
         }
         .hp-quote {
           font-family: 'Lora', serif;
           font-style: italic;
-          font-size: clamp(14px, 1.5vw, 18px);
-          line-height: 1.55; color: #F5F0EB;
-          max-width: 380px; margin: 16px auto;
+          font-weight: 500;
+          font-size: clamp(15px, 1.6vw, 19px);
+          line-height: 1.65; color: #333333;
+          max-width: 420px; margin: 16px auto;
         }
-        .hp-quote-attr {
-          font-family: 'Lora', serif;
-          font-style: italic;
-          font-size: clamp(14px, 1.5vw, 18px);
-          color: #F5F0EB; opacity: 0.85;
-          margin-top: -20px;
-          text-align: right;
+        .hp-quote-cta {
+          margin: 36px 0 48px;
+          display: flex;
+          justify-content: center;
         }
-        .hp-quote-frame img { filter: brightness(0) invert(1); }
+        .hp-quote-btn {
+          display: inline-block;
+          font-family: 'Lato', sans-serif; font-size: 16px; font-weight: 700;
+          color: #333333; background: #D9A6A1;
+          padding: 16px 36px; border-radius: 4px;
+          text-decoration: none; transition: background 0.35s, color 0.35s;
+        }
+        .hp-quote-btn:hover { background: #c08e88; color: #FFFFFF; }
+        .hp-quote-frame img { filter: none; }
         .hp-quote-wrap {
           position: relative;
           z-index: 1;
@@ -644,7 +652,8 @@ export default function Homepage() {
         @media (max-width: 900px) {
           .hp-hero { flex-direction: column; min-height: auto; }
           .hp-hero-left { padding: 110px 40px 16px; flex: none; }
-          .hp-hero-right { flex: none; height: 70vh; min-height: 480px; width: 100%; position: relative; margin-top: -1px; }
+          .hp-hero-right { flex: none; height: 60vh; min-height: 420px; width: 100%; position: relative; margin-top: -1px; }
+          .hp-awaits-strip { padding: 20px 96px 32px 28px; }
           .hp-hero-img { background-position: center 25% !important; }
           .hp-hero-img::after { background:
             linear-gradient(to bottom, #333333 0%, rgba(51,51,51,0.85) 6%, rgba(51,51,51,0.5) 14%, transparent 24%, transparent 82%, rgba(51,51,51,0.4) 90%, rgba(51,51,51,0.9) 96%, #333333 100%);
@@ -680,23 +689,24 @@ export default function Homepage() {
         }
         @media (max-width: 600px) {
           .hp-hero {
-            height: 100vh;
-            min-height: 100vh;
+            height: auto;
+            min-height: 0;
             display: flex;
             flex-direction: column;
           }
           .hp-hero-left {
-            padding: 180px 28px 28px;
+            padding: 120px 28px 12px;
             flex: 0 0 auto;
           }
           .hp-hero-right {
-            flex: 1 1 auto;
+            flex: 0 0 auto;
             aspect-ratio: auto;
             min-height: 0;
-            height: auto;
+            height: 70vh;
             width: 100%;
             background: #333333;
           }
+          .hp-awaits-strip { padding: 14px 28px 64px; font-size: 14px; }
           .hp-hero-img {
             background-size: cover !important;
             background-position: center 20% !important;
@@ -791,11 +801,6 @@ export default function Homepage() {
             <span className="hp-hero-h1-line"><span className="hp-hero-h1-inner hp-l2">you are</span></span>
             <span className="hp-hero-h1-line"><span className="hp-hero-h1-inner hp-l3">ready....</span></span>
           </h1>
-          <div className="hp-hero-cta">
-            <a href="https://wa.me/971562216643?text=Hello%20Harsha%2C%20I%20would%20love%20to%20learn%20more%20about%20your%20journeys." className="hp-btn" target="_blank" rel="noopener noreferrer">
-              Begin a Conversation
-            </a>
-          </div>
         </div>
         <div className="hp-hero-right">
           <div className="hp-hero-img" style={{ backgroundImage: "url('/assets/harsha-portrait.jpg')" }} />
@@ -805,6 +810,16 @@ export default function Homepage() {
           <span className="hp-hero-credit">Harsha</span>
         </div>
       </section>
+
+      {/* ── awaits line, sits just below the hero, centered ── */}
+      <div className="hp-awaits-strip">
+        <p className="hp-hero-awaits">...the right journey awaits you.</p>
+      </div>
+
+      {/* ── Hero → Quote divider ── */}
+      <div className="hp-section-divider">
+        <img src={DIVIDER_CENTER_SRC} alt="" aria-hidden="true" />
+      </div>
 
       {/* ══ 2. EDITORIAL QUOTE ══ */}
       <section className="hp-quote-strip">
@@ -816,7 +831,11 @@ export default function Homepage() {
             <p className="hp-quote">
               &ldquo;An inward journey towards growth is often inspired by where we choose to go and with whom. I am Harsha and I invite you to join me to rediscover joy through travel in small groups with a slow paced itinerary.&rdquo;
             </p>
-            <p className="hp-quote-attr">Harsha</p>
+          </div>
+          <div className="hp-quote-cta">
+            <a href="https://wa.me/971562216643?text=Hello%20Harsha%2C%20I%20would%20love%20to%20learn%20more%20about%20your%20journeys." className="hp-quote-btn" target="_blank" rel="noopener noreferrer">
+              Begin a Conversation
+            </a>
           </div>
         </FU>
       </section>
@@ -837,24 +856,9 @@ export default function Homepage() {
       </section>
       ── */}
 
-      {/* ══ 3. ABOUT HARSHA ══ */}
-      <section className="hp-about hp-about--text-only" id="about">
-        <FU d={1}>
-          <p className="hp-about-eyebrow">About Harsha</p>
-          <h2 className="hp-about-h2">The skies of Ladakh changed me.</h2>
-          <p className="hp-about-body">
-            I am a classical trained Pilates teacher, and the founder of PuraVida with Harsha. The thread that runs through these, is the practice of being present in the moment. In your body on the Pilates mat or on a mountain.
-          </p>
-          <p className="hp-about-body">
-            Every trip I have led has been curated by me keeping in mind what do I need and how do I want you to feel. What will be your take back. And everytime the answer that comes to my mind is,Joy through simple experiences. Like sharing butter tea in a Ladakhi street corner or enjoying a home cooked meal with a family in Bhutan sitting on the floor around shared stories and laughter.
-          </p>
-          <Link to="/about" className="hp-about-link">Read Harsha's full story</Link>
-        </FU>
-      </section>
+      {/* (About Harsha section removed — lives on /about page) */}
 
-      {/* (Philosophy "We allow pauses…" section moved to /about page) */}
-
-      {/* ── About → Journeys divider ── */}
+      {/* ── Quote → Journeys divider ── */}
       <div className="hp-section-divider">
         <img src={DIVIDER_CENTER_SRC} alt="" aria-hidden="true" />
       </div>
@@ -914,40 +918,33 @@ export default function Homepage() {
         </div>
       </section>
 
-      {/* ── Testimonials → Contact divider ── */}
+      {/* ── Testimonials → Philosophy divider ── */}
       <div className="hp-section-divider">
         <img src={DIVIDER_CENTER_SRC} alt="" aria-hidden="true" />
       </div>
 
-      {/* ══ 8. CONTACT ══ */}
-      <section className="hp-contact" id="contact">
-        {/* Decorative brush-circle corners */}
-        <div className="hp-contact-corner hp-contact-corner--tr">
-          <Glyph name="Pause" variant="Sage" size={160} opacity={1} />
+      {/* ══ PHILOSOPHY ══ */}
+      <section className="hp-phil" id="philosophy">
+        <div className="hp-phil-grid">
+          {PILLARS.map((p, i) => (
+            <FU key={i} d={i * 0.4}>
+              <div className="hp-pillar">
+                <div className="hp-pillar-icon">
+                  <Glyph name={p.glyph} variant="Charcoal" size={56} opacity={0.5} />
+                </div>
+                <h3 className="hp-pillar-title">{p.t}</h3>
+              </div>
+            </FU>
+          ))}
         </div>
-        <div className="hp-contact-corner hp-contact-corner--br">
-          <Glyph name="Mountains" variant="Charcoal" size={140} opacity={1} />
-        </div>
-        <div className="hp-contact-corner hp-contact-corner--bl">
-          <Glyph name="Trees" variant="Charcoal" size={100} opacity={1} />
-        </div>
-        <FU>
-          <Divider width={160} opacity={0.4} />
-          <h2 className="hp-contact-h2">
-            Every journey begins with a single conversation.
-          </h2>
-          <div className="hp-contact-actions">
-            <a href="https://wa.me/971562216643" className="hp-contact-btn" target="_blank" rel="noopener noreferrer">
-              Message Harsha
-            </a>
-            <a href="mailto:harsha@puravidawithharsha.com" className="hp-contact-link">Email</a>
-            <a href="https://instagram.com/puravida.withharsha" className="hp-contact-link" target="_blank" rel="noopener noreferrer">Instagram</a>
-          </div>
-          <Divider width={160} opacity={0.4} />
-        </FU>
       </section>
 
-      <Footer />
+      {/* ── Philosophy → Footer divider ── */}
+      <div className="hp-section-divider">
+        <img src={DIVIDER_CENTER_SRC} alt="" aria-hidden="true" />
+      </div>
+
+      <Footer hideTagline />
     </>
   );
 }
