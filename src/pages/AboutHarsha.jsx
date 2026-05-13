@@ -440,15 +440,16 @@ export default function AboutHarsha() {
 
         /* ── CTA ── */
         .ah-cta {
-          background: #333333;
+          background: #B7C8B5;
           padding: 120px 80px;
           text-align: center;
+          position: relative;
         }
         .ah-cta-h2 {
           font-family: 'Playfair Display', serif;
           font-weight: 700;
           font-size: clamp(1.8rem, 3.5vw, 3rem);
-          color: #ffffff;
+          color: #333333;
           margin-bottom: 24px;
           line-height: 1.2;
         }
@@ -622,8 +623,15 @@ export default function AboutHarsha() {
           >
             Begin a Conversation
           </a>
+          <div style={{ marginTop: 56 }}>
+            <Divider width={180} opacity={0.45} />
+          </div>
         </FU>
       </section>
+
+      <div className="ah-hero-divider">
+        <img src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png" alt="" aria-hidden="true" />
+      </div>
 
       <Footer />
     </>

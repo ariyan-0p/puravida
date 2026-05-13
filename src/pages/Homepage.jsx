@@ -760,6 +760,8 @@ export default function Homepage() {
           .hp-voices { padding: 60px 28px; }
           .hp-contact { padding: 60px 28px; }
           .hp-quote-strip { padding: 60px 28px; }
+          .hp-quote-wrap { padding: 48px 40px; }
+          .hp-quote { max-width: 100%; }
           .hp-quote-attr { margin-top: -4px; }
           .hp-contact-actions { flex-direction: column; align-items: center; }
           .hp-immersive { min-height: 40vh; padding: 40px 20px; }
@@ -798,7 +800,6 @@ export default function Homepage() {
         <div className="hp-hero-right">
           <div className="hp-hero-img" style={{ backgroundImage: "url('/assets/harsha-portrait.jpg')" }} />
           <div className="hp-hero-tree-glyph" aria-hidden="true">
-            <Glyph name="Trees" variant="White" size={60} opacity={0.8} />
             <Glyph name="Trees" variant="White" size={60} opacity={0.8} />
           </div>
           <span className="hp-hero-credit">Harsha</span>
@@ -933,7 +934,7 @@ export default function Homepage() {
         <FU>
           <Divider width={160} opacity={0.4} />
           <h2 className="hp-contact-h2">
-            The right journey finds you when you are truly ready.
+            Every journey begins with a single conversation.
           </h2>
           <div className="hp-contact-actions">
             <a href="https://wa.me/971562216643" className="hp-contact-btn" target="_blank" rel="noopener noreferrer">

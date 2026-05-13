@@ -266,9 +266,9 @@ export default function Contact() {
           <p className="ct-note-attr">Harsha</p>
           <Divider width={140} opacity={0.35} />
           <div className="ct-glyphs">
-            <Glyph name="Trees" variant="Charcoal" size={36} opacity={0.18} />
-            <Glyph name="Trees" variant="Charcoal" size={44} opacity={0.18} />
-            <Glyph name="Trees" variant="Charcoal" size={36} opacity={0.18} />
+            <Glyph name="Mountains" variant="Charcoal" size={36} opacity={0.18} />
+            <Glyph name="Sunset" variant="Charcoal" size={44} opacity={0.18} />
+            <Glyph name="Pause" variant="Charcoal" size={36} opacity={0.18} />
           </div>
         </FU>
       </section>
