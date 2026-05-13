@@ -744,6 +744,7 @@ export default function Homepage() {
             font-size: clamp(14px, 3.8vw, 16px);
           }
           .hp-hero-tree-glyph {
+            display: none;
             bottom: 10px;
             right: max(12px, env(safe-area-inset-right, 0px));
             transform: scale(0.7);
@@ -934,9 +935,6 @@ export default function Homepage() {
           <h2 className="hp-contact-h2">
             The right journey finds you when you are truly ready.
           </h2>
-          <p className="hp-contact-body">
-            Message me directly and share - what you are seeking for, and where do you wish to go.
-          </p>
           <div className="hp-contact-actions">
             <a href="https://wa.me/971562216643" className="hp-contact-btn" target="_blank" rel="noopener noreferrer">
               Message Harsha

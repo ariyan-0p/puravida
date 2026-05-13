@@ -7,7 +7,7 @@ export default function Nav() {
   const location = useLocation();
   const navigate = useNavigate();
   const isHomePage = location.pathname === '/';
-  const isLightHero = ['/philosophy', '/contact'].includes(location.pathname);
+  const isLightHero = ['/contact'].includes(location.pathname);
   const isSplitHero = location.pathname === '/about';
 
   useEffect(() => {
@@ -68,8 +68,7 @@ export default function Nav() {
         }
         .pv-nav.stuck .pv-nav-logo-img { height: 88px; }
 
-        .pv-nav-logo-img { filter: brightness(0) invert(1); }
-        .pv-nav.home:not(.stuck) .pv-nav-logo-img { filter: none; }
+        .pv-nav-logo-img { filter: none; }
         .pv-nav-links a { color: rgba(255,255,255,0.85); }
         .pv-nav-links a:hover { color: white; }
         .pv-nav-links a::after { background: rgba(255,255,255,0.6); }
@@ -171,8 +170,18 @@ export default function Nav() {
           font-family: 'Playfair Display', serif;
           font-size: 2.4rem; font-weight: 400;
           color: #F5F0EB; text-decoration: none;
+          text-align: center;
           letter-spacing: 0.02em; transition: color 0.3s; cursor: pointer;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          text-rendering: optimizeLegibility;
+          -webkit-tap-highlight-color: transparent;
+          outline: none;
         }
+        .pv-mobile-link:hover,
+        .pv-mobile-link:focus,
+        .pv-mobile-link:active,
+        .pv-mobile-link:visited { color: #F5F0EB; }
         .pv-mobile-link:hover { color: #C9A050; }
         .pv-mobile-footer {
           padding: 32px; text-align: center;
@@ -204,10 +213,11 @@ export default function Nav() {
           <button className="pv-mobile-close" onClick={() => setMenuOpen(false)} aria-label="Close menu">{'\u00D7'}</button>
         </div>
         <div className="pv-mobile-body">
-          <a href="#journeys" className="pv-mobile-link" onClick={(e) => handleHashLink(e, 'journeys')}>Journeys</a>
-          <Link to="/about" className="pv-mobile-link" onClick={() => setMenuOpen(false)}>About Harsha</Link>
-          <Link to="/philosophy" className="pv-mobile-link" onClick={() => setMenuOpen(false)}>Philosophy</Link>
-          <Link to="/contact" className="pv-mobile-link" onClick={() => setMenuOpen(false)}>Contact</Link>
+          <Link to="/about" className="pv-mobile-link" onClick={() => setMenuOpen(false)}>About me</Link>
+          <Link to="/why-we-exist" className="pv-mobile-link" onClick={() => setMenuOpen(false)}>Why PuraVida exists</Link>
+          <a href="#journeys" className="pv-mobile-link" onClick={(e) => handleHashLink(e, 'journeys')}>PuraVida Journeys</a>
+          <Link to="/pilates" className="pv-mobile-link" onClick={() => setMenuOpen(false)}>PuraVida Pilates</Link>
+          <Link to="/contact" className="pv-mobile-link" onClick={() => setMenuOpen(false)}>Get in touch</Link>
         </div>
         <div className="pv-mobile-footer">
           <a href="https://chat.whatsapp.com/HFwRN3lWDJM9zH4fgUKGbt" className="pv-mobile-wa" target="_blank" rel="noopener noreferrer" onClick={() => setMenuOpen(false)}>
@@ -223,10 +233,11 @@ export default function Nav() {
           </Link>
 
           <ul className="pv-nav-links">
-            <li><a href="#journeys" onClick={(e) => handleHashLink(e, 'journeys')}>Journeys</a></li>
-            <li><Link to="/about">About Harsha</Link></li>
-            <li><Link to="/philosophy">Philosophy</Link></li>
-            <li><Link to="/contact">Contact</Link></li>
+            <li><Link to="/about">About me</Link></li>
+            <li><Link to="/why-we-exist">Why PuraVida exists</Link></li>
+            <li><a href="#journeys" onClick={(e) => handleHashLink(e, 'journeys')}>PuraVida Journeys</a></li>
+            <li><Link to="/pilates">PuraVida Pilates</Link></li>
+            <li><Link to="/contact">Get in touch</Link></li>
           </ul>
 
           <a href="https://chat.whatsapp.com/HFwRN3lWDJM9zH4fgUKGbt" className="pv-nav-cta" target="_blank" rel="noopener noreferrer">

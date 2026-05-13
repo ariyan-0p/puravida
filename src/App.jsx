@@ -5,6 +5,7 @@ import LadakhJourney from './pages/LadakhJourney';
 import ComingSoon from './pages/ComingSoon';
 import AboutHarsha from './pages/AboutHarsha';
 import Philosophy from './pages/Philosophy';
+import Pilates from './pages/Pilates';
 import Contact from './pages/Contact';
 import './styles/global.css';
 
@@ -18,7 +19,9 @@ export default function App() {
         <Route path="/bali" element={<ComingSoon slug="bali" />} />
         <Route path="/japan" element={<ComingSoon slug="japan" />} />
         <Route path="/about" element={<AboutHarsha />} />
+        <Route path="/why-we-exist" element={<Philosophy />} />
         <Route path="/philosophy" element={<Philosophy />} />
+        <Route path="/pilates" element={<Pilates />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
     </BrowserRouter>

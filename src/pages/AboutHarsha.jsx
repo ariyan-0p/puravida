@@ -387,14 +387,15 @@ export default function AboutHarsha() {
           padding: 120px 80px;
           text-align: center;
         }
-        .ah-phil-header { max-width: 720px; margin: 0 auto 64px; }
+        .ah-phil-header { max-width: 100%; margin: 0 auto 64px; }
         .ah-phil-h2 {
           font-family: 'Playfair Display', serif;
           font-weight: 700;
-          font-size: clamp(1.8rem, 3vw, 2.6rem);
+          font-size: clamp(1.4rem, 3.4vw, 2.6rem);
           line-height: 1.2;
           color: #333333;
           margin-bottom: 28px;
+          white-space: nowrap;
         }
         .ah-phil-intro {
           font-family: 'Lato', sans-serif;
@@ -416,6 +417,12 @@ export default function AboutHarsha() {
           align-items: center;
           gap: 18px;
           padding: 0 16px;
+        }
+        .ah-pillar-icon {
+          height: 72px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
         .ah-pillar-title {
           font-family: 'Playfair Display', serif;
@@ -526,84 +533,10 @@ export default function AboutHarsha() {
             </p>
           </FU>
 
-          <div className="ah-story-divider"><Divider width={180} opacity={0.4} /></div>
-
-          <FU d={1} style={{ marginTop: 0 }}>
-            <p className="ah-story-eyebrow">Why PuraVida with Harsha exists?</p>
-            <p className="ah-story-body">
-              PuraVida in Costa Rican tradition means &ldquo;Pure Life&rdquo; — a way of being that is unhurried, grateful, and fully present. For me, this is how I wish to live.
-            </p>
-            <p className="ah-story-body">
-              What if travel was about arriving fully, being present and being changed by that arrival?
-            </p>
-            <p className="ah-story-body">
-              This is the essence of every journey I curate. Being present. Being present together — in that arrival, in that change. For growth. For transformation.
-            </p>
-          </FU>
-
-          <div className="ah-story-divider"><Divider width={180} opacity={0.4} /></div>
-
-          <FU d={2} style={{ marginTop: 0 }}>
-            <p className="ah-story-eyebrow">PuraVida Pilates</p>
-            <p className="ah-story-body">
-              I am a certified classical Pilates teacher. Pilates — a complete coordination of body, mind, and spirit — remains one of the most intelligent, anatomically precise approaches to movement.
-            </p>
-            <p className="ah-story-body">
-              I teach from my private studio in Dubai and work exclusively with women and teenagers. The work is slow, precise, and deeply personal. Each body carries its own history. Each spine tells its own story.
-            </p>
-            <p className="ah-story-body">
-              I stay present and focused with a commitment to restoration. Our spine and breath carry us through life and I believe that self-discipline begins within — first knowing your body and respecting it at every stage of life.
-            </p>
-            <p className="ah-story-body">
-              The same presence I bring to the studio, I carry into every journey I curate.
-            </p>
-            <p className="ah-story-body">
-              I welcome you to begin the PuraVida way. In the body, in the breath.
-            </p>
-          </FU>
         </div>
       </section>
 
-      {/* ── Story → Quote divider ── */}
-      <div className="ah-hero-divider">
-        <img src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png" alt="" aria-hidden="true" />
-      </div>
-
-      {/* QUOTE STRIP */}
-      <div className="ah-quote-strip">
-        <FU>
-          <div className="ah-quote-wrap">
-            <div className="ah-quote-frame">
-              <img src="/assets/Puravida_Quote-Frame-1/Frame.png" alt="" aria-hidden="true" />
-            </div>
-            <p className="ah-quote">
-              &ldquo;Tea tastes different in Bhutan: slower, quieter, exactly where you are.&rdquo;
-            </p>
-            <p className="ah-quote-attr">Harsha</p>
-          </div>
-        </FU>
-      </div>
-
-      {/* ── Quote → River divider ── */}
-      <div className="ah-hero-divider">
-        <img src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png" alt="" aria-hidden="true" />
-      </div>
-
-      {/* RIVER MOMENT */}
-      <section className="ah-river">
-        <div className="ah-river-img" />
-        <FU className="ah-river-text">
-          <p className="ah-river-quote">
-            Stillness arrives in the ordinary moment, fully entered.
-          </p>
-          <p className="ah-river-attr">Harsha</p>
-          <div className="ah-river-glyph">
-            <Glyph name="Pause" variant="Charcoal" size={72} opacity={0.15} />
-          </div>
-        </FU>
-      </section>
-
-      {/* ── River → Believes divider ── */}
+      {/* ── Story → Believes divider ── */}
       <div className="ah-hero-divider">
         <img src="/assets/05. GRAPHIC ELEMENTS/Dividers/Divider - Center.png" alt="" aria-hidden="true" />
       </div>
@@ -641,24 +574,28 @@ export default function AboutHarsha() {
         <div className="ah-phil-header">
           <FU>
             <h2 className="ah-phil-h2">We allow pauses for breath and space.</h2>
-            <p className="ah-phil-intro">Every journey is led by me with personal attention at an unhurried pace.</p>
-            <p className="ah-phil-intro">
-              The silent paced journey is intentional to allow you to be. Present in the moment to absorb.
-            </p>
-            <p className="ah-phil-intro">
-              Real people, real rituals, real meals to build real relationships. I want to create a canvas for us to grow old together and take back memories of togetherness or emptiness of mind. Both are welcome.
-            </p>
           </FU>
         </div>
         <div className="ah-phil-grid">
           {[
             { t: "Stillness over speed", glyph: "Pause" },
             { t: "Time as luxury", glyph: "Sunset" },
-            { t: "Authentic immersion", glyph: "Trees" },
+            { t: "Authentic immersion", icon: "/assets/04. ICONS/PNG/Charcoal/128px/Wellness - 128px.png" },
           ].map((p, i) => (
             <FU key={i} d={i * 0.4}>
               <div className="ah-pillar">
-                <Glyph name={p.glyph} variant="Charcoal" size={i === 1 ? 96 : 48} opacity={0.5} />
+                <div className="ah-pillar-icon">
+                  {p.icon ? (
+                    <img
+                      src={encodeURI(p.icon)}
+                      alt=""
+                      aria-hidden="true"
+                      style={{ height: 56, width: 'auto', opacity: 0.5, display: 'block' }}
+                    />
+                  ) : (
+                    <Glyph name={p.glyph} variant="Charcoal" size={56} opacity={0.5} />
+                  )}
+                </div>
                 <h3 className="ah-pillar-title">{p.t}</h3>
               </div>
             </FU>
@@ -677,9 +614,6 @@ export default function AboutHarsha() {
           <h2 className="ah-cta-h2">
             There is space for you,<br />if it calls.
           </h2>
-          <p className="ah-cta-body">
-            Begin with a conversation. Message Harsha directly and tell her what you are looking for.
-          </p>
           <a
             href="https://wa.me/+971562216643?text=Hello%20Harsha%2C%20I%20would%20love%20to%20learn%20more%20about%20your%202026%20journeys."
             className="ah-cta-btn"
