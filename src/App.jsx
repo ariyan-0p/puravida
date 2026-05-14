@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Homepage from './pages/Homepage';
 import BhutanJourney from './pages/BhutanJourney';
 import LadakhJourney from './pages/LadakhJourney';
+import BaliJourney from './pages/BaliJourney';
 import ComingSoon from './pages/ComingSoon';
 import AboutHarsha from './pages/AboutHarsha';
 import Pilates from './pages/Pilates';
@@ -15,7 +16,7 @@ export default function App() {
         <Route path="/" element={<Homepage />} />
         <Route path="/bhutan" element={<BhutanJourney />} />
         <Route path="/ladakh" element={<LadakhJourney />} />
-        <Route path="/bali" element={<ComingSoon slug="bali" />} />
+        <Route path="/bali" element={<BaliJourney />} />
         <Route path="/japan" element={<ComingSoon slug="japan" />} />
         <Route path="/about" element={<AboutHarsha />} />
         <Route path="/pilates" element={<Pilates />} />

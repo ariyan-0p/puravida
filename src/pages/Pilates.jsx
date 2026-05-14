@@ -46,49 +46,93 @@ export default function Pilates() {
         html, body { overflow: hidden; }
 
         .pil-section {
-          background: #333333;
-          padding: 120px 80px 40px;
           height: 100vh;
-          box-sizing: border-box;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          min-height: 640px;
+          position: relative;
           overflow: hidden;
+          display: flex;
+          align-items: stretch;
+          background: #333333;
+          box-sizing: border-box;
         }
-        .pil-inner {
-          max-width: 960px;
-          width: 100%;
+        .pil-left {
+          position: relative;
+          z-index: 2;
+          flex: 0 0 48%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding: 110px 56px 56px 80px;
+          min-height: 0;
         }
         .pil-eyebrow {
           font-family: 'Lora', serif;
           font-style: italic;
-          font-weight: 400;
-          font-size: clamp(1.4rem, 3.6vw, 2.8rem);
-          line-height: 1.2;
-          letter-spacing: 0.01em;
+          font-weight: 700;
+          font-size: clamp(2.4rem, 4.4vw, 4.4rem);
+          line-height: 1.1;
           color: #C9A050;
-          margin: 0 0 28px;
-          white-space: nowrap;
+          margin: 0 0 clamp(20px, 3vw, 32px);
+          letter-spacing: 0.01em;
         }
         .pil-body {
           font-family: 'Lato', sans-serif;
           font-weight: 300;
-          font-size: clamp(0.95rem, 1.25vw, 1.05rem);
-          line-height: 1.6;
+          font-size: 16px;
+          line-height: 1.65;
           color: #F5F0EB;
+          max-width: 460px;
           margin: 0 0 14px;
-          max-width: 820px;
         }
         .pil-body:last-of-type { margin-bottom: 0; }
 
+        .pil-right {
+          flex: 1;
+          position: relative;
+          min-height: 500px;
+          overflow: hidden;
+        }
+        .pil-img {
+          position: absolute;
+          inset: 0;
+          background: center / cover no-repeat;
+        }
+        .pil-img::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background:
+            linear-gradient(to right, #333333 0%, rgba(51,51,51,0.4) 3%, transparent 9%),
+            linear-gradient(to bottom, transparent 40%, rgba(51,51,51,0.35) 60%, rgba(51,51,51,0.75) 80%, #333333 100%);
+        }
+
         @media (max-width: 900px) {
           html, body { overflow: auto; }
-          .pil-section { height: auto; min-height: 100vh; padding: 140px 40px 80px; overflow: visible; }
-          .pil-body { font-size: 16px; line-height: 1.7; margin-bottom: 18px; }
-          .pil-eyebrow { margin-bottom: 32px; }
+          .pil-section {
+            flex-direction: column;
+            height: auto;
+            min-height: 100vh;
+          }
+          .pil-left {
+            flex: none;
+            padding: 110px 40px 40px;
+          }
+          .pil-right {
+            flex: none;
+            order: -1;
+            height: 60vh;
+            min-height: 420px;
+            width: 100%;
+          }
+          .pil-img { background-position: center 25% !important; }
+          .pil-img::after {
+            background:
+              linear-gradient(to bottom, transparent 50%, rgba(51,51,51,0.4) 75%, #333333 100%);
+          }
+          .pil-body { font-size: 16px; line-height: 1.7; margin-bottom: 18px; max-width: none; }
         }
         @media (max-width: 600px) {
-          .pil-section { padding: 120px 28px 60px; }
+          .pil-left { padding: 90px 28px 40px; }
           .pil-body { font-size: 15px; }
         }
       `}</style>
@@ -97,7 +141,7 @@ export default function Pilates() {
       <WhatsAppButton />
 
       <section className="pil-section">
-        <div className="pil-inner">
+        <div className="pil-left">
           <FU>
             <h1 className="pil-eyebrow">PuraVida Pilates</h1>
             <p className="pil-body">
@@ -116,6 +160,14 @@ export default function Pilates() {
               I welcome you to begin the PuraVida way. In the body, in the breath.
             </p>
           </FU>
+        </div>
+        <div className="pil-right">
+          <div
+            className="pil-img"
+            style={{ backgroundImage: 'url("/assets/pilates-harsha.jpg")' }}
+            role="img"
+            aria-label="Harsha in her Pilates studio"
+          />
         </div>
       </section>
     </>
