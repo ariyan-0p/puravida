@@ -257,7 +257,7 @@ export default function JapanJourney() {
         }
         .lk-hero-bg {
           position: absolute; inset: 0;
-          background: url('/assets/hero-japan.jpg') center center / cover no-repeat,
+          background: url('/assets/hero-japan.jpg?v=2') center center / cover no-repeat,
             linear-gradient(158deg, #6a3a3a 0%, #4a2424 40%, #2a1616 100%);
         }
         .lk-hero-overlay {
