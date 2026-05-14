@@ -201,7 +201,7 @@ export default function Homepage() {
         /* ── 2. EDITORIAL QUOTE ── */
         .hp-quote-strip {
           background: #B7C8B5;
-          padding: 64px 80px;
+          padding: 120px 80px 100px;
           text-align: center;
         }
         .hp-quote {
@@ -210,10 +210,10 @@ export default function Homepage() {
           font-weight: 700;
           font-size: clamp(18px, 2.2vw, 26px);
           line-height: 1.6; color: #333333;
-          max-width: 920px; margin: 16px auto;
+          max-width: 640px; margin: 0 auto 32px;
         }
         .hp-quote-cta {
-          margin: 36px 0 48px;
+          margin: 80px 0 0;
           display: flex;
           justify-content: center;
         }
@@ -407,7 +407,7 @@ export default function Homepage() {
         }
         .hp-j-header {
           display: flex; align-items: flex-end; justify-content: space-between;
-          margin-bottom: 32px; padding-bottom: 0;
+          margin-bottom: 64px; padding-bottom: 0;
         }
         .hp-j-h2 {
           font-family: 'Lora', serif;
@@ -704,18 +704,18 @@ export default function Homepage() {
             flex-direction: column;
           }
           .hp-hero-left {
-            padding: 96px 28px 8px;
+            padding: 88px 28px 4px;
             flex: 0 0 auto;
           }
           .hp-hero-right {
             flex: 0 0 auto;
             aspect-ratio: auto;
             min-height: 0;
-            height: 66vh;
+            height: 58vh;
             width: 100%;
             background: #333333;
           }
-          .hp-awaits-strip { padding: 40px 28px 160px; font-size: 14px; }
+          .hp-awaits-strip { padding: 24px 28px 180px; font-size: 14px; }
           .hp-hero-img {
             background-size: cover !important;
             background-position: center 20% !important;
@@ -837,10 +837,11 @@ export default function Homepage() {
             <p className="hp-quote">
               &ldquo;An inward journey towards growth is often inspired by where we choose to go and with whom. I am Harsha and I invite you to join me to rediscover joy through travel in small groups with a slow paced itinerary.&rdquo;
             </p>
+            <Divider width={140} opacity={0.4} />
           </div>
           <div className="hp-quote-cta">
             <a href="https://wa.me/971562216643?text=Hello%20Harsha%2C%20I%20would%20love%20to%20learn%20more%20about%20your%20journeys." className="hp-quote-btn" target="_blank" rel="noopener noreferrer">
-              Begin a Conversation
+              Begin a conversation
             </a>
           </div>
         </FU>
