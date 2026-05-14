@@ -799,7 +799,7 @@ export default function Homepage() {
           <h1 className="hp-hero-h1">
             <span className="hp-hero-h1-line"><span className="hp-hero-h1-inner hp-l1">When</span></span>
             <span className="hp-hero-h1-line"><span className="hp-hero-h1-inner hp-l2">you are</span></span>
-            <span className="hp-hero-h1-line"><span className="hp-hero-h1-inner hp-l3">ready....</span></span>
+            <span className="hp-hero-h1-line"><span className="hp-hero-h1-inner hp-l3">ready...</span></span>
           </h1>
         </div>
         <div className="hp-hero-right">
