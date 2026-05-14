@@ -220,6 +220,7 @@ export default function Nav() {
           <button className="pv-mobile-close" onClick={() => setMenuOpen(false)} aria-label="Close menu">{'\u00D7'}</button>
         </div>
         <div className="pv-mobile-body">
+          <Link to="/" className="pv-mobile-link" onClick={() => setMenuOpen(false)}>Home</Link>
           <Link to="/about" className="pv-mobile-link" onClick={() => setMenuOpen(false)}>About me</Link>
           <a href="#journeys" className="pv-mobile-link" onClick={(e) => handleHashLink(e, 'journeys')}>PuraVida Journeys</a>
           <Link to="/pilates" className="pv-mobile-link" onClick={() => setMenuOpen(false)}>PuraVida Pilates</Link>
@@ -239,6 +240,7 @@ export default function Nav() {
           </Link>
 
           <ul className="pv-nav-links">
+            <li><Link to="/">Home</Link></li>
             <li><Link to="/about">About me</Link></li>
             <li><a href="#journeys" onClick={(e) => handleHashLink(e, 'journeys')}>PuraVida Journeys</a></li>
             <li><Link to="/pilates">PuraVida Pilates</Link></li>
