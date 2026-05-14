@@ -76,12 +76,12 @@ export default function Contact() {
         .ct-hero-h1 {
           font-family: 'Lora', serif;
           font-style: italic;
-          font-weight: 700;
-          font-size: clamp(2.4rem, 5vw, 4.2rem);
-          line-height: 1.15;
+          font-weight: 500;
+          font-size: clamp(18px, 2.2vw, 26px);
+          line-height: 1.6;
           color: #333333;
           margin-bottom: 32px;
-          max-width: 720px;
+          max-width: 640px;
           margin-left: auto;
           margin-right: auto;
         }
