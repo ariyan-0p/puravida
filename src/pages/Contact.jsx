@@ -76,7 +76,7 @@ export default function Contact() {
         .ct-hero-h1 {
           font-family: 'Lora', serif;
           font-style: italic;
-          font-weight: 500;
+          font-weight: 700;
           font-size: clamp(18px, 2.2vw, 26px);
           line-height: 1.6;
           color: #333333;

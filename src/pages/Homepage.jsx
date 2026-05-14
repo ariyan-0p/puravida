@@ -207,7 +207,7 @@ export default function Homepage() {
         .hp-quote {
           font-family: 'Lora', serif;
           font-style: italic;
-          font-weight: 500;
+          font-weight: 700;
           font-size: clamp(18px, 2.2vw, 26px);
           line-height: 1.6; color: #333333;
           max-width: 640px; margin: 16px auto;
@@ -385,6 +385,13 @@ export default function Homepage() {
           display: flex;
           align-items: center;
           justify-content: center;
+          width: 64px;
+          height: 64px;
+        }
+        .hp-pillar-icon img {
+          width: 100% !important;
+          height: 100% !important;
+          object-fit: contain !important;
         }
         .hp-pillar-title {
           font-family: 'Playfair Display', serif;
@@ -403,9 +410,11 @@ export default function Homepage() {
           margin-bottom: 32px; padding-bottom: 0;
         }
         .hp-j-h2 {
-          font-family: 'Playfair Display', serif;
+          font-family: 'Lora', serif;
+          font-style: italic;
           font-size: clamp(2.2rem, 3.5vw, 3.2rem); font-weight: 700;
-          color: #FFFFFF; line-height: 1.15;
+          color: #C9A050; line-height: 1.15;
+          letter-spacing: 0.01em;
         }
         .hp-j-count {
           font-family: 'Lato', sans-serif; font-size: 14px;
@@ -695,18 +704,18 @@ export default function Homepage() {
             flex-direction: column;
           }
           .hp-hero-left {
-            padding: 120px 28px 12px;
+            padding: 96px 28px 8px;
             flex: 0 0 auto;
           }
           .hp-hero-right {
             flex: 0 0 auto;
             aspect-ratio: auto;
             min-height: 0;
-            height: 70vh;
+            height: 56vh;
             width: 100%;
             background: #333333;
           }
-          .hp-awaits-strip { padding: 14px 28px 64px; font-size: 14px; }
+          .hp-awaits-strip { padding: 16px 28px 240px; font-size: 14px; }
           .hp-hero-img {
             background-size: cover !important;
             background-position: center 20% !important;
@@ -863,7 +872,7 @@ export default function Homepage() {
       {/* ══ 5. JOURNEYS ══ */}
       <section className="hp-journeys" id="journeys">
         <div className="hp-j-header">
-          <FU><h2 className="hp-j-h2">Journeys</h2></FU>
+          <FU><h2 className="hp-j-h2">PuraVida Journeys</h2></FU>
         </div>
         <div className="hp-j-grid">
           {JOURNEYS.map((j, i) => (
