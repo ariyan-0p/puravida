@@ -509,19 +509,16 @@ export default function AboutHarsha() {
           <FU>
             <p className="ah-story-eyebrow">About Me</p>
             <p className="ah-story-body">
-              September 2010, 23 days post the flash floods, is when I landed in Leh Air Force Base Airport with a backpack and camera. I saw the Indian Air Force planes parked on the tarmac and felt for the first time this sense of freedom and national pride.
+              September 2010, 23 days post the flash floods, is when I landed in Leh Air Force Base Airport with a backpack and camera. The sight of the Indian Air Force planes against the majestic backdrop of the Himalayas was unforgettable. I felt a sense of absolute bliss and a deep connection.
             </p>
             <p className="ah-story-body">
               I saw mountains around me that were dotted with monasteries and I was blank and in awe. Indescribable the beauty that hit me hard and I had inexplicable tears.
             </p>
             <p className="ah-story-body">
-              A few days of exploring and interacting with the common people and soldiers I was deeply in love with everyone and everything. Even the dry mountain air, the trees, the colour of the skies, the rivers, the maroon clad monks, the white homes with carved wooden windows and the momos. I wanted to feel this way. Everyday. I wanted everyone to feel this way. Everyday.
+              A few days of exploring and interacting with the local people, I was deeply in love with everyone and everything. Even the dry mountain air, the trees, the colour of the skies, the rivers, the maroon clad monks, the white homes with carved wooden windows and the momos. I wanted to feel this way. Everyday. I wanted everyone to feel this way. Everyday.
             </p>
             <p className="ah-story-body">
-              Understanding more deeply the lives of the soldiers around a bonfire left me deeply impacted. Naturally, I dived into the political history of this land and the lives of the soldiers at high altitude. In a constant state of absorbing and learning, I was mesmerised. I had found my calling. I am a vagabond in my heart. I love humans and their stories. I wish to wander and be in wonder.
-            </p>
-            <p className="ah-story-body">
-              The silence and clarity arrived at high altitude. My brain was decluttered. I wanted to learn and grow through travel and witness the lives of different cultures.
+              In a constant state of absorbing and learning, I was mesmerised. I had found my calling. I am a vagabond in my heart. I love humans and their stories. I wish to wander and be in wonder.
             </p>
             <p className="ah-story-body">
               A stillness settled in my heart and from that emerged a decision to sponsor children affected by the floods. The universe played its part — a waitlist of open hearts grew, and just like that, 53 children found sponsors.
