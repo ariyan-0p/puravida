@@ -167,9 +167,10 @@ export default function Nav() {
           align-items: center; justify-content: center; gap: 40px; padding: 40px;
         }
         .pv-mobile-link {
-          font-family: 'Playfair Display', serif;
-          font-size: 2.4rem; font-weight: 400;
-          color: #F5F0EB; text-decoration: none;
+          font-family: 'Lora', serif;
+          font-style: italic;
+          font-size: 2.4rem; font-weight: 700;
+          color: #C9A050; text-decoration: none;
           text-align: center;
           letter-spacing: 0.02em; transition: color 0.3s; cursor: pointer;
           -webkit-font-smoothing: antialiased;
@@ -188,8 +189,8 @@ export default function Nav() {
         .pv-mobile-link:hover,
         .pv-mobile-link:focus,
         .pv-mobile-link:active,
-        .pv-mobile-link:visited { color: #F5F0EB; }
-        .pv-mobile-link:hover { color: #C9A050; }
+        .pv-mobile-link:visited { color: #C9A050; }
+        .pv-mobile-link:hover { color: #F5F0EB; }
         .pv-mobile-footer {
           padding: 32px; text-align: center;
           border-top: 1px solid rgba(201,160,80,0.18);

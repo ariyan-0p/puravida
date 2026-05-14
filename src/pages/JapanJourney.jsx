@@ -719,7 +719,7 @@ export default function JapanJourney() {
           <h1 className="lk-hero-title">Japan</h1>
         </div>
         <p className="lk-hero-dates">
-          November<br />17<sup>th</sup> to 24<sup>th</sup>, 2026
+          November 17 to 24, 2026
         </p>
       </section>
 

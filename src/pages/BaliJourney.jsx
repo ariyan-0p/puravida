@@ -877,7 +877,7 @@ export default function BaliJourney() {
           <h1 className="lk-hero-title">Bali</h1>
         </div>
         <p className="lk-hero-dates">
-          October<br />23<sup>rd</sup> to 28<sup>th</sup>, 2026
+          October 23 to 28, 2026
         </p>
       </section>
 

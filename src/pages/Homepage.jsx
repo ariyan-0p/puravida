@@ -140,7 +140,7 @@ export default function Homepage() {
         }
         .hp-awaits-strip {
           background: #333333;
-          padding: 28px 40px 40px;
+          padding: 64px 40px 40px;
           text-align: center;
         }
         .hp-hero-awaits {
@@ -201,7 +201,7 @@ export default function Homepage() {
         /* ── 2. EDITORIAL QUOTE ── */
         .hp-quote-strip {
           background: #B7C8B5;
-          padding: 100px 80px;
+          padding: 64px 80px;
           text-align: center;
         }
         .hp-quote {
@@ -210,7 +210,7 @@ export default function Homepage() {
           font-weight: 700;
           font-size: clamp(18px, 2.2vw, 26px);
           line-height: 1.6; color: #333333;
-          max-width: 640px; margin: 16px auto;
+          max-width: 920px; margin: 16px auto;
         }
         .hp-quote-cta {
           margin: 36px 0 48px;
@@ -229,10 +229,10 @@ export default function Homepage() {
         .hp-quote-wrap {
           position: relative;
           z-index: 1;
-          max-width: 560px;
+          max-width: 960px;
           margin: 0 auto;
           text-align: center;
-          padding: 56px 72px 56px 96px;
+          padding: 0;
         }
         .hp-quote-frame {
           position: absolute;
@@ -662,7 +662,7 @@ export default function Homepage() {
           .hp-hero { flex-direction: column; min-height: auto; }
           .hp-hero-left { padding: 110px 40px 16px; flex: none; }
           .hp-hero-right { flex: none; height: 60vh; min-height: 420px; width: 100%; position: relative; margin-top: -1px; }
-          .hp-awaits-strip { padding: 20px 96px 32px 28px; }
+          .hp-awaits-strip { padding: 48px 96px 32px 28px; }
           .hp-hero-img { background-position: center 25% !important; }
           .hp-hero-img::after { background:
             linear-gradient(to bottom, #333333 0%, rgba(51,51,51,0.85) 6%, rgba(51,51,51,0.5) 14%, transparent 24%, transparent 82%, rgba(51,51,51,0.4) 90%, rgba(51,51,51,0.9) 96%, #333333 100%);
@@ -715,7 +715,7 @@ export default function Homepage() {
             width: 100%;
             background: #333333;
           }
-          .hp-awaits-strip { padding: 16px 28px 240px; font-size: 14px; }
+          .hp-awaits-strip { padding: 40px 28px 240px; font-size: 14px; }
           .hp-hero-img {
             background-size: cover !important;
             background-position: center 20% !important;
