@@ -711,11 +711,11 @@ export default function Homepage() {
             flex: 0 0 auto;
             aspect-ratio: auto;
             min-height: 0;
-            height: 56vh;
+            height: 66vh;
             width: 100%;
             background: #333333;
           }
-          .hp-awaits-strip { padding: 40px 28px 240px; font-size: 14px; }
+          .hp-awaits-strip { padding: 72px 28px 80px; font-size: 14px; }
           .hp-hero-img {
             background-size: cover !important;
             background-position: center 20% !important;
