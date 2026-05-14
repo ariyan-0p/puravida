@@ -779,7 +779,7 @@ export default function JapanJourney() {
         <FU>
           <div className="lk-guide-column">
             <div className="lk-guide-photo-wrap">
-              <img src="/assets/bhavna-chablani.jpg" alt="Bhavna Chablani" className="lk-guide-img" />
+              <img src="/assets/Japan-Cultural Guide.png?v=2" alt="Bhavna Chablani" className="lk-guide-img" />
               <img
                 src="/assets/Puravida_Photo-Frame-1-Juma.png"
                 alt="" aria-hidden="true" className="lk-guide-frame"
