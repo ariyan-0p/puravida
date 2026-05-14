@@ -62,8 +62,8 @@ export default function Contact() {
 
         /* ── HERO ── */
         .ct-hero {
-          background: #F5F0EB;
-          padding: 180px 80px 120px;
+          background: #B7C8B5;
+          padding: 180px 80px 40px;
           text-align: center;
         }
         .ct-hero-eyebrow {
@@ -74,7 +74,8 @@ export default function Contact() {
           margin-bottom: 24px;
         }
         .ct-hero-h1 {
-          font-family: 'Playfair Display', serif;
+          font-family: 'Lora', serif;
+          font-style: italic;
           font-weight: 700;
           font-size: clamp(2.4rem, 5vw, 4.2rem);
           line-height: 1.15;
@@ -122,7 +123,7 @@ export default function Contact() {
         /* ── DIVIDER STRIP ── */
         .ct-strip {
           background: #B7C8B5;
-          padding: 80px;
+          padding: 0 80px 100px;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -201,36 +202,16 @@ export default function Contact() {
         </FU>
       </section>
 
-      {/* LINKS STRIP */}
+      {/* BEGIN CONVERSATION */}
       <div className="ct-strip">
         <FU>
           <a
-            href="mailto:harsha@puravidawithharsha.com"
-            className="ct-strip-link"
-          >
-            Email
-          </a>
-        </FU>
-        <div className="ct-strip-sep" />
-        <FU d={0.5}>
-          <a
-            href="https://instagram.com/puravida.withharsha"
-            className="ct-strip-link"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Instagram
-          </a>
-        </FU>
-        <div className="ct-strip-sep" />
-        <FU d={1}>
-          <a
             href="https://wa.me/+971562216643?text=Hello%20Harsha%2C%20I%20would%20love%20to%20learn%20more%20about%20your%202026%20journeys."
-            className="ct-strip-link"
+            className="ct-wa-btn"
             target="_blank"
             rel="noopener noreferrer"
           >
-            WhatsApp
+            Begin a conversation
           </a>
         </FU>
       </div>

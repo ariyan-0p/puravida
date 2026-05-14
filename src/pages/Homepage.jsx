@@ -208,9 +208,9 @@ export default function Homepage() {
           font-family: 'Lora', serif;
           font-style: italic;
           font-weight: 500;
-          font-size: clamp(15px, 1.6vw, 19px);
-          line-height: 1.65; color: #333333;
-          max-width: 420px; margin: 16px auto;
+          font-size: clamp(18px, 2.2vw, 26px);
+          line-height: 1.6; color: #333333;
+          max-width: 640px; margin: 16px auto;
         }
         .hp-quote-cta {
           margin: 36px 0 48px;
@@ -825,9 +825,6 @@ export default function Homepage() {
       <section className="hp-quote-strip">
         <FU>
           <div className="hp-quote-wrap">
-            <div className="hp-quote-frame">
-              <img src="/assets/Puravida_Quote-Frame-1/Frame.png" alt="" aria-hidden="true" />
-            </div>
             <p className="hp-quote">
               &ldquo;An inward journey towards growth is often inspired by where we choose to go and with whom. I am Harsha and I invite you to join me to rediscover joy through travel in small groups with a slow paced itinerary.&rdquo;
             </p>
