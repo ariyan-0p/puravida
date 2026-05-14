@@ -547,7 +547,7 @@ export default function AboutHarsha() {
             Stillness arrives. If it is allowed.
           </h2>
           <p className="ah-believes-body">
-            I believe in the slow accumulation of real moments: a bowl of morning tea, a conversation at altitude, the sound of butter lamps in the dark. The ordinary things that turn out to be extraordinary.
+            I believe in the slow accumulation of real moments: a cup of morning tea, a conversation at altitude, the sound of butter lamps in the dark. The ordinary things that turn out to be extraordinary.
           </p>
           <p className="ah-believes-body">
             I believe that the people who guide us matter as much as the places we visit. Every host, every monk, every family I introduce you to: these are relationships I have tended for years. You are welcomed as a guest, with the warmth of long-held friendships.
