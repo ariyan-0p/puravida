@@ -74,7 +74,7 @@ const VOICES = [
 const PILLARS = [
   { t: "Stillness over speed", glyph: "Pause" },
   { t: "Time as luxury", glyph: "Sunset" },
-  { t: "Authentic immersion", glyph: "Trees" },
+  { t: "Authentic immersion", iconSrc: "/assets/04. ICONS/PNG/Charcoal/48px/Wellness  - 48px.png" },
 ];
 
 export default function Homepage() {
@@ -930,7 +930,15 @@ export default function Homepage() {
             <FU key={i} d={i * 0.4}>
               <div className="hp-pillar">
                 <div className="hp-pillar-icon">
-                  <Glyph name={p.glyph} variant="Charcoal" size={56} opacity={0.5} />
+                  {p.iconSrc ? (
+                    <img
+                      src={encodeURI(p.iconSrc)}
+                      alt="" aria-hidden="true"
+                      style={{ height: 56, width: 'auto', opacity: 0.5 }}
+                    />
+                  ) : (
+                    <Glyph name={p.glyph} variant="Charcoal" size={56} opacity={0.5} />
+                  )}
                 </div>
                 <h3 className="hp-pillar-title">{p.t}</h3>
               </div>
