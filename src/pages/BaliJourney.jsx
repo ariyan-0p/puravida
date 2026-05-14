@@ -939,7 +939,7 @@ export default function BaliJourney() {
             <div className="lk-guide-photo-wrap">
               <img src="/assets/bali-guide.png?v=2" alt="Janam" className="lk-guide-img" />
               <img
-                src="/assets/Puravida_Photo-Frame-1-Juma.png"
+                src="/assets/bali-guide.png"
                 alt="" aria-hidden="true" className="lk-guide-frame"
               />
             </div>
