@@ -937,7 +937,7 @@ export default function BaliJourney() {
         <FU>
           <div className="lk-guide-column">
             <div className="lk-guide-photo-wrap">
-              <img src="/assets/bali-guide.png" alt="Janam" className="lk-guide-img" />
+              <img src="/assets/bali-guide.png?v=2" alt="Janam" className="lk-guide-img" />
               <img
                 src="/assets/Puravida_Photo-Frame-1-Juma.png"
                 alt="" aria-hidden="true" className="lk-guide-frame"
