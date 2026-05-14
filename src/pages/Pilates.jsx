@@ -77,12 +77,12 @@ export default function Pilates() {
         }
         .pil-body {
           font-family: 'Lato', sans-serif;
-          font-weight: 300;
+          font-weight: 400;
           font-size: 16px;
-          line-height: 1.65;
-          color: #F5F0EB;
-          max-width: 460px;
-          margin: 0 0 14px;
+          line-height: 1.85;
+          color: rgba(255,255,255,0.8);
+          max-width: 560px;
+          margin: 0 0 20px;
         }
         .pil-body:last-of-type { margin-bottom: 0; }
 
