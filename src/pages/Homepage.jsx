@@ -715,7 +715,7 @@ export default function Homepage() {
             width: 100%;
             background: #333333;
           }
-          .hp-awaits-strip { padding: 72px 28px 80px; font-size: 14px; }
+          .hp-awaits-strip { padding: 40px 28px 160px; font-size: 14px; }
           .hp-hero-img {
             background-size: cover !important;
             background-position: center 20% !important;
