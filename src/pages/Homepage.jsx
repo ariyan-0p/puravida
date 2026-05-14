@@ -62,7 +62,7 @@ function Glyph({ name = 'Trees', variant = 'Charcoal', size = 48, opacity = 0.3 
 const JOURNEYS = [
   { slug: "ladakh", img: "/assets/journey-ladakh.jpg", dest: "Ladakh", tag: "High Passes and Living Monasteries", dates: "September 25 to October 2, 2026", dur: "8 Days", ready: true },
   { slug: "bali", img: "/assets/journey-srilanka.jpg", dest: "Bali", tag: "Ritual, Rice, and Renewal", dates: "October 23 to 28, 2026", dur: "6 Days", ready: true },
-  { slug: "japan", img: "/assets/journey-japan.jpg", dest: "Japan", tag: "Stillness in Snow", dates: "November 17 to 24, 2026", dur: "7 Days", ready: false },
+  { slug: "japan", img: "/assets/journey-japan.jpg", dest: "Japan", tag: "Stillness in Snow", dates: "November 17 to 24, 2026", dur: "8 Days", ready: true },
 ];
 
 const VOICES = [

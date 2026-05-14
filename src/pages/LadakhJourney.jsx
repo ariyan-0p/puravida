@@ -649,6 +649,16 @@ export default function LadakhJourney() {
           min-width: 0;
           max-width: 30vw;
         }
+        .lk-farewell-mountain-sunset {
+          width: 100%;
+          max-width: 720px !important;
+          height: auto;
+          opacity: 0.85;
+          display: block;
+        }
+        @media (max-width: 768px) {
+          .lk-farewell-mountain-sunset { max-width: 92vw !important; }
+        }
 
         /* ── INVESTMENT ── */
         .lk-investment { background: #F5F0EB; padding: 100px 80px; }
@@ -1120,9 +1130,11 @@ export default function LadakhJourney() {
                   <p className="lk-farewell-text">{day.farewell}</p>
                 </div>
                 <div className="lk-farewell-deco">
-                  <Glyph name="Mountains" size={60} opacity={0.25} />
-                  <Glyph name="Sunset" size={68} opacity={0.3} />
-                  <Glyph name="Mountains" size={52} opacity={0.22} />
+                  <img
+                    src="/assets/Mountain-Sunset.png"
+                    alt="" aria-hidden="true"
+                    className="lk-farewell-mountain-sunset"
+                  />
                 </div>
               </div>
             ) : day.overnight ? (

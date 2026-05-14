@@ -3,6 +3,7 @@ import Homepage from './pages/Homepage';
 import BhutanJourney from './pages/BhutanJourney';
 import LadakhJourney from './pages/LadakhJourney';
 import BaliJourney from './pages/BaliJourney';
+import JapanJourney from './pages/JapanJourney';
 import ComingSoon from './pages/ComingSoon';
 import AboutHarsha from './pages/AboutHarsha';
 import Pilates from './pages/Pilates';
@@ -17,7 +18,7 @@ export default function App() {
         <Route path="/bhutan" element={<BhutanJourney />} />
         <Route path="/ladakh" element={<LadakhJourney />} />
         <Route path="/bali" element={<BaliJourney />} />
-        <Route path="/japan" element={<ComingSoon slug="japan" />} />
+        <Route path="/japan" element={<JapanJourney />} />
         <Route path="/about" element={<AboutHarsha />} />
         <Route path="/pilates" element={<Pilates />} />
         <Route path="/contact" element={<Contact />} />
