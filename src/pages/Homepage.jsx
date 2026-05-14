@@ -146,7 +146,7 @@ export default function Homepage() {
         .hp-hero-awaits {
           font-family: 'Lora', serif;
           font-style: italic; font-weight: 700;
-          font-size: clamp(1.1rem, 1.8vw, 1.6rem);
+          font-size: clamp(1.6rem, 2.8vw, 2.4rem);
           line-height: 1.4;
           color: #C9A050;
           margin: 0;
