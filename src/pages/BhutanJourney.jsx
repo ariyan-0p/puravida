@@ -692,16 +692,14 @@ export default function BhutanJourney() {
           color: #333333; margin-bottom: 40px; line-height: 1.25; max-width: 500px;
         }
         .bj-cta-wa {
-          display: inline-flex; align-items: center; gap: 14px;
-          font-family: 'Lato', sans-serif; font-size: 16px; font-weight: 400;
-          color: #333333; text-decoration: none; margin-bottom: 48px;
-          padding: 16px 32px; border: 1px solid rgba(51,51,51,0.15); border-radius: 4px;
-          transition: border-color 0.3s, background 0.3s;
+          display: inline-block;
+          font-family: 'Lato', sans-serif; font-size: 16px; font-weight: 700;
+          color: #333333; background: #D9A6A1;
+          text-decoration: none; margin-bottom: 48px;
+          padding: 18px 44px; border-radius: 4px;
+          transition: background 0.35s, color 0.35s;
         }
-        .bj-cta-wa:hover { border-color: #D9A6A1; background: rgba(217,166,161,0.08); }
-        .bj-cta-wa img { width: 24px; height: 24px; opacity: 0.7; }
-        .bj-cta-wa-text { display: flex; flex-direction: column; align-items: flex-start; font-size: 14px; line-height: 1.5; }
-        .bj-cta-wa-text strong { font-size: 16px; font-weight: 700; letter-spacing: 0.02em; }
+        .bj-cta-wa:hover { background: #c08e88; color: #FFFFFF; }
         .bj-cta-date-bar {
           background: #D9A6A1; padding: 28px 32px; border-radius: 0;
           display: flex; align-items: center; justify-content: space-between; gap: 16px;
@@ -1077,11 +1075,7 @@ export default function BhutanJourney() {
         <FU>
           <h2 className="bj-cta-heading">Your Journey Begins<br />with a Message</h2>
           <a href="https://wa.me/+971562216643?text=Hello%20Harsha%2C%20I%20am%20interested%20in%20the%20Bhutan%20journey%20and%20would%20love%20to%20learn%20more." className="bj-cta-wa" target="_blank" rel="noopener noreferrer">
-            <img src="/assets/04. ICONS/PNG/Charcoal/48px/Whatsapp  - 48px.png" alt="" />
-            <div className="bj-cta-wa-text">
-              <strong>WhatsApp Harsha</strong>
-              +971 56 2216643
-            </div>
+            Begin a conversation
           </a>
           <div className="bj-cta-date-bar">
             <Glyph name="Trees" variant="White" size={48} opacity={0.6} />
