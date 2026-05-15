@@ -201,7 +201,7 @@ export default function Homepage() {
         /* ── 2. EDITORIAL QUOTE ── */
         .hp-quote-strip {
           background: #B7C8B5;
-          padding: 120px 80px 100px;
+          padding: 70px 80px 60px;
           text-align: center;
         }
         .hp-quote {
@@ -213,7 +213,7 @@ export default function Homepage() {
           max-width: 640px; margin: 0 auto 32px;
         }
         .hp-quote-cta {
-          margin: 80px 0 0;
+          margin: 48px 0 0;
           display: flex;
           justify-content: center;
         }
@@ -693,7 +693,7 @@ export default function Homepage() {
           .hp-contact-corner--tr { top: -12px; right: -12px; }
           .hp-contact-corner--br { bottom: -12px; right: -12px; }
           .hp-contact-corner--bl { bottom: 4px; left: 12px; }
-          .hp-quote-strip { padding: 80px 40px; }
+          .hp-quote-strip { padding: 56px 40px 48px; }
           .hp-immersive { min-height: 50vh; }
         }
         @media (max-width: 600px) {
@@ -778,8 +778,8 @@ export default function Homepage() {
           .hp-journeys { padding: 60px 28px; }
           .hp-voices { padding: 60px 28px; }
           .hp-contact { padding: 60px 28px; }
-          .hp-quote-strip { padding: 60px 28px; }
-          .hp-quote-wrap { padding: 48px 40px; }
+          .hp-quote-strip { padding: 44px 28px 40px; }
+          .hp-quote-wrap { padding: 0; }
           .hp-quote { max-width: 100%; }
           .hp-quote-attr { margin-top: -4px; }
           .hp-contact-actions { flex-direction: column; align-items: center; }

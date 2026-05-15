@@ -212,6 +212,12 @@ export default function Nav() {
           .pv-nav-burger { display: flex; }
           .pv-nav-logo-img { height: 88px; }
           .pv-nav.stuck .pv-nav-logo-img { height: 69px; }
+
+          .pv-nav.light-hero {
+            background: #333333;
+            box-shadow: 0 1px 0 rgba(201,160,80,0.22);
+          }
+          .pv-nav.light-hero:not(.stuck) .pv-nav-burger span { background: #C9A050; }
         }
       `}</style>
 
