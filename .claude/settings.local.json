@@ -3,7 +3,8 @@
     "allow": [
       "mcp__Claude_Preview__preview_start",
       "Bash(pip install:*)",
-      "PowerShell($pdf = \"C:\\\\Users\\\\creep\\\\Downloads\\\\PVH Brand Book Final 24032026.pdf\"; \\(Get-Item $pdf\\).Length)"
+      "PowerShell($pdf = \"C:\\\\Users\\\\creep\\\\Downloads\\\\PVH Brand Book Final 24032026.pdf\"; \\(Get-Item $pdf\\).Length)",
+      "Bash(ssh -i ~/.ssh/puravida_key -o StrictHostKeyChecking=no root@187.127.133.150 \"whoami && hostname && pwd\")"
     ]
   }
 }
