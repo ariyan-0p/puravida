@@ -833,18 +833,7 @@ export default function JapanJourney() {
       {/* ══ DAY-BY-DAY ITINERARY ══ */}
       {DAYS.map((day, idx) => (
         <div key={idx}>
-          {idx === 4 && (
-            <FU>
-              <div className="lk-pullquote">
-                <Divider width={160} opacity={0.4} />
-                <p className="lk-pullquote-text">
-                  Time is our luxury. The most precious experiences come from where we spend our time &ndash; and with who.
-                </p>
-                <Divider width={160} opacity={0.4} />
-              </div>
-            </FU>
-          )}
-          <FU>
+<FU>
             <div className="lk-day-header">
               <p className="lk-day-num">DAY- <span>{day.day}</span></p>
               <h2 className="lk-day-title">

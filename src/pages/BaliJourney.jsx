@@ -999,18 +999,7 @@ export default function BaliJourney() {
       {/* ══ DAY-BY-DAY ITINERARY ══ */}
       {DAYS.map((day, idx) => (
         <div key={idx}>
-          {idx === 3 && (
-            <FU>
-              <div className="lk-pullquote">
-                <Divider width={160} opacity={0.4} />
-                <p className="lk-pullquote-text">
-                  Travel is shaped by people &ndash; ordinary, extraordinary. Their stories become part of our own memories.
-                </p>
-                <Divider width={160} opacity={0.4} />
-              </div>
-            </FU>
-          )}
-          <FU>
+<FU>
             <div className="lk-day-header">
               <p className="lk-day-num">DAY- <span>{day.day}</span></p>
               <h2 className="lk-day-title">

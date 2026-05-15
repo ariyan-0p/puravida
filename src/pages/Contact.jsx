@@ -63,7 +63,7 @@ export default function Contact() {
         /* ── HERO ── */
         .ct-hero {
           background: #B7C8B5;
-          padding: 180px 80px 40px;
+          padding: 220px 80px 40px;
           text-align: center;
         }
         .ct-hero-eyebrow {
@@ -174,14 +174,14 @@ export default function Contact() {
         }
 
         @media (max-width: 900px) {
-          .ct-hero { padding: 140px 40px 80px; }
+          .ct-hero { padding: 180px 40px 60px; }
           .ct-primary { padding: 0 40px 80px; }
           .ct-strip { padding: 60px 40px; gap: 32px; flex-direction: column; }
           .ct-strip-sep { width: 40px; height: 1px; }
           .ct-note { padding: 80px 40px; }
         }
         @media (max-width: 600px) {
-          .ct-hero { padding: 120px 28px 60px; }
+          .ct-hero { padding: 160px 28px 50px; }
           .ct-primary { padding: 0 28px 60px; }
           .ct-strip { padding: 48px 28px; }
           .ct-note { padding: 60px 28px; }
@@ -198,7 +198,6 @@ export default function Contact() {
           <h1 className="ct-hero-h1">
             I would love to hear from you. Begin with a conversation about where you are and what is calling you.
           </h1>
-          <Divider width={140} opacity={0.4} />
         </FU>
       </section>
 

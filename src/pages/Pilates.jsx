@@ -120,8 +120,8 @@ export default function Pilates() {
           .pil-right {
             flex: none;
             order: -1;
-            height: 60vh;
-            min-height: 420px;
+            height: 42vh;
+            min-height: 280px;
             width: 100%;
           }
           .pil-img { background-position: center 25% !important; }
@@ -132,7 +132,7 @@ export default function Pilates() {
           .pil-body { font-size: 16px; line-height: 1.7; margin-bottom: 18px; max-width: none; }
         }
         @media (max-width: 600px) {
-          .pil-left { padding: 90px 28px 40px; }
+          .pil-left { padding: 40px 28px 40px; }
           .pil-body { font-size: 15px; }
         }
       `}</style>
