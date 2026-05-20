@@ -60,10 +60,28 @@ export default function Contact() {
         .cfu { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
         .cin { opacity: 1; transform: translateY(0); }
 
+        /* ── PAGE WRAPPER ── */
+        .ct-page {
+          display: flex;
+          flex-direction: column;
+          min-height: 100svh;
+        }
+        .ct-sage {
+          flex: 1;
+          background: #B7C8B5;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 40px;
+          padding: 140px 80px 60px;
+          text-align: center;
+        }
+
         /* ── HERO ── */
         .ct-hero {
           background: #B7C8B5;
-          padding: 220px 80px 40px;
+          padding: 180px 80px 20px;
           text-align: center;
         }
         .ct-hero-eyebrow {
@@ -80,10 +98,8 @@ export default function Contact() {
           font-size: clamp(18px, 2.2vw, 26px);
           line-height: 1.6;
           color: #333333;
-          margin-bottom: 32px;
           max-width: 640px;
-          margin-left: auto;
-          margin-right: auto;
+          margin: 0 auto;
         }
         .ct-hero-body {
           font-family: 'Lato', sans-serif;
@@ -110,7 +126,6 @@ export default function Contact() {
           padding: 20px 48px; border-radius: 4px;
           text-decoration: none;
           transition: background 0.35s, color 0.35s;
-          margin-bottom: 48px;
         }
         .ct-wa-btn:hover { background: #c08e88; color: white; }
         .ct-wa-label {
@@ -123,7 +138,7 @@ export default function Contact() {
         /* ── DIVIDER STRIP ── */
         .ct-strip {
           background: #B7C8B5;
-          padding: 0 80px 100px;
+          padding: 0 80px 70px;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -146,7 +161,7 @@ export default function Contact() {
         /* ── NOTE ── */
         .ct-note {
           background: #F5F0EB;
-          padding: 120px 80px;
+          padding: 60px 80px;
           text-align: center;
         }
         .ct-note-q {
@@ -174,16 +189,18 @@ export default function Contact() {
         }
 
         @media (max-width: 900px) {
-          .ct-hero { padding: 180px 40px 60px; }
+          .ct-sage { padding: 120px 40px 50px; gap: 32px; }
+          .ct-hero { padding: 160px 40px 16px; }
           .ct-primary { padding: 0 40px 80px; }
-          .ct-strip { padding: 60px 40px; gap: 32px; flex-direction: column; }
+          .ct-strip { padding: 0 40px 50px; gap: 32px; flex-direction: column; }
           .ct-strip-sep { width: 40px; height: 1px; }
           .ct-note { padding: 80px 40px; }
         }
         @media (max-width: 600px) {
-          .ct-hero { padding: 160px 28px 50px; }
+          .ct-sage { padding: 100px 28px 40px; gap: 24px; }
+          .ct-hero { padding: 110px 28px 8px; }
           .ct-primary { padding: 0 28px 60px; }
-          .ct-strip { padding: 48px 28px; }
+          .ct-strip { padding: 0 28px 24px; }
           .ct-note { padding: 60px 28px; }
           .ct-wa-btn { padding: 18px 32px; font-size: 16px; }
         }
@@ -192,30 +209,27 @@ export default function Contact() {
       <Nav />
       <WhatsAppButton />
 
-      {/* HERO */}
-      <section className="ct-hero">
-        <FU>
-          <h1 className="ct-hero-h1">
-            I would love to hear from you. Begin with a conversation about where you are and what is calling you.
-          </h1>
-        </FU>
-      </section>
+      <div className="ct-page">
+        <section className="ct-sage">
+          <FU>
+            <h1 className="ct-hero-h1">
+              I would love to hear from you. Begin with a conversation about where you are and what is calling you.
+            </h1>
+          </FU>
+          <FU>
+            <a
+              href="https://wa.me/+971562216643?text=Hello%20Harsha%2C%20I%20would%20love%20to%20learn%20more%20about%20your%202026%20journeys."
+              className="ct-wa-btn"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Begin a conversation
+            </a>
+          </FU>
+        </section>
 
-      {/* BEGIN CONVERSATION */}
-      <div className="ct-strip">
-        <FU>
-          <a
-            href="https://wa.me/+971562216643?text=Hello%20Harsha%2C%20I%20would%20love%20to%20learn%20more%20about%20your%202026%20journeys."
-            className="ct-wa-btn"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Begin a conversation
-          </a>
-        </FU>
+        <Footer />
       </div>
-
-      <Footer />
     </>
   );
 }

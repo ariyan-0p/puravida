@@ -73,7 +73,7 @@ const VOICES = [
 
 const PILLARS = [
   { t: "Stillness over speed", glyph: "Pause" },
-  { t: "Time as luxury", glyph: "Sunset" },
+  { t: "Time as luxury", glyph: "Sunset", size: 80, opacity: 0.75 },
   { t: "Authentic immersion", iconSrc: "/assets/04. ICONS/PNG/Charcoal/48px/Wellness  - 48px.png" },
 ];
 
@@ -704,8 +704,10 @@ export default function Homepage() {
             flex-direction: column;
           }
           .hp-hero-left {
-            padding: 88px 28px 4px;
+            padding: 150px 28px 24px;
             flex: 0 0 auto;
+            text-align: center;
+            align-items: center;
           }
           .hp-hero-right {
             flex: 0 0 auto;
@@ -943,7 +945,7 @@ export default function Homepage() {
                       style={{ height: 56, width: 'auto', opacity: 0.5 }}
                     />
                   ) : (
-                    <Glyph name={p.glyph} variant="Charcoal" size={56} opacity={0.5} />
+                    <Glyph name={p.glyph} variant="Charcoal" size={p.size ?? 56} opacity={p.opacity ?? 0.5} />
                   )}
                 </div>
                 <h3 className="hp-pillar-title">{p.t}</h3>
