@@ -47,6 +47,21 @@ export default function Footer({ hideTagline = false }) {
           cursor: pointer;
         }
         .f-journeys:hover { color: #c08e88; }
+        .f-community {
+          display: inline-block;
+          font-family: 'Lato', sans-serif;
+          font-weight: 700;
+          font-size: 13px;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: #333333;
+          background: #D9A6A1;
+          padding: 14px 32px;
+          border-radius: 4px;
+          text-decoration: none;
+          transition: background 0.3s, color 0.3s;
+        }
+        .f-community:hover { background: #c08e88; color: #ffffff; }
         .f-social {
           display: flex;
           gap: 24px;

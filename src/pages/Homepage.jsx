@@ -373,6 +373,25 @@ export default function Homepage() {
           display: grid; grid-template-columns: repeat(3, 1fr);
           gap: 24px; max-width: 960px; margin: 0 auto;
         }
+        .hp-phil-cta-wrap {
+          display: flex; justify-content: center;
+          margin-top: 56px;
+        }
+        .hp-phil-cta {
+          display: inline-block;
+          font-family: 'Lato', sans-serif;
+          font-weight: 700;
+          font-size: 14px;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: #333333;
+          background: #D9A6A1;
+          padding: 16px 36px;
+          border-radius: 4px;
+          text-decoration: none;
+          transition: background 0.3s, color 0.3s;
+        }
+        .hp-phil-cta:hover { background: #c08e88; color: #ffffff; }
         .hp-pillar {
           padding: 48px 32px;
           display: flex;
@@ -953,6 +972,18 @@ export default function Homepage() {
             </FU>
           ))}
         </div>
+        <FU>
+          <div className="hp-phil-cta-wrap">
+            <a
+              href="https://chat.whatsapp.com/HFwRN3lWDJM9zH4fgUKGbt"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hp-phil-cta"
+            >
+              Join Community
+            </a>
+          </div>
+        </FU>
       </section>
 
       {/* ── Philosophy → Footer divider ── */}
