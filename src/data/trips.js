@@ -119,7 +119,7 @@ export const tripsData = {
       image: "/assets/hero-ladakh.jpg",
       gradient: "linear-gradient(158deg, #2a5070 0%, #1a3848 40%, #0a1c28 100%)"
     },
-    dates: "September 20 to 27, 2026",
+    dates: "September 25 to October 2, 2026",
     duration: "8 Days",
     price: "From AED 6,250",
     groupSize: "6\u201312 travellers",

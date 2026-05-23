@@ -928,7 +928,7 @@ export default function LadakhJourney() {
           <h1 className="lk-hero-title">Ladakh</h1>
         </div>
         <p className="lk-hero-dates">
-          September 20 to 27, 2026
+          September 25 to October 2, 2026
         </p>
       </section>
 
